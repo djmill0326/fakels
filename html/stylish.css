@@ -1,0 +1,193 @@
+* {
+    box-sizing: border-box;
+    --gradient: linear-gradient(135deg, rgba(160,60,180,1) 0%, rgba(240,32,64,1) 50%, rgba(255,221,69,1) 100%);
+    --font: 'Segoe UI', system-ui, sans-serif;
+    color: #ccc;
+    user-select: none;
+}
+
+body {
+    background: var(--gradient);
+    height: 100svh;
+    display: flex;
+    margin: 0;
+    font-family: var(--font);
+}
+
+#main {
+    width: 600px;
+    height: 800px;
+    max-width: calc(100svw - 2em); 
+    max-height: calc(100svh - 2em);
+    margin: 1em auto;
+    padding: 1em;
+    background: #222;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    box-shadow: inset 0 0 .9em 0 rgba(0,0,.2);
+}
+
+#back {
+    scale: 161%;
+    margin-right: .6em;
+}
+
+iframe {
+    display: none;
+}
+
+audio {
+    max-height: 32px;
+    width: 100%;
+    margin: .6em 0;
+}
+
+form {
+    display: flex;
+    width: 100%;
+}
+
+input, button, li {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 .3em;
+    font-family: var(--font);
+    background: #111;
+}
+
+.music button {
+    width: 2em;
+    height: 2em;
+    font-size: larger;
+}
+
+#term {
+    flex-grow: 1;
+    padding: .3em;
+}
+
+#btn {
+    width: 4em;
+    color: #006EFF;
+}
+
+.music {
+    width: 100%;
+    display: flex;
+}
+
+.music span:not(:nth-child(2)) {
+    min-width: 84px;
+}
+
+span:nth-child(2) {
+    flex-grow: 1;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+#lel1 {
+    margin-right: .3em;
+}
+
+#el1 {
+    text-align: center;
+    font-weight: bold;
+}
+
+#frame {
+    margin: 0 auto;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+    font-size: large;
+    padding: 0 .4em;
+    margin: .3em 0;
+    overflow: auto;
+}
+
+li {
+    margin: .3em;
+    padding: .3em;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+a {
+    color: aquamarine;
+    text-decoration: none;
+}
+
+h3 {
+    margin: .3em 0;
+}
+
+audio, li, button, input:not([type="radio"]), footer {
+    box-shadow: 0 0 .4em 0 rgba(0,0,0,.3);
+}
+
+button {
+    --scale: 1.05;
+}
+
+li, button, input {
+    transition: scale .05s;
+}
+
+li:hover, #term:focus {
+    scale: 1.01;
+}
+
+li:active {
+    scale: 1.02;
+}
+
+button:active, #btn:active {
+    scale: 1.1;
+}
+
+.r-10fj5tc {
+    display: none;
+}
+
+.popup * {
+    user-select: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    body, ul {
+      font-size: 1.333rem;
+    }
+    #main {
+        height: calc(100svh - 2em);
+    }
+    input {
+        font-size: 1.2rem;
+    }
+}
+
+@keyframes spawn {
+    from {
+        transform: translateY(1.2em);
+        height: 0;
+    }
+    to {
+        transform: none;
+        height: 1.2em;
+    }
+}
+
+footer {
+    animation: spawn calc(1s / 30) ease-in-out forwards;
+}

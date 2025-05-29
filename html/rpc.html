@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1 interactive-widget=overlays-content" />
+        <title>Directory Checker (Socket)</title>
+        <link rel="stylesheet" href="stylish.css">
+    </head>
+    <body>
+        <div id="main">
+            <div id="frame"></div>
+            <div>
+                <form id="dyn" onsubmit="return false">
+                    <input type="radio" id="back" disabled />
+                    <input type="text" placeholder="Enter link code" id="term" />
+                    <input type="submit" value="↻" id="btn" />
+                </form>
+            </div>
+        </div>
+        <script src="/js/rpc.js" type="module"></script>
+    </body>
+</html>

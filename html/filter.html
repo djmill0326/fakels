@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>filter</title>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+    
+            label {
+                font-size: 14px;
+            }
+    
+            pre {
+                padding: 1em;
+                border-radius: 5px;
+                border: 1px solid gray;
+                background-color: #eeeeee;
+                display: inline-block;
+            }
+    
+            input[type="range"] {
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <form>
+            <table>
+                <tr>
+                    <td><label for="sr-min">Star Rating (min)</label></td>
+                    <td><input id="sr-min" type="range" min="0" max="120" value="60"></td>
+                </tr>
+                <tr>
+                    <td><label for="sr-max">Star Rating (max)</label></td>
+                    <td><input id="sr-max" type="range" min="0" max="120" value="90"></td>
+                </tr>
+                <tr>
+                    <td><label for="ar-min">AR (min)</label></td>
+                    <td><input id="ar-min" type="range" min="0" max="100" value="80"></td>
+                </tr>
+                <tr>
+                    <td><label for="ar-max">AR (max)</label></td>
+                    <td><input id="ar-max" type="range" min="0" max="100" value="100"></td>
+                </tr>
+                <tr>
+                    <td><label for="bpm-min">BPM (min)</label></td>
+                    <td><input id="bpm-min" type="range" min="0" max="400" value="0"></td>
+                </tr>
+                <tr>
+                    <td><label for="bpm-max">BPM (max)</label></td>
+                    <td><input id="bpm-max" type="range" min="0" max="400" value="400"></td>
+                </tr>
+                <tr>
+                    <td><label for="bpm-scaled">Scale BPM for DT?</label></td>
+                    <td><input id="bpm-scaled" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td><label for="status-ranked">Ranked?</label></td>
+                    <td><input id="status-ranked" type="checkbox" checked></td>
+                </tr>
+                <tr>
+                    <td><label for="status-loved">Loved?</label></td>
+                    <td><input id="status-loved" type="checkbox" checked></td>
+                </tr>
+                <tr>
+                    <td><label for="status-pending">Pending?</label></td>
+                    <td><input id="status-pending" type="checkbox" checked></td>
+                </tr>
+            </table>
+        </form>
+        <div>
+            <button id="preset-default" type="button">Default</button>
+            <button id="preset-speed" type="button">Speed</button>
+            <button id="preset-speed_hi" type="button">Speed (high)</button>
+            <button id="preset-dt" type="button">DT</button>
+            <button id="preset-dt_comfy" type="button">DT (comfy)</button>
+        </div>
+        <pre id="filter-string"></pre>
+        <script src="/js/filter.js"></script>
+    </body>
+</html>
