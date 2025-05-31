@@ -20,4 +20,4 @@ async function explore(path) {
     } catch {}
 }
 await explore(root);
-writeFile(outfile || "result.txt", discovered.join("\n"));
+writeFile(outfile || "directories.txt", discovered.join("\n"));

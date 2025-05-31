@@ -9,11 +9,10 @@ html\shit wiggling.mp4
 html\winwm.pdf
 html\js
 html\js\filter.js
-html\js\find_old.js
 html\js\frames.js
 html\js\hook.js
 html\js\socket.io.js
-html\js\$_old.js
+html\js\$.js
 html\js\mime.mjs
 html\js\rpc.js
 html\js\drag.js
@@ -23,6 +22,7 @@ html\js\rpc_base.js
 html\js\find.js
 html\js\sseg.mjs
 html\js\l.js
+html\js\bgvid.js
 html\music
 html\music\Green Room.ogg
 html\music\_
@@ -349,6 +349,7 @@ html\music\ssdl\Locations\Landing Strip (Temple)\Carrier\Stone Temple Pilots-09-
 html\music\ssdl\Locations\Landing Strip (Temple)\Carrier\Stone Temple Pilots-10-Ride the Cliche.flac
 html\music\ssdl\Locations\Landing Strip (Temple)\Carrier\Stone Temple Pilots-11-Daisy.flac
 html\music\ssdl\Locations\Landing Strip (Temple)\Carrier\Stone Temple Pilots-12-Seven Caged Tigers.flac
+html\music\ssdl\Locations\Landing Strip (Temple)\cover.jpg
 html\music\ssdl\Locations\Cheese-Laden Seas
 html\music\ssdl\Locations\Cheese-Laden Seas\Mild
 html\music\ssdl\Locations\Cheese-Laden Seas\Mild\01 Seas of Cheese.mp3
@@ -792,6 +793,22 @@ html\music\ssdl\Unsorted\The Mouse and the Mask\12 DANGERDOOM - Vats of Urine.fl
 html\music\ssdl\Unsorted\The Mouse and the Mask\13 DANGERDOOM - Space Ho's.flac
 html\music\ssdl\Unsorted\The Mouse and the Mask\14 DANGERDOOM - Bada Bing.flac
 html\music\ssdl\Unsorted\The Mouse and the Mask\cover.jpg
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\01 - (Da Le) Yaleo_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\02 - Love Of My Life (featuring Dave Matthews)_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\03 - Put Your Lights On (featuring Everlast)_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\04 - Africa Bamba_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\05 - Smooth (featuring Rob Thomas)_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\06 - Do You Like The Way (featuring Lauryn Hill & Cee-Lo)_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\07 - Maria Maria_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\08 - Migra_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\09 - Corazon Espinado (featuring Mana)_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\10 - Wishing It Was (featuring Eagle-Eye Cherry)_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\11 - El Farol_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\12 - Primavera_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\13 - The Calling (featuring Eric Clapton)_(444hz).flac
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\folder.jpg
+html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\fakeSymlink.txt
 html\music\ssdl\Requests
 html\music\ssdl\Requests\Take Me to Your Leader
 html\music\ssdl\Requests\Take Me to Your Leader\01 Fazers.flac
@@ -1111,6 +1128,20 @@ html\music\mp3rip\BossMan Dlow - Too Slippery @320 2023\10 - Need You Beside Me.
 html\music\mp3rip\BossMan Dlow - Too Slippery @320 2023\11 - Exotic.mp3
 html\music\mp3rip\BossMan Dlow - Too Slippery @320 2023\12 - I Put On.mp3
 html\music\mp3rip\The Pharcyde - Knew U.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\01 (Da Le) Yaleo.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\02 Love of My Life.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\03 Put Your Lights On.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\04 Africa Bamba.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\05 Smooth.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\06 Do You Like the Way.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\07 Maria Maria.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\08 Migra.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\09 Corazón espinado.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\10 Wishing It Was.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\11 El farol.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\12 Primavera.mp3
+html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\13 The Calling Day of Celebration.mp3
 html\music\museic
 html\music\museic\Absolution
 html\music\museic\Absolution\folder.jpg
@@ -1139,6 +1170,11 @@ html\people\Polly P. Hazel.txt
 html\people\Clod D. Links.txt
 html\favicon.ico
 html\mono.css
+html\txt
+html\txt\metaDialogueAnalysis.xml
+html\txt\fakelsAnalysis.xml
+html\mp4
+html\mp4\veo.mp4
 main.js
 ls.mjs
 result.txt
