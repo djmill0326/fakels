@@ -17,6 +17,8 @@ body {
     font-family: var(--font);
 }
 
+#main, 
+
 #main {
     width: 600px;
     height: 800px;
@@ -135,8 +137,13 @@ h3 {
     margin: .3em 0;
 }
 
+#main, .popup {
+    filter: drop-shadow(1px 2px 4px #0003);
+}
+
 audio, li, button, input:not([type="radio"]), footer {
     box-shadow: 0 0 .4em 0 rgba(0,0,0,.3);
+    filter: drop-shadow(1px 2px 4px #0003);
 }
 
 button {
@@ -161,6 +168,10 @@ button:active, #btn:active {
 
 .r-10fj5tc {
     display: none;
+}
+
+.popup {
+    border-radius: 5px;
 }
 
 .popup * {
