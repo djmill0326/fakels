@@ -265,7 +265,7 @@ const update_link = window.navigate = (to) => {
     if (is_music) {
         portal.insertAdjacentElement("afterend", audio);
         portal.remove();
-        if (link.includes(".jpg")) return img(src);
+        if (link.includes(".jpg")) return img(link);
         audio.src = link;
         np = query;
         const descriptor = describe(info);
