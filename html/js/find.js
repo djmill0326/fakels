@@ -80,7 +80,7 @@ const next_queued = () => {
 audio.onplaying = () => document.title = extract_title(file_info(queued?.href).name);
 audio.onended = next_queued;
 let replay_slot = localStorage.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
-export const anchor_from_link = (link, f=frame) => f.querySelector(`ul > li > a[href="${link.split(":442")[1]}"]`);
+export const anchor_from_link = (link, f=frame) => f.q(`ul > li > a[href="${link.split(":442")[1]}"]`);
 let just_popped = false;
 window.onpopstate = (ev) => {
     term.value = ev.state;
@@ -229,11 +229,11 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     bar.append(name, exit);
     el.style.overflowY = "auto";
     wrapper.append(bar, el);
-    wrapper.querySelectorAll("h3").forEach(h => h.style = "margin: 4px 0");
+    wrapper.qa("h3").forEach(h => h.style = "margin: 4px 0");
     const link = "url('https://tinyurl.com/yx2wvxyn')";
     const selector = `[style="background-image: ${link}]`;
     const a = selector + '"]', b = selector + ';"]';
-    [...Array.from(wrapper.querySelectorAll(a)), ...Array.from(wrapper.querySelectorAll(b)), Array.from(wrapper.getElementsByClassName(link))].forEach(b => b.onclick = () => alert("go fuck yourself"));
+    [...Array.from(wrapper.qa(a)), ...Array.from(wrapper.qa(b)), Array.from(wrapper.c(link))].forEach(b => b.onclick = () => alert("go fuck yourself"));
     document.body.append(draggable(wrapper));
     active_popup = wrapper;
     update_status();
@@ -242,6 +242,14 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
 const cancel_popup = ev => active_popup && !active_popup.contains(ev.target) && popup(null);
 window.addEventListener("mouseup", cancel_popup);
 window.addEventListener("keydown", ev => ev.key === "Escape" && cancel_popup(document.body));
+const img = src => {
+    const img = $("img");
+    img.src = src;
+    img.style.width = "420px";
+    img.style.borderRadius = "5px";
+    const i = src.lastIndexOf("/");
+    popup(img, src.substring(i + 1));
+};
 const update_link = window.navigate = (to) => {
     queued = to ? to : get_first_anchor();
     if (!queued || !queued.href) return;
@@ -257,15 +265,7 @@ const update_link = window.navigate = (to) => {
     if (is_music) {
         portal.insertAdjacentElement("afterend", audio);
         portal.remove();
-        if (link.includes(".jpg")) {
-            const img = $("img");
-            img.src = link;
-            img.style.width = "420px";
-            img.style.borderRadius = "5px";
-            const i = link.lastIndexOf("/");
-            popup(img, link.substring(i + 1));
-            return;
-        }
+        if (link.includes(".jpg")) return img(src);
         audio.src = link;
         np = query;
         const descriptor = describe(info);
@@ -417,6 +417,13 @@ const update_music = (link, display) => {
     if (browser.update) browser.update(link, display);
     else init_browser(link, display);
 };
+const load_cover = () => {
+    const link = 
+        frame.q("[href*='cover.']") ?? 
+        frame.q("[href*='art.']") ??
+        frame.q("[href*='folder.']");
+    link && img(link.href);
+};
 const get_lyrics = (query, o) => {
     query_fetch("l", query, null, html => {
         const el = $("section");
@@ -453,33 +460,20 @@ const find_lyrics = (src) => {
         if (!meta) return fallback();
         const c = JSON.parse(meta);
         const artist = c.artist || "";
-        const album = c.album || "";
+        const album = c.album?.split(",")[0] || "";
         const title = c.title || "";
         if (!title.length) return fallback();
-        const main_artist = artist.split(",")[0];
         let query;
-        if (main_artist === artist) {
-            switch(lyric_attempt % 4) {
-                case 0: query = [title]; break;
-                case 1: query = [artist, title]; break;
-                case 2: query = [artist, album, title]; break;
-                case 3: query = [album, title]; break;
-                default: return;
-            };
-        } else {
-            switch(lyric_attempt % 6) {
-                case 0: query = [title]; break;
-                case 1: query = [artist, title]; break;
-                case 2: query = [main_artist, title]; break;
-                case 3: query = [artist, album, title]; break;
-                case 4: query = [main_artist, album, title]; break;
-                case 5: query = [album, title]; break;
-                default: return;
-            };
-        }
+        switch(lyric_attempt % 4) {
+            case 0: query = [title]; break;
+            case 1: query = [artist, title]; break;
+            case 2: query = [artist, album, title]; break;
+            case 3: query = [album, title]; break;
+            default: return;
+        };
         get_lyrics(query.join(" "), { artist, title, src });
     }
-    query_fetch("m", dir, null, callback, status_obj(`metadata for ${song.innerText}`), fallback, true);
+    query_fetch("m", dir, null, callback, status_obj(`${song.innerText}'s metadata`), fallback, true);
 };
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(audio.src))))}</i>`);
 const shortcuts = {
@@ -488,6 +482,7 @@ const shortcuts = {
     ",": ["Previous", () => prev.click()],
     ".": ["Next", () => next.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
+    "c": ["Show cover art", load_cover],
     "l": ["Find lyrics (may fail)", () => find_lyrics(audio.src)],
     ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Enter your search term here:"))],
     "t": ["Toggle status bar", toggle_status],
