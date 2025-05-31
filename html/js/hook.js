@@ -24,7 +24,7 @@ export const getheader = async name => {
 
 const query_cache = new Map();
 export async function query_fetch(endpoint, query, frame, cb, req, err, cached=false) {
-    const link = `${endpoint} ${query}`;
+    let link = `${endpoint}%20${query}`;
     let response, wait = true;
     const callback = data => {
         if (cached) query_cache.set(link, data);
@@ -41,12 +41,14 @@ export async function query_fetch(endpoint, query, frame, cb, req, err, cached=f
         if (data) return callback(data);
     }
     if (query === "/link/") {
+        if (!window.rpc) window.rpc = await import("./rpc_base.js");
         const link_code = document.createElement("code");
-        link_code.textContent = socket.id;
+        link_code.innerHTML = "Check your browser's inspector console for the link ID!<br>Navigate to /rpc.html, then enter link code in input.";
         window.popup?.apply({}, [link_code, "Link code:"]);
         const term = document.getElementById("term");
-        localStorage.llocation = term.value = document.querySelector("b")?.textContent ?? "";
-        term.nextElementSibling.click();
+        const text = document.querySelector("b")?.textContent ?? "";
+        localStorage.llocation = term.value = text === "/" ? "" : text;
+        requestIdleCallback(() => term.nextElementSibling.click());
     }
     if (req) {
         req.list.add(req.name);
@@ -71,7 +73,7 @@ export async function query_fetch(endpoint, query, frame, cb, req, err, cached=f
         return true;
     };
     setTimeout(timeout, 30000);
-    response = await fetch(`http://${location.hostname}:${await getheader("adapter-port")}/${endpoint} ${query}`).catch(err => console.warn(err));
+    response = await fetch(`http://${location.hostname}:${await getheader("adapter-port")}/${link}`).catch(err => console.warn(err));
     if (timeout()) return;
     callback(await response.text());
 };

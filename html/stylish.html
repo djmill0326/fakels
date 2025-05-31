@@ -21,5 +21,22 @@
             </div>
         </div>
         <script src="/js/find.js" type="module"></script>
+        <script type="module">
+            import { enable, disable } from "/js/bgvid.js";
+            const src = "/mp4/veo.mp4";
+            const on_audio = audio => {
+                document.createElement("audio")
+                audio.addEventListener("play", () => enable(src));
+                audio.addEventListener("pause", disable);
+            };
+            const audio_hook = setInterval(() => {
+                const audio = document.querySelector("audio");
+                if (audio) {
+                    clearInterval(audio_hook);
+                    on_audio(audio);
+                    console.log("[stylish-hook] acquired audio element for dynamic video playback!");
+                }
+            }, 50);
+        </script>
     </body>
 </html>

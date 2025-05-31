@@ -1,13 +1,14 @@
 import "/socket.io/socket.io.js";
-export let client, socket = window.socket = io();
+export let client, socket = io();
+const input = document.getElementById("term");
 socket.on("rpc", ({ event, data }) => {
     console.log("[rpc/call]", event, data);
     if (event === "link") {
         client = data;
-        socket.emit("rpc", { client, event: "browse", data: query });
+        socket.emit("rpc", { client, event: "browse", data: input.value });
     }
     if (event === "select") {
-        update_link(frame.children[1].children[parseInt(data)].firstElementChild);
+        window.navigate(frame.children[1].children[parseInt(data)].firstElementChild);
     }
     if (event === "browse") {
         term.value = data;

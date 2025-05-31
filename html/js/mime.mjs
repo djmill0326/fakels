@@ -17,5 +17,5 @@ const webp = "image/webp";
 const pdf  = "application/pdf";
 
 export default Object.seal({
-    txt, html, css, js, mjs: js, json, wasm, flac, wav, ogg, mp3, m4a, mp4, gif, jpg, png, webp, pdf, ico: png
+    txt, cue: txt, log: txt, lrc: txt, m3u: txt, nfo: txt, url: txt, html, css, js, mjs: js, json, wasm, flac, wav, ogg, mp3, m4a, mp4, gif, jpg, png, webp, pdf, ico: png
 });

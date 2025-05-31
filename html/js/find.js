@@ -1,84 +1,84 @@
-/* [fakels::Directory Viewer] find.js (entry point) */
+/* [fakels::Directory Viewer] find.js */
 import { dynamic_main, query_fetch, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mp3type.js";
+import $, { id } from "./l.js";
 const title = document.title;
-import { socket, client } from "./rpc_base.js";
 const form = dynamic_main();
 const { back, term, btn } = form.children;
-let frame = document.getElementById("frame");
-const portal = document.getElementById("porthole");
-const music = document.getElementById("music");
-let query = "", query_np;
+const portal = id("porthole");
+const music = id("music");
+let frame = id("frame");
+let query = "", np;
 let queued = null;
 let browser = {};
 window.playlist = [];
-const audio = document.createElement("audio");
+const audio = $("audio");
 audio.controls = true;
 audio.autoplay = true;
 audio.volume = localStorage.lvol || 1;
-const shortcut_ui = document.createElement("ul");
+const shortcut_ui = $("ul");
 shortcut_ui.style.userSelect = "none";
 back.onclick = (ev) => {
-    if (ev.shiftKey && query_np) {
-        term.value = query_np;
-        btn.click();
-        return;
+    if (ev.shiftKey && np) term.value = np;
+    else {
+        const remaining = query.split("/").slice(1, -1);
+        if (remaining.pop()) term.value = remaining.join("/");
+        else return back.checked = !btn.onclick();
     }
-    const remaining = query.split("/").slice(1, -1);
-    if (remaining.pop()) {
-        term.value = remaining.join("/");
-        btn.click();
-    } else back.checked = false;
+    btn.click();
 };
-String.prototype.sliceAt = function(x) {
+(btn.onclick = () => btn.style.color = back.checked ? "#006EFF" : "#333")();
+String.prototype.splitEnd = function(x) {
     const l = this.lastIndexOf(x);
-    return l ? [this.substring(0, l), this.substring(l + 1)] : [this];
+    return l ? [this.slice(0, l), this.slice(l + 1)] : [this];
 }
 export const html = text => text
-  .replaceAll(/<\/?(\w*)\s?.*>/g, "")
+  .replace(/<\/?(\w*)\s?.*>/g, "")
   .replaceAll("-", "<i>-</i>")
   .replaceAll("[i]", "<i>")
   .replaceAll("[/i]", "</i>");
-export const file_info = (link = "music/Green Room.ogg") => {
+export const file_info = (link = "50x.html") => {
     const split = link.split("/");
     const file = decodeURI(split[split.length - 1]);
-    const [name, ext] = file.sliceAt(".");
+    const [name, ext] = file.splitEnd(".");
     if (ext) {
         return { name, ext };
     } else return { name };
 };
 export const describe = info => `${info.name} [${info.ext ? info.ext : "?"}]`;
-const get_first_anchor = (queue_next=false) => {
+const is_wrapped_anchor = l => l && l.children.length && l.children[0].href;
+const verify_anchor = a => a.href.lastIndexOf(".") - location.origin.length > 0
+const get_first_anchor = () => {
     try {
         const list = frame.children[1].children[0].children;
         const a = list[0];
-        if (a.href.lastIndexOf(".") - window.location.href.length < 0) return;
-        if (queue_next) queued = list[1];
+        if (!verify_anchor(a)) return;
         return a;
-    } catch (_) { console.info("request failed!", term.value) }
+    } catch (err) { console.info("wtf happened!", err.message, term.value) }
 }
-const pull_next_anchor = (a, looping=true) => {
+const next_anchor = (a, looping=true) => {
     const ne = a.parentElement.nextElementSibling; let next;
-    if (!ne || !ne.children || ne.children.length === 0 || !ne.children[0].href) {
+    if (!is_wrapped_anchor(ne)) {
         const initial = get_first_anchor();
         if (looping && initial) next = initial;
         else return;
     } else next = ne.children[0];
-    const li = next.href.lastIndexOf(".");
-    if (li - window.location.href.length < 0) return;
+    if (!verify_anchor(next)) return;
     const info = file_info(next.href);
-    if (!types[info.ext]) return pull_next_anchor(next, looping);
+    if (!types[info.ext]) return next_anchor(next, looping);
     if (browser.update) console.log("[player/info]", `next: ${describe(info)}}`);
     return queued = next;
 };
-const next_anchor_from_queue = () => {
+import shuffler from "./shuffle.js";
+const { shuffle } = shuffler();
+const next_queued = () => {
     if (!queued) return;
     playlist.push(queued);
-    update_link(shuffling ? shuffle(queued) : pull_next_anchor(queued, true));
+    update_link(shuffling ? shuffle(queued) : next_anchor(queued, true));
 };
 audio.onplaying = () => document.title = extract_title(file_info(queued?.href).name);
-audio.onended = next_anchor_from_queue;
+audio.onended = next_queued;
 let replay_slot = localStorage.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
 export const anchor_from_link = (link, f=frame) => f.querySelector(`ul > li > a[href="${link.split(":442")[1]}"]`);
 let just_popped = false;
@@ -92,9 +92,7 @@ window.toggle_shuffle = () => {
     localStorage.shuffling = shuffling = !shuffling;
     update_status();
 };
-import shuffler from "./shuffle.js";
-const { shuffle } = shuffler();
-const status = document.createElement('footer');
+const status = $('footer');
 status.style = `
     position: fixed;
     top: calc(100% - 1.2em);
@@ -105,7 +103,6 @@ status.style = `
     height: 1.2em;
     overflow: hidden;
     padding: 0 .3em;
-    user-select: none;
 `;
 const active_requests = new Set();
 const toggle_status = () => {
@@ -139,12 +136,12 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             else if (!found.has(a.href)) found.set(a.href, li);
         }
         if (count.i === count.expected) {
-            const fresh = document.createElement("div");
+            const fresh = $("div");
             fresh.id = "frame";
             fresh.onclick = frame_handler;
-            const label = document.createElement("h3");
+            const label = $("h3");
             label.innerText = `${found.size} entries (recursive find)`;
-            const list = document.createElement("ul");
+            const list = $("ul");
             list.append(...found.values());
             fresh.append(label, list);
             frame.replaceWith(fresh);
@@ -164,7 +161,9 @@ form.onsubmit = (e) => {
     }
     const v = localStorage.llocation = term.value;
     query = ((v[0] === "/" ? "" : "/") + v + (v.length ? "/" : "")).replace(/[\/\\]+/g, "/");
-    if (socket && client && query !== "/link/") socket.emit("rpc", { client, event: "browse", data: query });
+    back.checked = query.replace("/", "").length;
+    btn.onclick();
+    if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
     query_fetch("ls", query, frame, () => {
         if (query === "link") return;
         let reset;
@@ -178,7 +177,6 @@ form.onsubmit = (e) => {
                 update_link(reset);
                 if (localStorage.ltime && reset.href === localStorage.lplay) audio.currentTime = localStorage.ltime;
             }
-            back.checked = query.replace("/", "").length;
         }
         if (!just_popped) history.pushState(query, "", location.origin + path_prefix + query);
         just_popped = false;
@@ -197,7 +195,7 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
         active_popup = null;
     }
     if (!el) { update_status(); return; };
-    const wrapper = document.createElement("div");
+    const wrapper = $("div");
     wrapper.className = "popup";
     wrapper.style = popup_savestate.get(title.toLowerCase()) ?? `
         display: flex;
@@ -214,18 +212,18 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
         opacity: .96;
     `;
     wrapper.dataset.title = title;
-    const bar = document.createElement("div");
+    const bar = $("div");
     bar.style = `
         margin-bottom: 5px;
         display: flex;
         max-height: 1.5em;
     `;
     bar.className = "bar";
-    const name = document.createElement("span");
+    const name = $("span");
     name.innerHTML = html(title);
     name.maxWidth = "";
     name.style.flexGrow = 1;
-    const exit = document.createElement("button");
+    const exit = $("button");
     exit.innerText = "✖";
     exit.onclick = () => popup(null);
     bar.append(name, exit);
@@ -244,7 +242,7 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
 const cancel_popup = ev => active_popup && !active_popup.contains(ev.target) && popup(null);
 window.addEventListener("mouseup", cancel_popup);
 window.addEventListener("keydown", ev => ev.key === "Escape" && cancel_popup(document.body));
-const update_link = (to) => {
+const update_link = window.navigate = (to) => {
     queued = to ? to : get_first_anchor();
     if (!queued || !queued.href) return;
     localStorage.lplay = queued.href;
@@ -260,7 +258,7 @@ const update_link = (to) => {
         portal.insertAdjacentElement("afterend", audio);
         portal.remove();
         if (link.includes(".jpg")) {
-            const img = document.createElement("img");
+            const img = $("img");
             img.src = link;
             img.style.width = "420px";
             img.style.borderRadius = "5px";
@@ -269,7 +267,7 @@ const update_link = (to) => {
             return;
         }
         audio.src = link;
-        query_np = query;
+        np = query;
         const descriptor = describe(info);
         console.log("[player/info]", `now playing: ${extract_title(descriptor)}\n[(file-info)] ${descriptor}`);
         update_music(link, descriptor);
@@ -329,8 +327,10 @@ const swaps = {
     Shit_: "Shit:",
     Tweekers: "Tweakers",
     "One Smart": "Some Smart",
-    [n("er")]: n("a"),
-    [N("er")]: N("a")
+    "Thought I K": "K",
+    "new You": "new U",
+    [n("er")]: n("ấ"),
+    [N("er")]: N("ấ")
 };
 const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
 export const extract_title = text => {
@@ -350,7 +350,7 @@ export const extract_title = text => {
 };
 let label_idx = 0;
 export const label = (el, text, color="#444") => {
-    const label = document.createElement("label");
+    const label = $("label");
     if (!el.id.length > 0) {
         el.id = "el" + label_idx++;
     }
@@ -361,15 +361,15 @@ export const label = (el, text, color="#444") => {
     return label;
 };
 export const bundle = (...x) => {
-    const el = document.createElement("span");
+    const el = $("span");
     el.append(...x);
     return el;
 };
-const prev = document.createElement("button");
-const next = document.createElement("button");
-const song = document.createElement("a");
+const prev = $("button");
+const next = $("button");
+const song = $("a");
 const init_browser = (link, display) => {
-    const player = document.createElement("div");
+    const player = $("div");
     player.className = "music";
     prev.onclick = () => {
         let entry = playlist.pop();
@@ -377,7 +377,7 @@ const init_browser = (link, display) => {
         if (entry.href === audio.src) entry = playlist.pop();
         if (entry) update_link(entry);
     };
-    next.onclick = next_anchor_from_queue;
+    next.onclick = next_queued;
     prev.textContent = "↩";
     next.textContent = "↪";
     song.dataset.src = decodeURI(link);
@@ -419,8 +419,8 @@ const update_music = (link, display) => {
 };
 const get_lyrics = (query, o) => {
     query_fetch("l", query, null, html => {
-        const el = document.createElement("section");
-        el.innerHTML = html.replace("and a shell", "in a shell").replace(/\bpeak\b/g, "peek");
+        const el = $("section");
+        el.innerHTML = html.replace("and a s", "in a s").replace(/\bpeak\b/g, "peek");
         popup(el, `Lyrics for [i]${ o.artist && o.title ? `${o.artist} - ${o.title}` : query }[/i]`);
         active_lyrics = o.src;
     }, status_obj(`lyrics for '${query}'`), null, true);
@@ -484,14 +484,14 @@ const find_lyrics = (src) => {
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(audio.src))))}</i>`);
 const shortcuts = {
     "Now-Playing": ["None", () => song.click()],
-    " ": ["Play/pause (if audio is active)", ev => ev.target !== audio ? (audio.paused ? audio.play() : audio.pause()) : void 0],
-    ",": ["Previous entry", () => prev.click()],
-    ".": ["Next entry", () => next.click()],
-    "b": ["Go back one directory", () => back.click()],
-    "s": ["Toggle playlist shuffling", toggle_shuffle],
-    "l": ["Query for lyrics (experimental)", () => find_lyrics(audio.src)],
-    ";": ["Query for lyrics (specified)", () => get_lyrics(prompt("Enter your search term here:"))],
+    " ": ["Play/pause", ev => ev.target !== audio ? (audio.paused ? audio.play() : audio.pause()) : void 0],
+    ",": ["Previous", () => prev.click()],
+    ".": ["Next", () => next.click()],
+    "s": ["Shuffle on/off", toggle_shuffle],
+    "l": ["Find lyrics (may fail)", () => find_lyrics(audio.src)],
+    ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Enter your search term here:"))],
     "t": ["Toggle status bar", toggle_status],
+    "b": ["Go back a directory", () => back.click()],
     "?": ["Bring up this help menu", toggle_shortcuts]
 };
 export const eval_keypress = (ev, s=shortcuts) => {
@@ -504,17 +504,17 @@ export const eval_keypress = (ev, s=shortcuts) => {
 };
 window.addEventListener("keypress", eval_keypress);
 shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
-    const el = document.createElement("li");
+    const el = $("li");
     el.style.display = "flex";
     el.style.cursor = "pointer";
     el.onclick = () => eval_keypress({ key });
-    const label = document.createElement("a");
+    const label = $("a");
     label.innerText = key.replace(" ", "<Space>");
     label.style.flexGrow = 1;
-    const description = document.createElement("span");
-    description.innerText = x[0];
-    description.style.justifyContent = "end";
-    description.style.marginLeft = ".3em";
-    el.append(label, description);
+    const text = $("span");
+    text.innerText = x[0];
+    text.style.minWidth = 0;
+    text.style.marginLeft = ".3em";
+    el.append(label, text);
     return el;
 }));
