@@ -1,5 +1,5 @@
 import { file_info } from "./find.js";
-import types from "./mp3type.js";
+import types from "./mediatype.js";
 export default function shuffler() {
     const swapped = new Set();
     let previous_root;

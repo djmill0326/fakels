@@ -1,7 +1,7 @@
 /* fakels (Directory Viewer)::find.js */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
-import types from "./mp3type.js";
+import types from "./mediatype.js";
 import $, { id } from "./l.js";
 const title = document.title;
 const form = main();
