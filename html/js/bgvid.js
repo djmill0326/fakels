@@ -39,7 +39,7 @@ export function enable(src) {
     const newsrc = src ?? video.src;
     if (!video.src.includes(newsrc)) video.src = newsrc;
     video.play();
-    lerp_style(video.style, "opacity", .08);
+    lerp_style(video.style, "opacity", 1/9);
 }
 export function disable() {
     video.pause();

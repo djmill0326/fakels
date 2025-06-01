@@ -25,7 +25,6 @@
             import { enable, disable } from "/js/bgvid.js";
             const bg = "/mp4/veo.mp4";
             const on_audio = audio => {
-                audio.paused || enable(bg);
                 audio.addEventListener("play", () => enable(bg));
                 audio.addEventListener("pause", disable);
             };
