@@ -2,7 +2,7 @@
 
 * {
     box-sizing: border-box;
-    --quagmire: mediumvioletred;
+    --skalagmiter: mediumvioletred;
     --gradient: linear-gradient(135deg, rgba(160,60,180,1) 0%, rgba(240,32,64,1) 50%, rgba(255,221,69,1) 100%);
     --font: "Open Sans", system-ui, sans-serif;
     color: #ccc;
@@ -129,7 +129,7 @@ li {
 }
 
 a {
-    color: var(--quagmire);
+    color: var(--skalagmiter);
     text-decoration: none;
 }
 

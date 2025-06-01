@@ -23,6 +23,7 @@ html\js\find.js
 html\js\sseg.mjs
 html\js\l.js
 html\js\bgvid.js
+html\js\numeric-template.js
 html\music
 html\music\Green Room.ogg
 html\music\_
@@ -809,6 +810,23 @@ html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\12 - Primavera_(4
 html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\13 - The Calling (featuring Eric Clapton)_(444hz).flac
 html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\folder.jpg
 html\music\ssdl\Unsorted\1999 - Santana - Supernatural (444hz)\fakeSymlink.txt
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 01 - Two® (FLAC 890 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 02 - 444+222 (FLAC 838 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 03 - Sauce It Up (FLAC 856 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 04 - No Sleep Leak (FLAC 824 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 05 - The Way Life Goes (FLAC 910 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 06 - For Real (FLAC 775 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 07 - Feelings Mutual (FLAC 833 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 08 - Neon Guts (FLAC 836 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 09 - Early 20 Rager (FLAC 974 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 10 - UnFazed (FLAC 962 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 11 - Pretty Mami (FLAC 896 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 12 - How to Talk (FLAC 885 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 13 - X (FLAC 879 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 14 - Malfunction (FLAC 959 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 15 - Dark Queen (FLAC 863 kbps).flac
+html\music\ssdl\Unsorted\2017 - Luv Is Rage 2\Lil Uzi Vert - Luv Is Rage 2 - 16 - XO TOUR Llif3 (FLAC 818 kbps).flac
 html\music\ssdl\Requests
 html\music\ssdl\Requests\Take Me to Your Leader
 html\music\ssdl\Requests\Take Me to Your Leader\01 Fazers.flac
@@ -866,7 +884,7 @@ html\music\ssdl\Requests\They Can't All Be Zingers\1.13 - Over the Falls.flac
 html\music\ssdl\Requests\They Can't All Be Zingers\1.14 - Shake Hands With Beef (extended version).flac
 html\music\ssdl\Requests\They Can't All Be Zingers\1.15 - Coattails of a Dead Man.flac
 html\music\ssdl\Requests\They Can't All Be Zingers\1.16 - Mary the Ice Cube.flac
-html\music\ssdl\Requests\They Can't All Be Zingers\front.jpg
+html\music\ssdl\Requests\They Can't All Be Zingers\art.jpg
 html\music\ssdl\Requests\Get Some{ Snot }
 html\music\ssdl\Requests\Get Some{ Snot }\0101 - Snot.flac
 html\music\ssdl\Requests\Get Some{ Snot }\0102 - Stoopid.flac
@@ -1142,6 +1160,7 @@ html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\10 Wishing It Was.mp3
 html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\11 El farol.mp3
 html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\12 Primavera.mp3
 html\music\mp3rip\href=Supernatural (Fuckin' Incubus)\13 The Calling Day of Celebration.mp3
+html\music\mp3rip\Lil Uzi Vert - XO TOUR Llif3.mp3
 html\music\museic
 html\music\museic\Absolution
 html\music\museic\Absolution\folder.jpg
@@ -1173,8 +1192,11 @@ html\mono.css
 html\txt
 html\txt\metaDialogueAnalysis.xml
 html\txt\fakelsAnalysis.xml
+html\txt\coalescedConversationDistillation.xml
 html\mp4
-html\mp4\veo.mp4
+html\mp4\veo1.mp4
+html\mp4\veo0.mp4
+html\mp4\veo2.mp4
 main.js
 ls.mjs
-result.txt
+directories.txt
