@@ -1,5 +1,4 @@
 const { fork } = require("child_process");
-const path = require("path");
 
 const cd = '\u001b[3';
 const cl = '\u001b[9';
@@ -7,9 +6,9 @@ const cr = '\u001b[39m';
 
 const dir = process.cwd();
 console.info(`Starting Manager. Serving from ${dir}...`);
-let binding = "/";
+let binding = "";
 const run = () => {
-    const p = fork("../../../../Root/adapter.js", [], { cwd: path.join(dir + binding) });
+    const p = fork("../../../../Root/adapter.js", [binding]);
     p.on("spawn", () => p.send("Hello, Adapter."));
     p.on("exit", () => setTimeout(run, 50));
     p.on("message", data => {
@@ -22,7 +21,9 @@ const run = () => {
                 break;
             case "rebind":
                 p.send("Rebind requested. Restarting server...");
-                binding = cmd[1];
+                const bind = cmd[1];
+                if (bind[0] === "/") binding = bind.slice(1);
+                else binding = bind;
                 setTimeout(() => p.kill(9), 50);
                 break;
             default:

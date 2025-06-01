@@ -253,14 +253,13 @@ const update_link = window.navigate = (to) => {
     if (!queued || !queued.href) return;
     localStorage.lplay = queued.href;
     const link = queued.href;
-    const is_music = link.includes("/music/");
     const info = file_info(link);
     if (info.name.length === 0 || !mime[info.ext]) {
         term.value = decodeURI(link.split("%20/")[1]);
         btn.click(); return;
     }
     portal.src = link;
-    if (is_music) {
+    if (link.includes("/music/") || types[info.ext]) {
         portal.insertAdjacentElement("afterend", audio);
         portal.remove();
         if (link.includes(".jpg")) return img(link);
@@ -512,3 +511,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
+console.info("fakels (Directory Viewer)");
