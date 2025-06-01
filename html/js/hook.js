@@ -23,7 +23,7 @@ export const getheader = async name => {
 };
 
 const query_cache = new Map();
-export async function query_fetch(endpoint, query, frame, cb, req, err, cached=false) {
+export async function api(endpoint, query, frame, cb, req, err, cached=false) {
     let link = `${endpoint}%20${query}`;
     let response, wait = true;
     const callback = data => {
@@ -78,7 +78,7 @@ export async function query_fetch(endpoint, query, frame, cb, req, err, cached=f
     callback(await response.text());
 };
 
-export const dynamic_main = (client=true) => {
+export const main = (client=true) => {
     if (client) { window.is_client = true; }
     let main;
     if (main = document.getElementById("dyn")) {} else {

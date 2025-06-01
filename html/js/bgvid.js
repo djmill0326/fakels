@@ -1,3 +1,4 @@
+import template from "./numeric-template.js";
 const video = document.createElement("video");
 video.autoplay = true;
 video.muted = true;
@@ -18,7 +19,9 @@ export function lerp_style(s, p, v, t=808) {
     if (a) cancelAnimationFrame(a.x);
     const o = { x: null };
     map.set(s, o);
-    const i = parseFloat(s[p]);
+    const { compile, defaults } = template(s[p]);
+    const i = parseFloat(defaults[0]);
+    defaults.shift();
     if (isNaN(i)) return;
     const b = performance.now();
     const f = () => {
@@ -26,7 +29,7 @@ export function lerp_style(s, p, v, t=808) {
         if (n > b + t) return map.delete(s) && (s[p] = v);
         const d = n - b;
         const x = d / t;
-        s[p] = i * (1 - x) + v * x;
+        s[p] = compile(i * (1 - x) + v * x, ...defaults);
         o.x = requestAnimationFrame(f);
     };
     f();

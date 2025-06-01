@@ -1,37 +1,35 @@
-/* [fakels::Directory Viewer] find.js */
-import { dynamic_main, query_fetch, getheader } from "./hook.js";
+/* fakels::find.js */
+import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mp3type.js";
 import $, { id } from "./l.js";
 const title = document.title;
-const form = dynamic_main();
+const form = main();
 const { back, term, btn } = form.children;
-const portal = id("porthole");
+const portal = id("porthole") ?? document.createElement("div");
 const music = id("music");
 let frame = id("frame");
-let query = "", np;
-let queued = null;
+let query = "", np, queued;
 let browser = {};
-window.playlist = [];
+const playlist = [];
 const audio = $("audio");
-audio.controls = true;
-audio.autoplay = true;
+audio.controls = audio.autoplay = true;
 audio.volume = localStorage.lvol || 1;
 const shortcut_ui = $("ul");
 shortcut_ui.style.userSelect = "none";
 back.onclick = (ev) => {
     if (ev.shiftKey && np) term.value = np;
     else {
-        const remaining = query.split("/").slice(1, -1);
-        if (remaining.pop()) term.value = remaining.join("/");
+        const s = query.split("/").slice(1, -1);
+        if (s.pop()) term.value = s.join("/");
         else return back.checked = !btn.onclick();
     }
     btn.click();
 };
 (btn.onclick = () => btn.style.color = back.checked ? "#006EFF" : "#333")();
-String.prototype.splitEnd = function(x) {
-    const l = this.lastIndexOf(x);
-    return l ? [this.slice(0, l), this.slice(l + 1)] : [this];
+export const splitEnd = function(s, x) {
+    const l = s.lastIndexOf(x);
+    return l ? [s.slice(0, l), s.slice(l + 1)] : [s];
 }
 export const html = text => text
   .replace(/<\/?(\w*)\s?.*>/g, "")
@@ -41,7 +39,7 @@ export const html = text => text
 export const file_info = (link = "50x.html") => {
     const split = link.split("/");
     const file = decodeURI(split[split.length - 1]);
-    const [name, ext] = file.splitEnd(".");
+    const [name, ext] = splitEnd(file, ".");
     if (ext) {
         return { name, ext };
     } else return { name };
@@ -125,7 +123,7 @@ if(localStorage.status !== "false") document.body.append(status);
 const found = new Map();
 const find_recursive = (root, count={ i: 0, expected: 0 }) => {
     ++count.expected;
-    query_fetch("ls", root, frame, () => {
+    api("ls", root, frame, () => {
         ++count.i;
         const list = frame.children[1].children;
         for (let i = 0; i < list.length; i++) {
@@ -164,7 +162,7 @@ form.onsubmit = (e) => {
     back.checked = query.replace("/", "").length;
     btn.onclick();
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
-    query_fetch("ls", query, frame, () => {
+    api("ls", query, frame, () => {
         if (query === "link") return;
         let reset;
         if (replay_slot) {
@@ -242,8 +240,8 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
 const cancel_popup = ev => active_popup && !active_popup.contains(ev.target) && popup(null);
 window.addEventListener("mouseup", cancel_popup);
 window.addEventListener("keydown", ev => ev.key === "Escape" && cancel_popup(document.body));
-const img = src => {
-    const img = $("img");
+const img = (src, iframe=false) => {
+    const img = $(iframe ? "iframe" : "img");
     img.src = src;
     img.style.width = "420px";
     img.style.borderRadius = "5px";
@@ -266,6 +264,7 @@ const update_link = window.navigate = (to) => {
         portal.insertAdjacentElement("afterend", audio);
         portal.remove();
         if (link.includes(".jpg")) return img(link);
+        if (link.includes(".txt")) return img(link, true);
         audio.src = link;
         np = query;
         const descriptor = describe(info);
@@ -329,8 +328,8 @@ const swaps = {
     "One Smart": "Some Smart",
     "Thought I K": "K",
     "new You": "new U",
-    [n("er")]: n("ấ"),
-    [N("er")]: N("ấ")
+    [n("er")]: n("ằ"),
+    [N("er")]: N("ằ")
 };
 const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
 export const extract_title = text => {
@@ -425,7 +424,7 @@ const load_cover = () => {
     link && img(link.href);
 };
 const get_lyrics = (query, o) => {
-    query_fetch("l", query, null, html => {
+    api("l", query, null, html => {
         const el = $("section");
         el.innerHTML = html.replace("and a s", "in a s").replace(/\bpeak\b/g, "peek");
         popup(el, `Lyrics for [i]${ o.artist && o.title ? `${o.artist} - ${o.title}` : query }[/i]`);
@@ -473,7 +472,7 @@ const find_lyrics = (src) => {
         };
         get_lyrics(query.join(" "), { artist, title, src });
     }
-    query_fetch("m", dir, null, callback, status_obj(`${song.innerText}'s metadata`), fallback, true);
+    api("m", dir, null, callback, status_obj(`${song.innerText}'s metadata`), fallback, true);
 };
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(audio.src))))}</i>`);
 const shortcuts = {

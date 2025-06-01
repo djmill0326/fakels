@@ -39,10 +39,6 @@ body {
     margin-right: .6em;
 }
 
-iframe {
-    display: none;
-}
-
 audio {
     max-height: 32px;
     width: 100%;

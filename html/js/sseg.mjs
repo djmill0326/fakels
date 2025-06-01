@@ -1,4 +1,4 @@
-/* [SSEG::Simple Structured Entropy Generator] sseg.mjs */
+/* Simple Structured Entropy Generator::sseg.mjs */
 
 import { argv } from "process";
 export const coin = Object.create(null);
