@@ -2,7 +2,6 @@
 
 * {
     box-sizing: border-box;
-    --skalagmiter: mediumvioletred;
     --gradient: linear-gradient(135deg, rgba(160,60,180,1) 0%, rgba(240,32,64,1) 50%, rgba(255,221,69,1) 100%);
     --font: "Open Sans", system-ui, sans-serif;
     color: #ccc;
@@ -16,8 +15,6 @@ body {
     margin: 0;
     font-family: var(--font);
 }
-
-#main, 
 
 #main {
     width: 600px;
@@ -96,6 +93,8 @@ span:nth-child(2) {
 #el1 {
     text-align: center;
     font-weight: bold;
+    color: mediumvioletred;
+    white-space: unset;
 }
 
 #porthole {
@@ -123,14 +122,17 @@ li {
     margin: .3em;
     padding: .3em;
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 a {
-    color: var(--skalagmiter);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-decoration: none;
+    background: var(--gradient);
+    background-clip: text;
+    color: #ccc6;
+    display: block;
 }
 
 h3 {
