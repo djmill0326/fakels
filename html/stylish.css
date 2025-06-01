@@ -131,11 +131,12 @@ a {
     text-decoration: none;
 }
 
-li a {
+#frame a {
     background: var(--gradient);
     background-clip: text;
     color: #ccc6;
     display: block;
+    width: 100%;
 }
 
 h3 {
