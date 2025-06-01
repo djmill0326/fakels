@@ -98,6 +98,10 @@ span:nth-child(2) {
     font-weight: bold;
 }
 
+#porthole {
+    display: none;
+}
+
 #frame {
     margin: 0 auto;
     overflow: auto;

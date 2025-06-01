@@ -1,4 +1,4 @@
-/* fakels::find.js */
+/* fakels (Directory Viewer)::find.js */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mp3type.js";
@@ -6,7 +6,7 @@ import $, { id } from "./l.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
-const portal = id("porthole") ?? document.createElement("div");
+const portal = id("porthole");
 const music = id("music");
 let frame = id("frame");
 let query = "", np, queued;
