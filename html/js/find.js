@@ -1,4 +1,4 @@
-/* fakels::find.js */
+/* fakels::Directory Viewer (find.js) */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mediatype.js";
@@ -51,9 +51,9 @@ const get_first_anchor = () => {
     try {
         const list = frame.children[1].children[0].children;
         const a = list[0];
-        if (!verify_anchor(a)) throw new Error("no clue man");
+        if (!verify_anchor(a)) throw new Error("no fuckin' clue, man.");
         return a;
-    } catch (err) { console.info("wtf happened!", err.message, term.value) }
+    } catch (err) { console.info("wtf happened?", err.message, term.value) }
 }
 const next_anchor = (a, looping=true) => {
     const ne = a.parentElement.nextElementSibling; let next;
@@ -436,8 +436,9 @@ const find_lyrics = (src) => {
     if(!src) return;
     if (src === active_lyrics) ++lyric_attempt;
     else lyric_attempt = 0;
-    const i = src.lastIndexOf(":442/");
+    const i = src.lastIndexOf(".xyz/");
     const dir = src.substring(i + 4);
+    console.lo
     const fallback = () => {
         const i = dir.lastIndexOf("/");
         const j = dir.lastIndexOf(".");
@@ -477,8 +478,8 @@ window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(sh
 const shortcuts = {
     "Now-Playing": ["None", () => song.click()],
     " ": ["Play/pause", ev => ev.target !== audio ? (audio.paused ? audio.play() : audio.pause()) : void 0],
-    ",": ["Previous", () => prev.click()],
-    ".": ["Next", () => next.click()],
+    ".": ["Next entry", () => next.click()],
+    ",": ["Previous entry", () => prev.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_cover],
     "l": ["Find lyrics (may fail)", () => find_lyrics(audio.src)],
@@ -506,9 +507,7 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     label.style.flexGrow = 1;
     const text = $("span");
     text.innerText = x[0];
-    text.style.minWidth = 0;
-    text.style.marginLeft = ".3em";
     el.append(label, text);
     return el;
 }));
-console.info("fakels");
+console.info("fakels::Directory Viewer");

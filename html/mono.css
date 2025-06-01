@@ -10,3 +10,27 @@
 footer {
     border-top: .5px solid #FFFA;
 }
+
+span:nth-child(2) {
+    margin-left: .3em;
+    min-width: 0; 
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+[data-title="Shortcuts"] {
+    li {
+        > :first-child { font-style: italic }
+        > :last-child { justify-content: end }
+        &:first-child {
+            font-weight: bold;
+            a { font-style: normal }
+            span { text-decoration: underline }
+        }
+        &:not(:first-child) a {
+            font-family: monospace;
+            line-height: 1.5em;
+        }
+    }
+}

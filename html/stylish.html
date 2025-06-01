@@ -31,6 +31,7 @@
             const audio_hook = setInterval(() => {
                 const audio = document.querySelector("audio");
                 if (audio) {
+                    audio.paused || enable(bg);
                     clearInterval(audio_hook);
                     on_audio(audio);
                     console.log("[stylish-hook] acquired audio element for dynamic video playback!");
