@@ -1,3 +1,7 @@
+#back {
+    filter: hue-rotate(-31.5deg) brightness(1.52);
+}
+
 #term, footer {
     font-family: "Cascadia Code", monospace;
     font-size: 12.5px;

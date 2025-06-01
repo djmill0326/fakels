@@ -1,4 +1,4 @@
-/* fakels (Directory Viewer)::find.js */
+/* fakels::find.js */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mediatype.js";
@@ -26,7 +26,7 @@ back.onclick = (ev) => {
     }
     btn.click();
 };
-(btn.onclick = () => btn.style.color = back.checked ? "#006EFF" : "#333")();
+(btn.onclick = () => btn.style.color = back.checked ? "#00b6f0" : "#333")();
 export const splitEnd = function(s, x) {
     const l = s.lastIndexOf(x);
     return l ? [s.slice(0, l), s.slice(l + 1)] : [s];
@@ -51,7 +51,7 @@ const get_first_anchor = () => {
     try {
         const list = frame.children[1].children[0].children;
         const a = list[0];
-        if (!verify_anchor(a)) return;
+        if (!verify_anchor(a)) throw new Error("no clue man");
         return a;
     } catch (err) { console.info("wtf happened!", err.message, term.value) }
 }
@@ -392,7 +392,7 @@ const init_browser = (link, display) => {
     }
     player.append(
         bundle(prev, label(prev, "prev")),
-        bundle(label(song, "♫", "lightcoral"), song),
+        bundle(label(song, "♫", "#00b6f0"), song),
         bundle(label(next, "next"), next)
     );
     music.append(player);
@@ -511,4 +511,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels (Directory Viewer)");
+console.info("fakels");
