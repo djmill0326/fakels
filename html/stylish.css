@@ -129,6 +129,9 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
+}
+
+li a {
     background: var(--gradient);
     background-clip: text;
     color: #ccc6;
