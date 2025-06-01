@@ -327,8 +327,8 @@ const swaps = {
     "One Smart": "Some Smart",
     "Thought I K": "K",
     "new You": "new U",
-    [n("er")]: n("ằ"),
-    [N("er")]: N("ằ")
+    [n("er")]: n("a"),
+    [N("er")]: N("a")
 };
 const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
 export const extract_title = text => {
