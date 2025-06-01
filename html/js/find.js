@@ -417,9 +417,9 @@ const update_music = (link, display) => {
 };
 const load_cover = () => {
     const link = 
-        frame.q("[href*='cover.']") ?? 
-        frame.q("[href*='art.']") ??
-        frame.q("[href*='folder.']");
+        frame.q("[href*='/cover.']") ?? 
+        frame.q("[href*='/art.']") ??
+        frame.q("[href*='/folder.']");
     link && img(link.href);
 };
 const get_lyrics = (query, o) => {
