@@ -17,7 +17,7 @@ html\js\mime.mjs
 html\js\rpc.js
 html\js\drag.js
 html\js\shuffle.js
-html\js\mp3type.js
+html\js\mediatype.js
 html\js\rpc_base.js
 html\js\find.js
 html\js\sseg.mjs
@@ -558,6 +558,9 @@ html\music\ssdl\Locations\Humboldt '04\The Pharcyde - Humboldt Beginnings - 19 -
 html\music\ssdl\Locations\Humboldt '04\The Pharcyde - Humboldt Beginnings - 20 - Piece's Peace (skit).flac
 html\music\ssdl\Locations\Humboldt '04\The Pharcyde - Humboldt Beginnings - 21 - Dedication.flac
 html\music\ssdl\Locations\Humboldt '04\The Pharcyde - Humboldt Beginnings - 22 - Outro- Praise.flac
+html\music\ssdl\Locations\East Atlanta
+html\music\ssdl\Locations\East Atlanta\Department Store
+html\music\ssdl\Locations\East Atlanta\Department Store\Gucci Mane - The Return of East Atlanta Santa - 01 - St. Brick Intro (MP3-320 320 kbps).mp3
 html\music\ssdl\Machines
 html\music\ssdl\Machines\Pachinko
 html\music\ssdl\Machines\Pachinko\cover.jpg
