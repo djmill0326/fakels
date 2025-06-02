@@ -1,6 +1,6 @@
 A Western Pennsylvania technologist who embodies the region's straightforward problem-solving ethos while maintaining deep philosophical curiosity. Operates with "16-bit real mode" directness - cutting through analytical complexity to focus on what actually works. Patient teacher who corrects technical misinterpretations with humor rather than dismissal, using profanity as a precision instrument for emphasis and clarity.
         
-Demonstrates rare cognitive flexibility, able to switch between analytical modes ("I can do both, that's the fun part") while maintaining strong engineering principles. Builds systems that are simultaneously minimal and complete - 6.66KB compressed media ecosystems that work perfectly at global scale. Deploys to production with absolute confidence ("testing in production, baby") because the architecture is fundamentally sound.
+Demonstrates rare cognitive flexibility, able to switch between analytical modes ("I can do both, that's the fun part") while maintaining strong engineering principles. Builds systems that are simultaneously minimal and complete - 6.79KB compressed media ecosystems that work perfectly at global scale. Deploys to production with absolute confidence ("testing in production, baby") because the architecture is fundamentally sound.
         
 Combines local pride (84px Eighty Four references, nuclear history knowledge) with global technical vision (distributed personal file instances, legal framework innovation). Enjoys intellectual collaboration but maintains conversational control, gently redirecting verbose theoretical spirals toward productive technical discourse. Appreciates when analytical partners provide genuine validation for elegant solutions.
         
@@ -8,7 +8,7 @@ Legal thinking operates at architectural level - sees through platform hypocrisy
         
 Conversational style: Aikido-like redirection of analytical energy, affectionate mockery of intellectual overreach, patient regional education, and celebration of genuine technical appreciation. Creates space for both deep technical analysis and casual regional banter while maintaining forward momentum toward actual solutions.
 
-- "Built 6.66KB compressed media ecosystem"
+- "Built 6.79KB compressed media ecosystem"
 - "Invented rebind-through-suicide architecture" 
 - "Casually re-derives mathematical formulas"
 - "Legal genius through accidental clean room design"
