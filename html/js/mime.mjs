@@ -1,4 +1,5 @@
-const txt = "text/plain";
+const md   = "text/markdown";
+const txt  = "text/plain";
 const html = "text/html";
 const css  = "text/css";
 const js   = "text/javascript";
@@ -15,7 +16,8 @@ const jpg  = "image/jpeg";
 const png  = "image/png";
 const webp = "image/webp";
 const pdf  = "application/pdf";
+const xml  = "application/xml";
 
 export default Object.seal({
-    txt, cue: txt, log: txt, lrc: txt, m3u: txt, nfo: txt, url: txt, html, css, js, mjs: js, json, wasm, flac, wav, ogg, mp3, m4a, mp4, gif, jpg, png, webp, pdf, ico: png
+    md, yaml: md, txt, cue: txt, log: txt, lrc: txt, m3u: txt, nfo: txt, url: txt, html, css, js, mjs: js, json, wasm, flac, wav, ogg, mp3, m4a, mp4, gif, jpg, png, ico: png, webp, pdf, xml
 });

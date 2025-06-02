@@ -1,7 +1,8 @@
 import mime from "./mime.mjs";
 export default Object.seal({
     flac: mime.flac,
-    m4a: mime.m4a,
+    wav: mime.wav,
+    ogg: mime.ogg,
     mp3: mime.mp3,
-    ogg: mime.ogg
+    m4a: mime.m4a
 });
