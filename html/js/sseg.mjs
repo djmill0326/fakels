@@ -1,4 +1,4 @@
-/* Simple Structured Entropy Generator::sseg.mjs */
+/* sseg (Simple Structured Entropy Generator) [v1-final] */
 
 import { argv } from "process";
 const arg3 = parseFloat(argv[4]);

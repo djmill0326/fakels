@@ -25,8 +25,12 @@ span:nth-child(2) {
 
 [data-title="Shortcuts"] {
     li {
-        > :first-child { font-style: italic }
-        > :last-child { justify-content: end }
+        > :first-child {
+            font-style: italic;
+        }
+        > :last-child {
+            justify-content: end;
+        }
         &:first-child {
             font-weight: bold;
             a { font-style: normal }
@@ -39,12 +43,12 @@ span:nth-child(2) {
     }
 }
 
-.popup {
+.bar {
     * {
         user-select: auto;
-        text-overflow: ellipsis;
     }
-    > .bar:first-child {
-        overflow: hidden;
+    &:first-child {
+        overflow-x: hidden;
+        word-break: break-all;
     }
 }

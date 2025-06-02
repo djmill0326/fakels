@@ -1,4 +1,4 @@
-/* fakels::Directory Viewer [v2.2.3] */
+/* fakels [v2.2.3] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mediatype.js";
@@ -499,10 +499,10 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.onclick = () => eval_keypress({ key });
     const label = $("a");
     label.innerText = key.replace(" ", "<Space>");
-    label.style.flexGrow = 1;
+    label.style.flexShrink = 0;
     const text = $("span");
     text.innerText = x[0];
     el.append(label, text);
     return el;
 }));
-console.info("fakels::Directory Viewer [v2.2.3]");
+console.info("fakels [v2.2.3]");
