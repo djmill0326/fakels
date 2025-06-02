@@ -22,14 +22,14 @@
                 margin-bottom: 5px;
                 width: 100%;
             }
-            form, .music {
+            form, .player {
                 display: flex;
             }
             input[type="text"],
-            .music > :nth-child(2) {
+            .player > :nth-child(2) {
                 flex: 1;
             }
-            .music > :nth-child(2) {
+            .player > :nth-child(2) {
                 text-align: center;
             }
             label {
@@ -62,7 +62,7 @@
                 <input type="submit" style="width: 62px; padding: 1px 4px" value="List Files" id="btn" />
             </form>
             <iframe id="porthole" width="80%" style="height: 60svh; margin: auto"></iframe>
-            <div id="music"></div>
+            <div id="media"></div>
             <div id="frame"></div>
         </div>
         <script src="/js/find.js" type="module"></script>

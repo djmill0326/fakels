@@ -55,10 +55,19 @@ input, button, li {
     background: #111;
 }
 
-.music button {
+.player button {
     width: 2em;
     height: 2em;
     font-size: larger;
+}
+
+.player {
+    width: 100%;
+    display: flex;
+}
+
+.player span:not(:nth-child(2)) {
+    min-width: 84px;
 }
 
 #term {
@@ -68,15 +77,6 @@ input, button, li {
 
 #btn {
     width: 4em;
-}
-
-.music {
-    width: 100%;
-    display: flex;
-}
-
-.music span:not(:nth-child(2)) {
-    min-width: 84px;
 }
 
 #lel1 {

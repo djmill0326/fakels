@@ -10,7 +10,7 @@
             html { color-scheme: dark } * { box-sizing: border-box } #frame { min-height: 35vh; overflow-y: auto; max-height: 70vh } #porthole { border: none; background: transparent } audio { width: 100%; height: 32px; } 
             ul { padding: 0 0 0 .5em } li { list-style: none; margin: .3em 0 } #el1, li a { color:blanchedalmond; user-select: none; } input, button { font-size: 1em } .r-10fj5tc { display: none; }
             span { min-width: 64px; max-width: 420px; word-break: keep-all; margin: .3em } span :first-child { margin-right: .3em } span:not(:last-child) { flex-grow: 1 } 
-            #dyn { margin-bottom: .6em } .music { margin-top: .6em } .music { display: flex; width: 35em } #el1 { display:inline-block; max-width: 300px } 
+            #dyn { margin-bottom: .6em } .media { margin-top: .6em } .player { display: flex; width: 35em } #el1 { display:inline-block; max-width: 300px } 
         </style>
     </head>
     <body>
@@ -29,7 +29,7 @@
                 <input type="submit" value="↻" id="btn" style="width: 11%" />
             </form>
             <iframe id="porthole" width="560" height="315"></iframe>
-            <div id="music"></div>
+            <div id="media"></div>
             <div id="frame"></div>
         </div>
         <script src="/js/find.js" type="module"></script>

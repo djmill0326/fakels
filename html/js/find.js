@@ -7,7 +7,7 @@ const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
 const portal = id("porthole");
-const music = id("music");
+const media = id("media");
 let frame = id("frame");
 let query = "", np, queued;
 let browser = {};
@@ -112,7 +112,7 @@ const toggle_status = () => {
 const clickable_status = (text, f, cursor) => `<a onclick='${f}()' style='color: #000; cursor: ${cursor}'>${text}</a>`;
 const update_status = () => {
     const segments = [
-        term.value.includes("music") ? clickable_status(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : "",
+        term.value.includes("media") ? clickable_status(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : "",
         active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` : shortcut_ui.isConnected ? "" : clickable_status("Press '?' to view help menu", "toggle_shortcuts", "help")
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
@@ -259,7 +259,7 @@ const update_link = window.navigate = (to) => {
         btn.click(); return;
     }
     portal.src = link;
-    if (link.includes("/music/") || types[info.ext]) {
+    if (link.includes("/media/") || types[info.ext]) {
         portal.insertAdjacentElement("afterend", audio);
         portal.remove();
         if (link.includes(".jpg")) return img(link);
@@ -268,7 +268,7 @@ const update_link = window.navigate = (to) => {
         np = query;
         const descriptor = describe(info);
         console.log("[player/info]", `now playing: ${extract_title(descriptor)}\n[(file-info)] ${descriptor}`);
-        update_music(link, descriptor);
+        update_media(link, descriptor);
     } else if (browser.remove) {
         audio.insertAdjacentElement("beforebegin", portal);
         audio.remove();
@@ -365,10 +365,10 @@ export const bundle = (...x) => {
 };
 const prev = $("button");
 const next = $("button");
-const song = $("a");
+const mref = $("a");
 const init_browser = (link, display) => {
     const player = $("div");
-    player.className = "music";
+    player.className = "player";
     prev.onclick = () => {
         let entry = playlist.pop();
         if (!entry) return;
@@ -378,10 +378,10 @@ const init_browser = (link, display) => {
     next.onclick = next_queued;
     prev.textContent = "↩";
     next.textContent = "↪";
-    song.dataset.src = decodeURI(link);
-    song.innerHTML = html(document.title = extract_title(display));
+    mref.dataset.src = decodeURI(link);
+    mref.innerHTML = html(document.title = extract_title(display));
     let prior = [performance.now()];
-    song.onclick = () => {
+    mref.onclick = () => {
         audio.src = audio.src;
         const time = performance.now();
         if (prior.length > 2) {
@@ -392,17 +392,17 @@ const init_browser = (link, display) => {
     }
     player.append(
         bundle(prev, label(prev, "prev")),
-        bundle(label(song, "♫", "#00b6f0"), song),
+        bundle(label(mref, "♫", "#00b6f0"), mref),
         bundle(label(next, "next"), next)
     );
-    music.append(player);
+    media.append(player);
     browser = {
         update: (link, display) => {
-            song.innerHTML = html(extract_title(display));
-            song.dataset.src = link;
+            mref.innerHTML = html(extract_title(display));
+            mref.dataset.src = link;
             const title = active_popup?.firstElementChild;
             if (!(title && title.firstElementChild.textContent.includes("Shortcuts"))) return;
-            active_popup.children[1].firstElementChild.children[1].innerHTML = `<i>${song.innerHTML}</i>`;
+            active_popup.children[1].firstElementChild.children[1].innerHTML = `<i>${mref.innerHTML}</i>`;
         },
         remove: () => {
             player.remove();
@@ -411,11 +411,11 @@ const init_browser = (link, display) => {
         }
     };
 };
-const update_music = (link, display) => {
+const update_media = (link, display) => {
     if (browser.update) browser.update(link, display);
     else init_browser(link, display);
 };
-const load_cover = () => {
+const load_art = () => {
     const link = 
         frame.q("[href*='/cover.']") ?? 
         frame.q("[href*='/art.']") ??
@@ -472,16 +472,16 @@ const find_lyrics = (src) => {
         };
         get_lyrics(query.join(" "), { artist, title, src });
     }
-    api("m", dir, null, callback, status_obj(`${song.innerText}'s metadata`), fallback, true);
+    api("m", dir, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
 };
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(audio.src))))}</i>`);
 const shortcuts = {
-    "Now-Playing": ["None", () => song.click()],
+    "Now-Playing": ["None", () => mref.click()],
     " ": ["Play/pause", ev => ev.target !== audio ? (audio.paused ? audio.play() : audio.pause()) : void 0],
     ".": ["Next entry", () => next.click()],
     ",": ["Previous entry", () => prev.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
-    "c": ["Show cover art", load_cover],
+    "c": ["Show cover art", load_art],
     "l": ["Find lyrics (may fail)", () => find_lyrics(audio.src)],
     ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Enter your search term here:"))],
     "t": ["Toggle status bar", toggle_status],
