@@ -48,7 +48,8 @@ span:nth-child(2) {
         user-select: auto;
     }
     &:first-child {
-        overflow-x: hidden;
+        min-height: 1.2em;
         word-break: break-all;
+        overflow-x: hidden;
     }
 }
