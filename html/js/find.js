@@ -1,8 +1,8 @@
 /* fakels (Directory Viewer) [v2.2.6] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
-import types from "./mediatype.js";
-import $, { id, _ } from "./l.js";
+import types, { base, make } from "./mediatype.js";
+import $, { _, id } from "./l.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -12,9 +12,7 @@ let frame = id("frame");
 let query = "", np, queued;
 let browser = {};
 const playlist = [];
-const audio = $("audio");
-audio.controls = audio.autoplay = true;
-audio.volume = _.lvol || 1;
+let mel;
 const shortcut_ui = $("ul");
 shortcut_ui.style.userSelect = "none";
 back.onclick = (ev) => {
@@ -51,9 +49,9 @@ const get_first_anchor = () => {
     try {
         const list = frame.children[1].children[0].children;
         const a = list[0];
-        if (!verify_anchor(a)) throw new Error("no fuckin' clue, man.");
+        if (!verify_anchor(a)) return;
         return a;
-    } catch (err) { console.info("wtf happened?", err.message, term.value) }
+    } catch (err) { console.info("wtf!", term.value) }
 }
 const next_anchor = (a, looping=true) => {
     const ne = a.parentElement.nextElementSibling; let next;
@@ -74,8 +72,12 @@ const next_queued = () => {
     if (!queued) return;
     update_link(shuffling ? shuffle(queued) : next_anchor(queued, true));
 };
-audio.onplaying = () => document.title = extract_title(file_info(queued?.href).name);
-audio.onended = next_queued;
+const re = el => {
+    el.onplaying = () => document.title = extract_title(file_info(queued?.href).name);
+    el.ontimeupdate = () =>_.ltime = mel.currentTime;
+    el.onended = next_queued;
+    return el;
+};
 let replay_slot = _.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
 export const anchor_from_link = (link, f=frame) => f.q(`ul > li > a[href="${link.split(".xyz")[1]}"]`);
 let just_popped = false;
@@ -90,17 +92,6 @@ window.toggle_shuffle = () => {
     update_status();
 };
 const status = $('footer');
-status.style = `
-    position: fixed;
-    top: calc(100% - 1.2em);
-    background: #ccc;
-    color: #000;
-    left: 0;
-    width: 100%;
-    height: 1.2em;
-    overflow: hidden;
-    padding: 0 .3em;
-`;
 const active_requests = new Set();
 const toggle_status = () => {
     const is = status.isConnected;
@@ -137,15 +128,20 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             fresh.id = "frame";
             fresh.onclick = frame_handler;
             const label = $("h3");
-            label.innerText = `${found.size} entries (recursive find)`;
+            label.innerText = `${found.size} entries (flattened)`;
             const list = $("ul");
             list.append(...found.values());
             fresh.append(label, list);
             frame.replaceWith(fresh);
             frame = fresh;
         }
-    }, status_obj(`flattening directory structure (${root}`));
+    }, status_obj(`flattening (${root}`));
 };
+const b = () => requestIdleCallback(() => {
+    const t = parseFloat(_.ltime); 
+    if (!mel.buffered.length || mel.buffered.end(0) < t) b();
+    else mel.currentTime = t;
+});
 form.onsubmit = (e) => {
     update_status();
     back.disabled = false;
@@ -171,12 +167,7 @@ form.onsubmit = (e) => {
         if (!reset) reset = get_first_anchor();
         if (reset && reset.href) {
             if (!queued) {
-                update_link(reset);
-                const b = () => requestIdleCallback(() => {
-                    const t = parseFloat(_.ltime); 
-                    if (!audio.buffered.length || audio.buffered.end(0) < t) b();
-                    else audio.currentTime = t;
-                });
+                if (!update_link(reset)) return;
                 if (_.ltime && reset.href === _.lplay) b();
             }
         }
@@ -271,19 +262,22 @@ const update_link = window.navigate = (to) => {
     const ifm = types[info.ext];
     if (ifm) playlist.push(queued);
     if (ifm || link.includes("/media/")) {
-        portal.insertAdjacentElement("afterend", audio);
+        if (!mel) mel = re(make(link));
+        portal.insertAdjacentElement("afterend", mel);
         portal.remove();
         if (!ifm) return img(link, !link.includes(".jpg"));
-        audio.src = link;
+        frame.lastElementChild.scrollToEl(queued.parentElement);
+        mel.src = link;
         np = query;
         const descriptor = describe(info);
         console.log("[fakels/info]", `user selected: ${extract_title(descriptor)}\n[(file-info)] ${descriptor}`);
         update_media(link, descriptor);
     } else if (browser.remove) {
-        audio.insertAdjacentElement("beforebegin", portal);
-        audio.remove();
+        mel.insertAdjacentElement("beforebegin", portal);
+        mel.remove();
         browser.remove();
     }
+    return ifm;
 };
 let pathname = decodeURI(window.location.pathname).slice(1);
 const paths = ["raw", "stylish"];
@@ -299,7 +293,9 @@ term.value = (pathname.length ? pathname : _.ldir) ?? "";
 btn.click();
 const frame_handler = (e) => {
     e.preventDefault();
-    update_link(e.target.href ? e.target : e.target.children[0]);
+    const target = e.target.href ? e.target : e.target.children[0];
+    if (target?.tagName !== "A") return;
+    update_link(target);
 };
 frame.onclick = frame_handler;
 export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
@@ -382,7 +378,7 @@ const init_browser = (link, display) => {
     mref.innerHTML = html(document.title = extract_title(display));
     let prior = [performance.now()];
     mref.onclick = () => {
-        audio.src = audio.src;
+        if(mel) mel.src = mel.src;
         const time = performance.now();
         if (prior.length > 2) {
             prior.shift();
@@ -474,15 +470,15 @@ const find_lyrics = (src) => {
     }
     api("m", dir, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
 };
-window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(audio.src))))}</i>`);
+window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(mel?.src || "None"))))}</i>`);
 const shortcuts = {
     "Now-Playing": ["None", () => mref.click()],
-    " ": ["Play/pause", ev => ev.target !== audio ? (audio.paused ? audio.play() : audio.pause()) : void 0],
+    " ": ["Play/pause", ev => ev.target !== mel ? (mel.paused ? mel.play() : mel.pause()) : void 0],
     ".": ["Next entry", () => next.click()],
     ",": ["Previous entry", () => prev.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
-    "l": ["Find lyrics (may fail)", () => find_lyrics(audio.src)],
+    "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src)],
     ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Search for lyrics:"))],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go back a directory", () => back.click()],
@@ -512,4 +508,3 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     return el;
 }));
 console.info("fakels (Directory Viewer) [v2.2.6]");
-audio.ontimeupdate = () =>_.ltime = audio.currentTime;

@@ -108,12 +108,12 @@ ul {
     list-style: none;
     font-size: large;
     padding: 0 .4em;
-    margin: .3em 0;
+    margin: 5px 0;
     overflow: auto;
 }
 
 li {
-    margin: .3em;
+    margin: 5px;
     padding: .3em;
     cursor: pointer;
 }
@@ -134,7 +134,7 @@ a {
 }
 
 h3 {
-    margin: .3em 0;
+    margin: 5px 0;
 }
 
 #main, .popup {
