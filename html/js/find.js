@@ -1,4 +1,4 @@
-/* fakels::Directory Viewer (find.js) [v2.2.3] */
+/* fakels::Directory Viewer [v2.2.3] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mediatype.js";
@@ -26,7 +26,7 @@ back.onclick = (ev) => {
     }
     btn.click();
 };
-(btn.onclick = () => btn.style.color = back.checked ? "#00b6f0" : "#333")();
+(btn.onclick = () => requestIdleCallback(() => btn.style.color = back.checked ? "#00b6f0" : "#333"))();
 export const splitEnd = function(s, x) {
     const l = s.lastIndexOf(x);
     return l ? [s.slice(0, l), s.slice(l + 1)] : [s];
@@ -505,4 +505,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels::Directory Viewer (find.js) [v2.2.3]");
+console.info("fakels::Directory Viewer [v2.2.3]");
