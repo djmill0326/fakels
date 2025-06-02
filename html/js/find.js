@@ -1,4 +1,4 @@
-/* fakels [v2.2.3] */
+/* fakels (Directory Viewer) [v2.2.6] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mediatype.js";
@@ -65,7 +65,7 @@ const next_anchor = (a, looping=true) => {
     if (!verify_anchor(next)) return;
     const info = file_info(next.href);
     if (!types[info.ext]) return next_anchor(next, looping);
-    if (browser.update) console.log("[player/info]", `next: ${describe(info)}}`);
+    if (browser.update) console.log("[fakels/info]", `next: ${describe(info)}}`);
     return queued = next;
 };
 import shuffler from "./shuffle.js";
@@ -112,7 +112,7 @@ const clickable_status = (text, f, cursor) => `<a onclick='${f}()' style='color:
 const update_status = () => {
     const segments = [
         term.value.includes("media") ? clickable_status(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : "",
-        active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` : shortcut_ui.isConnected ? "" : clickable_status("Press '?' to view help menu", "toggle_shortcuts", "help")
+        active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` : shortcut_ui.isConnected ? "" : clickable_status("Press '?' to browse help menu", "toggle_shortcuts", "help")
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
 }
@@ -144,7 +144,7 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             frame.replaceWith(fresh);
             frame = fresh;
         }
-    }, status_obj(`all directories (${root}`));
+    }, status_obj(`flattening directory structure (${root}`));
 };
 form.onsubmit = (e) => {
     update_status();
@@ -172,7 +172,12 @@ form.onsubmit = (e) => {
         if (reset && reset.href) {
             if (!queued) {
                 update_link(reset);
-                if (_.ltime && reset.href === _.lplay) audio.currentTime = _.ltime;
+                const b = () => requestIdleCallback(() => {
+                    const t = parseFloat(_.ltime); 
+                    if (!audio.buffered.length || audio.buffered.end(0) < t) b();
+                    else audio.currentTime = t;
+                });
+                if (_.ltime && reset.href === _.lplay) b();
             }
         }
         if (!just_popped) history.pushState(query, "", location.origin + path_prefix + query);
@@ -272,7 +277,7 @@ const update_link = window.navigate = (to) => {
         audio.src = link;
         np = query;
         const descriptor = describe(info);
-        console.log("[player/info]", `now playing: ${extract_title(descriptor)}\n[(file-info)] ${descriptor}`);
+        console.log("[fakels/info]", `user selected: ${extract_title(descriptor)}\n[(file-info)] ${descriptor}`);
         update_media(link, descriptor);
     } else if (browser.remove) {
         audio.insertAdjacentElement("beforebegin", portal);
@@ -481,12 +486,13 @@ const shortcuts = {
     ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Search for lyrics:"))],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go back a directory", () => back.click()],
-    "?": ["Bring up help menu", toggle_shortcuts]
+    "?": ["Bring up this help menu", toggle_shortcuts]
 };
 export const eval_keypress = (ev, s=shortcuts) => {
     if (document.activeElement === term) return;
     const shortcut = s[ev.key];
     if (shortcut) {
+        console.debug("[fakels/input]", `'${ev.key}'`, ...shortcut);
         shortcut[1](ev);
         return false;
     }
@@ -505,4 +511,5 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels [v2.2.3]");
+console.info("fakels (Directory Viewer) [v2.2.6]");
+audio.ontimeupdate = () =>_.ltime = audio.currentTime;
