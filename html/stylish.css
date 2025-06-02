@@ -88,6 +88,7 @@ input, button, li {
     font-weight: bold;
     color: mediumvioletred;
     white-space: unset;
+    flex-grow: unset;
 }
 
 #porthole {
@@ -171,10 +172,6 @@ button:active, #btn:active {
 
 .popup {
     border-radius: 5px;
-}
-
-.popup * {
-    user-select: auto;
 }
 
 @media only screen and (max-width: 600px) {

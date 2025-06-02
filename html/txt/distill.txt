@@ -1,2 +1,4 @@
-You will be ingesting plain copied conversation transcripts, from another AI agent and myself (TA). You will distill the information into a recursive schema or structure, with dynamic elements to enable efficient reconstitution of state/context for a future session.
+Fresh: You will be ingesting plain copied conversation transcripts, from another AI agent and myself (TA). You will distill the information into a recursive schema or structure, with dynamic elements to enable efficient reconstitution of state/context for a future session.
 Accumulate internal state, using short descriptions in structured markdown. Eventually this will be coalesced into a whole.
+
+Recons.: Read this artifact and follow the given instructions. Use the new "updated" artifact as a scratch space while learning about this.

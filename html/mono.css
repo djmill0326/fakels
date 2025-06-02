@@ -38,3 +38,13 @@ span:nth-child(2) {
         }
     }
 }
+
+.popup {
+    * {
+        user-select: auto;
+        text-overflow: ellipsis;
+    }
+    > .bar:first-child {
+        overflow: hidden;
+    }
+}

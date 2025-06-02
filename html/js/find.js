@@ -1,8 +1,8 @@
-/* fakels::Directory Viewer (find.js) */
+/* fakels::Directory Viewer (find.js) [v2.2.3] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types from "./mediatype.js";
-import $, { id } from "./l.js";
+import $, { id, _ } from "./l.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -14,7 +14,7 @@ let browser = {};
 const playlist = [];
 const audio = $("audio");
 audio.controls = audio.autoplay = true;
-audio.volume = localStorage.lvol || 1;
+audio.volume = _.lvol || 1;
 const shortcut_ui = $("ul");
 shortcut_ui.style.userSelect = "none";
 back.onclick = (ev) => {
@@ -72,22 +72,21 @@ import shuffler from "./shuffle.js";
 const { shuffle } = shuffler();
 const next_queued = () => {
     if (!queued) return;
-    playlist.push(queued);
     update_link(shuffling ? shuffle(queued) : next_anchor(queued, true));
 };
 audio.onplaying = () => document.title = extract_title(file_info(queued?.href).name);
 audio.onended = next_queued;
-let replay_slot = localStorage.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
-export const anchor_from_link = (link, f=frame) => f.q(`ul > li > a[href="${link.split(":442")[1]}"]`);
+let replay_slot = _.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
+export const anchor_from_link = (link, f=frame) => f.q(`ul > li > a[href="${link.split(".xyz")[1]}"]`);
 let just_popped = false;
 window.onpopstate = (ev) => {
     term.value = ev.state;
     btn.click();
     just_popped = true;
 };
-let shuffling = localStorage.shuffling === "true";
+let shuffling = _.shuffling === "true";
 window.toggle_shuffle = () => {
-    localStorage.shuffling = shuffling = !shuffling;
+    _.shuffling = shuffling = !shuffling;
     update_status();
 };
 const status = $('footer');
@@ -105,7 +104,7 @@ status.style = `
 const active_requests = new Set();
 const toggle_status = () => {
     const is = status.isConnected;
-    localStorage.status = !is;
+    _.status = !is;
     if (is) status.remove();
     else document.body.append(status);
 }
@@ -119,7 +118,7 @@ const update_status = () => {
 }
 const status_obj = (name) => ({ name, list: active_requests, update: update_status });
 update_status();
-if(localStorage.status !== "false") document.body.append(status);
+if(_.status !== "false") document.body.append(status);
 const found = new Map();
 const find_recursive = (root, count={ i: 0, expected: 0 }) => {
     ++count.expected;
@@ -157,7 +156,7 @@ form.onsubmit = (e) => {
         find_recursive(`/${dir}`);
         return;
     }
-    const v = localStorage.llocation = term.value;
+    const v = _.ldir = term.value;
     query = ((v[0] === "/" ? "" : "/") + v + (v.length ? "/" : "")).replace(/[\/\\]+/g, "/");
     back.checked = query.replace("/", "").length;
     btn.onclick();
@@ -173,7 +172,7 @@ form.onsubmit = (e) => {
         if (reset && reset.href) {
             if (!queued) {
                 update_link(reset);
-                if (localStorage.ltime && reset.href === localStorage.lplay) audio.currentTime = localStorage.ltime;
+                if (_.ltime && reset.href === _.lplay) audio.currentTime = _.ltime;
             }
         }
         if (!just_popped) history.pushState(query, "", location.origin + path_prefix + query);
@@ -204,8 +203,9 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
         left: 50%;
         background: #111;
         padding: 1em;
-        max-height: calc(min(600px, calc(100% - 2em)));
+        max-height: calc(min(800px, calc(100% - 2em)));
         min-width: calc(min(450px, calc(100% - 2em)));
+        max-width: calc(min(600px, calc(100% - 2em)));
         box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
         opacity: .96;
     `;
@@ -243,7 +243,11 @@ window.addEventListener("keydown", ev => ev.key === "Escape" && cancel_popup(doc
 const img = (src, iframe=false) => {
     const img = $(iframe ? "iframe" : "img");
     img.src = src;
-    img.style.width = "420px";
+    img.style.height = "420px";
+    if (iframe) {
+        img.style.width = "100%";
+        img.style.background = "#cccc";
+    }
     img.style.borderRadius = "5px";
     const i = src.lastIndexOf("/");
     popup(img, src.substring(i + 1));
@@ -251,7 +255,7 @@ const img = (src, iframe=false) => {
 const update_link = window.navigate = (to) => {
     queued = to ? to : get_first_anchor();
     if (!queued || !queued.href) return;
-    localStorage.lplay = queued.href;
+    _.lplay = queued.href;
     const link = queued.href;
     const info = file_info(link);
     if (info.name.length === 0 || !mime[info.ext]) {
@@ -259,11 +263,12 @@ const update_link = window.navigate = (to) => {
         btn.click(); return;
     }
     portal.src = link;
-    if (link.includes("/media/") || types[info.ext]) {
+    const ifm = types[info.ext];
+    if (ifm) playlist.push(queued);
+    if (ifm || link.includes("/media/")) {
         portal.insertAdjacentElement("afterend", audio);
         portal.remove();
-        if (link.includes(".jpg")) return img(link);
-        if (link.includes(".txt")) return img(link, true);
+        if (!ifm) return img(link, !link.includes(".jpg"));
         audio.src = link;
         np = query;
         const descriptor = describe(info);
@@ -285,22 +290,11 @@ for (const path of paths) {
         break;
     }
 }
-if (pathname.length > 0) {
-        term.value = pathname;
-        btn.click();
-} else if (localStorage.llocation) {
-    term.value = localStorage.llocation;
-    btn.click();
-}
+term.value = (pathname.length ? pathname : _.ldir) ?? "";
+btn.click();
 const frame_handler = (e) => {
     e.preventDefault();
-    const c = e.target.children;
-    const u = (l) => {
-        playlist.push(l);
-        update_link(l);
-    };
-    if (e.target.href) u(e.target);
-    if (c.length && c[0].href) u(c[0]);
+    update_link(e.target.href ? e.target : e.target.children[0]);
 };
 frame.onclick = frame_handler;
 export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
@@ -370,10 +364,11 @@ const init_browser = (link, display) => {
     const player = $("div");
     player.className = "player";
     prev.onclick = () => {
-        let entry = playlist.pop();
-        if (!entry) return;
-        if (entry.href === audio.src) entry = playlist.pop();
-        if (entry) update_link(entry);
+        const entry = playlist.pop();
+        if (entry) {
+            if (entry.href === queued.href) return queueMicrotask(() => prev.click());
+            update_link(entry);
+        }
     };
     next.onclick = next_queued;
     prev.textContent = "↩";
@@ -483,10 +478,10 @@ const shortcuts = {
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
     "l": ["Find lyrics (may fail)", () => find_lyrics(audio.src)],
-    ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Enter your search term here:"))],
+    ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Search for lyrics:"))],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go back a directory", () => back.click()],
-    "?": ["Bring up this help menu", toggle_shortcuts]
+    "?": ["Bring up help menu", toggle_shortcuts]
 };
 export const eval_keypress = (ev, s=shortcuts) => {
     if (document.activeElement === term) return;
@@ -510,4 +505,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels::Directory Viewer");
+console.info("fakels::Directory Viewer (find.js) [v2.2.3]");
