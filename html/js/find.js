@@ -467,7 +467,7 @@ const find_lyrics = (src) => {
     }
     api("m", dir, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
 };
-window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(mel?.src || "None"))))}</i>`);
+window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(mel?.src || "silence."))))}</i>`);
 const shortcuts = {
     "Now-Playing": ["None", () => mref.click()],
     " ": ["Play/pause", ev => ev.target !== mel ? (mel.paused ? mel.play() : mel.pause()) : void 0],
