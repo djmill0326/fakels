@@ -86,5 +86,6 @@ export const main = (client=true) => {
         main.id = "dyn";
         document.body.append(main);
     }
+    requestIdleCallback(() => document.body.style.visibility = "visible");
     return main;
 };

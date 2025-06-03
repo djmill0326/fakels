@@ -36,6 +36,11 @@ span:nth-child(2) {
     position: relative;
 }
 
+.player > span {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 .popup {
     background: #111;
     padding: 1em;
