@@ -136,7 +136,7 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             frame.replaceWith(fresh);
             frame = fresh;
         }
-    }, status_obj(`flattening (${root}`));
+    }, status_obj(`flattened root (${root}`));
 };
 const b = () => requestIdleCallback(() => {
     const t = parseFloat(_.ltime); 
