@@ -2,7 +2,7 @@
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { base, make } from "./mediatype.js";
-import $, { _, id } from "./l.js";
+import $, { _, boundBox, id } from "./l.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -74,7 +74,8 @@ const next_queued = () => {
 };
 const re = el => {
     el.onplaying = () => document.title = extract_title(file_info(queued?.href).name);
-    el.ontimeupdate = () =>_.ltime = mel.currentTime;
+    el.ontimeupdate = () => _.ltime = el.currentTime;
+    el.onvolumechange = () => _.lvol = el.volume;
     el.onended = next_queued;
     return el;
 };
@@ -140,7 +141,10 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
 const b = () => requestIdleCallback(() => {
     const t = parseFloat(_.ltime); 
     if (!mel.buffered.length || mel.buffered.end(0) < t) b();
-    else mel.currentTime = t;
+    else {
+        mel.currentTime = t;
+        mel.volume = parseFloat(_.lvol ?? 0);
+    }
 });
 form.onsubmit = (e) => {
     update_status();
@@ -191,20 +195,13 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     const wrapper = $("div");
     wrapper.className = "popup";
     wrapper.style = popup_savestate.get(title.toLowerCase()) ?? `
-        display: flex;
-        flex-direction: column;
-        position: fixed;
         transform: translate(-50%, -50%);
         top: 50%;
         left: 50%;
-        background: #111;
-        padding: 1em;
-        max-height: calc(min(800px, calc(100% - 2em)));
-        min-width: calc(min(450px, calc(100% - 2em)));
-        max-width: calc(min(600px, calc(100% - 2em)));
-        box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
-        opacity: .96;
+        display: flex;
+        flex-direction: column;
     `;
+    boundBox(wrapper, "2em", "450px", "600px", null, "800px");
     wrapper.dataset.title = title;
     const bar = $("div");
     bar.style = `

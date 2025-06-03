@@ -5,7 +5,7 @@ export default function(tag) {
 }
 
 export function id(tag) {
-    return document.getElementById(tag)
+    return document.getElementById(tag);
 }
 
 HTMLElement.prototype.c = HTMLElement.prototype.getElementsByClassName;
@@ -18,3 +18,10 @@ HTMLElement.prototype.scrollToEl = function(el) {
     if (i && i !== -1) this.scrollTop = el.offsetTop + 1 - m.slice(0, i);
     else this.scrollTop = el.offsetTop;
 };
+
+export function boundBox(el, gutter, minW, maxW, minH, maxH) {
+    if(minW) el.style.minWidth  = `min(100% - ${gutter}, ${minW})`;
+    if(maxW) el.style.maxWidth  = `min(100% - ${gutter}, ${maxW})`;
+    if(minH) el.style.minHeight = `min(100% - ${gutter}, ${minH})`;
+    if(maxH) el.style.maxHeight = `min(100% - ${gutter}, ${maxH})`;
+}

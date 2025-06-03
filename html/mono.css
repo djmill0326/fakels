@@ -36,6 +36,25 @@ span:nth-child(2) {
     position: relative;
 }
 
+.popup {
+    background: #111;
+    padding: 1em;
+    box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
+    opacity: .96;
+    position: fixed;
+}
+
+.bar {
+    * {
+        user-select: auto;
+    }
+    &:first-child {
+        min-height: calc(4em/3);
+        word-break: break-all;
+        overflow-x: hidden;
+    }
+}
+
 [data-title="Shortcuts"] {
     li {
         > :first-child {
@@ -53,16 +72,5 @@ span:nth-child(2) {
             font-family: monospace;
             line-height: 1.5em;
         }
-    }
-}
-
-.bar {
-    * {
-        user-select: auto;
-    }
-    &:first-child {
-        min-height: calc(4em/3);
-        word-break: break-all;
-        overflow-x: hidden;
     }
 }
