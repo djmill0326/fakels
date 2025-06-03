@@ -1,4 +1,4 @@
-/* fakels (Directory Viewer) [v2.2.6] */
+/* fakels (Directory Viewer) [v2.2.8] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { base, make } from "./mediatype.js";
@@ -267,7 +267,7 @@ const update_link = window.navigate = (to) => {
         mel.src = link;
         np = query;
         const descriptor = describe(info);
-        console.log("[fakels/info]", `user selected: ${extract_title(descriptor)}\n[(file-info)] ${descriptor}`);
+        console.log("[fakels/info]", `user selected: ${extract_title(descriptor)}\n (file/info)  ${descriptor}`);
         update_media(link, descriptor);
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
@@ -504,4 +504,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels (Directory Viewer) [v2.2.6]");
+console.info("fakels (Directory Viewer) [v2.2.8]");
