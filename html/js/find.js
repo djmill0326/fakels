@@ -1,5 +1,5 @@
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "in", "by", "of", "at", "to"]);
-/* fakels (Directory Viewer) [v2.3.1] */
+/* fakels (Directory Viewer) [v2.4.0] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.js";
@@ -504,4 +504,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels (Directory Viewer) [v2.3.1]");
+console.info("fakels (Directory Viewer) [v2.4.0]");
