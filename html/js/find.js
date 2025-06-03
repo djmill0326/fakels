@@ -1,8 +1,9 @@
+export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "in", "by", "of", "at", "to"]);
 /* fakels (Directory Viewer) [v2.3.1] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
-import types, { base, make } from "./mediatype.js";
-import $, { _, boundBox, id } from "./l.js";
+import types, { make } from "./mediatype.js";
+import $, { _, id, boundBox, join } from "./l.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -181,15 +182,15 @@ form.onsubmit = (e) => {
 };
 import { draggable } from "./drag.js";
 const popup_savestate = new Map();
-let active_popup;
+let poppedup;
 export const popup = window.popup = (el, title, patch=_el=>{}) => {
-    if (active_popup) {
+    if (poppedup) {
         popup_savestate.set(
-            active_popup.dataset.title.toLowerCase(), 
-            active_popup.style.cssText
+            poppedup.dataset.title.toLowerCase(), 
+            poppedup.style.cssText
         );
-        active_popup.remove();
-        active_popup = null;
+        poppedup.remove();
+        poppedup = null;
     }
     if (!el) { update_status(); return; };
     const wrapper = $("div");
@@ -222,15 +223,15 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     wrapper.append(bar, el);
     wrapper.qa("h3").forEach(h => h.style = "margin: 4px 0");
     const link = "url('https://tinyurl.com/yx2wvxyn')";
-    const selector = `[style="background-image: ${link}]`;
+    const selector = `[style="background: ${link}]`;
     const a = selector + '"]', b = selector + ';"]';
     [...Array.from(wrapper.qa(a)), ...Array.from(wrapper.qa(b)), Array.from(wrapper.c(link))].forEach(b => b.onclick = () => alert("go fuck yourself"));
     document.body.append(draggable(wrapper));
-    active_popup = wrapper;
+    poppedup = wrapper;
     update_status();
     patch(el);
 };
-const cancel_popup = ev => active_popup && !active_popup.contains(ev.target) && popup(null);
+const cancel_popup = ev => poppedup && !poppedup.contains(ev.target) && popup(null);
 window.addEventListener("mouseup", cancel_popup);
 window.addEventListener("keydown", ev => ev.key === "Escape" && cancel_popup(document.body));
 const img = (src, iframe=false) => {
@@ -248,11 +249,10 @@ const img = (src, iframe=false) => {
 const update_link = window.navigate = (to) => {
     queued = to ? to : get_first_anchor();
     if (!queued || !queued.href) return;
-    _.lplay = queued.href;
-    const link = queued.href;
+    const link = _.lplay = queued.href = join(decodeURI(queued.href));
     const info = file_info(link);
     if (info.name.length === 0 || !mime[info.ext]) {
-        term.value = decodeURI(link.split("%20/")[1]);
+        term.value = link.split(" /")[1];
         btn.click(); return;
     }
     portal.src = link;
@@ -304,7 +304,6 @@ export const is_numeric_ascii = s => {
     }
     return true;
 };
-const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "in", "by", "of", "at", "to"]);
 export const capitalize = text => text.split(".").map(s => s.split(" ").filter(w => w.length).map((word, i) => {
     if (i && conjunction_junction.has(word)) return word;
     return word[0].toUpperCase() + word.slice(1);
@@ -393,9 +392,9 @@ const init_browser = (link, display) => {
         update: (link, display) => {
             mref.innerHTML = html(extract_title(display));
             mref.dataset.src = link;
-            const title = active_popup?.firstElementChild;
+            const title = poppedup?.firstElementChild;
             if (!(title && title.firstElementChild.textContent.includes("Shortcuts"))) return;
-            active_popup.children[1].firstElementChild.children[1].innerHTML = `<i>${mref.innerHTML}</i>`;
+            poppedup.children[1].firstElementChild.children[1].innerHTML = `<i>${mref.innerHTML}</i>`;
         },
         remove: () => {
             player.remove();
@@ -409,10 +408,11 @@ const update_media = (link, display) => {
     else init_browser(link, display);
 };
 const load_art = () => {
-    const link = 
-        frame.q("[href*='/cover.']") ?? 
-        frame.q("[href*='/art.']") ??
-        frame.q("[href*='/folder.']");
+    const link = frame.q(`
+        [href*='/cover.' i], 
+        [href*='/art.' i], 
+        [href*='/folder.' i]`
+    );
     link && img(link.href);
 };
 const get_lyrics = (query, o) => {

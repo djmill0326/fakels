@@ -6,7 +6,8 @@ export default Object.seal({
     mp3: mime.mp3,
     m4a: mime.m4a,
 });
-export const base = Object.seal({
+
+const base = Object.seal({
     mp4: "video",
     fallback: "audio"
 });

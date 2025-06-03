@@ -1,3 +1,4 @@
+// choo choo.
 export const _ = localStorage;
 
 export default function(tag) {
@@ -24,4 +25,27 @@ export function boundBox(el, gutter, minW, maxW, minH, maxH) {
     if(maxW) el.style.maxWidth  = `min(100% - ${gutter}, ${maxW})`;
     if(minH) el.style.minHeight = `min(100% - ${gutter}, ${minH})`;
     if(maxH) el.style.maxHeight = `min(100% - ${gutter}, ${maxH})`;
+}
+
+export function join(...x) {
+    const path = x.join("/").replace(/[—\\\/]+/g, "/");
+    const tok = path.indexOf(":/") + 2;
+    const out = path[0] === "/" ? ["/"] : [];
+    let last = 0;
+    let dots = 0;
+    if (tok !== 1) {
+        out.push(path.slice(0, tok));
+        last = tok;
+    }
+    for (let i = 0; i < path.length; i++) {
+        const c = path[i];
+        if (c === "/") {
+            if (dots === 0) out.push(path.slice(last, i));
+            else if (dots === 2) out.pop();
+            last = i;
+            dots = 0;
+        } else if (c === "." && (dots === 1 || path[i - 1] === "/")) ++dots;
+    }
+    if (last !== path.length - 1) out.push(path.slice(last, path.length));
+    return out.join("");
 }
