@@ -1,4 +1,4 @@
-/* fakels (Directory Viewer) [v2.2.9] */
+/* fakels (Directory Viewer) [v2.3.1] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { base, make } from "./mediatype.js";
@@ -504,4 +504,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels (Directory Viewer) [v2.2.9]");
+console.info("fakels (Directory Viewer) [v2.3.1]");
