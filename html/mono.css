@@ -45,7 +45,7 @@ span:nth-child(2) {
     background: #111;
     padding: 1em;
     box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
-    opacity: .96;
+    opacity: .969;
     position: fixed;
 }
 
