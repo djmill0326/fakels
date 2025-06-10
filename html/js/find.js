@@ -1,5 +1,5 @@
+/* fakels (Directory Viewer) [v2.4.1] */
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "in", "by", "of", "at", "to"]);
-/* fakels (Directory Viewer) [v2.4.0] */
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.js";
@@ -135,7 +135,7 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             list.append(...found.values());
             fresh.append(label, list);
             frame.replaceWith(fresh);
-            frame = fresh;
+            frame = fresh, found.clear();
         }
     }, status_obj(`flattened root (${root}`));
 };
@@ -315,7 +315,7 @@ const swaps = {
     Sun_: "Sun?",
     Shit_: "Shit:",
     Tweekers: "Tweakers",
-    "One Smart": "Some Smart",
+    "One Sm": "Some Sm",
     "Thought I K": "K",
     "new You": "new U",
     [n("er")]: n("a"),
@@ -334,7 +334,7 @@ export const extract_title = text => {
       )
       .filter(s => s.length)
       .join("-")
-      .replaceAll(ignored, "")
+      .replace(ignored, "")
     );
 };
 let label_idx = 0;
@@ -419,7 +419,7 @@ const get_lyrics = (query, o) => {
     api("l", query, null, html => {
         const el = $("section");
         el.innerHTML = html.replace("and a s", "in a s").replace(/\bpeak\b/g, "peek");
-        popup(el, `Lyrics for [i]${ o.artist && o.title ? `${o.artist} - ${o.title}` : query }[/i]`);
+        popup(el, `Lyrics for [i]${ o?.artist && o.title ? `${o.artist} - ${o.title}` : query }[/i]`);
         active_lyrics = o.src;
     }, status_obj(`lyrics for '${query}'`), null, true);
 }
@@ -504,4 +504,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels (Directory Viewer) [v2.4.0]");
+console.info("fakels (Directory Viewer) [v2.4.1]");

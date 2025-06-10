@@ -25,7 +25,6 @@ footer {
 }
 
 span:nth-child(2) {
-    margin-left: .3em;
     min-width: 0; 
     flex-grow: 1;
     display: flex;
@@ -36,9 +35,23 @@ span:nth-child(2) {
     position: relative;
 }
 
-.player > span {
+.player, .player span, li {
+    gap: 5px;
+}
+
+.player span {
     display: flex;
     flex-wrap: nowrap;
+    align-items: center;
+}
+
+.player > :not(:nth-child(2)), button {
+    flex-shrink: 0;
+}
+
+.player button {
+    width: 2em;
+    height: 2em;
 }
 
 .popup {
@@ -67,6 +80,7 @@ span:nth-child(2) {
         }
         > :last-child {
             justify-content: end;
+            text-align: end;
         }
         &:first-child {
             font-weight: bold;
