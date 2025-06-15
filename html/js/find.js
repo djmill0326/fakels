@@ -1,4 +1,4 @@
-/* fakels (Directory Viewer) [v2.4.1] */
+/* find.js - fakels (Directory Viewer) [v2.4.2] */
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "in", "by", "of", "at", "to"]);
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
@@ -64,7 +64,7 @@ const next_anchor = (a, looping=true) => {
     if (!verify_anchor(next)) return;
     const info = file_info(next.href);
     if (!types[info.ext]) return next_anchor(next, looping);
-    if (browser.update) console.log("[fakels/info]", `next: ${describe(info)}}`);
+    if (browser.update) console.log("[fakels/media]", `up next: ${describe(info)}}`);
     return queued = next;
 };
 import shuffler from "./shuffle.js";
@@ -267,7 +267,7 @@ const update_link = window.navigate = (to) => {
         mel.src = link;
         np = query;
         const descriptor = describe(info);
-        console.log("[fakels/info]", `user selected: ${extract_title(descriptor)}\n (file/info)  ${descriptor}`);
+        console.log("[fakels/media]", `selected: ${extract_title(descriptor)}\n (file/info)  ${descriptor}`);
         update_media(link, descriptor);
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
@@ -314,7 +314,6 @@ const swaps = {
     usa: "USA",
     Sun_: "Sun?",
     Shit_: "Shit:",
-    Tweekers: "Tweakers",
     "One Sm": "Some Sm",
     "Thought I K": "K",
     "new You": "new U",
@@ -504,4 +503,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels (Directory Viewer) [v2.4.1]");
+console.info("fakels (Directory Viewer) [v2.4.2]");

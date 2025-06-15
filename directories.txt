@@ -666,51 +666,7 @@ html\media\ssdl\Locations\Astro Lounge\CD Player (5x2 Platter)\CD 5 Live in Seat
 html\media\ssdl\Locations\Astro Lounge\CD Player (5x2 Platter)\CD 5 Live in Seattle\In Utero, Disc 5.cue
 html\media\ssdl\Locations\Astro Lounge\CD Player (5x2 Platter)\CD 5 Live in Seattle\Nirvana - In Utero (Disc 5) [30th Anniversary Super Deluxe] Live In Seattle-Bonus Live 1993,1994.log
 html\media\ssdl\Locations\Cedar Point (Waterpark)
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 01 - 11-11 (FLAC 1029 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 02 - Blonde (FLAC 1083 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 03 - Peach (Lobotomy) (FLAC 1042 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 04 - We Need to Talk (FLAC 950 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 05 - Not Warriors (FLAC 1072 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 06 - Lucky People (FLAC 948 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 07 - Rare (FLAC 1033 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 08 - TANTRUM (FLAC 1009 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 09 - Crybaby (FLAC 953 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Entertainment (2018)\Waterparks - Entertainment - 10 - Sleep Alone (FLAC 1029 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 01 - Cherry Red (FLAC 971 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 02 - Watch What Happens Next (FLAC 1103 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 03 - Dream Boy (FLAC 1086 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 04 - Easy to Hate (FLAC 1087 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 05 - High Definition (FLAC 839 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 06 - Telephone (FLAC 1008 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 07 - Group Chat (FLAC 514 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 08 - Turbulent (FLAC 983 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 09 - Never Bloom Again (FLAC 912 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 10 - I Miss Having Sex but at Least I Don’t Wanna Die Anymore (FLAC 1045 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 11 - War Crimes (FLAC 997 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 12 - [Reboot] (FLAC 989 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 13 - Worst (FLAC 945 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 14 - Zone Out (FLAC 733 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\FANDOM (2019)\Waterparks - FANDOM - 15 - I Felt Younger When We Met (FLAC 949 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 01 - Greatest Hits (FLAC 844 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 02 - Fuzzy (FLAC 988 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 03 - Lowkey as Hell (FLAC 983 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 04 - Numb (FLAC 1130 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 05 - Violet! (FLAC 998 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 06 - Snow Globe (FLAC 1011 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 07 - Just Kidding (FLAC 933 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 08 - The Secret Life of Me (FLAC 1050 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 09 - American Graffiti (FLAC 1100 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 10 - You’d Be Paranoid Too (If Everyone Was Out to Get You) (FLAC 1053 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 11 - Fruit Roll Ups (FLAC 956 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 12 - LIKE IT (FLAC 1099 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 13 - Gladiator (interlude) (FLAC 945 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 14 - Magnetic (FLAC 1037 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 15 - Crying Over It All (FLAC 977 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 16 - Ice Bath (FLAC 893 kbps).flac
-html\media\ssdl\Locations\Cedar Point (Waterpark)\Greatest Hits (2021)\Waterparks - Greatest Hits - 17 - See You in the Future (FLAC 1016 kbps).flac
+html\media\ssdl\Locations\Cedar Point (Waterpark)\Waterparks - FANDOM - 08 - Turbulent (FLAC 983 kbps).flac
 html\media\ssdl\Locations\Humboldt '04
 html\media\ssdl\Locations\Humboldt '04\The Pharcyde - Humboldt Beginnings - 01 - Homegrown (O'Jeke Says).flac
 html\media\ssdl\Locations\Humboldt '04\The Pharcyde - Humboldt Beginnings - 02 - The Uh-Huh.flac
