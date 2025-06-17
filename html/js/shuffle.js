@@ -1,4 +1,4 @@
-import { file_info } from "./find.js";
+import { get_info } from "./find.js";
 import types from "./mediatype.js";
 export default function shuffler() {
     const swapped = new Set();
@@ -7,7 +7,7 @@ export default function shuffler() {
         shuffle(a, f=frame) {
             if (a.parentElement.parentElement !== previous_root) swapped.clear();
             previous_root = a.parentElement.parentElement;
-            const list = Array.from(f.children[1].children).filter(e => types[file_info(e.firstElementChild.href).ext]);
+            const list = Array.from(f.children[1].children).filter(e => types[get_info(e.firstElementChild.href).ext]);
             let i = 0;
             const select = (j=0) => {
                 if (j === list.length - 1) return i = null;

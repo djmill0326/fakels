@@ -1,9 +1,7 @@
-@import url(https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap);
-
 * {
     box-sizing: border-box;
-    --gradient: linear-gradient(135deg, rgba(160,60,180,1) 0%, rgba(240,32,64,1) 50%, rgba(255,221,69,1) 100%);
-    --font: "Open Sans", system-ui, sans-serif;
+    --gradient: linear-gradient(222deg, rgba(160,60,180,1) 0%, rgba(240,32,64,1) 50%, rgba(255,221,69,1) 100%);
+    --font: system-ui, serif;
     color: #ccc;
     user-select: none;
 }

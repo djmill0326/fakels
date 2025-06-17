@@ -1,4 +1,4 @@
-/* find.js - fakels (Directory Viewer) [v2.4.2] */
+/* fakels (Directory Viewer) [v2.5.0] */
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "in", "by", "of", "at", "to"]);
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
@@ -35,10 +35,10 @@ export const html = text => text
   .replaceAll("-", "<i>-</i>")
   .replaceAll("[i]", "<i>")
   .replaceAll("[/i]", "</i>");
-export const file_info = (link = "50x.html") => {
+export const get_info = (link = "50x.html") => {
     const split = link.split("/");
-    const file = decodeURI(split[split.length - 1]);
-    const [name, ext] = splitEnd(file, ".");
+    const uri = decodeURI(split[split.length - 1]);
+    const [name, ext] = splitEnd(uri, ".");
     if (ext) {
         return { name, ext };
     } else return { name };
@@ -62,9 +62,9 @@ const next_anchor = (a, looping=true) => {
         else return;
     } else next = ne.children[0];
     if (!verify_anchor(next)) return;
-    const info = file_info(next.href);
+    const info = get_info(next.href);
     if (!types[info.ext]) return next_anchor(next, looping);
-    if (browser.update) console.log("[fakels/media]", `up next: ${describe(info)}}`);
+    if (browser.update) console.log("[fakels/media]", `up next: ${info.name}`);
     return queued = next;
 };
 import shuffler from "./shuffle.js";
@@ -74,7 +74,7 @@ const next_queued = () => {
     update_link(shuffling ? shuffle(queued) : next_anchor(queued, true));
 };
 const re = el => {
-    el.onplaying = () => document.title = extract_title(file_info(queued?.href).name);
+    el.onplaying = () => document.title = extract_title(get_info(queued?.href).name);
     el.ontimeupdate = () => _.ltime = el.currentTime;
     el.onvolumechange = () => _.lvol = el.volume;
     el.onended = next_queued;
@@ -121,7 +121,7 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
         for (let i = 0; i < list.length; i++) {
             const li = list[i];
             const a = li.children[0];
-            const info = file_info(a.href);
+            const info = get_info(a.href);
             if (!info.name || !mime[info.ext]) find_recursive(root + info.ext + "/", count);
             else if (!found.has(a.href)) found.set(a.href, li);
         }
@@ -147,20 +147,21 @@ const b = () => requestIdleCallback(() => {
         mel.volume = parseFloat(_.lvol ?? 0);
     }
 });
+const nav = q => history.pushState(q, "", location.origin + path_prefix + q.slice(0, -1));
 form.onsubmit = (e) => {
     update_status();
     back.disabled = false;
     e.preventDefault();
     const wildcard = term.value.indexOf("*");
     const dir = term.value.slice(0, wildcard);
-    if (wildcard !== -1) {
-        find_recursive(`/${dir}`);
-        return;
-    }
     const v = _.ldir = term.value;
     query = ((v[0] === "/" ? "" : "/") + v + (v.length ? "/" : "")).replace(/[\/\\]+/g, "/");
     back.checked = query.replace("/", "").length;
     btn.onclick();
+    if (wildcard !== -1) {
+        find_recursive(`/${dir}`);
+        return nav(query);
+    }
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
     api("ls", query, frame, () => {
         if (query === "link") return;
@@ -176,7 +177,7 @@ form.onsubmit = (e) => {
                 if (_.ltime && reset.href === _.lplay) b();
             }
         }
-        if (!just_popped) history.pushState(query, "", location.origin + path_prefix + query);
+        if (!just_popped) nav(query);
         just_popped = false;
     }, status_obj(`directory ${query}`));
 };
@@ -250,7 +251,7 @@ const update_link = window.navigate = (to) => {
     queued = to ? to : get_first_anchor();
     if (!queued || !queued.href) return;
     const link = _.lplay = queued.href = join(decodeURI(queued.href));
-    const info = file_info(link);
+    const info = get_info(link);
     if (info.name.length === 0 || !mime[info.ext]) {
         term.value = link.split(" /")[1];
         btn.click(); return;
@@ -267,7 +268,7 @@ const update_link = window.navigate = (to) => {
         mel.src = link;
         np = query;
         const descriptor = describe(info);
-        console.log("[fakels/media]", `selected: ${extract_title(descriptor)}\n (file/info)  ${descriptor}`);
+        console.log("[fakels/media]", `'${extract_title(descriptor)}' has been queued.\n(get_info/out) ${descriptor}`);
         update_media(link, descriptor);
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
@@ -466,7 +467,7 @@ const find_lyrics = (src) => {
     }
     api("m", dir, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
 };
-window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(file_info(mel?.src || "silence."))))}</i>`);
+window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(get_info(mel?.src || "silence."))))}</i>`);
 const shortcuts = {
     "Now-Playing": ["None", () => mref.click()],
     " ": ["Play/pause", ev => ev.target !== mel ? (mel.paused ? mel.play() : mel.pause()) : void 0],
@@ -475,9 +476,9 @@ const shortcuts = {
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
     "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src)],
-    ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Search for lyrics:"))],
+    ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Lyrics query:"))],
     "t": ["Toggle status bar", toggle_status],
-    "b": ["Go back a directory", () => back.click()],
+    "b": ["Go up a directory", () => back.click()],
     "?": ["Bring up this help menu", toggle_shortcuts]
 };
 export const eval_keypress = (ev, s=shortcuts) => {
@@ -503,4 +504,4 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels (Directory Viewer) [v2.4.2]");
+console.info("fakels (Directory Viewer) [v2.5.0]");

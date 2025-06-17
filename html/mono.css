@@ -1,5 +1,6 @@
 #back {
-    filter: hue-rotate(-31.5deg) brightness(1.52);
+    -moz-filter: hue-rotate(-31.5deg) brightness(1.52);
+    filter: none;
 }
 
 #el1 {
@@ -92,4 +93,8 @@ span:nth-child(2) {
             line-height: 1.5em;
         }
     }
+}
+
+:root {
+    word-break: break-all;
 }
