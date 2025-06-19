@@ -8,7 +8,7 @@ const dir = process.cwd();
 console.info(`Starting Manager. Serving from ${dir}...`);
 let binding = "";
 const run = () => {
-    const p = fork("../../../../Root/adapter.js", [binding]);
+    const p = fork("../../../Root/adapter.js", [binding]);
     p.on("spawn", () => p.send("Hello, Adapter."));
     p.on("exit", () => setTimeout(run, 50));
     p.on("message", data => {

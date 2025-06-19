@@ -5,3 +5,8 @@ make remake ignore changes if the resultant element would have the same tag name
 radio friendly unit shifter (radio edit)
 
 success message that says "Navigate Successfully" (navigation succeeded in hilarious Indian Slinglish) it is also a suggestion or demand.
+
+low-medium / high / full quality:
+low-medium: 128kbps MP3, 96kbps AAC
+high: 320kbps MP3, 256kbps AAC
+full: FLAC

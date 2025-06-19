@@ -1,6 +1,5 @@
 #back {
-    -moz-filter: hue-rotate(-31.5deg) brightness(1.52);
-    filter: none;
+    filter: hue-rotate(-31.5deg) brightness(1.52);
 }
 
 #el1 {
@@ -56,10 +55,11 @@ span:nth-child(2) {
 }
 
 .popup {
-    background: #111;
+    backdrop-filter: blur(3em);
+    background: #111D;
     padding: 1em;
     box-shadow: 0 0 0 100vmax rgba(0,0,0,.5);
-    opacity: .969;
+    opacity: .96;
     position: fixed;
 }
 
@@ -67,7 +67,7 @@ span:nth-child(2) {
     * {
         user-select: auto;
     }
-    &:first-child {
+    :first-child {
         min-height: calc(4em/3);
         word-break: break-all;
         overflow-x: hidden;
@@ -86,11 +86,12 @@ span:nth-child(2) {
         &:first-child {
             font-weight: bold;
             a { font-style: normal }
-            span { text-decoration: underline }
+            span { text-decoration: underline; color: burlywood }
         }
         &:not(:first-child) a {
             font-family: monospace;
             line-height: 1.5em;
+            color: burlywood;
         }
     }
 }

@@ -7,16 +7,21 @@ function patch(attr) {
     return (x, y) => x === void 0 ? "" : `translate(calc(${xAttr} + ${x}px), calc(${yAttr} + ${y}px))`
 }
 
-export default function dragify(el) {
+export function draggable(el) {
+    const d = el.dataset;
+    if(d.drag) return;
     const s = el.style;
     const t_attr = s.transform;
     let translate = patch(t_attr);
     let t = [0, 0];
     el.addEventListener("mousedown", ev => {
         const l = ev.target;
-        if (!(l === el || l.classList.contains("bar"))) return;
+        if (!(l === el || l.classList.contains("bar")) || d.drag !== "enabled") return;
         const [x, y] = [ev.clientX, ev.clientY];
-        const move = ev => s.transform = translate(...(t = [ev.clientX - x, ev.clientY - y]));
+        const move = ev => {
+            if (d.drag !== "enabled" || !(ev.buttons & 1)) return cancel();
+            s.transform = translate(...(t = [ev.clientX - x, ev.clientY - y]));
+        }
         const cancel = () => {
             window.removeEventListener("mousemove", move);
             window.removeEventListener("mouseup", cancel);
@@ -27,5 +32,6 @@ export default function dragify(el) {
         window.addEventListener("mousemove", move);
         window.addEventListener("mouseup", cancel);
     });
+    el.dataset.drag = "enabled";
     return el;
 }

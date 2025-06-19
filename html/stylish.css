@@ -1,13 +1,13 @@
 * {
     box-sizing: border-box;
-    --gradient: linear-gradient(222deg, rgba(160,60,180,1) 0%, rgba(240,32,64,1) 50%, rgba(255,221,69,1) 100%);
+    --gradcols: rgba(160,60,180,1) 0%, rgba(240,32,64,1) 50%, rgba(255,221,69,1) 100%;
     --font: system-ui, serif;
     color: #ccc;
     user-select: none;
 }
 
 body {
-    background: var(--gradient);
+    background: linear-gradient(222deg, var(--gradcols));
     height: 100svh;
     display: flex;
     margin: 0;
@@ -124,7 +124,7 @@ a {
 }
 
 #frame a {
-    background: var(--gradient);
+    background: linear-gradient(111deg, var(--gradcols));
     background-clip: text;
     color: #ccc6;
     display: block;
@@ -170,6 +170,10 @@ button:active, #btn:active {
 
 .popup {
     border-radius: 5px;
+    .bar > button {
+        width: 24.667px;
+        height: 24.667px;
+    }
 }
 
 @media only screen and (max-width: 600px) {

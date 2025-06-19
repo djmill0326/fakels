@@ -181,7 +181,7 @@ form.onsubmit = (e) => {
         just_popped = false;
     }, status_obj(`directory ${query}`));
 };
-import { draggable } from "./drag.js";
+import dragify from "./drag.js";
 const popup_savestate = new Map();
 let poppedup;
 export const popup = window.popup = (el, title, patch=_el=>{}) => {
@@ -209,7 +209,6 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     bar.style = `
         margin-bottom: 5px;
         display: flex;
-        max-height: 1.5em;
     `;
     bar.className = "bar";
     const name = $("span");
@@ -227,7 +226,7 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     const selector = `[style="background: ${link}]`;
     const a = selector + '"]', b = selector + ';"]';
     [...Array.from(wrapper.qa(a)), ...Array.from(wrapper.qa(b)), Array.from(wrapper.c(link))].forEach(b => b.onclick = () => alert("go fuck yourself"));
-    document.body.append(draggable(wrapper));
+    document.body.append(dragify(wrapper));
     poppedup = wrapper;
     update_status();
     patch(el);
@@ -300,7 +299,7 @@ export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
 export const is_numeric_ascii = s => {
     for (let i = 0; i < s.length; i++) {
         const c = s.charCodeAt(i);
-        if (c === 32 || c === 45 || c === 46 || c === 59 || is_bracket(c)) continue;
+        if (c === 32 || c === 36 || c === 45 || c === 46 || c === 59 || is_bracket(c)) continue;
         if (c < 48 || c > 57) return;
     }
     return true;
@@ -316,10 +315,9 @@ const swaps = {
     Sun_: "Sun?",
     Shit_: "Shit:",
     "One Sm": "Some Sm",
-    "Thought I K": "K",
-    "new You": "new U",
     [n("er")]: n("a"),
-    [N("er")]: N("a")
+    [N("er")]: N("a"),
+    "Thought I Knew You": "Knew U",
 };
 const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
 export const extract_title = text => {
@@ -378,7 +376,7 @@ const init_browser = (link, display) => {
         const time = performance.now();
         if (prior.length > 2) {
             prior.shift();
-            if (time - prior[0] < 1000) toggle_status();
+            if (time - prior[0] < 1337) toggle_status();
         }
         prior.push(time);
     }
@@ -467,12 +465,13 @@ const find_lyrics = (src) => {
     }
     api("m", dir, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
 };
+window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(get_info(mel?.src || "silence."))))}</i>`);
 const shortcuts = {
     "Now-Playing": ["None", () => mref.click()],
-    " ": ["Play/pause", ev => ev.target !== mel ? (mel.paused ? mel.play() : mel.pause()) : void 0],
-    ".": ["Next entry", () => next.click()],
+    " ": ["Play/pause", toggle_playback],
     ",": ["Previous entry", () => prev.click()],
+    ".": ["Next entry", () => next.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
     "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src)],
