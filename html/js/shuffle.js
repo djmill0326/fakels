@@ -12,7 +12,7 @@ export default function shuffler() {
             const select = (j=0) => {
                 if (j === list.length - 1) return i = null;
                 const swap = Math.round(Math.random() * (list.length - 1));
-                if (swap === j || swapped.has(swap)) return () => select(j + 1);
+                if (/*swap === j || */swapped.has(swap)) return () => select(j + 1);
                 const tmp = list[j];
                 list[j] = list[swap];
                 list[swap] = tmp;

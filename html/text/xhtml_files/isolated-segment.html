@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://claude.ai/isolated-segment.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <style>/* Copyright (C) Microsoft Corporation. All rights reserved. */
+
+.msreadout-word-highlight:not(.msreadout-inactive-highlight) {
+    background: #ffff00 !important;
+    color: black !important;
+}
+
+.msreadout-line-highlight:not(.msreadout-inactive-highlight) {
+    background: #b2d6f3 !important;
+    color: black !important;
+}
+
+@media screen and (forced-colors: active) {
+    .msreadout-word-highlight:not(.msreadout-inactive-highlight) {
+        forced-color-adjust: none;
+        background-color: Highlight !important;
+        color: HighlightText !important;
+    }
+
+    .msreadout-line-highlight:not(.msreadout-inactive-highlight) {
+        forced-color-adjust: none;
+        background: yellow !important;
+        color: black !important;
+    }
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uLy4uLy4uL2Nzcy9yZWFkX291dF9sb3VkX3dlYi5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsOERBQThEOztBQUU5RDtJQUNJLDhCQUE4QjtJQUM5Qix1QkFBdUI7QUFDM0I7O0FBRUE7SUFDSSw4QkFBOEI7SUFDOUIsdUJBQXVCO0FBQzNCOztBQUVBO0lBQ0k7UUFDSSx5QkFBeUI7UUFDekIsc0NBQXNDO1FBQ3RDLCtCQUErQjtJQUNuQzs7SUFFQTtRQUNJLHlCQUF5QjtRQUN6Qiw2QkFBNkI7UUFDN0IsdUJBQXVCO0lBQzNCO0FBQ0oiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBDb3B5cmlnaHQgKEMpIE1pY3Jvc29mdCBDb3Jwb3JhdGlvbi4gQWxsIHJpZ2h0cyByZXNlcnZlZC4gKi9cclxuXHJcbi5tc3JlYWRvdXQtd29yZC1oaWdobGlnaHQ6bm90KC5tc3JlYWRvdXQtaW5hY3RpdmUtaGlnaGxpZ2h0KSB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZmZmZjAwICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogYmxhY2sgIWltcG9ydGFudDtcclxufVxyXG5cclxuLm1zcmVhZG91dC1saW5lLWhpZ2hsaWdodDpub3QoLm1zcmVhZG91dC1pbmFjdGl2ZS1oaWdobGlnaHQpIHtcclxuICAgIGJhY2tncm91bmQ6ICNiMmQ2ZjMgIWltcG9ydGFudDtcclxuICAgIGNvbG9yOiBibGFjayAhaW1wb3J0YW50O1xyXG59XHJcblxyXG5AbWVkaWEgc2NyZWVuIGFuZCAoZm9yY2VkLWNvbG9yczogYWN0aXZlKSB7XHJcbiAgICAubXNyZWFkb3V0LXdvcmQtaGlnaGxpZ2h0Om5vdCgubXNyZWFkb3V0LWluYWN0aXZlLWhpZ2hsaWdodCkge1xyXG4gICAgICAgIGZvcmNlZC1jb2xvci1hZGp1c3Q6IG5vbmU7XHJcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogSGlnaGxpZ2h0ICFpbXBvcnRhbnQ7XHJcbiAgICAgICAgY29sb3I6IEhpZ2hsaWdodFRleHQgIWltcG9ydGFudDtcclxuICAgIH1cclxuXHJcbiAgICAubXNyZWFkb3V0LWxpbmUtaGlnaGxpZ2h0Om5vdCgubXNyZWFkb3V0LWluYWN0aXZlLWhpZ2hsaWdodCkge1xyXG4gICAgICAgIGZvcmNlZC1jb2xvci1hZGp1c3Q6IG5vbmU7XHJcbiAgICAgICAgYmFja2dyb3VuZDogeWVsbG93ICFpbXBvcnRhbnQ7XHJcbiAgICAgICAgY29sb3I6IGJsYWNrICFpbXBvcnRhbnQ7XHJcbiAgICB9XHJcbn0iXSwic291cmNlUm9vdCI6IiJ9 */</style></head><body>// This script is copied from Segment's official snippet: https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/quickstart/
+    // With the following changes:
+    // 1. Removed the default analytics.load method so that we can rewrite the cdnHostname
+    // 2. Removed un-used methods form analytics.methods
+    <script type="text/javascript" async="" data-global-segment-analytics-key="analytics" src="./analytics.min.js.download"></script><script>
+      !(function () {
+        var i = "analytics",
+          analytics = (window[i] = window[i] || []);
+        if (!analytics.initialize)
+          if (analytics.invoked)
+            window.console &&
+              console.error &&
+              console.error("Segment snippet included twice.");
+          else {
+            analytics.invoked = !0;
+            analytics.methods = [
+              "identify",
+              "track",
+              "ready",
+            ];
+            analytics.factory = function (e) {
+              return function () {
+                if (window[i].initialized)
+                  return window[i][e].apply(window[i], arguments);
+                var n = Array.prototype.slice.call(arguments);
+                if (
+                  [
+                    "track",
+                    "identify",
+                  ].indexOf(e) > -1
+                ) {
+                  var c = document.querySelector("link[rel='canonical']");
+                  n.push({
+                    __t: "bpc",
+                    c: (c && c.getAttribute("href")) || void 0,
+                    p: location.pathname,
+                    u: location.href,
+                    s: location.search,
+                    t: document.title,
+                    r: document.referrer,
+                  });
+                }
+                n.unshift(e);
+                analytics.push(n);
+                return analytics;
+              };
+            };
+            for (var n = 0; n < analytics.methods.length; n++) {
+              var key = analytics.methods[n];
+              analytics[key] = analytics.factory(key);
+            }
+            analytics.SNIPPET_VERSION = "5.2.1";
+          }
+      })();
+    </script>
+    <script>
+      (function () {
+        // Debug logging function
+        function logDebug(message, ...args) {
+            console.debug("[IsolatedSegment]", message, ...args);
+        }
+
+        // Keep sending ready message until we get init response
+        let readyInterval = null;
+
+        // Create isolated segment object on window
+        window.isolatedSegment = {
+          initialized: false,
+          writeKey: null,
+          segmentCdnHost: null,
+
+          // Initialize the isolated segment instance
+          init: function(writeKey, segmentCdnHost) {
+            
+            logDebug("init called", {
+              writeKey: writeKey?.substring(0, 10) + "...",
+              segmentCdnHost,
+              alreadyInitialized: this.initialized,
+            });
+
+            if (this.initialized) {
+              logDebug("Already initialized, skipping");
+              return;
+            }
+
+            this.writeKey = writeKey;
+            this.segmentCdnHost = segmentCdnHost;
+
+            try {
+              logDebug("Loading analytics via analytics.js");
+
+              // Set custom CDN host if provided
+              if (segmentCdnHost) {
+                // Override the analytics.load function to use custom CDN
+                const originalLoad = window.analytics.load;
+                window.analytics.load = function(key, options) {
+                  const script = document.createElement("script");
+                  script.type = "text/javascript";
+                  script.async = true;
+                  script.setAttribute("data-global-segment-analytics-key", "analytics");
+                  script.src = "https://" + segmentCdnHost + "/analytics.js/v1/" + key + "/analytics.min.js";
+                  const firstScript = document.getElementsByTagName("script")[0];
+                  firstScript.parentNode.insertBefore(script, firstScript);
+                  window.analytics._loadOptions = options;
+                };
+              }
+              
+              // Configure analytics options
+              const loadOptions = {
+                integrations: {
+                  All: false,
+                  "Segment.io": false, // Disable default Segment destination
+                  "Facebook Pixel": true, // Enable FB Pixel destination
+                }
+              };
+
+              // Load analytics
+              window.analytics.load(writeKey, loadOptions);
+
+              this.initialized = true;
+              logDebug("Analytics loaded successfully", {
+                hasAnalytics: !!window.analytics,
+              });
+
+              // Clear the ready interval
+              if (readyInterval) {
+                clearInterval(readyInterval);
+                readyInterval = null;
+              }
+
+              // Send confirmation back to parent
+              this.sendMessage({
+                type: "segment_initialized",
+                success: true,
+              });
+            } catch (error) {
+              logDebug("Failed to initialize analytics", { error: error.message });
+              this.sendMessage({
+                type: "segment_initialized",
+                success: false,
+                error: error.message,
+              });
+            }
+          },
+
+          track: async function(event, properties, options) {
+            logDebug("track called", {
+              event,
+              properties,
+              initialized: this.initialized,
+              hasAnalytics: !!window.analytics,
+            });
+
+            if (!this.initialized || !window.analytics) {
+              logDebug("Track skipped - not initialized or no analytics");
+              return;
+            }
+            
+            await window.analytics.track(event, properties || {}, options || {});
+            logDebug("Track completed", { event });
+          },
+
+          identify: async function(userId, traits, options) {
+            logDebug("identify called", {
+              userId,
+              traits,
+              initialized: this.initialized,
+              hasAnalytics: !!window.analytics,
+            });
+
+            if (!this.initialized || !window.analytics) {
+              logDebug("Identify skipped - not initialized or no analytics");
+              return;
+            }
+            
+            await window.analytics.identify(userId, traits || {}, options || {});
+            logDebug("Identify completed", { userId });
+          },
+
+          // Send messages to parent window
+          sendMessage: function(data) {
+            // Only log sendMessage for non-ready messages after initialization
+            if (data.type !== "iframe_ready") {
+              logDebug("sendMessage called", { data });
+            }
+            if (window.parent && window.parent !== window) {
+              try {
+                window.parent.postMessage(
+                  {
+                    source: "isolated-segment",
+                    ...data,
+                  },
+                  "*"
+                );
+                if (data.type !== "iframe_ready") {
+                  logDebug("Message sent to parent", { type: data.type });
+                }
+              } catch (error) {
+                logDebug("Failed to send message to parent", { error });
+              }
+            }
+          }
+        };
+
+        // Listen for messages from parent
+        function handleMessage(event) {
+          logDebug("Message received from parent", {
+            origin: event.origin,
+            data: event.data,
+          });
+
+          const data = event.data;
+
+          if (data.target !== "isolated-segment") {
+            logDebug("Message not for isolated-segment, ignoring", {
+              target: data.target,
+            });
+            return;
+          }
+
+          logDebug("Processing message", { type: data.type });
+
+          switch (data.type) {
+            case "init":
+              // Don't log before init is called
+              window.isolatedSegment.init(
+                data.writeKey,
+                data.cdnHost,
+              );
+              break;
+
+            case "track":
+              logDebug("Handling track message", { event: data.event });
+              window.isolatedSegment.track(
+                data.event,
+                data.properties,
+                data.options
+              );
+              break;
+
+            case "identify":
+              logDebug("Handling identify message", { userId: data.userId });
+              window.isolatedSegment.identify(data.userId, data.traits);
+              break;
+
+            default:
+              logDebug("Unknown message type", { type: data.type });
+              break;
+          }
+        }
+
+        window.addEventListener("message", handleMessage);
+
+        function sendReadyMessage() {
+          logDebug("Sending iframe_ready message");
+          if (!window.isolatedSegment.initialized) {
+            window.isolatedSegment.sendMessage({
+              type: "iframe_ready",
+              timestamp: new Date().toISOString(),
+            });
+          } else if (readyInterval) {
+            clearInterval(readyInterval);
+            readyInterval = null;
+          }
+        }
+
+        // Notify parent that iframe is ready after DOM is loaded
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", function () {
+            sendReadyMessage();
+            // Keep sending every 500ms until initialized
+            readyInterval = setInterval(sendReadyMessage, 500);
+          });
+        } else {
+          // DOM is already loaded
+          sendReadyMessage();
+          // Keep sending every 500ms until initialized
+          readyInterval = setInterval(sendReadyMessage, 500);
+        }
+      })();
+    </script>
+  
+  
+    <h1 style="display: none">Isolated Segment</h1>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9536c3da4a340815',t:'MTc1MDU0MzA4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;" src="./saved_resource(1).html"></iframe>
+
+</body></html>

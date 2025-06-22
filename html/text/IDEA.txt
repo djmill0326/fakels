@@ -1,12 +1,19 @@
-add keypress interceptor for rpc.js
+—-fakels (find.js)-———————————————————————————————————————————————————————————-<
+-add keypress interceptor for rpc.js
 
-make remake ignore changes if the resultant element would have the same tag name, would enable true audio/video playback
+-make remake ignore changes if the resultant element would have the same tag name, would enable true audio/video playback
 
-radio friendly unit shifter (radio edit)
+-radio friendly unit shifter (radio edit) [edit=true]
 
-success message that says "Navigate Successfully" (navigation succeeded in hilarious Indian Slinglish) it is also a suggestion or demand.
+-success message that says "Navigate Successfully" (navigation succeeded in hilarious Indian Slinglish) it is also a suggestion or demand.
 
-low-medium / high / full quality:
-low-medium: 128kbps MP3, 96kbps AAC
-high: 320kbps MP3, 256kbps AAC
-full: FLAC
+-quality options:
+- low-medium / high / full quality:
+- low-medium: 128kbps MP3, 96kbps AAC
+- high: 320kbps MP3, 256kbps AAC
+- full: FLAC
+
+ask root and ask for host url, save it, JSON file
+
+—-Terminal-———————————————————————————————————————————————————————————————————-<
+-hi-res ping clock

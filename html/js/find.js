@@ -1,5 +1,5 @@
-/* fakels (Directory Viewer) [v2.5.2] */
-export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "in", "by", "of", "at", "to"]);
+console.info("fakels (Directory Viewer) [v2.5.3]");
+export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.js";
@@ -52,7 +52,7 @@ const get_first_anchor = () => {
         const a = list[0];
         if (!verify_anchor(a)) return;
         return a;
-    } catch (err) { console.info("wtf!", term.value) }
+    } catch (err) { console.warn("wtf!", term.value) }
 }
 const next_anchor = (a, looping=true) => {
     const ne = a.parentElement.nextElementSibling; let next;
@@ -64,7 +64,6 @@ const next_anchor = (a, looping=true) => {
     if (!verify_anchor(next)) return;
     const info = get_info(next.href);
     if (!types[info.ext]) return next_anchor(next, looping);
-    if (browser.update) console.log("[fakels/media]", `up next: ${info.name}`);
     return queued = next;
 };
 import shuffler from "./shuffle.js";
@@ -74,7 +73,7 @@ const next_queued = () => {
     update_link(shuffling ? shuffle(queued) : next_anchor(queued, true));
 };
 const re = el => {
-    el.onplaying = () => document.title = extract_title(get_info(queued?.href).name);
+    el.onplaying = () => document.title = extract_title(get_info(queued?.href));
     el.ontimeupdate = () => _.ltime = el.currentTime;
     el.onvolumechange = () => _.lvol = el.volume;
     el.onended = next_queued;
@@ -163,8 +162,12 @@ form.onsubmit = (e) => {
         return nav(query);
     }
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
+    console.debug("[fakels/debug]", "query", `'${query}'`);
     api("ls", query, frame, () => {
         if (query === "link") return;
+        console.log("[fakels/query]", "found", `'${query}'`);
+        if (!just_popped) nav(query);
+        just_popped = false;
         let reset;
         if (replay_slot) {
             reset = anchor_from_link(replay_slot);
@@ -177,8 +180,6 @@ form.onsubmit = (e) => {
                 if (_.ltime && reset.href === _.lplay) b();
             }
         }
-        if (!just_popped) nav(query);
-        just_popped = false;
     }, status_obj(`directory ${query}`));
 };
 import dragify from "./drag.js";
@@ -266,9 +267,9 @@ const update_link = window.navigate = (to) => {
         frame.lastElementChild.scrollToEl(queued.parentElement);
         mel.src = link;
         np = query;
-        const descriptor = describe(info);
-        console.log("[fakels/media]", `'${extract_title(descriptor)}' has been queued.\n(get_info/out) ${descriptor}`);
-        update_media(link, descriptor);
+        console.log("[fakels/media]", `'${extract_title(info)}' has been queued.\n`);
+        console.debug("[fakels/debug]", describe(info));
+        update_media(link, info);
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
         mel.remove();
@@ -297,16 +298,18 @@ const frame_handler = (e) => {
 frame.onclick = frame_handler;
 export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
 export const is_numeric_ascii = s => {
+    let b = 0;
     for (let i = 0; i < s.length; i++) {
         const c = s.charCodeAt(i);
-        if (c === 32 || c === 36 || c === 45 || c === 46 || c === 59 || is_bracket(c)) continue;
+        if (is_bracket(c)) { ++b; continue }
+        if (c === 32 || c === 36 || c === 45 || c === 46 || c === 59) continue;
         if (c < 48 || c > 57) return;
     }
-    return true;
+    return b % 2 === 0;
 };
-export const capitalize = text => text.split(".").map(s => s.split(" ").filter(w => w.length).map((word, i) => {
-    if (i && conjunction_junction.has(word)) return word;
-    return word[0].toUpperCase() + word.slice(1);
+export const capitalize = text => text.split(".").map((s, i) => s.split(" ").map((word, j) => {
+    if ((i + j) && conjunction_junction.has(word)) return word;
+    return (word[0] || "").toUpperCase() + word.slice(1);
 }).join(" ")).join(".");
 export const n = (s="a", c=0) => `${c?"N":"n"}igg${s}`, N = s => n(s, 1);
 const ignored = /(\(|\[)(explicit|clean)(\]|\))/gi;
@@ -314,16 +317,15 @@ const swaps = {
     usa: "USA",
     Sun_: "Sun?",
     Shit_: "Shit:",
-    "One Sm": "Some Sm",
+    Don_t: "Don't",
+    "One Smart": "Some Smart",
     [n("er")]: n("a"),
     [N("er")]: N("a"),
     "Thought I Knew You": "Knew U",
 };
 const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
-export const extract_title = text => {
-    const end = text.lastIndexOf("[");
-    return capitalize(text
-      .slice(0, end === -1 ? void 0 : end)
+export const extract_title = ({ name }) => {
+    return capitalize(name
       .split("-")
       .map(s => swap(s)
         .split(/[_ ]/g)
@@ -355,7 +357,7 @@ export const bundle = (...x) => {
 const prev = $("button");
 const next = $("button");
 const mref = $("a");
-const init_browser = (link, display) => {
+const init_browser = (link, info) => {
     const player = $("div");
     player.className = "player";
     prev.onclick = () => {
@@ -369,7 +371,7 @@ const init_browser = (link, display) => {
     prev.textContent = "↩";
     next.textContent = "↪";
     mref.dataset.src = decodeURI(link);
-    mref.innerHTML = html(document.title = extract_title(display));
+    mref.innerHTML = html(document.title = extract_title(info));
     let prior = [performance.now()];
     mref.onclick = () => {
         if(mel) mel.src = mel.src;
@@ -387,8 +389,8 @@ const init_browser = (link, display) => {
     );
     media.append(player);
     browser = {
-        update: (link, display) => {
-            mref.innerHTML = html(extract_title(display));
+        update: (link, info) => {
+            mref.innerHTML = html(extract_title(info));
             mref.dataset.src = link;
             const title = poppedup?.firstElementChild;
             if (!(title && title.firstElementChild.textContent.includes("Shortcuts"))) return;
@@ -401,9 +403,9 @@ const init_browser = (link, display) => {
         }
     };
 };
-const update_media = (link, display) => {
-    if (browser.update) browser.update(link, display);
-    else init_browser(link, display);
+const update_media = (link, info) => {
+    if (browser.update) browser.update(link, info);
+    else init_browser(link, info);
 };
 const load_art = () => {
     const link = frame.q(`
@@ -466,7 +468,7 @@ const find_lyrics = (src) => {
     api("m", dir, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
 };
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
-window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(describe(get_info(mel?.src || "silence."))))}</i>`);
+window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(get_info(mel?.src || "silence.")))}</i>`);
 const shortcuts = {
     "Now-Playing": ["None", () => mref.click()],
     " ": ["Play/pause", toggle_playback],
@@ -484,7 +486,7 @@ export const eval_keypress = (ev, s=shortcuts) => {
     if (document.activeElement === term) return;
     const shortcut = s[ev.key];
     if (shortcut) {
-        console.debug("[fakels/input]", `'${ev.key}'`, ...shortcut);
+        console.debug("[fakels/debug]", "input", `'${ev.key}'`, shortcut[0]);
         shortcut[1](ev);
         return false;
     }
@@ -503,4 +505,3 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
     el.append(label, text);
     return el;
 }));
-console.info("fakels (Directory Viewer) [v2.5.2]");

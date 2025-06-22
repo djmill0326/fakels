@@ -1,4 +1,4 @@
-import { dynamic_main, query_fetch, getheader } from "./hook.js";
+import { main, api, getheader } from "./hook.js";
 
 const init_port = await getheader("adapter-port");
 console.warn("detected adapter port:", init_port);
@@ -13,13 +13,13 @@ fetch(`${location.origin}/socket.io/socket.io.js`).then(res => res.text()).then(
             term.value = query;
             back.disabled = false;
             back.checked = query.replace("/", "").length;
-            query_fetch("ls", query, frame, null);
+            api("ls", query, frame, null);
         }
     });
 });
 
-const form = dynamic_main();
-const { back, term } = form.children;
+const form = main();
+const { back, term, btn } = form.children;
 
 const frame = document.getElementById("frame");
 let query;
@@ -51,6 +51,5 @@ frame.onclick = (e) => {
     if (c.length && c[0].href) u(c[0]);
 };
 
-window.addEventListener("keypress", ev => {
-    if (ev.key === "b") back.click();
-});
+// it works, hoe.
+window.addEventListener("keypress", ev => ({ b: back, Enter: btn })[ev.key]?.click());
