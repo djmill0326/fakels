@@ -1,4 +1,5 @@
-const isnumascii = (c, v, i) => c === 45 ? isnumascii(v.charCodeAt(i + 1), v, i + 1) : c === 46 || c > 47 && c < 58;
+const isnumascii = (v, i, c = v.charCodeAt(i)) => c === 45 ? isnumascii(v, i + 1) : c === 46 || c > 47 && c < 58;
+
 function take_template(v) {
     return (i, c) => {
         let numeric = "";
@@ -6,7 +7,7 @@ function take_template(v) {
         let j = i;
         for (; j < v.length; j++) {
             const c = v.charCodeAt(j);
-            if (isnumascii(c, v, j)) {
+            if (isnumascii(v, j)) {
                 if (str.length) break;
                 numeric += v[j];
             }
@@ -23,8 +24,7 @@ function take_generic(v) {
         let str = "";
         let j = i;
         for (; j < v.length; j++) {
-            const c = v.charCodeAt(j);
-            if (isnumascii(c, v, j)) break;
+            if (isnumascii(v, j)) break;
             str += v[j];
         }
         return [j, str];

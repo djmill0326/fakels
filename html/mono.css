@@ -1,3 +1,7 @@
+a {
+    color: #000;
+}
+
 #back {
     filter: hue-rotate(-31.5deg) brightness(1.52);
 }
@@ -97,5 +101,5 @@ span:nth-child(2) {
 }
 
 :root {
-    word-break: break-all;
+    word-break: auto-phrase;
 }

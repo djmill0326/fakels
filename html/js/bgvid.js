@@ -37,11 +37,12 @@ export function lerp_style(s, p, v, t=808) {
 export function enable(src) {
     if (!document.body.contains(video)) document.body.prepend(video);
     const newsrc = src ?? video.src;
-    if (!video.src.includes(newsrc)) video.src = newsrc;
-    video.play();
-    lerp_style(video.style, "opacity", 1/9);
+    const issame = video.src.includes(newsrc);
+    if (!issame) video.src = newsrc;
+    if (video.paused) video.play().then(() => lerp_style(video.style, "opacity", 1/9));
 }
 export function disable() {
+    if (video.paused) return;
     video.pause();
     lerp_style(video.style, "opacity", 0);
 }

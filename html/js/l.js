@@ -50,3 +50,13 @@ export function join(...x) {
     if (last !== path.length - 1) out.push(path.slice(last, path.length));
     return out.join("");
 }
+
+export const style = {
+    Centered: `
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        display: flex;
+        flex-direction: column;
+    `
+};

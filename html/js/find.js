@@ -1,9 +1,9 @@
-console.info("fakels (Directory Viewer) [v2.5.3]");
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
+console.info("fakels (Directory Viewer) [v2.5.4]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.js";
-import $, { _, id, boundBox, join } from "./l.js";
+import $, { _, id, boundBox, join, style } from "./l.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -80,7 +80,7 @@ const re = el => {
     return el;
 };
 let replay_slot = _.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
-export const anchor_from_link = (link, f=frame) => f.q(`ul > li > a[href="${link.split(".xyz")[1]}"]`);
+export const anchor_from_link = (link, f=frame) => f.q(`ul > li > a[href="${encodeURI(link.split(".xyz")[1])}"]`);
 let just_popped = false;
 window.onpopstate = (ev) => {
     term.value = ev.state;
@@ -100,11 +100,12 @@ const toggle_status = () => {
     if (is) status.remove();
     else document.body.append(status);
 }
-const clickable_status = (text, f, cursor) => `<a onclick='${f}()' style='color: #000; cursor: ${cursor}'>${text}</a>`;
+const statbtn = (text, f, cursor) => `<a onclick='${f}()' style='cursor: ${cursor}'>${text}</a>`;
 const update_status = () => {
     const segments = [
-        term.value.includes("media") ? clickable_status(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : "",
-        active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` : shortcut_ui.isConnected ? "" : clickable_status("Press '?' to browse help menu", "toggle_shortcuts", "help")
+        term.value.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
+        frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : "",
+        active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` : shortcut_ui.isConnected ? "" : statbtn("Press '?' for shortcuts.", "toggle_shortcuts", "help")
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
 }
@@ -147,6 +148,20 @@ const b = () => requestIdleCallback(() => {
     }
 });
 const nav = q => history.pushState(q, "", location.origin + path_prefix + q.slice(0, -1));
+const loaded = () => {
+    let reset;
+    if (replay_slot) {
+        reset = anchor_from_link(replay_slot);
+        replay_slot = null;
+    }
+    if (!reset) reset = get_first_anchor();
+    if (reset && reset.href) {
+        if (!queued) {
+            if (!update_link(reset)) return;
+            if (_.ltime && reset.href === _.lplay) b();
+        }
+    }
+};
 form.onsubmit = (e) => {
     update_status();
     back.disabled = false;
@@ -158,7 +173,11 @@ form.onsubmit = (e) => {
     back.checked = query.replace("/", "").length;
     btn.onclick();
     if (wildcard !== -1) {
-        find_recursive(`/${dir}`);
+        const c = { i: 0, expected: 0 };
+        find_recursive(`/${dir}`, c);
+        if (replay_slot) {
+            const i = setInterval(() => c.expected - c.i || clearInterval(i) || loaded(), 50);
+        }
         return nav(query);
     }
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
@@ -168,18 +187,7 @@ form.onsubmit = (e) => {
         console.log("[fakels/query]", "found", `'${query}'`);
         if (!just_popped) nav(query);
         just_popped = false;
-        let reset;
-        if (replay_slot) {
-            reset = anchor_from_link(replay_slot);
-            replay_slot = null;
-        }
-        if (!reset) reset = get_first_anchor();
-        if (reset && reset.href) {
-            if (!queued) {
-                if (!update_link(reset)) return;
-                if (_.ltime && reset.href === _.lplay) b();
-            }
-        }
+        loaded();
     }, status_obj(`directory ${query}`));
 };
 import dragify from "./drag.js";
@@ -197,14 +205,8 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     if (!el) { update_status(); return; };
     const wrapper = $("div");
     wrapper.className = "popup";
-    wrapper.style = popup_savestate.get(title.toLowerCase()) ?? `
-        transform: translate(-50%, -50%);
-        top: 50%;
-        left: 50%;
-        display: flex;
-        flex-direction: column;
-    `;
-    boundBox(wrapper, "2em", "450px", "600px", null, "800px");
+    wrapper.style = popup_savestate.get(title.toLowerCase()) ?? style.Centered;
+    boundBox(wrapper, "2em", "450px", "450px", "150px", "900px");
     wrapper.dataset.title = title;
     const bar = $("div");
     bar.style = `
