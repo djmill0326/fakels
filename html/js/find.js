@@ -104,8 +104,9 @@ const statbtn = (text, f, cursor) => `<a onclick='${f}()' style='cursor: ${curso
 const update_status = () => {
     const segments = [
         term.value.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
-        frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : "",
-        active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` : shortcut_ui.isConnected ? "" : statbtn("Press '?' for shortcuts.", "toggle_shortcuts", "help")
+        shortcut_ui.isConnected ? "" : statbtn("Press '?' for help menu", "toggle_shortcuts", "help"),
+        active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` :
+        frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : ""
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
 }
@@ -130,14 +131,14 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             fresh.id = "frame";
             fresh.onclick = frame_handler;
             const label = $("h3");
-            label.innerText = `${found.size} entries (flattened)`;
+            label.innerText = `${found.size} entries (flat)`;
             const list = $("ul");
             list.append(...found.values());
             fresh.append(label, list);
             frame.replaceWith(fresh);
             frame = fresh, found.clear();
         }
-    }, status_obj(`flattened root (${root}`));
+    }, status_obj(`tree (${root}`));
 };
 const b = () => requestIdleCallback(() => {
     const t = parseFloat(_.ltime); 
