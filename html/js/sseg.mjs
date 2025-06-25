@@ -26,4 +26,4 @@ if (!isNaN(arg1)) {
 
 // And you know what time it is...
 // I'm gonna make a million x a million.
-// - Mr. Coin Flipper (as Pharcyde)
+// - Sir Pharcyde
