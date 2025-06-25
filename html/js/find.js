@@ -270,8 +270,8 @@ const update_link = window.navigate = (to) => {
         frame.lastElementChild.scrollToEl(queued.parentElement);
         mel.src = link;
         np = query;
-        console.log("[fakels/media]", `'${extract_title(info)}' has been queued.\n`);
         console.debug("[fakels/debug]", describe(info));
+        console.log("[fakels/media]", `'${extract_title(info)}' has queued.\n`);
         update_media(link, info);
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
