@@ -13,7 +13,9 @@
 - high: 320kbps MP3, 256kbps AAC
 - full: FLAC
 
-ask root and ask for host url, save it, JSON file
+-ask for root and host url, save it, JSON file
+
+-fix alphabetical sorting by stripping off extensions
 
 —-Terminal-———————————————————————————————————————————————————————————————————-<
 -hi-res ping clock

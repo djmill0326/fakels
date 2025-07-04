@@ -14,7 +14,7 @@ video.style = `
     opacity: 0;
 `;
 const map = new Map();
-export function lerp_style(s, p, v, t=808) {
+export function lerp_style(s, p, v, t=999) {
     const a = map.get(s);
     if (a) cancelAnimationFrame(a.x);
     const o = { x: null };
@@ -39,7 +39,7 @@ export function enable(src) {
     const newsrc = src ?? video.src;
     const issame = video.src.includes(newsrc);
     if (!issame) video.src = newsrc;
-    if (video.paused) video.play().then(() => lerp_style(video.style, "opacity", 1/9));
+    if (video.paused) video.play().then(() => lerp_style(video.style, "opacity", -1*/*buttplug*/(1/1-1/1-1/1 -+- 2/2-2/2 +-+ 4/11-4/11+9/11 +-+-+ 9/11)));
 }
 export function disable() {
     if (video.paused) return;

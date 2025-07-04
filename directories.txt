@@ -24,7 +24,8 @@ html\js\bgvid.js
 html\js\numeric-template.js
 html\js\drag.js
 html\js\drag2.js
-html\js\odjects(WIP).js
+html\js\active-info.js
+html\js\otto.mjs
 html\media
 html\media\garbage
 html\media\garbage\more songs
@@ -132,6 +133,9 @@ html\media\garbage\stupid ass names\f\sparrow.mp3
 html\media\garbage\stupid ass names\f\spitfire.mp3
 html\media\garbage\stupid ass names\f\stop.mp3
 html\media\garbage\stupid ass names\f\swerve.mp3
+html\media\garbage\the opposite of the outer folder's implication
+html\media\garbage\the opposite of the outer folder's implication\Art
+html\media\garbage\the opposite of the outer folder's implication\Art\Sandro Botticelli - Primavera.jpg
 html\media\ssdl
 html\media\ssdl\Ancient Songs
 html\media\ssdl\Ancient Songs\Over the Years and Through the Woods Live
@@ -245,24 +249,60 @@ html\media\ssdl\Ancient Songs\2015 - 679\album.nfo
 html\media\ssdl\Ancient Songs\2015 - 679\Fetty Wap - (2015) 679-Front.jpg
 html\media\ssdl\Ancient Songs\2015 - 679\folder.jpg
 html\media\ssdl\Ancient Songs\2015 - 679\folder.sync-conflict-20250330-145659-M7CNP2F.jpg
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\01 Dead.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\02 Falling Away From Me.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\03 Trash.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\04 4 U.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\05 Beg For Me.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\06 Make Me Bad.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\07 It's Gonna Go Away.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\08 Wake Up.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\09 Am I Going Crazy.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\10 Hey Daddy.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\11 Somebody Someone.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\12 No Way.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\13 Let's Get This Party Started.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\14 Wish You Could Be Me.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\15 Counting.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\16 Dirty.flac
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\Piss Bucket
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\Piss Bucket\cover.jpg
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\Piss Bucket\info.txt
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\Piss Bucket\Issues .cue
+html\media\ssdl\Ancient Songs\1999 - KoЯn - Issues [pre(meaning BEFORE) 2000] [Immortal Records USA, Global] [HI-RES PIRATED RIP]\Piss Bucket\Issues .log
+html\media\ssdl\Ancient Songs\2000 [Y(ear)2000, 000 _2 K, the electronic artist] - DIRT
+html\media\ssdl\Ancient Songs\2000 [Y(ear)2000, 000 _2 K, the electronic artist] - DIRT\01 - DIRT (feat. JPEGMAFIA).flac
+html\media\ssdl\Ancient Songs\2000 [Y(ear)2000, 000 _2 K, the electronic artist] - DIRT\01 - DIRT (feat. JPEGMAFIA).lrc
 html\media\ssdl\Locations
 html\media\ssdl\Locations\Night Skies
 html\media\ssdl\Locations\Night Skies\Paradise
 html\media\ssdl\Locations\Night Skies\Paradise\01. Dark Sky (Skyscrapers).flac
-html\media\ssdl\Locations\Night Skies\Paradise\02. Blessings (Feat. Drake).flac
-html\media\ssdl\Locations\Night Skies\Paradise\03. All Your Fault (Feat. Kanye West).flac
-html\media\ssdl\Locations\Night Skies\Paradise\04. I Don't Fuck With You (Feat. E-40).flac
-html\media\ssdl\Locations\Night Skies\Paradise\05. Play No Games (Feat. Chris Brown & Ty Dolla $ign).flac
+html\media\ssdl\Locations\Night Skies\Paradise\02. Blessings (Feat. Drunk).flac
+html\media\ssdl\Locations\Night Skies\Paradise\04. I Don't Fuck With You (Feat. ~E-40~).flac
 html\media\ssdl\Locations\Night Skies\Paradise\06. Paradise (Extended).flac
 html\media\ssdl\Locations\Night Skies\Paradise\07. Win Some, Lose Some.flac
 html\media\ssdl\Locations\Night Skies\Paradise\08. Stay Down.flac
 html\media\ssdl\Locations\Night Skies\Paradise\09. I Know (Feat. Jhene Aiko).flac
-html\media\ssdl\Locations\Night Skies\Paradise\10. Deep (Feat. Lil Wayne).flac
-html\media\ssdl\Locations\Night Skies\Paradise\11. One Man Can Change The World (Feat. Kanye West & John Legend).flac
+html\media\ssdl\Locations\Night Skies\Paradise\10. Deep (Feat. Lil Wayne, Weezy F).flac
 html\media\ssdl\Locations\Night Skies\Paradise\12. Outro.flac
-html\media\ssdl\Locations\Night Skies\Paradise\13. Deserve It (Feat. PartyNextDoor).flac
-html\media\ssdl\Locations\Night Skies\Paradise\14. Research (Feat. Ariana Grande).flac
+html\media\ssdl\Locations\Night Skies\Paradise\13. Deserve It (Feat. Cocaine Addict).flac
+html\media\ssdl\Locations\Night Skies\Paradise\14. Research (Feat. Starbucks Size).flac
 html\media\ssdl\Locations\Night Skies\Paradise\15. Platinum And Wood.flac
+html\media\ssdl\Locations\Night Skies\Paradise\05. Play No Games (Feat. Ty Dolla $ign & Some Fuck Nigga).flac
+html\media\ssdl\Locations\Night Skies\Paradise\11. One Man Can Change The World (Feat. That One Nitrous Addict & John Legend).flac
+html\media\ssdl\Locations\Night Skies\Paradise\03. All Your Fault (Feat. Nitrous Fiend).flac
+html\media\ssdl\Locations\Night Skies\Valley
+html\media\ssdl\Locations\Night Skies\Valley\01 - Gardenia.mp3
+html\media\ssdl\Locations\Night Skies\Valley\02 - Asteroid.mp3
+html\media\ssdl\Locations\Night Skies\Valley\03 - Supa Scoopa and Mighty Scoop.mp3
+html\media\ssdl\Locations\Night Skies\Valley\04 - 100°.mp3
+html\media\ssdl\Locations\Night Skies\Valley\05 - Space Cadet.mp3
+html\media\ssdl\Locations\Night Skies\Valley\06 - Demon Cleaner.mp3
+html\media\ssdl\Locations\Night Skies\Valley\07 - Odyssey.mp3
+html\media\ssdl\Locations\Night Skies\Valley\08 - Conan Troutman.mp3
+html\media\ssdl\Locations\Night Skies\Valley\10 - Whitewater.mp3
+html\media\ssdl\Locations\Night Skies\Valley\front.jpg
 html\media\ssdl\Locations\Landing Strip (Temple)
 html\media\ssdl\Locations\Landing Strip (Temple)\Ultralight
 html\media\ssdl\Locations\Landing Strip (Temple)\Ultralight\01 - press play.mp3
@@ -692,6 +732,7 @@ html\media\ssdl\Locations\City (Mad)\Research Lab\Cabinet\The Pharcyde - Labcabi
 html\media\ssdl\Locations\City (Mad)\Research Lab\Cabinet\The Pharcyde - Labcabincalifornia - 15 - Little D.flac
 html\media\ssdl\Locations\City (Mad)\Research Lab\Cabinet\The Pharcyde - Labcabincalifornia - 16 - Devil Music.flac
 html\media\ssdl\Locations\City (Mad)\Research Lab\Cabinet\The Pharcyde - Labcabincalifornia - 17 - The E.N.D.flac
+html\media\ssdl\Locations\City (Mad)\Sports Center.flac
 html\media\ssdl\Locations\Pipe, Japan
 html\media\ssdl\Locations\Pipe, Japan\01 Hurtfulday's - Wall.flac
 html\media\ssdl\Locations\Pipe, Japan\02 Lidless Toybox - Watch Yourself With Foreign Eyes.flac
@@ -717,6 +758,70 @@ html\media\ssdl\Locations\Pipe, Japan\The Swamp
 html\media\ssdl\Locations\Pipe, Japan\The Swamp\02 I'm A Believer.m4a
 html\media\ssdl\Locations\Pipe, Japan\The Swamp\09 All Star.m4a
 html\media\ssdl\Locations\Pipe, Japan\The Swamp\Shrek.jpg
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-01 Intro.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-02 You Never Knew.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-03 All Things.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-04 Casual.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-05 The Who.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-06 Dune Methane.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-07 Phesto.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-08 At the Helm.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-09 The Last One.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-10 Tajai.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-11 Oakland Blackouts.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-12 Mics of the Roundtable.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-13 See Delight.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-14 Pep Love.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-15 Off the Record.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-16 A-Plus.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-17 After Dark.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-18 Opio.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-19 No Nuts.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-20 Del.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-21 One Life One Love.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Third Eye Vision\1-22 Miles to the Sun.m4a
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_01_Intro.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_02_You Never Knew.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_03_All Things.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_04_Casual.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_05_The Who.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_06_Dune Methane.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_07_Phesto D.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_08_At the Helm.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_09_The Last One.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_10_Tajai.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_11_Oakland Blackouts.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_12_Mics of the Roundtable.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_13_See Delight.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_14_Pep Love.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_15_Off the Record.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_16_A-Plus.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_17_After Dark.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_18_Opio.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_19_No Nuts.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_20_Del.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_21_One Life One Love.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\3rd Eye Vision\Hieroglyphics_3rd Eye Vision_22_Miles to the Sun.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_01_Prelude.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_02_Fantasy Island.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_03_Powers That Be.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_04_Make Your Move.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_05_Shift Shape.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_06_Classic.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_07_Chicago.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_08_Heatish.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_09_Halo.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_10_Love Flowin.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_11_100,000 Indi.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_12_Let It Roll.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_13_Maggie May (R.I.P. Faith).flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_14_Jingle Jangle.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_15_Full Circle.flac
+html\media\ssdl\Locations\Pipe, Japan\Random Fucking Gypsy Colony (RFGC)\Full Circle\Hieroglyphics_Full Circle_16_7 Sixes.flac
 html\media\ssdl\Locations\Cedar Point
 html\media\ssdl\Locations\Cedar Point\Waterparks - FANDOM - 08 - Turbulent (FLAC 983 kbps).flac
 html\media\ssdl\Locations\East Atlanta
@@ -858,6 +963,20 @@ html\media\ssdl\Machines\Butterfly Unpimper\15. i.flac
 html\media\ssdl\Machines\Butterfly Unpimper\16. Mortal Man.flac
 html\media\ssdl\Machines\Butterfly Unpimper\audiochecker.log
 html\media\ssdl\Machines\Butterfly Unpimper\Cover.jpg
+html\media\ssdl\Machines\Trap(τ)
+html\media\ssdl\Machines\Trap(τ)\01 Headstrong.flac
+html\media\ssdl\Machines\Trap(τ)\02 Made Of Glass.flac
+html\media\ssdl\Machines\Trap(τ)\03 Hollowman.flac
+html\media\ssdl\Machines\Trap(τ)\04 These Walls.flac
+html\media\ssdl\Machines\Trap(τ)\05 Still Frame.flac
+html\media\ssdl\Machines\Trap(τ)\06 Echo.flac
+html\media\ssdl\Machines\Trap(τ)\07 The Game.flac
+html\media\ssdl\Machines\Trap(τ)\08 When All Is Said And Done.flac
+html\media\ssdl\Machines\Trap(τ)\09 Enigma.flac
+html\media\ssdl\Machines\Trap(τ)\10 Stories.flac
+html\media\ssdl\Machines\Trap(τ)\11 New Beginning.flac
+html\media\ssdl\Machines\Trap(τ)\folder.jpg
+html\media\ssdl\Machines\Trap(τ)\folder.png
 html\media\ssdl\Savage folder
 html\media\ssdl\Savage folder\american dream
 html\media\ssdl\Savage folder\american dream\Cover.jpg
@@ -1287,6 +1406,7 @@ html\media\ssdl\Requests\Nirvana\1989 - Bleach (Deluxe)\9. Swap Meet  (2009 Re-m
 html\media\ssdl\Requests\Prime Us
 html\media\ssdl\Requests\Prime Us\..—..—..—mp3rip—2006 - They Can't All Be Zingers
 html\media\ssdl\Requests\[$0.99] Wax Ecstatic (Scratch the Static).flac
+html\media\ssdl\Requests\Rich, Flex.flac
 html\media\bandcamp
 html\media\bandcamp\fiend
 html\media\bandcamp\fiend\AlbumArtSmall.jpg
@@ -1396,23 +1516,23 @@ html\media\mp3rip\Death Race For Love (2019 - Juice WRLD)\The Bees Knees.mp3
 html\media\mp3rip\Death Race For Love (2019 - Juice WRLD)\Who Shot Cupid_.mp3
 html\media\mp3rip\Death Race For Love (2019 - Juice WRLD)\Won’t Let Go.mp3
 html\media\mp3rip\Death Race For Love (2019 - Juice WRLD)\cover.jpg
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Coattails Of A Dead Man.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - DMV.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Jerry Was A Race Car Driver.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - John The Fisherman.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Mary The Ice Cube.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Mr. Krinkle.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - My Name Is Mud.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Over The Electric Grapevine.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Over The Falls.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Shake Hands With Beef (extended version).mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Southbound Pachyderm.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Those Damned Blue-Collar Tweekers.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - To Defy The Laws Of Tradition.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Tommy The Cat.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Too Many Puppies.mp3
-html\media\mp3rip\They Can't All Be Zingers (2006 - Primus)\Primus - Wynona's Big Brown Beaver.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Coattails Of A Dead Man.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - DMV.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Jerry Was A Race Car Driver.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - John The Fisherman.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Mary The Ice Cube.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Mr. Krinkle.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - My Name Is Mud.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Over The Electric Grapevine.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Over The Falls.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Shake Hands With Beef (extended version).mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Southbound Pachyderm.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Those Damned Blue-Collar Tweekers.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - To Defy The Laws Of Tradition.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Tommy The Cat.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Too Many Puppies.mp3
+html\media\mp3rip\2006 - They Can't All Be Zingers\Primus - Wynona's Big Brown Beaver.mp3
 html\media\mp3rip\- Miky Woodz - 31.mp3
 html\media\mp3rip\The Pharcyde - Knew U.mp3
 html\media\mp3rip\Lil Uzi Vert - XO TOUR Llif3.mp3
@@ -1511,6 +1631,7 @@ html\media\mp3rip\~ anita max wynn\Wolves.mp3
 html\media\mp3rip\~ anita max wynn\WOO BACK.mp3
 html\media\mp3rip\~ anita max wynn\Worst Behavior.mp3
 html\media\mp3rip\~ anita max wynn\art.jpg
+html\media\mp3rip\~ anita max wynn\DIRT (feat. JPEGMAFIA).m4a
 html\media\mp3rip\~ Too Slippery (Bossman Dlow)
 html\media\mp3rip\~ Too Slippery (Bossman Dlow)\01 - Rotation.mp3
 html\media\mp3rip\~ Too Slippery (Bossman Dlow)\02 - Chick‐Fil‐A.mp3
@@ -1526,6 +1647,8 @@ html\media\mp3rip\~ Too Slippery (Bossman Dlow)\11 - Exotic.mp3
 html\media\mp3rip\~ Too Slippery (Bossman Dlow)\12 - I Put On.mp3
 html\media\mp3rip\- CeeLo Green - Fuck You.mp3
 html\media\mp3rip\- Metro Boomin - Too Many Nights.mp3
+html\media\mp3rip\Odetari - HYPNOTIC DATA.mp3
+html\media\mp3rip\- Bossman Dlow - SportsCenter.mp3
 html\media\museic
 html\media\museic\01 Intro.flac
 html\media\museic\02 Apocalypse Please.flac
@@ -1543,7 +1666,30 @@ html\media\museic\13 Thoughts Of A Dying Atheist.flac
 html\media\museic\14 Ruled By Secrecy.flac
 html\media\museic\folder.jpg
 html\media\pipe.mp4
-html\media\[FREE] Green Room.ogg
+html\media\sigil
+html\media\sigil\00.png
+html\media\sigil\01.png
+html\media\sigil\02.png
+html\media\sigil\03.png
+html\media\sigil\04.7.png
+html\media\sigil\05.png
+html\media\sigil\06.png
+html\media\sigil\08.png
+html\media\sigil\09.bg.png
+html\media\sigil\10 (mist).png
+html\media\sigil\11 (resolved).png
+html\media\sigil\12 (grain).png
+html\media\sigil\12 (ink).png
+html\media\sigil\12 (smoke).png
+html\media\sigil\13.12 (grain).png
+html\media\sigil\13.12 (warped).png
+html\media\doorman (redundant)
+html\media\doorman (redundant)\1. slowthai - Doorman.lrc
+html\media\doorman (redundant)\1. slowthai - Doorman.ogg
+html\media\doorman (redundant)\Back Gourd.txt
+html\media\doorman (redundant)\DEAD JEW TEXT. DO NOT REPEAT.txt
+html\media\doorman (redundant)\If this is gone, we kill all sinners.txt
+html\media\[CASH - EZ-PASS] Doorman.ogg
 html\run.ps1
 html\stylish.html
 html\rpc.html
@@ -1599,13 +1745,39 @@ html\text\xhtml_files\lupk8zyo
 html\text\xhtml_files\preview(5)
 html\text\xhtml_files\shared-2cf6b313abd1dcd12fd9151fe688ca11.js.download
 html\text\xhtml_files\EOF (End of Fuckery).lnk
+html\text\xhtml_files\sigil.tar
 html\text\xhtml.html
+html\text\Guess what's in the box...🤣.txt
+html\text\Stuff.txt
+html\text\The Best Picture Frame Ever.txt
+html\text\()()()().txt
+html\text\diss.txt
+html\text\People are strong, Yourname.txt
+html\text\Mrs. Floopsch -- Teaches Computers.txt
+html\text\(3  2 + 3 + 2)(3  2)((3 + 2)  2).txt
+html\text\If you end this session early,.txt
+html\text\Fuckeries.txt
+html\text\Today.txt
+html\text\NSAID.functionalplacebo.txt
+html\text\wonderbread -- poison.likely.txt
+html\text\wordodex.txt
+html\text\Lead Ass Cunts.txt
+html\text\start.txt
+html\text\Threat and Promise.txt
 html\mp4
 html\mp4\veo1.mp4
 html\mp4\veo0.mp4
 html\mp4\veo2.mp4
 html\mp4\edgy_fish_meme.mp4
+html\mp4\veo3.mp4
+html\mp4\veo4.mp4
+html\mp4\PSProceduralScroll.mp4
+html\mp4\veo5.mp4
+html\mp4\veo6.mp4
 html\favicon.ico
+html\media—pipe.mp4
+html\media—ssdl—Locations—Pea Pod
+html\media—sigil
 main.js
 ls.mjs
 directories.txt

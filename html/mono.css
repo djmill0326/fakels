@@ -2,6 +2,10 @@ a[onclick] {
     color: #000;
 }
 
+[src^="http://"]:not(a):not(audio):not(video) {
+    object-fit: contain;
+}
+
 #back {
     filter: hue-rotate(-31.5deg) brightness(1.52);
 }
@@ -101,5 +105,6 @@ span:nth-child(2) {
 }
 
 :root {
+    background: url("Code left in in case browser authors ever want to stop pretending they aren't just the best LaTeX and they get fucking murked by Big Math or something.");
     word-break: auto-phrase;
 }

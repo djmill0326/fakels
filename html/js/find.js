@@ -3,7 +3,7 @@ console.info("fakels (Directory Viewer) [v2.5.4]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.js";
-import $, { _, id, boundBox, join, style } from "./l.js";
+import $, { _, id, boundBox, join, style, anchor_from_link } from "./l.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -80,7 +80,6 @@ const re = el => {
     return el;
 };
 let replay_slot = _.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
-export const anchor_from_link = (link, f=frame) => f.q(`ul > li > a[href="${encodeURI(link.split(".xyz")[1])}"]`);
 let just_popped = false;
 window.onpopstate = (ev) => {
     term.value = ev.state;
@@ -88,8 +87,10 @@ window.onpopstate = (ev) => {
     just_popped = true;
 };
 let shuffling = _.shuffling === "true";
+let shuffleHook = () => {}, osh = shuffleHook;
 window.toggle_shuffle = () => {
     _.shuffling = shuffling = !shuffling;
+    shuffleHook();
     update_status();
 };
 const status = $('footer');
@@ -140,16 +141,21 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
         }
     }, status_obj(`tree (${root}`));
 };
-const b = () => requestIdleCallback(() => {
-    const t = parseFloat(_.ltime); 
-    if (!mel.buffered.length || mel.buffered.end(0) < t) b();
-    else {
-        mel.currentTime = t;
-        mel.volume = parseFloat(_.lvol ?? 0);
-    }
-});
-const nav = q => history.pushState(q, "", location.origin + path_prefix + q.slice(0, -1));
-const loaded = () => {
+let bgin;
+const b = () => {
+    mel.volume = parseFloat(_.lvol ?? .86);
+    requestAnimationFrame(() => {
+        const now = performance.now();
+        if (bgin && now - bgin > 999) return;
+        bgin = now;
+        const t = parseFloat(_.ltime);
+        if (!mel.buffered.length || mel.buffered.end(0) < t) b();
+        else {
+            mel.currentTime = t;
+        }
+    });
+}
+const on_load = () => {
     let reset;
     if (replay_slot) {
         reset = anchor_from_link(replay_slot);
@@ -159,10 +165,13 @@ const loaded = () => {
     if (reset && reset.href) {
         if (!queued) {
             if (!update_link(reset)) return;
-            if (_.ltime && reset.href === _.lplay) b();
+            if (_.ltime &&
+                encodeURI(_.lplay.slice(_.lplay.lastIndexOf("/") + 1))
+                === reset.href.slice(reset.href.lastIndexOf("/") + 1)) b();
         }
     }
 };
+const nav = q => history.pushState(q, "", location.origin + path_prefix + q.slice(0, -1));
 form.onsubmit = (e) => {
     update_status();
     back.disabled = false;
@@ -177,7 +186,7 @@ form.onsubmit = (e) => {
         const c = { i: 0, expected: 0 };
         find_recursive(`/${dir}`, c);
         if (replay_slot) {
-            const i = setInterval(() => c.expected - c.i || clearInterval(i) || loaded(), 50);
+            const i = setInterval(() => c.expected - c.i || clearInterval(i) || on_load(), 50);
         }
         return nav(query);
     }
@@ -188,10 +197,11 @@ form.onsubmit = (e) => {
         console.log("[fakels/query]", "found", `'${query}'`);
         if (!just_popped) nav(query);
         just_popped = false;
-        loaded();
+        on_load();
     }, status_obj(`directory ${query}`));
 };
 import dragify from "./drag.js";
+import { sme } from "./active-info.js";
 const popup_savestate = new Map();
 let poppedup;
 export const popup = window.popup = (el, title, patch=_el=>{}) => {
@@ -273,6 +283,7 @@ const update_link = window.navigate = (to) => {
         console.debug("[fakels/debug]", describe(info));
         console.log("[fakels/media]", `'${extract_title(info)}' has queued.\n`);
         update_media(link, info);
+        if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
         mel.remove();

@@ -1,0 +1,35 @@
+/* GuisseppeCode-v4-Header */
+const SEP = '-'; // -The sep-
+const state = {
+    // Global static state
+    stack: new Array(),
+    ref: new WeakMap(),
+    id: 0 // Id for keys
+};
+function Key(specifier) { 
+    // Generates consistent string-based key
+    return `${specifier ?? "normal"}${SEP.length === 1 ? SEP : '-'}${state.id = Math.abs(state.id) + 1}`;
+}
+class Slit extends null {
+    init(stuff) {
+        if (stuff === null || typeof stuff !== "object") throw new Error("no stuff; need stuff!");
+	this.prototype = stuff;
+    }
+}
+function store(specifier) {
+    // Allocates a store (variable-data named handle)
+    return {
+        key: Key(specifier),
+        slot: new Slit({})
+    };
+}
+function extractAll(attributeStack, transferMode="from", target);
+function fromStack(functionality="push|pull", iterPosition="latest|back", store);
+function takeFrom(chicken, attributeSelector) {
+    extractAll(attributeSelector.attributes, null, chicken);
+    fromStack("pull", null, store("latest-attributes"));
+}
+function linearCockMethod(chickenA, B) {
+    takeFrom(chickenA, globalThis.relevant.selectorContent);
+    fromStack("pull", null, store("primary-chicken-data"));
+}

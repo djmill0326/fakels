@@ -51,6 +51,8 @@ export function join(...x) {
     return out.join("");
 }
 
+export const anchor_from_link = (link, f=frame) => f.querySelector(`[href*="${encodeURI(link.slice(link.indexOf(".xyz/") + 4))}"]`);
+
 export const style = {
     Centered: `
         transform: translate(-50%, -50%);
