@@ -25,7 +25,6 @@ html\js\numeric-template.js
 html\js\drag.js
 html\js\drag2.js
 html\js\active-info.js
-html\js\otto.mjs
 html\media
 html\media\garbage
 html\media\garbage\more songs
@@ -1654,6 +1653,41 @@ html\media\mp3rip\~ Too Slippery (Bossman Dlow)\09 - Can’t Leave You Alone.mp3
 html\media\mp3rip\~ Too Slippery (Bossman Dlow)\10 - Need You Beside Me.mp3
 html\media\mp3rip\~ Too Slippery (Bossman Dlow)\11 - Exotic.mp3
 html\media\mp3rip\~ Too Slippery (Bossman Dlow)\12 - I Put On.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\01 - Skit 1.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\02 - Wendy Williams.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\02 - Wendy Williams.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\03 - Northside Ghetto Soulja.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\03 - Northside Ghetto Soulja.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\04 - Free Joe Exotic.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\04 - Free Joe Exotic.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\05 - Opp In The Sky.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\05 - Opp In The Sky.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\06 - Weekend At Solomon’s.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\06 - Weekend At Solomon’s.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\07 - Skit 2.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\07 - Skit 2.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\08 - Federal.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\09 - Honey Pack.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\09 - Honey Pack.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\10 - Fun Time.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\10 - Fun Time.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\11 - Ocean Prime.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\11 - Ocean Prime.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\12 - Frenchman.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\12 - Frenchman.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\13 - Skit 3.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\13 - Skit 3.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\14 - Aqua.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\14 - Aqua.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\15 - Big Bertha.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\15 - Big Bertha.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\16 - Bob And Weave.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\16 - Bob And Weave.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\17 - Enilak.mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\17 - Enilak.xml
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\18 - Honey Pack (remix).mp3
+html\media\mp3rip\~ Too Slippery (Bossman Dlow)\Fat Niggas Need Love Too (2021)\18 - Honey Pack (remix).xml
 html\media\mp3rip\- CeeLo Green - Fuck You.mp3
 html\media\mp3rip\- Metro Boomin - Too Many Nights.mp3
 html\media\mp3rip\Odetari - HYPNOTIC DATA.mp3
@@ -1798,6 +1832,24 @@ html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-03 16-19-24.
 html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-03 17-11-33.mp4
 html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-03 22-21-25.mp4
 html\media\doorman (redundant)\Back Alley, Oppsville, Texas\OddConversation.md
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\00-korn-take_a_look_in_the_mirror-2003-rns.m3u
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\01-korn-right_now-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\02-korn-break_some_off-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\03-korn-counting_on_me-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\04-korn-here_it_comes_again-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\05-korn-deep_inside-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\06-korn-did_my_time-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\07-korn-everything_ive_known-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\08-korn-play_me_(featuring_nas)-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\09-korn-alive-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\10-korn-lets_do_this_now-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\11-korn-im_done-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\12-korn-yall_want_a_single-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\13-korn-when_will_this_end_and_one_(live)_(bonus_track)-rns.mp3
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\cover [album=TAKE A LOOK IN THE MIRROR, vague tag=yrnrns].jpg
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\some weird fuckin' music\Windows Is Complicit, Too.txt
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\Engineering.txt
 html\media\doorman (redundant)\[to Virtual Insanity].txt
 html\media\doorman (redundant)\2001 - Break the Cycle
 html\media\doorman (redundant)\2001 - Break the Cycle\01 - Open Your Eyes.flac
@@ -1894,16 +1946,15 @@ html\text\Lead Ass Cunts.txt
 html\text\start.txt
 html\text\Threat and Promise.txt
 html\text\0.txt
+html\text\otto.mjs
 html\mp4
 html\mp4\veo1.mp4
 html\mp4\veo0.mp4
 html\mp4\veo2.mp4
 html\mp4\edgy_fish_meme.mp4
 html\mp4\veo3.mp4
-html\mp4\veo4.mp4
 html\mp4\PSProceduralScroll.mp4
-html\mp4\veo5.mp4
-html\mp4\veo6.mp4
+html\mp4\veo4.mp4
 html\favicon.ico
 html\media—pipe.mp4
 html\media—ssdl—Locations—Pea Pod
