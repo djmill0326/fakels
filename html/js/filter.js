@@ -37,7 +37,6 @@ const updateBpmScaling = scale_bpm => {
     bpm_scale_factor = scale_bpm ? 2/3 : 1;
 }
 
-/* replaced with evil implementation
 const fixWhitespace = text => {
     let text_trimmed = "";
     let needs_space = false;
@@ -55,12 +54,11 @@ const fixWhitespace = text => {
     }
     return text_trimmed;
 };
- */
 
-const fixWhitespace = text => text.split("").reduce((a, c) => a + (c === " " ? (!a || a.endsWith(" ") ? "" : " ") : (c === "\n" ? "" : c)), "");
+const fixWhitespaceDank = text => text.split("").reduce((a, c) => a + (c === " " ? (!a || a.endsWith(" ") ? "" : " ") : (c === "\n" ? "" : c)), "");
 
 const updateFilterString = () => {
-    filter_string.innerText = fixWhitespace(`
+    filter_string.innerText = fixWhitespaceDank(fixWhitespace(`
         mode=o 
         stars>=${sr_min.value / 10} 
         stars<=${sr_max.value / 10} 
@@ -72,7 +70,7 @@ const updateFilterString = () => {
         ${status_loved.checked ? "" : "status!=l"} 
         ${status_pending.checked ? "" : "status!=p"} 
         status!=n
-    `);
+    `));
 };
 const applyPreset = preset => {
     if(preset.bpm_scaled !== undefined) {
@@ -150,3 +148,41 @@ document.querySelector("form").addEventListener("change", updateFilterString);
 
 initPresetButtons();
 updateFilterString();
+
+// [WARN] EVIL CODE INCOMING: CSS-in-JS *dies*
+
+const styleTexts = [
+    `
+        :root * {
+            box-sizing: border-box;
+        }
+        body {
+            transform: translate(-2.8em, -2em);
+            padding: 0;
+            margin: 0;
+            scale: .8;
+            height: 100svh;
+            color-scheme: dark;
+            background: #3CC6D9;
+            background: radial-gradient(circle,rgba(60, 198, 217, 1) 11%, rgba(254, 73, 99, 1) 89%);
+            backdrop-filter: blur(2em) grayscale(.1)
+        }
+    `,
+    ``
+];
+
+const styleTextMap = {
+    default: 1,
+    styled: 0
+};
+
+function withCastration(uponWhat=document.head, styleVersion="styled") {
+    const s_el = document.createElement("style");
+    s_el.innerHTML = styleTexts[styleTextMap[styleVersion]];
+    document.head.append(s_el);
+    return s_el;
+}
+
+// Garbage Collection in GC'd Language!! LOL Eat Shit "Systems Engineers" -- up yours! xdd
+const primaryStyle = withCastration.apply(this, [void 0, void 0]);
+delete primaryStyle;

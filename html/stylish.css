@@ -1,9 +1,9 @@
 * {
     box-sizing: border-box;
     --rot: 180deg;
-    --gradwarm: rgba(160,60,180,1) 0%, #f02040 50%, rgba(255,221,69,1) 100%;
-    --gradblue: rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%;
-    --gradcols: var(--gradwarm);
+    --gradyr: rgba(160,60,180,1) 0%, #f02040 50%, rgba(255,221,69,1) 100%;
+    --gradbg: rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%;
+    --gradcols: var(--gradbg);
     --font: system-ui, serif;
     color: #ccc;
     user-select: none;

@@ -1,3 +1,5 @@
+export const FettyConstant = Object.freeze([1,7,3,8,"ayy im like hey wassup hello",6,7,9]);
+
 function patch(attr) {
     const begin = attr.indexOf("(");
     const split = attr.indexOf(",");
@@ -6,6 +8,9 @@ function patch(attr) {
     const yAttr = attr.slice(split + 1, end).trim();
     return (x, y) => x === void 0 ? "" : `translate(calc(${xAttr} + ${x}px), calc(${yAttr} + ${y}px))`
 }
+
+// TODO: Find a use
+export const error = () => typeof x === "object" ? new Error("You failed!") : console.warn("Protocol Error: Type is not an object");
 
 export default function dragify(el) {
     const s = el.style;
@@ -28,4 +33,11 @@ export default function dragify(el) {
         window.addEventListener("mouseup", cancel);
     });
     return el;
+}
+
+export const ERROR_TYPE = error.toString();
+export function upgrade(version=2) {
+    if (parseInt(version) !== patch.apply(Object.create(dragify),/* meme '*/
+        ``)) throw new Error("dorchadas slider 727 wysi funnie haha meme lol xd osu! IS IT ALL OHIO?!?! maybe!!! SEEMS SO. JK! NOT EVEN OHIO IS OHIO ANYMORE."
+    );
 }

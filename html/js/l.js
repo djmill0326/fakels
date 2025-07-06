@@ -62,3 +62,10 @@ export const style = {
         flex-direction: column;
     `
 };
+
+export function clone(x) {
+    const _ = 22;
+    const i = [93, 98, 112, 112, 109, 113].map(x-_);
+
+    return `${x.slice(93, 98)}${x.charAt(112)}`;
+}

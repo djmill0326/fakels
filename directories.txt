@@ -134,8 +134,12 @@ html\media\garbage\stupid ass names\f\spitfire.mp3
 html\media\garbage\stupid ass names\f\stop.mp3
 html\media\garbage\stupid ass names\f\swerve.mp3
 html\media\garbage\the opposite of the outer folder's implication
-html\media\garbage\the opposite of the outer folder's implication\Art
-html\media\garbage\the opposite of the outer folder's implication\Art\Sandro Botticelli - Primavera.jpg
+html\media\garbage\the opposite of the outer folder's implication\Art [2 entries]
+html\media\garbage\the opposite of the outer folder's implication\Art [2 entries]\Sandro Botticelli - Primavera.jpg
+html\media\garbage\the opposite of the outer folder's implication\Art [2 entries]\byrdcah.jpg
+html\media\garbage\the opposite of the outer folder's implication\+ Recycling Bin - Copy - Copy.lnk
+html\media\garbage\the opposite of the outer folder's implication\+ Recycling Bin - Copy (Good).lnk
+html\media\garbage\the opposite of the outer folder's implication\+ Recycling Bin (Doubliegood).lnk
 html\media\ssdl
 html\media\ssdl\Ancient Songs
 html\media\ssdl\Ancient Songs\Over the Years and Through the Woods Live
@@ -977,6 +981,11 @@ html\media\ssdl\Machines\Trap(τ)\10 Stories.flac
 html\media\ssdl\Machines\Trap(τ)\11 New Beginning.flac
 html\media\ssdl\Machines\Trap(τ)\folder.jpg
 html\media\ssdl\Machines\Trap(τ)\folder.png
+html\media\ssdl\Machines\Verbatim (Engine) [Sped Up, Slowed Down] { Year '07, not 2023 }
+html\media\ssdl\Machines\Verbatim (Engine) [Sped Up, Slowed Down] { Year '07, not 2023 }\folder.jpg
+html\media\ssdl\Machines\Verbatim (Engine) [Sped Up, Slowed Down] { Year '07, not 2023 }\Mother Mother - Verbatim (Sped Up, Slowed Down) - 01 - Verbatim - Sped Up.m4a
+html\media\ssdl\Machines\Verbatim (Engine) [Sped Up, Slowed Down] { Year '07, not 2023 }\Mother Mother - Verbatim (Sped Up, Slowed Down) - 02 - Verbatim - Slowed Down.m4a
+html\media\ssdl\Machines\Verbatim (Engine) [Sped Up, Slowed Down] { Year '07, not 2023 }\Mother Mother - Verbatim (Sped Up, Slowed Down) - 03 - Verbatim.m4a
 html\media\ssdl\Savage folder
 html\media\ssdl\Savage folder\american dream
 html\media\ssdl\Savage folder\american dream\Cover.jpg
@@ -1689,7 +1698,126 @@ html\media\doorman (redundant)\1. slowthai - Doorman.ogg
 html\media\doorman (redundant)\Back Gourd.txt
 html\media\doorman (redundant)\DEAD JEW TEXT. DO NOT REPEAT.txt
 html\media\doorman (redundant)\If this is gone, we kill all sinners.txt
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\It is in this pudding.bmp
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-04-29 16-04-00.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-04-29 16-05-14.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-04-29 16-08-08.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-01 19-29-53.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-04 00-06-31.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-07 23-46-25.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-07 23-46-47.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-13 03-46-11.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-13 03-47-24.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-18 13-21-21.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-18 21-41-51.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-18 21-42-55.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-19 20-07-54.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-20 10-17-38.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-22 04-53-57.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-22 04-54-40.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-05-29 16-36-01.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-01 13-54-18.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-01 14-02-06.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-01 14-05-05.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-01 14-05-38.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-01 14-11-20.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-01 14-15-02.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-03 20-29-14.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-07 18-58-15.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-09 05-38-13.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-13 02-56-09.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-15 20-44-11.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-16 00-23-37.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-28 13-18-46.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-06-28 13-19-20.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-07-24 21-08-25.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-07-25 12-39-22.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-07-25 12-48-12.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-07-25 12-55-42.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-08-01 21-03-32.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-08-01 21-03-42.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2024-08-07 18-57-05.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-04-23 01-46-21.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-05-01 20-57-27.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-05-04 05-08-40.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-05-04 05-08-40.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-05-21 18-57-23.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-05-21 18-59-36.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-05-23 04-34-01.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-05-30 12-15-13.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-06-17 16-30-38.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-06-17 22-17-40.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-06-18 18-16-39.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-06-28 15-41-28.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-07-01 21-48-48.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-07-02 07-32-23.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-07-03 12-42-20.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-07-03 16-19-24.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-07-03 17-11-33.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\2025-07-03 22-21-25.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\311.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\asura huh.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\beeb.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\dont_clench_too_hard_maybe.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\forgettable garbage!.mkv
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\forgettable garbage!.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\ha..mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\New Capture.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\performance.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\shit wiggling.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Captures
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Captures\desktop.ini
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Radeon ReLive
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-07-24 222943.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-07-24 223051.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-07-24 223102.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-07-24 223237.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-07-31 131529.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-07-31 132708.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-07-31 162450.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-08-06 000135.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-08-06 000251.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-08-06 000407.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2024-08-06 000833.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2025-06-22 013700.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2025-06-23 144755.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\Screen Recordings\Screen Recording 2025-06-23 145003.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\V_id_eo
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\V_id_eo\jewvideo.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\V_id_eo\Tangled_Up_in_Plaid_Video.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\extras\V_id_eo\Video_Generation_Feedback_and_Delivery.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-06-28 15-41-28.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-01 21-48-48.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-02 07-32-23.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-03 12-42-20.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-03 12-42-20.remuxed.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-03 16-19-24.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-03 17-11-33.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\2025-07-03 22-21-25.mp4
+html\media\doorman (redundant)\Back Alley, Oppsville, Texas\OddConversation.md
+html\media\doorman (redundant)\[to Virtual Insanity].txt
+html\media\doorman (redundant)\2001 - Break the Cycle
+html\media\doorman (redundant)\2001 - Break the Cycle\01 - Open Your Eyes.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\02 - Pressure.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\03 - Fade.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\05 - Change.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\06 - Can’t Believe.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\07 - Epiphany.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\08 - Suffer.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\09 - Warm Safe Place.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\10 - For You.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\11 - Outside.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\12 - Waste.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\13 - Take It.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\14 - It’s Been Awhile.flac
+html\media\doorman (redundant)\2001 - Break the Cycle\album.nfo
+html\media\doorman (redundant)\Moderately Electrically Active Duct.txt
+html\media\doorman (redundant)\lol moles.txt
 html\media\[CASH - EZ-PASS] Doorman.ogg
+html\media\[I don't practice] Sublime - Santeria.mp3
 html\run.ps1
 html\stylish.html
 html\rpc.html
@@ -1698,6 +1826,7 @@ html\raw.html
 html\people
 html\people\Polly P. Hazel.txt
 html\people\Clod D. Links.txt
+html\people\..—text—diss.txt
 html\favicon_old.ico
 html\mono.css
 html\text
@@ -1764,6 +1893,7 @@ html\text\wordodex.txt
 html\text\Lead Ass Cunts.txt
 html\text\start.txt
 html\text\Threat and Promise.txt
+html\text\0.txt
 html\mp4
 html\mp4\veo1.mp4
 html\mp4\veo0.mp4

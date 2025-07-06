@@ -1,5 +1,5 @@
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
-console.info("fakels (Directory Viewer) [v2.5.4]");
+console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.js";
