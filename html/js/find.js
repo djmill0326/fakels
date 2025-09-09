@@ -46,7 +46,7 @@ export const get_info = (link = "50x.html") => {
 };
 export const describe = info => `${info.name} [${info.ext ? info.ext : "?"}]`;
 const is_wrapped_anchor = l => l && l.children.length && l.children[0].href;
-const verify_anchor = a => a.href.lastIndexOf(".") - location.origin.length > 0
+const verify_anchor = a => a.href.lastIndexOf(".") - location.origin.length > 0;
 const get_first_anchor = () => {
     try {
         const list = frame.children[1].children[0].children;
@@ -56,17 +56,19 @@ const get_first_anchor = () => {
     } catch (err) { console.warn("wtf!", term.value) }
 }
 const next_anchor = (a, looping=true) => {
-    const ne = a.parentElement.nextElementSibling; let next;
-    if (!is_wrapped_anchor(ne)) {
-        const initial = get_first_anchor();
-        if (looping && initial) next = initial;
-        else return;
-    } else next = ne.children[0];
-    if (!verify_anchor(next)) return;
-    const info = get_info(next.href);
-    if (!types[info.ext] || next.parentElement.classList.contains("hidden"))
-        return next_anchor(next, looping);
-    return queued = next;
+    for (let head = a, i = 0; i < a.parentElement.parentElement.children.length; i++) {
+        const entry = head.parentElement.nextElementSibling; 
+        let next;
+        if (!is_wrapped_anchor(entry)) {
+            const initial = get_first_anchor();
+            if (looping && initial) next = initial;
+            else return;
+        } else next = entry.children[0];
+        if (!verify_anchor(next)) return;
+        const info = get_info(next.href);
+        if (types[info.ext] && !next.parentElement.classList.contains("hidden")) return queued = next;
+        head = next;
+    }
 };
 import shuffler from "./shuffle.js";
 const { shuffle } = shuffler();

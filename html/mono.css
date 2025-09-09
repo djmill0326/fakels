@@ -105,6 +105,9 @@ span:nth-child(2) {
 }
 
 :root {
-    background: url("Code left in in case browser authors ever want to stop pretending they aren't just the best LaTeX and they get fucking murked by Big Math or something.");
     word-break: auto-phrase;
+}
+
+.hidden {
+    display: none!important;
 }

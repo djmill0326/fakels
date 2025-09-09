@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=overlays-content" />
+        <title>Directory Checker</title>
+        <link rel="stylesheet" href="/mono.css" />
+        <style>
+            html {
+                background: mediumvioletred!important;
+            }
+            body {
+                position: absolute;
+                margin: 0;
+                background: #111;
+                color: white;
+                font-family: Roboto, system-ui, serif;
+                height: 100%;
+            }
+            a[href] {
+                color: mediumvioletred;
+            }
+            audio {
+                height: 2em;
+            }
+            form {
+                gap: 5px;
+                margin-bottom: 5px;
+            }
+            form, .player {
+                display: flex;
+            }
+            .player > :nth-child(2), #term {
+                flex: 1;
+            }
+            .player > :nth-child(2) {
+                text-align: center;
+                display: inline-block;
+            }
+            ul {
+                margin: 0;
+                padding: 0 .5em;
+                overflow: auto;
+            }
+            li {
+                list-style: none;
+                border-bottom: 1px solid black;
+            }
+            a {
+                text-decoration: none;
+            }
+            #main {
+                background: #0a0a0a;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                margin: .25em;
+                padding: .25em;
+                border-radius: 2px;
+                height: calc(100% - 1.618em);
+            }
+            #main > :not(#frame) {
+                flex-shrink: 0;
+            }
+            h3, #el1 {
+                margin: 0;
+                font-weight: 300;
+                font-size: 92%;
+                text-align: center;
+            }
+            #el1 {
+                color: burlywood;
+            }
+            #frame {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                overflow: auto;
+            }
+            body, audio, #media {
+                width: 100%;
+            }
+            #back {
+                scale: 120%;
+            }
+            audio, input {
+                border-radius: 4px;
+            }
+            #term {
+                color: #666;
+                background: #111;
+            }
+            input {
+                border: 1px solid black;
+            }
+            #el1 > i {
+                color: #666;
+            }
+            #el0, #el2 {
+                font-size: larger;
+                font-weight: bold;
+                width: 1.5em;
+                height: 1.5em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 0;
+            }
+        </style>
+    </head>
+    <body style="visibility: hidden">
+        <div id="main">
+            <form id="dyn" onsubmit="return false">
+                <input type="radio" style="margin: 0" id="back" disabled />
+                <input type="text" placeholder="Enter arguments" id="term" />
+                <input type="submit" style="margin: 0; padding: .5px 4px" value="List Files" id="btn" />
+            </form>
+            <div id="frame"></div>
+            <iframe id="porthole" style="display: none"></iframe>
+            <div id="media"></div>
+        </div>
+        <script src="/js/find.js" type="module"></script>
+    </body>
+</html>

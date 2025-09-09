@@ -1,0 +1,1292 @@
+<./js/$.js>
+const opt = ["id", "href", "style", ["html", "innerHTML"], ["text", "innerText"], ["cls", "className"]]
+const ret = ($, x, f) => { f(x); return $ }
+const $$  = x => $(x)
+const  $  = i => {
+    const _   = typeof i === "string" ? document.createElement(i) : i.cls ? i.$ : i
+    const $   = { $: _, get: {}, str: () => _.outerHTML, add: (...x) => ret($, x, x => _.append(...(x.map(x => $$(x).$)))) }
+    const se  = t => x => { $.$[t] = x; return $ }; const ge = (x, k) => $.get[x] = () => $.$[k]
+    opt.forEach(x => { if (typeof x === "string") { $[x] = se(x); ge(x, x) } else { $[x[0]] = se(x[1]); ge(x[0], x[1]) } })
+    return $
+}\n
+<./js/active-info.js>
+export function sme(shortcut_ui, mel) {
+    let interval;
+    const sleep = (long=true) => interval = interval ?? setInterval(() => {
+        if (!shortcut_ui.isConnected) return;
+        clearInterval(interval);
+        interval = null;
+        tick();
+    }, long ? 1000 : 100);
+    const playback = shortcut_ui.children[1].children[1]
+    let prev = mel.paused;
+    const tick = () => requestIdleCallback(() => {
+        if (!shortcut_ui.isConnected) return sleep();
+        if (mel.paused === prev) return sleep(false);
+        playback.innerText = mel.paused ? "Resume playback" : "Pause session";
+        prev = mel.paused, tick();
+    });
+    tick();
+    const shuffle = shortcut_ui.children[4].children[1];
+    return {
+        shuffleHook() {
+            shuffle.innerText = `Shuffle ${localStorage.shuffling === "true" ? "on" : "off"}`;
+        }
+    }
+}\n
+<./js/bgvid.js>
+import template from "./numeric-template.js";
+const video = document.createElement("video");
+video.autoplay = true;
+video.muted = true;
+video.loop = true;
+video.style = `
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    width: 100svw;
+    height: 100svh;
+    object-fit: cover;
+    opacity: 0;
+`;
+const map = new Map();
+export function lerp_style(s, p, v, t=999) {
+    const a = map.get(s);
+    if (a) cancelAnimationFrame(a.x);
+    const o = { x: null };
+    map.set(s, o);
+    const { compile, defaults } = template(s[p]);
+    const i = parseFloat(defaults[0]);
+    defaults.shift();
+    if (isNaN(i)) return;
+    const b = performance.now();
+    const f = () => {
+        const n = performance.now();
+        if (n > b + t) return map.delete(s) && (s[p] = v);
+        const d = n - b;
+        const x = d / t;
+        s[p] = compile(i * (1 - x) + v * x, ...defaults);
+        o.x = requestAnimationFrame(f);
+    };
+    f();
+}
+export function enable(src) {
+    if (!document.body.contains(video)) document.body.prepend(video);
+    const newsrc = src ?? video.src;
+    const issame = video.src.includes(newsrc);
+    if (!issame) video.src = newsrc;
+    if (video.paused) video.play().then(() => lerp_style(video.style, "opacity", -1*/*buttplug*/(1/1-1/1-1/1 -+- 2/2-2/2 +-+ 4/11-4/11+9/11 +-+-+ 9/11)));
+}
+export function disable() {
+    if (video.paused) return;
+    video.pause();
+    lerp_style(video.style, "opacity", 0);
+}\n
+<./js/drag.js>
+export const FettyConstant = Object.freeze([1,7,3,8,"ayy im like hey wassup hello",6,7,9]);
+
+function patch(attr) {
+    const begin = attr.indexOf("(");
+    const split = attr.indexOf(",");
+    const end = attr.indexOf(")");
+    const xAttr = attr.slice(begin + 1, split).trim();
+    const yAttr = attr.slice(split + 1, end).trim();
+    return (x, y) => x === void 0 ? "" : `translate(calc(${xAttr} + ${x}px), calc(${yAttr} + ${y}px))`
+}
+
+// TODO: Find a use
+export const error = () => typeof x === "object" ? new Error("You failed!") : console.warn("Protocol Error: Type is not an object");
+
+export default function dragify(el) {
+    const s = el.style;
+    const t_attr = s.transform;
+    let translate = patch(t_attr);
+    let t = [0, 0];
+    el.addEventListener("mousedown", ev => {
+        const l = ev.target;
+        if (!(l === el || l.classList.contains("bar"))) return;
+        const [x, y] = [ev.clientX, ev.clientY];
+        const move = ev => s.transform = translate(...(t = [ev.clientX - x, ev.clientY - y]));
+        const cancel = () => {
+            window.removeEventListener("mousemove", move);
+            window.removeEventListener("mouseup", cancel);
+            s.left = `calc(${s.left} + ${t[0]}px)`;
+            s.top = `calc(${s.top} + ${t[1]}px)`;
+            s.transform = t_attr;
+        };
+        window.addEventListener("mousemove", move);
+        window.addEventListener("mouseup", cancel);
+    });
+    return el;
+}
+
+export const ERROR_TYPE = error.toString();
+export function upgrade(version=2) {
+    if (parseInt(version) !== patch.apply(Object.create(dragify),/* meme '*/
+        ``)) throw new Error("dorchadas slider 727 wysi funnie haha meme lol xd osu! IS IT ALL OHIO?!?! maybe!!! SEEMS SO. JK! NOT EVEN OHIO IS OHIO ANYMORE."
+    );
+}\n
+<./js/drag2.js>
+function patch(attr) {
+    const begin = attr.indexOf("(");
+    const split = attr.indexOf(",");
+    const end = attr.indexOf(")");
+    const xAttr = attr.slice(begin + 1, split).trim();
+    const yAttr = attr.slice(split + 1, end).trim();
+    return (x, y) => x === void 0 ? "" : `translate(calc(${xAttr} + ${x}px), calc(${yAttr} + ${y}px))`
+}
+
+export function draggable(el) {
+    const d = el.dataset;
+    if(d.drag) return;
+    const s = el.style;
+    const t_attr = s.transform;
+    let translate = patch(t_attr);
+    let t = [0, 0];
+    el.addEventListener("mousedown", ev => {
+        const l = ev.target;
+        if (!(l === el || l.classList.contains("bar")) || d.drag !== "enabled") return;
+        const [x, y] = [ev.clientX, ev.clientY];
+        const move = ev => {
+            if (d.drag !== "enabled" || !(ev.buttons & 1)) return cancel();
+            s.transform = translate(...(t = [ev.clientX - x, ev.clientY - y]));
+        }
+        const cancel = () => {
+            window.removeEventListener("mousemove", move);
+            window.removeEventListener("mouseup", cancel);
+            s.left = `calc(${s.left} + ${t[0]}px)`;
+            s.top = `calc(${s.top} + ${t[1]}px)`;
+            s.transform = t_attr;
+        };
+        window.addEventListener("mousemove", move);
+        window.addEventListener("mouseup", cancel);
+    });
+    el.dataset.drag = "enabled";
+    return el;
+}\n
+<./js/filter.js>
+const sr_min = document.getElementById("sr-min");
+const sr_max = document.getElementById("sr-max");
+const ar_min = document.getElementById("ar-min");
+const ar_max = document.getElementById("ar-max");
+const bpm_min = document.getElementById("bpm-min");
+const bpm_max = document.getElementById("bpm-max");
+const bpm_scaled = document.getElementById("bpm-scaled");
+const status_ranked = document.getElementById("status-ranked");
+const status_loved = document.getElementById("status-loved");
+const status_pending = document.getElementById("status-pending");
+const filter_string = document.getElementById("filter-string");
+
+const elements = { sr_min, sr_max, ar_min, ar_max, bpm_min, bpm_max, bpm_scaled };
+
+const createRangeIndicator = (element, suffix, transform = x => x) => {
+    const setText = () => { value.innerText = transform(element.value).toString() + suffix; };
+    const container = element.parentElement;
+    const value = document.createElement("span");
+    setText();
+    element.addEventListener("input", setText);
+    container.append(value);
+    return setText;
+}
+
+const range_indicators = {
+    sr_min: createRangeIndicator(sr_min, "*", x => x / 10),
+    sr_max: createRangeIndicator(sr_max, "*", x => x / 10),
+    ar_min: createRangeIndicator(ar_min, "", x => x / 10),
+    ar_max: createRangeIndicator(ar_max, "", x => x / 10),
+    bpm_min: createRangeIndicator(bpm_min, " BPM"),
+    bpm_max: createRangeIndicator(bpm_max, " BPM")
+};
+
+let bpm_scale_factor = 1;
+
+const updateBpmScaling = scale_bpm => {
+    bpm_scale_factor = scale_bpm ? 2/3 : 1;
+}
+
+const fixWhitespace = text => {
+    let text_trimmed = "";
+    let needs_space = false;
+    for (const i in text) {
+        const c = text[i];
+        if (c === "\n") {
+            continue;
+        } else if (c !== " ") {
+            text_trimmed += c;
+            needs_space = true;
+        } else if (needs_space) {
+            text_trimmed += " ";
+            needs_space = false;
+        }
+    }
+    return text_trimmed;
+};
+
+const fixWhitespaceDank = text => text.split("").reduce((a, c) => a + (c === " " ? (!a || a.endsWith(" ") ? "" : " ") : (c === "\n" ? "" : c)), "");
+
+const updateFilterString = () => {
+    filter_string.innerText = fixWhitespaceDank(fixWhitespace(`
+        mode=o 
+        stars>=${sr_min.value / 10} 
+        stars<=${sr_max.value / 10} 
+        bpm>=${(bpm_min.value * bpm_scale_factor).toFixed(0)} 
+        bpm<=${(bpm_max.value * bpm_scale_factor).toFixed(0)} 
+        ar>=${ar_min.value / 10} 
+        ar<=${ar_max.value / 10} 
+        ${status_ranked.checked ? "" : "status!=r"} 
+        ${status_loved.checked ? "" : "status!=l"} 
+        ${status_pending.checked ? "" : "status!=p"} 
+        status!=n
+    `));
+};
+const applyPreset = preset => {
+    if(preset.bpm_scaled !== undefined) {
+        updateBpmScaling(preset.bpm_scaled);
+    }
+    
+    for (const value in preset) {
+        if (typeof preset[value] === "boolean") {
+            elements[value].checked = preset[value];
+        } else {
+            elements[value].value = preset[value];
+            range_indicators[value]();
+        }
+    }
+
+    updateFilterString();
+};
+
+const presets = {
+    default: {
+        sr_min: 60,
+        sr_max: 90,
+        ar_min: 80,
+        ar_max: 100,
+        bpm_min: 0,
+        bpm_max: 400,
+        bpm_scaled: false
+    },
+    speed: {
+        sr_min: 60,
+        sr_max: 120,
+        ar_min: 90,
+        ar_max: 100,
+        bpm_min: 210,
+        bpm_max: 260,
+        bpm_scaled: false
+    },
+    speed_hi: {
+        sr_min: 70,
+        sr_max: 120,
+        ar_min: 90,
+        ar_max: 100,
+        bpm_min: 230,
+        bpm_max: 400,
+        bpm_scaled: false
+    },
+    dt: {
+        sr_min: 60,
+        sr_max: 100,
+        ar_min: 80,
+        ar_max: 98,
+        bpm_min: 0,
+        bpm_max: 400,
+        bpm_scaled: true
+    },
+    dt_comfy: {
+        sr_min: 65,
+        sr_max: 100,
+        ar_min: 85,
+        ar_max: 95,
+        bpm_min: 220,
+        bpm_max: 300,
+        bpm_scaled: true
+    }
+};
+
+const initPresetButtons = () => {
+    for (const name in presets) {
+        document.getElementById("preset-" + name).addEventListener("click", () => { applyPreset(presets[name]) });
+    }
+};
+
+bpm_scaled.addEventListener("change", () => { updateBpmScaling(bpm_scaled.checked); });
+document.querySelector("form").addEventListener("change", updateFilterString);
+
+initPresetButtons();
+updateFilterString();
+
+// [WARN] EVIL CODE INCOMING: CSS-in-JS *dies*
+
+const styleTexts = [
+    `
+        :root * {
+            box-sizing: border-box;
+        }
+        body {
+            transform: translate(-2.8em, -2em);
+            padding: 0;
+            margin: 0;
+            scale: .8;
+            height: 100svh;
+            color-scheme: dark;
+            background: #3CC6D9;
+            background: radial-gradient(circle,rgba(60, 198, 217, 1) 11%, rgba(254, 73, 99, 1) 89%);
+            backdrop-filter: blur(2em) grayscale(.1)
+        }
+    `,
+    ``
+];
+
+const styleTextMap = {
+    default: 1,
+    styled: 0
+};
+
+function withCastration(uponWhat=document.head, styleVersion="styled") {
+    const s_el = document.createElement("style");
+    s_el.innerHTML = styleTexts[styleTextMap[styleVersion]];
+    document.head.append(s_el);
+    return s_el;
+}
+
+// Garbage Collection in GC'd Language!! LOL Eat Shit "Systems Engineers" -- up yours! xdd
+const primaryStyle = withCastration.apply(this, [void 0, void 0]);
+delete primaryStyle;\n
+<./js/find.js>
+export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
+console.info("fakels (Directory Viewer) [v2.6.0]");
+import { main, api, getheader } from "./hook.js";
+import mime from "./mime.mjs";
+import types, { make } from "./mediatype.js";
+import $, { _, id, boundBox, join, style, anchor_from_link } from "./l.js";
+const title = document.title;
+const form = main();
+const { back, term, btn } = form.children;
+const portal = id("porthole");
+const media = id("media");
+let frame = id("frame");
+let query = "", np, queued;
+let browser = {};
+const playlist = [];
+let mel;
+const shortcut_ui = $("ul");
+shortcut_ui.style.userSelect = "none";
+back.onclick = (ev) => {
+    if (ev.shiftKey && np) term.value = np;
+    else {
+        const s = query.split("/").slice(1, -1);
+        if (s.pop()) term.value = s.join("/");
+        else return back.checked = !btn.onclick();
+    }
+    btn.click();
+};
+(btn.onclick = () => requestIdleCallback(() => btn.style.color = back.checked ? "#00b6f0" : "#333"))();
+export const splitEnd = function(s, x) {
+    const l = s.lastIndexOf(x);
+    return l ? [s.slice(0, l), s.slice(l + 1)] : [s];
+}
+export const html = text => text
+  .replace(/<\/?(\w*)\s?.*>/g, "")
+  .replaceAll("-", "<i>-</i>")
+  .replaceAll("[i]", "<i>")
+  .replaceAll("[/i]", "</i>");
+export const get_info = (link = "50x.html") => {
+    const split = link.split("/");
+    const uri = decodeURI(split[split.length - 1]);
+    const [name, ext] = splitEnd(uri, ".");
+    if (ext) {
+        return { name, ext };
+    } else return { name };
+};
+export const describe = info => `${info.name} [${info.ext ? info.ext : "?"}]`;
+const is_wrapped_anchor = l => l && l.children.length && l.children[0].href;
+const verify_anchor = a => a.href.lastIndexOf(".") - location.origin.length > 0
+const get_first_anchor = () => {
+    try {
+        const list = frame.children[1].children[0].children;
+        const a = list[0];
+        if (!verify_anchor(a)) return;
+        return a;
+    } catch (err) { console.warn("wtf!", term.value) }
+}
+const next_anchor = (a, looping=true) => {
+    const ne = a.parentElement.nextElementSibling; let next;
+    if (!is_wrapped_anchor(ne)) {
+        const initial = get_first_anchor();
+        if (looping && initial) next = initial;
+        else return;
+    } else next = ne.children[0];
+    if (!verify_anchor(next)) return;
+    const info = get_info(next.href);
+    if (!types[info.ext]) return next_anchor(next, looping);
+    return queued = next;
+};
+import shuffler from "./shuffle.js";
+const { shuffle } = shuffler();
+const next_queued = () => {
+    if (!queued) return;
+    update_link(shuffling ? shuffle(queued) : next_anchor(queued, true));
+};
+const re = el => {
+    el.onplaying = () => document.title = extract_title(get_info(queued?.href));
+    el.ontimeupdate = () => _.ltime = el.currentTime;
+    el.onvolumechange = () => _.lvol = el.volume;
+    el.onended = next_queued;
+    return el;
+};
+let replay_slot = _.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
+let just_popped = false;
+window.onpopstate = (ev) => {
+    term.value = ev.state;
+    btn.click();
+    just_popped = true;
+};
+let shuffling = _.shuffling === "true";
+let shuffleHook = () => {}, osh = shuffleHook;
+window.toggle_shuffle = () => {
+    _.shuffling = shuffling = !shuffling;
+    shuffleHook();
+    update_status();
+};
+const status = $('footer');
+const active_requests = new Set();
+const toggle_status = () => {
+    const is = status.isConnected;
+    _.status = !is;
+    if (is) status.remove();
+    else document.body.append(status);
+}
+const statbtn = (text, f, cursor) => `<a onclick='${f}()' style='cursor: ${cursor}'>${text}</a>`;
+const update_status = () => {
+    const segments = [
+        term.value.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
+        shortcut_ui.isConnected ? "" : statbtn("Press '?' for help menu", "toggle_shortcuts", "help"),
+        active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` :
+        frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : ""
+    ]
+    status.innerHTML = segments.filter(value => value.length).join(" | ");
+}
+const status_obj = (name) => ({ name, list: active_requests, update: update_status });
+update_status();
+if(_.status !== "false") document.body.append(status);
+const found = new Map();
+const find_recursive = (root, count={ i: 0, expected: 0 }) => {
+    ++count.expected;
+    api("ls", root, frame, () => {
+        ++count.i;
+        const list = frame.children[1].children;
+        for (let i = 0; i < list.length; i++) {
+            const li = list[i];
+            const a = li.children[0];
+            const info = get_info(a.href);
+            if (!info.name || !mime[info.ext]) find_recursive(root + info.ext + "/", count);
+            else if (!found.has(a.href)) found.set(a.href, li);
+        }
+        if (count.i === count.expected) {
+            const fresh = $("div");
+            fresh.id = "frame";
+            fresh.onclick = frame_handler;
+            const label = $("h3");
+            label.innerText = `${found.size} entries (flat)`;
+            const list = $("ul");
+            list.append(...found.values());
+            fresh.append(label, list);
+            frame.replaceWith(fresh);
+            frame = fresh, found.clear();
+        }
+    }, status_obj(`tree (${root}`));
+};
+let bgin;
+const b = () => {
+    mel.volume = parseFloat(_.lvol ?? .86);
+    requestAnimationFrame(() => {
+        const now = performance.now();
+        if (bgin && now - bgin > 999) return;
+        bgin = now;
+        const t = parseFloat(_.ltime);
+        if (!mel.buffered.length || mel.buffered.end(0) < t) b();
+        else {
+            mel.currentTime = t;
+        }
+    });
+}
+const on_load = () => {
+    let reset;
+    if (replay_slot) {
+        reset = anchor_from_link(replay_slot);
+        replay_slot = null;
+    }
+    if (!reset) reset = get_first_anchor();
+    if (reset && reset.href) {
+        if (!queued) {
+            if (!update_link(reset)) return;
+            if (_.ltime &&
+                encodeURI(_.lplay.slice(_.lplay.lastIndexOf("/") + 1))
+                === reset.href.slice(reset.href.lastIndexOf("/") + 1)) b();
+        }
+    }
+};
+const nav = q => history.pushState(q, "", location.origin + path_prefix + q.slice(0, -1));
+form.onsubmit = (e) => {
+    update_status();
+    back.disabled = false;
+    e.preventDefault();
+    const wildcard = term.value.indexOf("*");
+    const dir = term.value.slice(0, wildcard);
+    const v = _.ldir = term.value;
+    query = ((v[0] === "/" ? "" : "/") + v + (v.length ? "/" : "")).replace(/[\/\\]+/g, "/");
+    back.checked = query.replace("/", "").length;
+    btn.onclick();
+    if (wildcard !== -1) {
+        const c = { i: 0, expected: 0 };
+        find_recursive(`/${dir}`, c);
+        if (replay_slot) {
+            const i = setInterval(() => c.expected - c.i || clearInterval(i) || on_load(), 50);
+        }
+        return nav(query);
+    }
+    if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
+    console.debug("[fakels/debug]", "query", `'${query}'`);
+    api("ls", query, frame, () => {
+        if (query === "link") return;
+        console.log("[fakels/query]", "found", `'${query}'`);
+        if (!just_popped) nav(query);
+        just_popped = false;
+        on_load();
+    }, status_obj(`directory ${query}`));
+};
+import dragify from "./drag.js";
+import { sme } from "./active-info.js";
+const popup_savestate = new Map();
+let poppedup;
+export const popup = window.popup = (el, title, patch=_el=>{}) => {
+    if (poppedup) {
+        popup_savestate.set(
+            poppedup.dataset.title.toLowerCase(), 
+            poppedup.style.cssText
+        );
+        poppedup.remove();
+        poppedup = null;
+    }
+    if (!el) { update_status(); return; };
+    const wrapper = $("div");
+    wrapper.className = "popup";
+    wrapper.style = popup_savestate.get(title.toLowerCase()) ?? style.Centered;
+    boundBox(wrapper, "2em", "450px", "450px", "150px", "900px");
+    wrapper.dataset.title = title;
+    const bar = $("div");
+    bar.style = `
+        margin-bottom: 5px;
+        display: flex;
+    `;
+    bar.className = "bar";
+    const name = $("span");
+    name.innerHTML = html(title);
+    name.maxWidth = "";
+    name.style.flexGrow = 1;
+    const exit = $("button");
+    exit.innerText = "✖";
+    exit.onclick = () => popup(null);
+    bar.append(name, exit);
+    el.style.overflowY = "auto";
+    wrapper.append(bar, el);
+    wrapper.qa("h3").forEach(h => h.style = "margin: 4px 0");
+    const link = "url('https://tinyurl.com/yx2wvxyn')";
+    const selector = `[style="background: ${link}]`;
+    const a = selector + '"]', b = selector + ';"]';
+    [...Array.from(wrapper.qa(a)), ...Array.from(wrapper.qa(b)), Array.from(wrapper.c(link))].forEach(b => b.onclick = () => alert("go fuck yourself"));
+    document.body.append(dragify(wrapper));
+    poppedup = wrapper;
+    update_status();
+    patch(el);
+};
+const cancel_popup = ev => poppedup && !poppedup.contains(ev.target) && popup(null);
+window.addEventListener("mouseup", cancel_popup);
+window.addEventListener("keydown", ev => ev.key === "Escape" && cancel_popup(document.body));
+const img = (src, iframe=false) => {
+    const img = $(iframe ? "iframe" : "img");
+    img.src = src;
+    img.style.height = "420px";
+    if (iframe) {
+        img.style.width = "100%";
+        img.style.background = "#cccc";
+    }
+    img.style.borderRadius = "5px";
+    const i = src.lastIndexOf("/");
+    popup(img, src.substring(i + 1));
+};
+const update_link = window.navigate = (to) => {
+    queued = to ? to : get_first_anchor();
+    if (!queued || !queued.href) return;
+    const link = _.lplay = queued.href = join(decodeURI(queued.href));
+    const info = get_info(link);
+    if (info.name.length === 0 || !mime[info.ext]) {
+        term.value = link.split(" /")[1];
+        btn.click(); return;
+    }
+    portal.src = link;
+    const ifm = types[info.ext];
+    if (ifm) playlist.push(queued);
+    if (ifm || link.includes("/media/")) {
+        if (!mel) mel = re(make(link));
+        portal.insertAdjacentElement("afterend", mel);
+        portal.remove();
+        if (!ifm) return img(link, !link.includes(".jpg"));
+        frame.lastElementChild.scrollToEl(queued.parentElement);
+        mel.src = link;
+        np = query;
+        console.debug("[fakels/debug]", describe(info));
+        console.log("[fakels/media]", `'${extract_title(info)}' has queued.\n`);
+        update_media(link, info);
+        if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
+    } else if (browser.remove) {
+        mel.insertAdjacentElement("beforebegin", portal);
+        mel.remove();
+        browser.remove();
+    }
+    return ifm;
+};
+let pathname = decodeURI(window.location.pathname).slice(1);
+const paths = ["raw", "stylish"];
+let path_prefix = "";
+for (const path of paths) {
+    if (pathname.startsWith(path)) {
+        pathname = pathname.slice(path.length + 1);
+        path_prefix = "/" + path;
+        break;
+    }
+}
+term.value = (pathname.length ? pathname : _.ldir) ?? "";
+btn.click();
+const frame_handler = (e) => {
+    e.preventDefault();
+    const target = e.target.href ? e.target : e.target.children[0];
+    if (target?.tagName !== "A") return;
+    update_link(target);
+};
+frame.onclick = frame_handler;
+export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
+export const is_numeric_ascii = s => {
+    let b = 0;
+    for (let i = 0; i < s.length; i++) {
+        const c = s.charCodeAt(i);
+        if (is_bracket(c)) { ++b; continue }
+        if (c === 32 || c === 36 || c === 45 || c === 46 || c === 59) continue;
+        if (c < 48 || c > 57) return;
+    }
+    return b % 2 === 0;
+};
+export const capitalize = text => text.split(".").map((s, i) => s.split(" ").map((word, j) => {
+    if ((i + j) && conjunction_junction.has(word)) return word;
+    return (word[0] || "").toUpperCase() + word.slice(1);
+}).join(" ")).join(".");
+export const n = (s="a", c=0) => `${c?"N":"n"}igg${s}`, N = s => n(s, 1);
+const ignored = /(\(|\[)(explicit|clean)(\]|\))/gi;
+const swaps = {
+    usa: "USA",
+    Sun_: "Sun?",
+    Shit_: "Shit:",
+    Don_t: "Don't",
+    "One Smart": "Some Smart",
+    [n("er")]: n("a"),
+    [N("er")]: N("a"),
+    "Thought I Knew You": "Knew U",
+};
+const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
+export const extract_title = ({ name }) => {
+    return capitalize(name
+      .split("-")
+      .map(s => swap(s)
+        .split(/[_ ]/g)
+        .filter(s => !is_numeric_ascii(s))
+        .join(" ")
+      )
+      .filter(s => s.length)
+      .join("-")
+      .replace(ignored, "")
+    );
+};
+let label_idx = 0;
+export const label = (el, text, color="#444") => {
+    const label = $("label");
+    if (!el.id.length > 0) {
+        el.id = "el" + label_idx++;
+    }
+    label.htmlFor = el.id;
+    label.id = "l" + el.id;
+    label.textContent = text;
+    label.style.color = color;
+    return label;
+};
+export const bundle = (...x) => {
+    const el = $("span");
+    el.append(...x);
+    return el;
+};
+const prev = $("button");
+const next = $("button");
+const mref = $("a");
+const init_browser = (link, info) => {
+    const player = $("div");
+    player.className = "player";
+    prev.onclick = () => {
+        const entry = playlist.pop();
+        if (entry) {
+            if (entry.href === queued.href) return queueMicrotask(() => prev.click());
+            update_link(entry);
+        }
+    };
+    next.onclick = next_queued;
+    prev.textContent = "↩";
+    next.textContent = "↪";
+    mref.dataset.src = decodeURI(link);
+    mref.innerHTML = html(document.title = extract_title(info));
+    let prior = [performance.now()];
+    mref.onclick = () => {
+        if(mel) mel.src = mel.src;
+        const time = performance.now();
+        if (prior.length > 2) {
+            prior.shift();
+            if (time - prior[0] < 1337) toggle_status();
+        }
+        prior.push(time);
+    }
+    player.append(
+        bundle(prev, label(prev, "prev")),
+        bundle(label(mref, "♫", "#00b6f0"), mref),
+        bundle(label(next, "next"), next)
+    );
+    media.append(player);
+    browser = {
+        update: (link, info) => {
+            mref.innerHTML = html(extract_title(info));
+            mref.dataset.src = link;
+            const title = poppedup?.firstElementChild;
+            if (!(title && title.firstElementChild.textContent.includes("Shortcuts"))) return;
+            poppedup.children[1].firstElementChild.children[1].innerHTML = `<i>${mref.innerHTML}</i>`;
+        },
+        remove: () => {
+            player.remove();
+            browser = {};
+            document.title = title;
+        }
+    };
+};
+const update_media = (link, info) => {
+    if (browser.update) browser.update(link, info);
+    else init_browser(link, info);
+};
+const load_art = () => {
+    const link = frame.q(`
+        [href*='/cover.' i], 
+        [href*='/art.' i], 
+        [href*='/folder.' i]`
+    );
+    link && img(link.href);
+};
+const get_lyrics = (query, o) => {
+    api("l", query, null, html => {
+        const el = $("section");
+        el.innerHTML = html.replace("and a s", "in a s").replace(/\bpeak\b/g, "peek");
+        popup(el, `Lyrics for [i]${ o?.artist && o.title ? `${o.artist} - ${o.title}` : query }[/i]`);
+        active_lyrics = o.src;
+    }, status_obj(`lyrics for '${query}'`), null, true);
+}
+let active_lyrics;
+let lyric_attempt = 0;
+const find_lyrics = (src) => {
+    if(!src) return;
+    if (src === active_lyrics) ++lyric_attempt;
+    else lyric_attempt = 0;
+    const i = src.lastIndexOf(":10666/");
+    const dir = src.substring(i + 4);
+    console.lo
+    const fallback = () => {
+        const i = dir.lastIndexOf("/");
+        const j = dir.lastIndexOf(".");
+        const name = decodeURI(dir.substring(i + 1, j));  
+        let segments = name.split(" ").filter(s => !(((s.length === 4 && s.includes("-")) || s.length === 2) && (s[0] === "0" || s[0] === "1")));
+        segments = segments.join(" ").split("- ").filter(s => s.length);
+        const k = segments.length - 1;
+        const last = segments[k];
+        const l = last.lastIndexOf("(");
+        if (l !== -1) {
+            segments.pop();
+            segments.push(last.substring(l, last.lastIndexOf(")") + 1));
+            segments.push(last.substring(0, l).trim());
+        }
+        get_lyrics(segments.reverse().slice(0, Math.min(lyric_attempt + 1, segments.length)).join(" "), { active_lyrics, src });
+    };
+    const callback = meta => {
+        if (!meta) return fallback();
+        const c = JSON.parse(meta);
+        const artist = c.artist || "";
+        const album = c.album?.split(",")[0] || "";
+        const title = c.title || "";
+        if (!title.length) return fallback();
+        let query;
+        switch(lyric_attempt % 4) {
+            case 0: query = [title]; break;
+            case 1: query = [artist, title]; break;
+            case 2: query = [artist, album, title]; break;
+            case 3: query = [album, title]; break;
+            default: return;
+        };
+        get_lyrics(query.join(" "), { artist, title, src });
+    }
+    api("m", dir, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
+};
+window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
+window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(get_info(mel?.src || "silence.")))}</i>`);
+const shortcuts = {
+    "Now-Playing": ["None", () => mref.click()],
+    " ": ["Play/pause", toggle_playback],
+    ",": ["Previous entry", () => prev.click()],
+    ".": ["Next entry", () => next.click()],
+    "s": ["Shuffle on/off", toggle_shuffle],
+    "c": ["Show cover art", load_art],
+    "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src)],
+    ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Lyrics query:"))],
+    "t": ["Toggle status bar", toggle_status],
+    "b": ["Go up a directory", () => back.click()],
+    "?": ["Bring up this help menu", toggle_shortcuts]
+};
+export const eval_keypress = (ev, s=shortcuts) => {
+    if (document.activeElement === term) return;
+    const shortcut = s[ev.key];
+    if (shortcut) {
+        console.debug("[fakels/debug]", "input", `'${ev.key}'`, shortcut[0]);
+        shortcut[1](ev);
+        return false;
+    }
+};
+window.addEventListener("keypress", eval_keypress);
+shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
+    const el = $("li");
+    el.style.display = "flex";
+    el.style.cursor = "pointer";
+    el.onclick = () => eval_keypress({ key });
+    const label = $("a");
+    label.innerText = key.replace(" ", "<Space>");
+    label.style.flexShrink = 0;
+    const text = $("span");
+    text.innerText = x[0];
+    el.append(label, text);
+    return el;
+}));
+\n
+<./js/frames.js>
+const test_frame_timing = (iterations=333, int=10, cb=x=>console.info(`frame timing (approx.): ${x.toFixed(2)}ms`)) => {
+    const time_list = [];
+    const another_time_list = [];
+    for (let i = 0; i < iterations; i++) setTimeout(() => {
+        time_list.push(performance.now());
+        requestAnimationFrame(() => another_time_list.push(performance.now() - time_list[i]));
+    }, i * int);
+    return new Promise(resolve => setTimeout(() => resolve(another_time_list.reduce((p, v) => p + v) / iterations), (iterations + 1) * int)).then(result => cb(result));
+};
+
+/* hey. to do this correctly, instead of incorrectly: check requestAnimationFrame repeatedly, 
+   find the statistically most common (within approx 1ms. or so) frame time, then...
+   from an array of existent frame times, possibly scaled for frame rate 
+   to allow for easier detection (with less usage of decimal constants),
+   select the one that most closely matches with the most commonly read frame time.
+   (the most common will almost certainly be the actual browser's fps) */\n
+<./js/hook.js>
+const loc = location.origin + "/50x.html";
+let interval;
+const getheaders = (invalidate_time=3000) => new Promise((resolve, reject) => {
+    // using XMLHttpRequest because it feels retro
+    const req = new XMLHttpRequest();
+    req.onload = () => {
+        const headers = {};
+        req.getAllResponseHeaders().split("\r\n").forEach(x => {
+            const [k, v] = x.split(": ");
+            headers[k] = v;
+        })
+        resolve(headers);
+    }
+    req.onerror = req.onabort = err => reject(err);
+    req.open('GET', loc, true);
+    req.send(null);
+    if (invalidate_time && !interval) interval = setInterval(() => window.headers = null, invalidate_time);
+});
+
+export const getheader = async name => {
+    if (window.headers) return window.headers[name];
+    else return (window.headers = await getheaders())[name];
+};
+
+const query_cache = new Map();
+export async function api(endpoint, query, frame, cb, req, err, cached=false) {
+    let link = `${endpoint}%20${query}`;
+    let response, wait = true;
+    const callback = data => {
+        if (cached) query_cache.set(link, data);
+        if (frame) frame.innerHTML = data;
+        wait = false;
+        if (req) {
+            req.list.delete(req.name);
+            req.update();
+        }
+        if(cb) cb(data);
+    };
+    if (cached) {
+        const data = query_cache.get(link);
+        if (data) return callback(data);
+    }
+    if (query === "/link/") {
+        if (!window.rpc) window.rpc = await import("./rpc_base.js");
+        const link_code = document.createElement("code");
+        link_code.innerHTML = "Check your browser's inspector console for the link ID!<br>Navigate to /rpc.html, then enter link code in input.";
+        window.popup?.apply({}, [link_code, "Link code:"]);
+        const term = document.getElementById("term");
+        const text = document.querySelector("b")?.textContent ?? "";
+        localStorage.llocation = term.value = text === "/" ? "" : text;
+        requestIdleCallback(() => term.nextElementSibling.click());
+    }
+    if (req) {
+        req.list.add(req.name);
+        req.update();
+    }
+    setTimeout(() => {
+        if (wait && frame) frame.innerHTML = `<h3 style="color: #000">&nbsp;... &nbsp;${query}</h3>`;
+    }, 200);
+    const timeout = () => {
+        if (response) return;
+        const failure = `${req.name} failed`;
+        if (req) {
+            req.list.delete(req.name);
+            req.list.add(failure);
+            req.update();
+            setTimeout(() => {
+                req.list.delete(failure);
+                req.update();
+            }, 1000);
+        }
+        if (err) err();
+        return true;
+    };
+    setTimeout(timeout, 10000);
+    response = await fetch(`http://${location.hostname}:${await getheader("adapter-port")}/${link}`).catch(err => console.warn(err));
+    if (timeout()) return;
+    callback(await response.text());
+};
+
+export const main = (client=true) => {
+    if (client) { window.is_client = true; }
+    let main;
+    if (main = document.getElementById("dyn")) {} else {
+        main = document.createElement("div");
+        main.id = "dyn";
+        document.body.append(main);
+    }
+    requestIdleCallback(() => document.body.style.visibility = "visible");
+    return main;
+};\n
+<./js/l.js>
+// choo choo.
+export const _ = localStorage;
+
+export default function(tag) {
+    return document.createElement(tag);
+}
+
+export function id(tag) {
+    return document.getElementById(tag);
+}
+
+HTMLElement.prototype.c = HTMLElement.prototype.getElementsByClassName;
+HTMLElement.prototype.q = HTMLElement.prototype.querySelector;
+HTMLElement.prototype.qa = HTMLElement.prototype.querySelectorAll;
+HTMLElement.prototype.scrollToEl = function(el, focus=true) {
+    // demented special-case logic to handle different list styles
+    const m = getComputedStyle(el).margin;
+    const i = m?.indexOf("px");
+    if (i && i !== -1) this.scrollTop = el.offsetTop + 1 - m.slice(0, i);
+    else this.scrollTop = el.offsetTop;
+    if (focus) el.focus();
+};
+
+export function boundBox(el, gutter, minW, maxW, minH, maxH) {
+    if(minW) el.style.minWidth  = `min(100% - ${gutter}, ${minW})`;
+    if(maxW) el.style.maxWidth  = `min(100% - ${gutter}, ${maxW})`;
+    if(minH) el.style.minHeight = `min(100% - ${gutter}, ${minH})`;
+    if(maxH) el.style.maxHeight = `min(100% - ${gutter}, ${maxH})`;
+}
+
+export function join(...x) {
+    const path = x.join("/").replace(/[—\\\/]+/g, "/");
+    const tok = path.indexOf(":/") + 2;
+    const out = path[0] === "/" ? ["/"] : [];
+    let last = 0;
+    let dots = 0;
+    if (tok !== 1) {
+        out.push(path.slice(0, tok));
+        last = tok;
+    }
+    for (let i = 0; i < path.length; i++) {
+        const c = path[i];
+        if (c === "/") {
+            if (dots === 0) out.push(path.slice(last, i));
+            else if (dots === 2) out.pop();
+            last = i;
+            dots = 0;
+        } else if (c === "." && (dots === 1 || path[i - 1] === "/")) ++dots;
+    }
+    if (last !== path.length - 1) out.push(path.slice(last, path.length));
+    return out.join("");
+}
+
+export const anchor_from_link = (link, f=frame) => f.querySelector(`[href*="${encodeURI(link.slice(link.indexOf(".xyz/") + 4))}"]`);
+
+export const style = {
+    Centered: `
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        display: flex;
+        flex-direction: column;
+    `
+};
+
+export function clone(x) {
+    const _ = 22;
+    const i = [93, 98, 112, 112, 109, 113].map(x-_);
+
+    return `${x.slice(93, 98)}${x.charAt(112)}`;
+}\n
+<./js/mediatype.js>
+import mime from "./mime.mjs";
+export default Object.seal({
+    flac: mime.flac,
+    wav: mime.wav,
+    ogg: mime.ogg,
+    mp3: mime.mp3,
+    m4a: mime.m4a,
+});
+
+const base = Object.seal({
+    mp4: "video",
+    fallback: "audio"
+});
+
+import $, { _ } from "./l.js";
+export function make(src) {
+    const el = $(base[src.slice(src.lastIndexOf("." + 1))] ?? base.fallback);
+    el.controls = el.autoplay = true;
+    return el;
+}\n
+<./js/mime.mjs>
+const md   = "text/markdown";
+const txt  = "text/plain";
+const html = "text/html";
+const css  = "text/css";
+const js   = "text/javascript";
+const json = "application/json";
+const wasm = "application/wasm";
+const flac = "audio/flac";
+const wav  = "audio/wav";
+const ogg  = "audio/ogg";
+const mp3  = "audio/mpeg";
+const m4a  = "audio/mp4";
+const mp4  = "video/mp4";
+const gif  = "image/gif";
+const jpg  = "image/jpeg";
+const png  = "image/png";
+const webp = "image/webp";
+const pdf  = "application/pdf";
+const xml  = "application/xml";
+
+export default Object.seal({
+    md, yaml: md, txt, cue: txt, log: txt, lrc: txt, m3u: txt, nfo: txt, url: txt, html, css, js, mjs: js, json, wasm, flac, wav, ogg, mp3, m4a, mp4, gif, jpg, png, ico: png, webp, pdf, xml
+});\n
+<./js/numeric-template.js>
+const isnumascii = (v, i, c = v.charCodeAt(i)) => c === 45 ? isnumascii(v, i + 1) : c === 46 || c > 47 && c < 58;
+
+function take_template(v) {
+    return (i, c) => {
+        let numeric = "";
+        let str = "";
+        let j = i;
+        for (; j < v.length; j++) {
+            const c = v.charCodeAt(j);
+            if (isnumascii(v, j)) {
+                if (str.length) break;
+                numeric += v[j];
+            }
+            else if (c === 41 || !numeric.length) break;
+            else str += v[j];
+        }
+        if (j === i) return [j, ""];
+        return [j, `\${v[${c}]}${str}`, numeric];
+    };
+}
+
+function take_generic(v) {
+    return i => {
+        let str = "";
+        let j = i;
+        for (; j < v.length; j++) {
+            if (isnumascii(v, j)) break;
+            str += v[j];
+        }
+        return [j, str];
+    }
+}
+
+export default function template(v) {
+    let template = "return (...v) => `";
+    const get_var = take_template(v);
+    const generic = take_generic(v);
+    const defaults = [];
+    const add = ([i, x, d]) => {
+        template += x;
+        if (d) defaults.push(d);
+        return i;
+    };
+    for (let i = 0; i < v.length;) {
+        i = add(get_var(i, defaults.length));
+        i = add(generic(i));
+    }
+    template += '`';
+    return { compile: new Function(template)(), defaults };
+}\n
+<./js/rpc.js>
+import { main, api, getheader } from "./hook.js";
+
+const init_port = await getheader("adapter-port");
+console.warn("detected adapter port:", init_port);
+
+let client, socket;
+fetch(`${location.origin}/socket.io/socket.io.js`).then(res => res.text()).then(data => {
+    eval(data);
+    socket = window.socket = io();
+    socket.on("rpc", ({ event, data }) => {
+        if (event === "browse") {
+            query = data;
+            term.value = query;
+            back.disabled = false;
+            back.checked = query.replace("/", "").length;
+            api("ls", query, frame, null);
+        }
+    });
+});
+
+const form = main();
+const { back, term, btn } = form.children;
+
+const frame = document.getElementById("frame");
+let query;
+
+back.onclick = () => {
+    const remaining = query.split("/").slice(1, -1);
+    if (remaining.pop()) socket.emit("rpc", { client, event: "browse", data: remaining.join("/") });
+    else back.checked = false;
+};
+
+form.onsubmit = (e) => {
+    e.preventDefault();
+    if (!client) {
+        client = term.value;
+        if (socket) socket.emit("rpc", { event: "link", data: client });
+        term.disabled = true;
+        return;
+    }
+};
+
+frame.onclick = (e) => {
+    e.preventDefault();
+    const c = e.target.children;
+    const u = (l) => {
+        const list = frame.querySelectorAll("ul > li > a");
+        if (socket) socket.emit("rpc", { client, event: "select", data: Array.prototype.indexOf.call(list, l) })
+    };
+    if (e.target.href) u(e.target);
+    if (c.length && c[0].href) u(c[0]);
+};
+
+// it works, hoe.
+window.addEventListener("keypress", ev => ({ b: back, Enter: btn })[ev.key]?.click());\n
+<./js/rpc_base.js>
+import "/socket.io/socket.io.js";
+export let client, socket = io();
+const input = document.getElementById("term");
+socket.on("rpc", ({ event, data }) => {
+    console.log("[rpc/call]", event, data);
+    if (event === "link") {
+        client = data;
+        socket.emit("rpc", { client, event: "browse", data: input.value });
+    }
+    if (event === "select") {
+        window.navigate(frame.children[1].children[parseInt(data)].firstElementChild);
+    }
+    if (event === "browse") {
+        term.value = data;
+        btn.click();
+    }
+});
+socket.on("connect", () => {
+    console.log("[rpc/link-id]", socket.id);
+});\n
+<./js/shuffle.js>
+import { get_info } from "./find.js";
+import types from "./mediatype.js";
+export default function shuffler() {
+    const swapped = new Set();
+    let previous_root;
+    const provider = { 
+        shuffle(a, f=frame) {
+            if (a.parentElement.parentElement !== previous_root) swapped.clear();
+            previous_root = a.parentElement.parentElement;
+            const list = Array.from(f.children[1].children).filter(e => types[get_info(e.firstElementChild.href).ext]);
+            let i = 0;
+            const select = (j=0) => {
+                if (j === list.length - 1) return i = null;
+                const swap = Math.round(Math.random(...[].fill(performance.now(), 0, 99)) * (list.length - 1));
+                if (/*swap === j || */swapped.has(swap)) return () => select(j + 1);
+                const tmp = list[j];
+                list[j] = list[swap];
+                list[swap] = tmp;
+                swapped.add(swap);
+                i = j;
+            };
+            for(let output = select(); typeof output === "function"; output = output());
+            return i === null ? void 0 : list[i].firstElementChild;
+        }, 
+        swapped 
+    };
+    return provider;
+}\n
+<./js/sseg.mjs>
+/* sseg (Simple Structured Entropy Generator) [v1-final] */
+
+import { argv } from "process";
+const arg3 = parseFloat(argv[4]);
+const weight = .5 + (isNaN(arg3) ? 0 : arg3);
+export const coin = Object.create(null);
+Object.defineProperty(coin, "flip", { get() { return Math.random() < weight ? "Tails" : "Heads" } });
+const stats = { Heads: 0, Tails: 0 };
+const arg1 = parseFloat(argv[2]);
+if (!isNaN(arg1)) {
+    const arg2 = parseFloat(argv[3]);
+    const [x, y] = isNaN(arg2) ? [arg1] : Math.random() < .5 ? [arg1, arg2] : [arg2, arg1];
+    const it = (id) => {
+        const log = [];
+        for (let i = 0; i < Math.round(x + Math.random()); ++i) {
+            const result = coin.flip;
+            ++stats[result];
+            const str = i.toString();
+            log.push(["0".repeat(6 - str.length) + str, result, Math.random().toFixed(3), "[random float]", "\n", `stats { Head: ${stats.Heads} Tail: ${stats.Tails} } Ident: ${id}:${i}`]);
+        }
+        log.forEach(x => console.log(...x));
+    };
+    if (!isNaN(y)) for (let i = 0; i < Math.round(y + Math.random()); ++i) it(i);
+    else it(0);
+}
+
+// And you know what time it is...
+// I'm gonna make a million x a million.
+// - Sir Pharcyde\n
