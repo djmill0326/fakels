@@ -64,8 +64,7 @@ const next_anchor = (a, looping=true) => {
     } else next = ne.children[0];
     if (!verify_anchor(next)) return;
     const info = get_info(next.href);
-    if (!types[info.ext] || next.parentElement.classList.contains("hidden"))
-        return next_anchor(next, looping);
+    if (!types[info.ext]) return next_anchor(next, looping);
     return queued = next;
 };
 import shuffler from "./shuffle.js";
