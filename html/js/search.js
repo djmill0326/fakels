@@ -13,6 +13,7 @@ function clear(frame) {
     if (search.fresh) return;
     iter(frame, li => li.classList.remove("hidden"));
     search.fresh = true;
+    if (window.shuffle) shuffle.reset();
 }
 
 function check(str, term) {
@@ -44,13 +45,14 @@ function filter(frame, term, loose, useLinks) {
 let hidden = false;
 
 function update(frame, value, useLinks) {
-    const loose = value.charAt(1) === "~";
+    const loose = value.charAt(1 + hidden) === "~";
     const term = search.term = value.slice(1 + loose + hidden);
     if (!term.length) return clear(frame);
     filter(frame, term, loose, useLinks);
-    search.fresh = false;
     search.active = !hidden;
     search.term = term;
+    search.fresh = false;
+    if (window.shuffle) shuffle.reset();
 }
 
 function reset(frame) {

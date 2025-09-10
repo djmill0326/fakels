@@ -71,11 +71,11 @@ const next_anchor = (a, looping=true) => {
     }
 };
 import shuffler from "./shuffle.js";
-const { shuffle } = shuffler();
+window.shuffle = shuffler(frame);
 const next_queued = () => {
     if (!playlist.length) return;
     const target = playlist[playlist.length - 1];
-    update_link(shuffling ? shuffle(target) : next_anchor(target, true));
+    update_link(shuffling ? shuffle.shuffle() : next_anchor(target, true));
 };
 const re = el => {
     el.onplaying = () => document.title = extract_title(get_info(queued?.href));
@@ -109,10 +109,10 @@ const toggle_status = () => {
 const statbtn = (text, f, cursor) => `<a onclick='${f}()' style='cursor: ${cursor}'>${text}</a>`;
 const update_status = () => {
     const segments = [
-        term.value.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
+        _.ldir.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
         shortcut_ui.isConnected ? "" : statbtn("Press '?' for help menu", "toggle_shortcuts", "help"),
         active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` :
-        frame.children.length > 1 ? `Browsing ${term.value.length ? term.value : "/"}` : ""
+        frame.children.length > 1 ? `Browsing ${_.ldir.length ? _.ldir : "/"}` : ""
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
 }
