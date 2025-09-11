@@ -22,9 +22,7 @@ function check(str, term) {
 }
 
 function split(term) {
-    return term.split(" ")
-        .map(w => w.trim())
-        .filter(w => w.length);
+    return term.split(/\s+/);
 }
 
 function filter(frame, term, loose, useLinks) {

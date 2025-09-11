@@ -109,10 +109,10 @@ const toggle_status = () => {
 const statbtn = (text, f, cursor) => `<a onclick='${f}()' style='cursor: ${cursor}'>${text}</a>`;
 const update_status = () => {
     const segments = [
-        _.ldir.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
+        _.ldir?.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
         shortcut_ui.isConnected ? "" : statbtn("Press '?' for help menu", "toggle_shortcuts", "help"),
         active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` :
-        frame.children.length > 1 ? `Browsing ${_.ldir.length ? _.ldir : "/"}` : ""
+        frame.children.length > 1 ? `Browsing ${_.ldir?.length ? _.ldir : "/"}` : ""
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
 }
