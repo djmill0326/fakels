@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Shared Log</title>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				background: #111;
+				margin: 0;
+				padding: .5em;
+				height: 100%;
+				width: 100%;
+				font-size: 9px;
+			}
+			section {
+				margin-top: .2rem;
+				height: 100%;
+				overflow-y: scroll;
+			}
+			div {
+				padding: .2rem;
+				background: #060606;
+				color: #eee;
+				font-family: monospace;
+				overflow-wrap: break-word;
+				white-space: pre-wrap;
+			}
+			.time {
+				color: bisque;
+			}
+			span.time {
+				margin-right: .6em;
+			}
+			.warn {
+				color: khaki;
+			}
+			.error {
+				color: lightcoral;
+			}
+			.info {
+				color: paleturquoise;
+			}
+			.debug {
+				color: #aaa;
+			}
+			section:not(.time) .time,
+			section:not(.info) .log,
+			section:not(.info) .info,
+			section:not(.warn) .warn,
+			section:not(.error) .error,
+			section:not(.debug) .debug {
+				display: none;
+			}
+			form {
+				position: sticky;
+				top: 0;
+				padding: .2rem;
+				background: #161616;
+				border-radius: .2rem;
+			}
+			input {
+			}
+			label {
+				font-size: .7rem;
+				font-family: system-ui, sans-serif;
+			}
+			label {
+				height: 1em;
+			}
+			button {
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+		<form onsubmit="return false">
+			<label for="time" class="time">Time</label>
+			<input type="checkbox" id="time" checked>
+			<label for="info" class="info">Info</label>
+			<input type="checkbox" id="info" checked>
+			<label for="warn" class="warn">Warn</label>
+			<input type="checkbox" id="warn" checked>
+			<label for="error" class="error">Error</label>
+			<input type="checkbox" id="error" checked>
+			<label for="debug" class="debug">Debug</label>
+			<input type="checkbox" id="debug">
+			<button id="clear">Clear</button>
+		</form>
+		<script type="module">
+			import { enableLog } from "./js/tab-log.js";
+			const area = document.createElement("section");
+			document.body.append(area);
+			enableLog(area);
+			const inputs = document.querySelectorAll("input");
+			function updateLevel(input) {
+				if (input.checked) area.classList.add(input.id);
+				else area.classList.remove(input.id);
+			}
+			for (const input of inputs) {
+				updateLevel(input);
+				input.onchange = () => updateLevel(input);
+			}
+			const clear = document.getElementById("clear");
+			clear.onclick = () => area.replaceChildren();
+		</script>
+	</body>
+</html>
+

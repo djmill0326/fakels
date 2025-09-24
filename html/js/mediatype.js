@@ -12,9 +12,8 @@ const base = Object.seal({
     fallback: "audio"
 });
 
-import $, { _ } from "./l.js";
 export function make(src) {
-    const el = $(base[src.slice(src.lastIndexOf("." + 1))] ?? base.fallback);
+    const el = document.createElement(base[src.slice(src.lastIndexOf("." + 1))] ?? base.fallback);
     el.controls = el.autoplay = true;
     return el;
 }
