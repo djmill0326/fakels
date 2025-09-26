@@ -47,7 +47,7 @@ export const get_info = (link = "50x.html") => {
     } else return { name };
 };
 export const describe = info => `${info.name} [${info.ext ? info.ext : "?"}]`;
-const is_wrapped_anchor = l => l && l.children.length && l.children[0].href;
+const is_wrapped_anchor = l => !!l?.children[0]?.href;
 const verify_anchor = a => a.href.lastIndexOf(".") - location.origin.length > 0;
 const get_first_anchor = () => {
     try {
@@ -58,7 +58,9 @@ const get_first_anchor = () => {
     } catch (err) { console.warn("wtf!", term.value) }
 }
 const next_anchor = (a, looping=true) => {
-    for (let head = a, i = 0; i < a.parentElement.parentElement.children.length; i++) {
+    if (!a?.href) return;
+    const length = a.parentElement.parentElement.children.length;
+    for (let head = a, i = 0; i < length; i++) {
         const entry = head.parentElement.nextElementSibling; 
         let next;
         if (!is_wrapped_anchor(entry)) {
@@ -68,17 +70,14 @@ const next_anchor = (a, looping=true) => {
         } else next = entry.children[0];
         if (!verify_anchor(next)) return;
         const info = get_info(next.href);
-        if (types[info.ext] && !next.parentElement.classList.contains("hidden")) return queued = next;
+        if (types[info.ext] && !next.parentElement.classList.contains("hidden"))
+            return queued = next;
         head = next;
     }
 };
 import shuffler from "./shuffle.js";
-window.shuffle = shuffler(frame);
-const next_queued = () => {
-    if (!playlist.length) return;
-    const target = playlist[playlist.length - 1];
-    update_link(shuffling ? shuffle.shuffle() : next_anchor(target, true));
-};
+const shuffle = window.shuffle = shuffler(frame);
+const next_queued = () => update_link(shuffling ? shuffle.shuffle() : next_anchor(playlist[playlist.length - 1]), true);
 const re = el => {
     el.onplaying = () => document.title = extract_title(get_info(queued?.href));
     el.ontimeupdate = () => _.ltime = el.currentTime;
@@ -267,8 +266,8 @@ const img = (src, iframe=false) => {
     popup(img, src.substring(i + 1));
 };
 const update_link = window.navigate = (to) => {
-    queued = to ? to : get_first_anchor();
-    if (!queued || !queued.href) return;
+    queued = to ?? get_first_anchor();
+    if (!queued?.href) return;
     const link = queued.href = join(decodeURI(queued.href));
     localStorage.setItem("lplay", link);
     const info = get_info(link);
@@ -389,7 +388,8 @@ const init_browser = (link, info) => {
     prev.onclick = () => {
         const entry = playlist.pop();
         if (entry) {
-            if (entry.href === queued.href) return queueMicrotask(() => prev.click());
+            if (!playlist.length) playlist.push(entry);
+            if (entry.href === queued.href) return prev.click();
             update_link(entry);
         }
     };

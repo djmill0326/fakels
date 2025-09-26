@@ -51,7 +51,7 @@ export function join(...x) {
     return out.join("");
 }
 
-export const anchor_from_link = (link, f=frame) => f.querySelector(`[href*="${encodeURI(link.slice(link.indexOf(":8080/") + 6))}"]`);
+export const anchor_from_link = (link, frame) => link ? frame.querySelector(`[href*="${encodeURI(link.slice(link.indexOf(":8080/") + 6))}"]`) : void 0;
 
 export const style = {
     Centered: `
