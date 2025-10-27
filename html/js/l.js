@@ -1,4 +1,3 @@
-// choo choo.
 export const _ = localStorage;
 
 export default function(tag) {
@@ -20,6 +19,35 @@ HTMLElement.prototype.scrollToEl = function(el, focus=true) {
     else this.scrollTop = el.offsetTop;
     if (focus) el.focus();
 };
+
+export function handleHold(el, onHold, onClick, t=500, needsPress=false) {
+    let downTime = 0;
+    let triggered = false;
+    let timeout;
+    if (onClick) el.addEventListener("click", ev => {
+        ev.preventDefault();
+        onClick(ev);
+    });
+    el.addEventListener("pointerdown", ev => {
+        ev.preventDefault();
+        el.style.userSelect = "none";
+        downTime = performance.now();
+        if(!needsPress) timeout = setTimeout(() => {
+            onHold(ev);
+            triggered = true;
+        }, t);
+    });
+    el.addEventListener("pointerup", ev => {
+        ev.preventDefault()
+        clearTimeout(timeout);
+        const time = performance.now();
+        if (needsPress) {
+            if (time - downTime >= t) onHold(ev);
+            else el.click();
+        } else if (!triggered) el.click();
+        triggered = false;
+    });
+}
 
 export function boundBox(el, gutter, minW, maxW, minH, maxH) {
     if(minW) el.style.minWidth  = `min(100% - ${gutter}, ${minW})`;
@@ -51,7 +79,7 @@ export function join(...x) {
     return out.join("");
 }
 
-export const anchor_from_link = (link, frame) => link ? frame.querySelector(`[href*="${encodeURI(link.slice(link.indexOf(":8080/") + 6))}"]`) : void 0;
+export const anchor_from_link = (link, frame) => link ? frame.querySelector(`[href$="${new URL(encodeURI(link)).pathname}"]`) : void 0;
 
 export const style = {
     Centered: `
@@ -62,10 +90,3 @@ export const style = {
         flex-direction: column;
     `
 };
-
-export function clone(x) {
-    const _ = 22;
-    const i = [93, 98, 112, 112, 109, 113].map(x-_);
-
-    return `${x.slice(93, 98)}${x.charAt(112)}`;
-}

@@ -5,7 +5,7 @@ console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.js";
-import $, { _, id, boundBox, join, style, anchor_from_link } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, anchor_from_link } from "./l.js";
 import { search, useSearch } from "./search.js";
 const title = document.title;
 const form = main();
@@ -29,6 +29,10 @@ back.onclick = (ev) => {
     btn.click();
 };
 (btn.onclick = () => requestIdleCallback(() => btn.style.color = back.checked ? "#00b6f0" : "#333"))();
+handleHold(btn, () => {
+    if (query.at(-2) !== "*") term.value = term.value + (term.value.endsWith("/") ? "*" : "/*");
+    btn.click();
+});
 export const splitEnd = function(s, x) {
     const l = s.lastIndexOf(x);
     return l ? [s.slice(0, l), s.slice(l + 1)] : [s];
@@ -265,7 +269,7 @@ const img = (src, iframe=false) => {
     const i = src.lastIndexOf("/");
     popup(img, src.substring(i + 1));
 };
-const update_link = window.navigate = (to) => {
+const update_link = to => {
     queued = to ?? get_first_anchor();
     if (!queued?.href) return;
     const link = queued.href = join(decodeURI(queued.href));
@@ -297,6 +301,7 @@ const update_link = window.navigate = (to) => {
     }
     return ifm;
 };
+addEventListener("navigate", ev => update_link(frame.children[1].children[ev.detail.i].firstElementChild));
 let pathname = decodeURI(window.location.pathname).slice(1);
 const paths = ["dope", "raw", "stylish"];
 let path_prefix = "";
@@ -389,7 +394,7 @@ const init_browser = (link, info) => {
         const entry = playlist.pop();
         if (entry) {
             if (!playlist.length) playlist.push(entry);
-            if (entry.href === queued.href) return prev.click();
+            if (entry.href === queued?.href) return prev.click();
             update_link(entry);
         }
     };
@@ -398,16 +403,7 @@ const init_browser = (link, info) => {
     next.textContent = "↪";
     mref.dataset.src = decodeURI(link);
     mref.innerHTML = html(document.title = extract_title(info));
-    let prior = [performance.now()];
-    mref.onclick = () => {
-        if(mel) mel.src = mel.src;
-        const time = performance.now();
-        if (prior.length > 2) {
-            prior.shift();
-            if (time - prior[0] < 1337) toggle_status();
-        }
-        prior.push(time);
-    }
+    handleHold(mref, toggle_status, () => mel && (mel.currentTime = 0), 500);
     player.append(
         bundle(prev, label(prev, "prev")),
         bundle(label(mref, "♫", "#00b6f0"), mref),

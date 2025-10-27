@@ -7,11 +7,11 @@ socket.on("rpc", ({ event, data }) => {
         client = data;
         socket.emit("rpc", { client, event: "browse", data: input.value });
     }
-    if (event === "select") {
-        window.navigate(frame.children[1].children[parseInt(data)].firstElementChild);
+    if (event === "select") { 
+        dispatchEvent(new CustomEvent("navigate", { detail: { i: parseInt(data) } }));
     }
     if (event === "browse") {
-        term.value = data;
+        input.value = data;
         btn.click();
     }
 });
