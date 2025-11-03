@@ -88,7 +88,7 @@ const re = el => {
     el.onplaying = () => document.title = extract_title(get_info(queued?.href));
     el.ontimeupdate = () => _.ltime = el.currentTime;
     el.onvolumechange = () => _.lvol = el.volume;
-    el.onended = next_queued;
+    el.onended = el.onerror = next_queued;
     return el;
 };
 let replay_slot = _.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
@@ -150,20 +150,6 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
         }
     }, status_obj(`tree (${root}`));
 };
-let bgin;
-const b = () => {
-    mel.volume = parseFloat(_.lvol ?? 1);
-    requestAnimationFrame(() => {
-        const now = performance.now();
-        if (bgin && now - bgin > 999) return;
-        bgin = now;
-        const t = parseFloat(_.ltime);
-        if (!mel.buffered.length || mel.buffered.end(0) < t) b();
-        else {
-            mel.currentTime = t;
-        }
-    });
-}
 const on_load = () => {
     let reset;
     if (replay_slot) {
@@ -176,19 +162,21 @@ const on_load = () => {
             if (!update_link(reset)) return;
             if (_.ltime &&
                 encodeURI(_.lplay.slice(_.lplay.lastIndexOf("/") + 1))
-                === reset.href.slice(reset.href.lastIndexOf("/") + 1)) b();
+                === reset.href.slice(reset.href.lastIndexOf("/") + 1)
+            ) mel.currentTime = parseFloat(_.ltime);
         }
     }
 };
-const nav = q => history.pushState(q, "", location.origin + path_prefix + q.slice(0, -1));
+const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
+const nav = (t, q) => history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
 form.onsubmit = (e) => {
     update_status();
     back.disabled = false;
     e.preventDefault();
     const wildcard = term.value.indexOf("*");
     const dir = term.value.slice(0, wildcard);
-    const v = _.ldir = term.value;
-    query = ((v[0] === "/" ? "" : "/") + v + (v.length ? "/" : "")).replace(/[\/\\]+/g, "/");
+    const v = _.ldir = term.value = clean(term.value.replace(/[\/\\]+/g, "/"));
+    query = ((v[0] === "/" ? "" : "/") + v + (v.length ? "/" : ""));
     back.checked = query.replace("/", "").length;
     btn.onclick();
     if (wildcard !== -1) {
@@ -197,14 +185,14 @@ form.onsubmit = (e) => {
         if (replay_slot) {
             const i = setInterval(() => c.expected - c.i || clearInterval(i) || on_load(), 50);
         }
-        return nav(query);
+        return nav(v, query);
     }
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
     console.debug("[fakels/debug]", "query", `'${query}'`);
     api("ls", query, frame, () => {
         if (query === "link") return;
         console.log("[fakels/query]", "found", `'${query}'`);
-        if (!just_popped) nav(query);
+        if (!just_popped) nav(v, query);
         just_popped = false;
         on_load();
     }, status_obj(`directory ${query}`));
@@ -286,7 +274,10 @@ const update_link = to => {
     const ifm = types[info.ext];
     if (ifm) playlist.push(queued);
     if (ifm || link.includes("/media/")) {
-        if (!mel) mel = re(make(link));
+        if (!mel) {
+            mel = re(make(link));
+            mel.volume = parseFloat(_.lvol ?? 1);
+        }
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
         if (!ifm) return img(link, !link.includes(".jpg"));
@@ -394,19 +385,18 @@ const init_browser = (link, info) => {
     const player = $("div");
     player.className = "player";
     prev.onclick = () => {
+        if (playlist.length === 1) return update_link(playlist[0]);
         const entry = playlist.pop();
-        if (entry) {
-            if (!playlist.length) playlist.push(entry);
-            if (entry.href === queued?.href) return prev.click();
-            update_link(entry);
-        }
+        if (entry.href === queued?.href) return prev.onclick();
+        update_link(entry);
     };
     next.onclick = next_queued;
     prev.textContent = "↩";
     next.textContent = "↪";
     mref.dataset.src = link;
     mref.innerHTML = html(document.title = extract_title(info));
-    handleHold(mref, toggle_status, () => mel && (mel.currentTime = 0), 500);
+    mref.onclick = () => mel && (mel.currentTime = 0) || mel.play();
+    handleHold(mref, toggle_status, null, 500);
     player.append(
         bundle(prev, label(prev, "prev")),
         bundle(label(mref, "♫", "#00b6f0"), mref),
@@ -528,30 +518,6 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
 }));
 
 if ('mediaSession' in navigator) {
-    navigator.mediaSession.setActionHandler('previoustrack', () => {
-        console.log('User clicked "Previous Track"');
-        prev.click();
-    });
-
-    navigator.mediaSession.setActionHandler('nexttrack', () => {
-        console.log('User clicked "Next Track"');
-        next.click();
-    });
-
-    // You can also add handlers for play, pause, seekforward, seekbackward, and seekto
-    //navigator.mediaSession.setActionHandler('play', () => { audio.play(); }); //
-    //navigator.mediaSession.setActionHandler('pause', () => { audio.pause(); }); //
-    navigator.mediaSession.setActionHandler('seekbackward', (details) => {
-        mel.currentTime = Math.max(mel.currentTime - (details.seekOffset || 10), 0);
-    }); //
-    navigator.mediaSession.setActionHandler('seekforward', (details) => {
-        mel.currentTime = Math.min(mel.currentTime + (details.seekOffset || 10), audio.duration);
-    }); //
-    navigator.mediaSession.setActionHandler('seekto', (details) => {
-        if (details.fastSeek && 'fastSeek' in mel) { //
-            mel.fastSeek(details.seekTime);
-            return;
-        }
-        mel.currentTime = details.seekTime; //
-    });
+    navigator.mediaSession.setActionHandler('previoustrack', () => prev.onclick());
+    navigator.mediaSession.setActionHandler('nexttrack', () => next.onclick());
 }

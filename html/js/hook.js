@@ -73,7 +73,8 @@ export async function api(endpoint, query, frame, cb, req, err, cached=false) {
         return true;
     };
     setTimeout(timeout, 10000);
-    response = await fetch(`http://${location.hostname}:${await getheader("adapter-port")}/${link}`).catch(err => console.warn(err));
+    const url = `http://${location.hostname}:${await getheader("adapter-port")}/${link}`;
+    response = await fetch(url).catch(err => console.warn(err));
     if (timeout()) return;
     callback(await response.text());
 };

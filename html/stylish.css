@@ -1,11 +1,9 @@
 * {
     box-sizing: border-box;
-    --rot: -90deg;
-    --gradyr: rgba(160,60,180,1) 0%, #f02040 50%, rgba(255,221,69,1) 100%;
-    --gradbg: rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%;
-    --colors: rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 66%, rgba(255, 212, 112, 1) 100%; 
-    --gradient: rgba(49, 39, 89, 1) 0%, rgba(237, 78, 126, 1) 66%, rgba(247, 212, 116, 1) 100%;
-    --gradcols: var(--gradient);
+    --rot: 90deg;
+    --gradwarm: rgba(160,60,180,1) 0%, #f02040 50%, rgba(255,221,69,1) 100%;
+    --gradcold: rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%;
+    --gradcols: var(--gradwarm);
     --font: system-ui, serif;
     color: #ccc;
     user-select: none;
@@ -14,25 +12,23 @@
 body {
     backdrop-filter: blur(7.27em) grayscale(.1);
     background: linear-gradient(calc(222deg + var(--rot)), var(--gradcols));
-    height: 100svh;
+    height: 100dvh;
     display: flex;
     margin: 0;
     font-family: var(--font);
 }
 
 #main {
-    width: 500px;
-    height: 800px;
-    max-width: calc(100svw - 2em); 
-    max-height: calc(100svh - 2em);
+    width: calc(100svw - 2em); 
+    height: calc(100dvh - 2em);
     margin: 1em auto;
     padding: 1em;
-    background: #222;
+    background: #2227;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-self: center;
-    box-shadow: inset 0 0 .9em 0 rgba(0,0,.2);
+    box-shadow: inset 0 0 .9em 0 rgba(0,0,.05);
 }
 
 #back {
@@ -44,6 +40,7 @@ audio {
     max-height: 32px;
     width: 100%;
     margin: .6em 0;
+    border-radius: 16px;
 }
 
 form {
@@ -60,9 +57,8 @@ input, button, li {
 }
 
 .player button {
-    width: 2em;
-    height: 2em;
-    font-size: larger;
+    width: 2rem;
+    height: 2rem;
 }
 
 .player {
@@ -90,9 +86,15 @@ input, button, li {
 #el1 {
     text-align: center;
     font-weight: bold;
-    color: mediumvioletred;
+    color: burlywood;
     white-space: unset;
     flex-grow: unset;
+}
+
+.player > :nth-child(2) {
+    flex: 1;
+    text-align: center;
+    display: inline-block;
 }
 
 #porthole {
@@ -110,7 +112,6 @@ input, button, li {
 
 ul {
     list-style: none;
-    font-size: larger;
     padding: 0 .4em;
     margin: 5px 0;
     overflow: auto;
@@ -179,18 +180,6 @@ button:active, #btn:active {
     .bar > button {
         width: 24.667px;
         height: 24.667px;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    body, ul {
-      font-size: 1.333rem;
-    }
-    #main {
-        height: calc(100svh - 2em);
-    }
-    input {
-        font-size: 1.2rem;
     }
 }
 

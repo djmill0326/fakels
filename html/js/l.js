@@ -24,10 +24,6 @@ export function handleHold(el, onHold, onClick, t=500, needsPress=false) {
     let downTime = 0;
     let triggered = false;
     let timeout;
-    if (onClick) el.addEventListener("click", ev => {
-        ev.preventDefault();
-        onClick(ev);
-    });
     el.addEventListener("pointerdown", ev => {
         ev.preventDefault();
         el.style.userSelect = "none";
@@ -43,8 +39,8 @@ export function handleHold(el, onHold, onClick, t=500, needsPress=false) {
         const time = performance.now();
         if (needsPress) {
             if (time - downTime >= t) onHold(ev);
-            else el.click();
-        } else if (!triggered) el.click();
+            else onClick?.(ev);
+        } else if (!triggered) onClick?.(ev);
         triggered = false;
     });
 }
