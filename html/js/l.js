@@ -79,7 +79,9 @@ export function join(...x) {
     return out.join("");
 }
 
-export const anchor_from_link = (link, frame) => link ? frame.querySelector(`[href$="${new URL(encodeURI(link)).pathname}"]`) : void 0;
+export const anchor_from_link = (link, frame) => {
+    return link ? frame.querySelector(`[href$="${new URL(link).pathname}"]`) : void 0;
+}
 
 export const style = {
     Centered: `

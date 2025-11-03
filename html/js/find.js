@@ -4,7 +4,7 @@ overrideConsole(); // temporary for mobile
 console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
-import types, { make } from "./mediatype.js";
+import types, { make } from "./mediatype.mjs";
 import $, { _, id, handleHold, boundBox, join, style, anchor_from_link } from "./l.js";
 import { search, useSearch } from "./search.js";
 const title = document.title;
@@ -43,8 +43,10 @@ export const html = text => text
   .replaceAll("[i]", "<i>")
   .replaceAll("[/i]", "</i>");
 export const get_info = (link = "50x.html") => {
+    // fuck this thing. i hate it and how it's used
+    // this should have been made sane 100 changes ago
     const split = link.split("/");
-    const uri = decodeURI(split[split.length - 1]);
+    const uri = decodeURI(split.at(-1));
     const [name, ext] = splitEnd(uri, ".");
     if (ext) {
         return { name, ext };
@@ -81,7 +83,7 @@ const next_anchor = (a, looping=true) => {
 };
 import shuffler from "./shuffle.js";
 const shuffle = window.shuffle = shuffler(frame);
-const next_queued = () => update_link(shuffling ? shuffle.shuffle() : next_anchor(playlist[playlist.length - 1]), true);
+const next_queued = () => update_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)), true);
 const re = el => {
     el.onplaying = () => document.title = extract_title(get_info(queued?.href));
     el.ontimeupdate = () => _.ltime = el.currentTime;
@@ -135,7 +137,7 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             const a = li.children[0];
             const info = get_info(a.href);
             if (!info.name || !mime[info.ext]) find_recursive(root + info.ext + "/", count);
-            else if (!found.has(a.href)) found.set(a.href, li);
+            else found.set(a.href, li);
         }
         if (count.i === count.expected) {
             const label = $("h3");
@@ -270,10 +272,11 @@ const img = (src, iframe=false) => {
     popup(img, src.substring(i + 1));
 };
 const update_link = to => {
-    queued = to ?? get_first_anchor();
+    queued = typeof to === "number"
+        ? frame.children[1].children[to].firstElementChild
+        : to ?? get_first_anchor();
     if (!queued?.href) return;
-    const link = queued.href = join(decodeURI(queued.href));
-    localStorage.setItem("lplay", link);
+    const link = _.lplay = queued.href = join(decodeURI(queued.href));
     const info = get_info(link);
     if (info.name.length === 0 || !mime[info.ext]) {
         term.value = link.split(" /")[1];
@@ -401,7 +404,7 @@ const init_browser = (link, info) => {
     next.onclick = next_queued;
     prev.textContent = "↩";
     next.textContent = "↪";
-    mref.dataset.src = decodeURI(link);
+    mref.dataset.src = link;
     mref.innerHTML = html(document.title = extract_title(info));
     handleHold(mref, toggle_status, () => mel && (mel.currentTime = 0), 500);
     player.append(
@@ -451,17 +454,13 @@ const find_lyrics = (src) => {
     if(!src) return;
     if (src === active_lyrics) ++lyric_attempt;
     else lyric_attempt = 0;
-    const i = src.lastIndexOf(":10666/");
-    const dir = src.substring(i + 4);
-    console.lo
     const fallback = () => {
-        const i = dir.lastIndexOf("/");
-        const j = dir.lastIndexOf(".");
+        const i = src.lastIndexOf("/");
+        const j = src.lastIndexOf(".");
         const name = decodeURI(dir.substring(i + 1, j));  
         let segments = name.split(" ").filter(s => !(((s.length === 4 && s.includes("-")) || s.length === 2) && (s[0] === "0" || s[0] === "1")));
         segments = segments.join(" ").split("- ").filter(s => s.length);
-        const k = segments.length - 1;
-        const last = segments[k];
+        const last = segments.at(-1);
         const l = last.lastIndexOf("(");
         if (l !== -1) {
             segments.pop();
