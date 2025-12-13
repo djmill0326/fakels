@@ -9,8 +9,9 @@ function secureShuffleIndex(max) {
 }
 
 function stupidRand(max) {
-    const getDigit = () => Math.random().toString().at(-1);
-    const x = parseInt(new Array(Math.ceil(Math.log10(max))).fill().map(getDigit).join(""));
+    if (max === 0) return 0;
+    const getDigit = () => Math.random().toString().at(-2);
+    const x = parseInt(new Array(Math.ceil(Math.log10(max + 1))).fill().map(getDigit).join(""));
     if (x > max) return stupidRand(max);
     return x;
 }

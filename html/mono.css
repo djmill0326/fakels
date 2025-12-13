@@ -79,7 +79,7 @@ span:nth-child(2) {
     }
     :first-child {
         min-height: calc(4em/3);
-        word-break: break-all;
+        text-wrap: pretty;
         overflow-x: hidden;
     }
 }
@@ -112,4 +112,25 @@ span:nth-child(2) {
 
 .hidden {
     display: none!important;
+}
+
+.lyrics {
+    overflow-y: auto;
+    font-size: large;
+}
+
+.lyrics .lyrics-text {
+    color: #aaa;
+    margin: 3px;
+    font-size: 100%;
+    text-wrap: pretty;
+}
+
+.lyrics .lyrics-text.active {
+    color: white;
+    font-weight: bold;
+}
+
+.lyrics .lyrics-text div {
+    color: inherit;
 }

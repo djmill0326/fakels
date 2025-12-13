@@ -7,6 +7,7 @@ import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
 import $, { _, id, handleHold, boundBox, join, style, anchor_from_link } from "./l.js";
 import { search, useSearch } from "./search.js";
+import { showLyrics } from "./lyrics.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -38,10 +39,10 @@ export const splitEnd = function(s, x) {
     return l ? [s.slice(0, l), s.slice(l + 1)] : [s];
 }
 export const html = text => text
-  .replace(/<\/?(\w*)\s?.*>/g, "")
-  .replaceAll("-", "<i>-</i>")
-  .replaceAll("[i]", "<i>")
-  .replaceAll("[/i]", "</i>");
+    .replace(/<\/?(\w*)\s?.*>/g, "")
+    .replaceAll("-", "<i>-</i>")
+    .replaceAll("[i]", "<i>")
+    .replaceAll("[/i]", "</i>");
 export const get_info = (link = "50x.html") => {
     // fuck this thing. i hate it and how it's used
     // this should have been made sane 100 changes ago
@@ -83,15 +84,54 @@ const next_anchor = (a, looping=true) => {
 };
 import shuffler from "./shuffle.js";
 const shuffle = window.shuffle = shuffler(frame);
-const next_queued = () => update_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)), true);
+const next_queued = () => {
+    const audio = mel;
+    const volume = audio.volume;
+    mel = re(document.createElement("audio"));
+    mel.controls = true;
+    //mel.style.opacity = 0;
+    mel.style.position = "absolute";
+    mel.style.zIndex = -1;
+    audio.insertAdjacentElement("beforebegin", mel);
+    update_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)), true);
+    mel.pause();
+    const fadeTime = .5;
+    let ended = false;
+    const fade = () => {
+        if (ended) {
+            mel.volume = volume;
+            audio.replaceWith(mel);
+            mel.style.removeProperty("opacity");
+            mel.style.removeProperty("position");
+            return;
+        }
+        const remaining = audio.duration - audio.currentTime;
+        const scale = remaining / fadeTime * volume;
+        audio.volume = scale;
+        mel.volume = volume - scale;
+        setTimeout(fade);
+    };
+    audio.ontimeupdate = () => {
+        if (audio.duration - audio.currentTime <= fadeTime) {
+            mel.play();
+            fade();
+            audio.ontimeupdate = undefined;
+        }
+    };
+    audio.onended = () => ended = true;
+};
 const re = el => {
     el.onplaying = () => document.title = extract_title(get_info(queued?.href));
-    el.ontimeupdate = () => _.ltime = el.currentTime;
+    el.ontimeupdate = () => {
+        _.ltime = el.currentTime;
+        if (el.duration - el.currentTime < 2) next_queued();
+    }
     el.onvolumechange = () => _.lvol = el.volume;
-    el.onended = el.onerror = next_queued;
+    el.onended = next_queued;
+    el.onerror = ev => ev.target.error.message.includes("DEMUXER") && next_queued();
     return el;
 };
-let replay_slot = _.lplay?.replace(/(666|667)/g, await getheader("adapter-port"));
+let replay_slot = _.lplay?.replace(/10(666|667)/g, await getheader("adapter-port"));
 let just_popped = false;
 window.onpopstate = (ev) => {
     term.value = ev.state;
@@ -161,7 +201,7 @@ const on_load = () => {
         if (!queued) {
             if (!update_link(reset)) return;
             if (_.ltime &&
-                encodeURI(_.lplay.slice(_.lplay.lastIndexOf("/") + 1))
+                _.lplay.slice(_.lplay.lastIndexOf("/") + 1)
                 === reset.href.slice(reset.href.lastIndexOf("/") + 1)
             ) mel.currentTime = parseFloat(_.ltime);
         }
@@ -259,15 +299,20 @@ const img = (src, iframe=false) => {
     const i = src.lastIndexOf("/");
     popup(img, src.substring(i + 1));
 };
+const show_lyrics_file = src => {
+    const lyrics = $("div");
+    popup(lyrics, `Lyrics for [i]${extract_title(get_info(src))}[/i]`)
+    showLyrics(src, lyrics, mel).then();
+};
 const update_link = to => {
     queued = typeof to === "number"
         ? frame.children[1].children[to].firstElementChild
         : to ?? get_first_anchor();
     if (!queued?.href) return;
-    const link = _.lplay = queued.href = join(decodeURI(queued.href));
+    const link = _.lplay = queued.href = encodeURI(join(decodeURI(queued.href)));
     const info = get_info(link);
     if (info.name.length === 0 || !mime[info.ext]) {
-        term.value = link.split(" /")[1];
+        term.value = link.split("%20/")[1];
         btn.click(); return;
     }
     portal.src = link;
@@ -280,7 +325,10 @@ const update_link = to => {
         }
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
-        if (!ifm) return img(link, !link.includes(".jpg"));
+        if (!ifm) {
+            if (link.endsWith(".lrc")) return show_lyrics_file(link);
+            return img(link, !link.includes(".jpg"));
+        }
         frame.lastElementChild.scrollToEl(queued.parentElement);
         mel.src = link;
         np = query;
@@ -350,15 +398,15 @@ const swaps = {
 const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
 export const extract_title = ({ name }) => {
     return capitalize(name
-      .split("-")
-      .map(s => swap(s)
-        .split(/[_ ]/g)
-        .filter(s => !is_numeric_ascii(s))
-        .join(" ")
-      )
-      .filter(s => s.length)
-      .join("-")
-      .replace(ignored, "")
+        .split("-")
+        .map(s => swap(s)
+            .split(/[_ ]/g)
+            .filter(s => !is_numeric_ascii(s))
+            .join(" ")
+        )
+        .filter(s => s.length)
+        .join("-")
+        .replace(ignored, "")
     );
 };
 let label_idx = 0;
@@ -442,6 +490,8 @@ let active_lyrics;
 let lyric_attempt = 0;
 const find_lyrics = (src) => {
     if(!src) return;
+    const lrc_src = `${src.slice(0, src.lastIndexOf("."))}.lrc`;
+    if (anchor_from_link(lrc_src, frame)) return show_lyrics_file(lrc_src);
     if (src === active_lyrics) ++lyric_attempt;
     else lyric_attempt = 0;
     const fallback = () => {
@@ -476,7 +526,7 @@ const find_lyrics = (src) => {
         };
         get_lyrics(query.join(" "), { artist, title, src });
     }
-    api("m", dir, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
+    api("m", src, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
 };
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(get_info(mel?.src || "silence.")))}</i>`);
@@ -518,6 +568,6 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
 }));
 
 if ('mediaSession' in navigator) {
-    navigator.mediaSession.setActionHandler('previoustrack', () => prev.onclick());
+    navigator.mediaSession.setActionHandler('previoustrack', () => mel.currentTime > 4 ? mref.onclick() : prev.onclick());
     navigator.mediaSession.setActionHandler('nexttrack', () => next.onclick());
 }
