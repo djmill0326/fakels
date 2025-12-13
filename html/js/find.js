@@ -87,13 +87,13 @@ const shuffle = window.shuffle = shuffler(frame);
 const next_queued = () => {
     const audio = mel;
     const volume = audio.volume;
-    mel = re(document.createElement("audio"));
-    mel.controls = true;
-    //mel.style.opacity = 0;
+    const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)), true);
+    mel = re(make(link));
+    mel.src = link;
+    mel.style.opacity = 0;
     mel.style.position = "absolute";
     mel.style.zIndex = -1;
     audio.insertAdjacentElement("beforebegin", mel);
-    update_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)), true);
     mel.pause();
     const fadeTime = .5;
     let ended = false;
@@ -103,6 +103,8 @@ const next_queued = () => {
             audio.replaceWith(mel);
             mel.style.removeProperty("opacity");
             mel.style.removeProperty("position");
+            mel.style.removeProperty("z-index");
+            update_link([anchor, link], false);
             return;
         }
         const remaining = audio.duration - audio.currentTime;
@@ -304,18 +306,25 @@ const show_lyrics_file = src => {
     popup(lyrics, `Lyrics for [i]${extract_title(get_info(src))}[/i]`)
     showLyrics(src, lyrics, mel).then();
 };
-const update_link = to => {
-    queued = typeof to === "number"
+const resolve_link = to => {
+    const anchor = typeof to === "number"
         ? frame.children[1].children[to].firstElementChild
         : to ?? get_first_anchor();
-    if (!queued?.href) return;
-    const link = _.lplay = queued.href = encodeURI(join(decodeURI(queued.href)));
+    if (!anchor?.href) return [];
+    const link = anchor.href = encodeURI(join(decodeURI(anchor.href)));
+    return [anchor, link];
+};
+const update_link = (to, set_src=true) => {
+    const [anchor, link] = Array.isArray(to) ? to : resolve_link(to);
+    if (!anchor) return;
+    queued = anchor;
+    _.lplay = link;
     const info = get_info(link);
     if (info.name.length === 0 || !mime[info.ext]) {
         term.value = link.split("%20/")[1];
         btn.click(); return;
     }
-    portal.src = link;
+    if(set_src) portal.src = link;
     const ifm = types[info.ext];
     if (ifm) playlist.push(queued);
     if (ifm || link.includes("/media/")) {
@@ -330,7 +339,7 @@ const update_link = to => {
             return img(link, !link.includes(".jpg"));
         }
         frame.lastElementChild.scrollToEl(queued.parentElement);
-        mel.src = link;
+        if (set_src) mel.src = link;
         np = query;
         console.debug("[fakels/debug]", describe(info));
         console.log("[fakels/media]", `'${extract_title(info)}' has queued.\n`);

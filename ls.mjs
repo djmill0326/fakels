@@ -8,14 +8,15 @@ if (!root) {
 }
 const exclude = [".git", "node_modules", /* ... */];
 const discovered = [];
-async function explore(path) {
-    if (exclude.reduce((p, c) => p || path.startsWith(c), false)) return;
-    discovered.push(path);
+async function explore(path, prefix="", depth=-1) {
+    if (exclude.some(p => path.startsWith(p))) return;
+    if (depth > -1) discovered.push("\t".repeat(depth) + path);
     try {
-        const dirs = await opendir(path);
+        prefix = join(prefix, path);
+        const dirs = await opendir(prefix);
         for await (const dir of dirs) {
             if (!dir.isDirectory) continue;
-            await explore(join(path, dir.name), discovered);
+            await explore(dir.name, prefix, depth + 1);
         }
     } catch {}
 }
