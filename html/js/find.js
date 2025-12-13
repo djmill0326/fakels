@@ -84,53 +84,65 @@ const next_anchor = (a, looping=true) => {
 };
 import shuffler from "./shuffle.js";
 const shuffle = window.shuffle = shuffler(frame);
-const next_queued = () => {
-    const audio = mel;
-    const volume = audio.volume;
+const fade_time = .05;
+let fade_timeout, fade_wait_timeout, pending_fade;
+const next_queued = end => {
+    if (pending_fade) {
+        clearTimeout(fade_timeout);
+        clearTimeout(fade_wait_timeout);
+        pending_fade.remove();
+    }
+    end = end === -1 ? 0 : end === undefined ? mel.duration : Math.min(end + fade_time, mel.duration);
+    const volume = mel.volume;
     const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)), true);
-    mel = re(make(link));
-    mel.src = link;
-    mel.style.opacity = 0;
-    mel.style.position = "absolute";
-    mel.style.zIndex = -1;
-    audio.insertAdjacentElement("beforebegin", mel);
-    mel.pause();
-    const fadeTime = .5;
+    const next = re(make(link));
+    next.src = link;
+    next.style.opacity = 0;
+    next.style.position = "absolute";
+    next.style.zIndex = -1;
+    mel.insertAdjacentElement("beforebegin", next);
+    next.pause();
+    pending_fade = next;
     let ended = false;
     const fade = () => {
-        if (ended) {
-            mel.volume = volume;
-            audio.replaceWith(mel);
-            mel.style.removeProperty("opacity");
-            mel.style.removeProperty("position");
-            mel.style.removeProperty("z-index");
+        const remaining = end - mel.currentTime;
+        if (remaining > fade_time) return setTimeout(fade);
+        if (ended || remaining <= 0) {
+            next.volume = volume;
+            mel.replaceWith(next);
+            next.style.removeProperty("opacity");
+            next.style.removeProperty("position");
+            next.style.removeProperty("z-index");
+            mel = next;
+            pending_fade = undefined;
             update_link([anchor, link], false);
             return;
         }
-        const remaining = audio.duration - audio.currentTime;
-        const scale = remaining / fadeTime * volume;
-        audio.volume = scale;
-        mel.volume = volume - scale;
-        setTimeout(fade);
+        const scale = remaining / fade_time * volume;
+        mel.volume = scale;
+        next.volume = volume - scale;
+        fade_timeout = setTimeout(fade);
     };
-    audio.ontimeupdate = () => {
-        if (audio.duration - audio.currentTime <= fadeTime) {
-            mel.play();
+    const fade_wait = () => {
+        if (end - mel.currentTime <= fade_time) {
+            next.play();
             fade();
-            audio.ontimeupdate = undefined;
+            return;
         }
+        fade_wait_timeout = setTimeout(fade_wait);
     };
-    audio.onended = () => ended = true;
+    fade_wait();
+    mel.ontimeupdate = undefined;
+    mel.onended = () => ended = true;
 };
 const re = el => {
-    el.onplaying = () => document.title = extract_title(get_info(queued?.href));
     el.ontimeupdate = () => {
         _.ltime = el.currentTime;
         if (el.duration - el.currentTime < 2) next_queued();
     }
     el.onvolumechange = () => _.lvol = el.volume;
-    el.onended = next_queued;
-    el.onerror = ev => ev.target.error.message.includes("DEMUXER") && next_queued();
+    el.onended = () => next_queued();
+    el.onerror = ev => ev.target.error.message.includes("DEMUXER") && next_queued(-1);
     return el;
 };
 let replay_slot = _.lplay?.replace(/10(666|667)/g, await getheader("adapter-port"));
@@ -341,8 +353,10 @@ const update_link = (to, set_src=true) => {
         frame.lastElementChild.scrollToEl(queued.parentElement);
         if (set_src) mel.src = link;
         np = query;
+        const title = extract_title(info);
+        document.title = title;
         console.debug("[fakels/debug]", describe(info));
-        console.log("[fakels/media]", `'${extract_title(info)}' has queued.\n`);
+        console.log("[fakels/media]", `'${title}' has queued.\n`);
         update_media(link, info);
         if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
     } else if (browser.remove) {
@@ -447,10 +461,11 @@ const init_browser = (link, info) => {
         if (entry.href === queued?.href) return prev.onclick();
         update_link(entry);
     };
-    next.onclick = next_queued;
+    next.onclick = () => next_queued(mel.paused ? -1 : mel.currentTime + .05);
     prev.textContent = "↩";
     next.textContent = "↪";
     mref.dataset.src = link;
+    console.log("wtf");
     mref.innerHTML = html(document.title = extract_title(info));
     mref.onclick = () => mel && (mel.currentTime = 0) || mel.play();
     handleHold(mref, toggle_status, null, 500);
