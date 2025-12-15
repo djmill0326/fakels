@@ -30,11 +30,8 @@ export async function api(endpoint, query, frame, cb, req, err, cached=false) {
         if (cached) query_cache.set(link, data);
         if (frame) frame.innerHTML = data;
         wait = false;
-        if (req) {
-            req.list.delete(req.name);
-            req.update();
-        }
-        if(cb) cb(data);
+        req?.disable();
+        cb?.(data);
     };
     if (cached) {
         const data = query_cache.get(link);
@@ -44,16 +41,13 @@ export async function api(endpoint, query, frame, cb, req, err, cached=false) {
         if (!window.rpc) window.rpc = await import("./rpc_base.js");
         const link_code = document.createElement("code");
         link_code.innerHTML = "Check your browser's inspector console for the link ID!<br>Navigate to /rpc.html, then enter link code in input.";
-        window.popup?.apply({}, [link_code, "Link code:"]);
+        window.popup?.(link_code, "Link code:");
         const term = document.getElementById("term");
         const text = document.querySelector("b")?.textContent ?? "";
         localStorage.llocation = term.value = text === "/" ? "" : text;
         requestIdleCallback(() => term.nextElementSibling.click());
     }
-    if (req) {
-        req.list.add(req.name);
-        req.update();
-    }
+    req?.enable();
     setTimeout(() => {
         if (wait && frame) frame.innerHTML = `<h3 style="color: #000">&nbsp;... &nbsp;${query}</h3>`;
     }, 200);
@@ -61,15 +55,14 @@ export async function api(endpoint, query, frame, cb, req, err, cached=false) {
         if (response) return;
         const failure = `${req.name} failed`;
         if (req) {
-            req.list.delete(req.name);
             req.list.add(failure);
-            req.update();
+            req.disable();
             setTimeout(() => {
                 req.list.delete(failure);
                 req.update();
             }, 1000);
         }
-        if (err) err();
+        err?.();
         return true;
     };
     setTimeout(timeout, 10000);

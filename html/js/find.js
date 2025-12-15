@@ -86,33 +86,28 @@ import shuffler from "./shuffle.js";
 const shuffle = window.shuffle = shuffler(frame);
 const fade_time = .05;
 let fade_timeout, fade_wait_timeout, pending_fade;
-const next_queued = end => {
+const next_queued = mode => {
     if (pending_fade) {
         clearTimeout(fade_timeout);
         clearTimeout(fade_wait_timeout);
         pending_fade.remove();
     }
-    end = end === -1 ? 0 : end === undefined ? mel.duration : Math.min(end + fade_time, mel.duration);
     const volume = mel.volume;
-    const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)), true);
+    const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)));
     const next = re(make(link));
+    next.autoplay = false;
     next.src = link;
-    next.style.opacity = 0;
-    next.style.position = "absolute";
-    next.style.zIndex = -1;
+    next.classList.add("pending");
     mel.insertAdjacentElement("beforebegin", next);
-    next.pause();
     pending_fade = next;
-    let ended = false;
+    let ended = false, end;
     const fade = () => {
         const remaining = end - mel.currentTime;
-        if (remaining > fade_time) return setTimeout(fade);
         if (ended || remaining <= 0) {
             next.volume = volume;
+            next.autoplay = true;
             mel.replaceWith(next);
-            next.style.removeProperty("opacity");
-            next.style.removeProperty("position");
-            next.style.removeProperty("z-index");
+            next.classList.remove("pending");
             mel = next;
             pending_fade = undefined;
             update_link([anchor, link], false);
@@ -131,7 +126,12 @@ const next_queued = end => {
         }
         fade_wait_timeout = setTimeout(fade_wait);
     };
-    fade_wait();
+    next.addEventListener("canplay", () => {
+        end = mode === "immediate" ? 0 
+            : mode === "now" ? Math.min(mel.currentTime + fade_time, mel.duration) 
+            : mel.duration;
+        fade_wait();
+    }, { once: true });
     mel.ontimeupdate = undefined;
     mel.onended = () => ended = true;
 };
@@ -141,8 +141,8 @@ const re = el => {
         if (el.duration - el.currentTime < 2) next_queued();
     }
     el.onvolumechange = () => _.lvol = el.volume;
-    el.onended = () => next_queued();
-    el.onerror = ev => ev.target.error.message.includes("DEMUXER") && next_queued(-1);
+    el.onended = () => next_queued("immediate");
+    el.onerror = ev => ev.target.error.message.includes("DEMUXER") && next_queued("immediate");
     return el;
 };
 let replay_slot = _.lplay?.replace(/10(666|667)/g, await getheader("adapter-port"));
@@ -177,7 +177,11 @@ const update_status = () => {
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
 }
-const status_obj = (name) => ({ name, list: active_requests, update: update_status });
+const status_obj = (name) => ({ 
+    name, list: active_requests, update: update_status, 
+    enable() { this.list.add(this.name); this.update() },
+    disable() { this.list.delete(this.name); this.update() }
+});
 update_status();
 if(_.status !== "false") document.body.append(status);
 const found = new Map();
@@ -202,7 +206,7 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             frame.lastElementChild.replaceWith(list);
             found.clear();
         }
-    }, status_obj(`tree (${root}`));
+    }, status_obj(`tree (${root})`));
 };
 const on_load = () => {
     let reset;
@@ -297,6 +301,7 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     poppedup = wrapper;
     update_status();
     patch(el);
+    return wrapper;
 };
 const cancel_popup = ev => poppedup && !poppedup.contains(ev.target) && popup(null);
 window.addEventListener("mouseup", cancel_popup);
@@ -315,8 +320,10 @@ const img = (src, iframe=false) => {
 };
 const show_lyrics_file = src => {
     const lyrics = $("div");
-    popup(lyrics, `Lyrics for [i]${extract_title(get_info(src))}[/i]`)
-    showLyrics(src, lyrics, mel).then();
+    const title = extract_title(get_info(src));
+    const p = popup(lyrics, `Lyrics for [i]${title}[/i]`);
+    p.classList.add("pending");
+    showLyrics(src, lyrics, mel, status_obj(`lyrics for '${title}'`)).then(() => p.classList.remove("pending"));
 };
 const resolve_link = to => {
     const anchor = typeof to === "number"
@@ -461,11 +468,10 @@ const init_browser = (link, info) => {
         if (entry.href === queued?.href) return prev.onclick();
         update_link(entry);
     };
-    next.onclick = () => next_queued(mel.paused ? -1 : mel.currentTime + .05);
+    next.onclick = () => next_queued(mel.paused ? "immediate" : "now");
     prev.textContent = "↩";
     next.textContent = "↪";
     mref.dataset.src = link;
-    console.log("wtf");
     mref.innerHTML = html(document.title = extract_title(info));
     mref.onclick = () => mel && (mel.currentTime = 0) || mel.play();
     handleHold(mref, toggle_status, null, 500);

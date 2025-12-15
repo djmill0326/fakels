@@ -134,3 +134,9 @@ span:nth-child(2) {
 .lyrics .lyrics-text div {
     color: inherit;
 }
+
+.pending {
+    position: absolute;
+    opacity: 0;
+    z-index: -100;
+}

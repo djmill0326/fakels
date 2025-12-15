@@ -86,11 +86,13 @@ const parseLyrics = (text, root) => text.split("\n").map(line => {
     return renderLine(m * 60 + s, line.slice(timeEnd + 1).trim(), root);
 }).filter(Boolean);
 
-export async function showLyrics(src, root, audio) {
+export async function showLyrics(src, root, audio, status) {
     try {
+        status?.enable();
         const text = await (await fetch(src)).text();
         root.className = "lyrics";
         const data = parseLyrics(text, root);
+        status?.disable();
         const path = src.slice(0, -4);
         let currentLine;
         const select = el => {
@@ -126,6 +128,7 @@ export async function showLyrics(src, root, audio) {
             }
         });
     } catch (err) {
+        status?.disable();
         root.innerText = "Failed to get lyrics";
     }
 }
