@@ -89,11 +89,11 @@ const parseLyrics = (text, root) => text.split("\n").map(line => {
 export async function showLyrics(src, root, audio, status) {
     try {
         status?.enable();
-        const text = await (await fetch(src)).text();
+        const text = src.text ?? await (await fetch(src)).text();
         root.className = "lyrics";
         const data = parseLyrics(text, root);
         status?.disable();
-        const path = src.slice(0, -4);
+        const path = src.path ?? src.slice(0, -4);
         let currentLine;
         const select = el => {
             if (currentLine) {

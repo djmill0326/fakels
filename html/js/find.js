@@ -320,7 +320,7 @@ const img = (src, iframe=false) => {
 };
 const show_lyrics_file = src => {
     const lyrics = $("div");
-    const title = extract_title(get_info(src));
+    const title = src.title ?? extract_title(get_info(src));
     const p = popup(lyrics, `Lyrics for [i]${title}[/i]`);
     p.classList.add("pending");
     showLyrics(src, lyrics, mel, status_obj(`lyrics for '${title}'`)).then(() => p.classList.remove("pending"));
@@ -516,18 +516,52 @@ const get_lyrics = (query, o) => {
         active_lyrics = o.src;
     }, status_obj(`lyrics for '${query}'`), null, true);
 }
+const metadata = (src) => new Promise((resolve, reject) => {
+    const callback = meta => {
+        if (!meta) return reject();
+        const c = JSON.parse(meta);
+        const artist = c.artist || "";
+        const album = c.album?.split(",")[0] || "";
+        const title = c.title || "";
+        if (title.length) resolve({ artist, album, title })
+        else reject();
+    }
+    api("m", src, null, callback, status_obj(`${extract_title(get_info(src))}'s metadata`), reject, true);
+});
+const lrclib_search = async (src) => {
+    let status;
+    try {
+        const { artist, album, title } = await metadata(src);
+        const params = new URLSearchParams({
+            track_name: title,
+            ...(album && { album_name: album }),
+            ...(artist && { artist_name: artist })
+        });
+        status = status_obj(`lrclib for ${title}`);
+        status.enable();
+        const res = await fetch(`https://lrclib.net/api/search?${params}`);
+        const results = await res.json();
+        status.disable();
+        return { title, path: src, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
+    } catch (_) {
+        status?.disable();
+    }
+};
 let active_lyrics;
 let lyric_attempt = 0;
-const find_lyrics = (src) => {
+const find_lyrics = async (src) => {
     if(!src) return;
     const lrc_src = `${src.slice(0, src.lastIndexOf("."))}.lrc`;
     if (anchor_from_link(lrc_src, frame)) return show_lyrics_file(lrc_src);
+    const path = new URL(src).pathname;
+    const lyrics = await lrclib_search(path);
+    if (lyrics?.text) return show_lyrics_file(lyrics);
     if (src === active_lyrics) ++lyric_attempt;
     else lyric_attempt = 0;
     const fallback = () => {
         const i = src.lastIndexOf("/");
         const j = src.lastIndexOf(".");
-        const name = decodeURI(dir.substring(i + 1, j));  
+        const name = decodeURI(path.substring(i + 1, j));  
         let segments = name.split(" ").filter(s => !(((s.length === 4 && s.includes("-")) || s.length === 2) && (s[0] === "0" || s[0] === "1")));
         segments = segments.join(" ").split("- ").filter(s => s.length);
         const last = segments.at(-1);
@@ -539,13 +573,7 @@ const find_lyrics = (src) => {
         }
         get_lyrics(segments.reverse().slice(0, Math.min(lyric_attempt + 1, segments.length)).join(" "), { active_lyrics, src });
     };
-    const callback = meta => {
-        if (!meta) return fallback();
-        const c = JSON.parse(meta);
-        const artist = c.artist || "";
-        const album = c.album?.split(",")[0] || "";
-        const title = c.title || "";
-        if (!title.length) return fallback();
+    const callback = ({ artist, album, title }) => {
         let query;
         switch(lyric_attempt % 4) {
             case 0: query = [title]; break;
@@ -556,7 +584,7 @@ const find_lyrics = (src) => {
         };
         get_lyrics(query.join(" "), { artist, title, src });
     }
-    api("m", src, null, callback, status_obj(`${mref.innerText}'s metadata`), fallback, true);
+    metadata(path).then(callback).catch(fallback);
 };
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(get_info(mel?.src || "silence.")))}</i>`);
@@ -567,7 +595,7 @@ const shortcuts = {
     ".": ["Next entry", () => next.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
-    "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src)],
+    "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src).then()],
     ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Lyrics query:"))],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go up a directory", () => back.click()],
