@@ -94,6 +94,7 @@ const next_queued = mode => {
     }
     const volume = mel.volume;
     const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)));
+    if (!mode && auto_lyrics) find_lyrics(link, true).then();
     const next = re(make(link));
     next.autoplay = false;
     next.src = link;
@@ -138,7 +139,7 @@ const next_queued = mode => {
 const re = el => {
     el.ontimeupdate = () => {
         _.ltime = el.currentTime;
-        if (el.duration - el.currentTime < 2) next_queued();
+        if (el.duration - el.currentTime < 5) next_queued();
     }
     el.onvolumechange = () => _.lvol = el.volume;
     el.onended = () => next_queued("immediate");
@@ -318,22 +319,34 @@ const img = (src, iframe=false) => {
     const i = src.lastIndexOf("/");
     popup(img, src.substring(i + 1));
 };
+const lyrics_prefetch = new Map();
 let auto_lyrics = false;
-const show_lyrics_file = src => {
-    const lyrics = $("div");
+const show_lyrics_file = (src, prefetch=false) => {
+    const key = src.path ?? src;
+    const cache = lyrics_prefetch.get(key);
+    if (!prefetch && cache && !cache.src) return requestIdleCallback(() => show_lyrics_file(src));
+    if (cache?.src) src = cache.src;
+    lyrics_prefetch.delete(key);
+    const lyrics = cache?.lyrics ?? $("div");
     const name = src.title ?? extract_title(get_info(src));
     const title = `Lyrics for [i]${name}[/i]`;
-    const load_lyrics = () => showLyrics(src, lyrics, mel, status_obj(`lyrics for '${name}'`));
+    const load_lyrics = () => showLyrics(cache?.lyrics ? cache : src, lyrics, mel, status_obj(`lyrics for '${name}'`));
     if (poppedup?.classList.contains("lyrics-popup")) {
         lyrics.style.opacity = 0;
         poppedup.append(lyrics);
-        load_lyrics().then(() => {
+        load_lyrics().then(data => {
+            if (prefetch) {
+                lyrics.remove();
+                lyrics_prefetch.set(key, { src, lyrics, data });
+                return;
+            }
             lyrics.previousElementSibling.remove();
             lyrics.style.removeProperty("opacity");
             poppedup.q(".bar span").innerHTML = html(title);
         });
         return;
     }
+    if (prefetch) return lyrics_prefetch.set(key, { src });
     const p = popup(lyrics, title);
     p.classList.add("lyrics-popup", "pending");
     const auto = $("button");
@@ -567,17 +580,25 @@ const lrclib_search = async (src) => {
         return { title, path: src, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
     } catch (_) {
         status?.disable();
+        lyrics_prefetch.delete(src);
     }
 };
-let active_lyrics;
-let lyric_attempt = 0;
-const find_lyrics = async (src) => {
+/*let active_lyrics;
+let lyric_attempt = 0;*/
+const find_lyrics = async (src, prefetch) => {
     if(!src) return;
     const lrc_src = `${src.slice(0, src.lastIndexOf("."))}.lrc`;
-    if (anchor_from_link(lrc_src, frame)) return show_lyrics_file(lrc_src);
+    if (anchor_from_link(lrc_src, frame)) {
+        if (prefetch) lyrics_prefetch.set(lrc_src, {});
+        return show_lyrics_file(lrc_src, prefetch);
+    }
     const path = new URL(src).pathname;
+    const cache = lyrics_prefetch.get(path);
+    if (cache) return show_lyrics_file(path);
+    if (prefetch) lyrics_prefetch.set(path, {});
     const lyrics = await lrclib_search(path);
-    if (lyrics?.text) return show_lyrics_file(lyrics);
+    if (lyrics?.text) return show_lyrics_file(lyrics, prefetch);
+    /*
     if (src === active_lyrics) ++lyric_attempt;
     else lyric_attempt = 0;
     const fallback = () => {
@@ -607,6 +628,7 @@ const find_lyrics = async (src) => {
         get_lyrics(query.join(" "), { artist, title, src });
     }
     metadata(path).then(callback).catch(fallback);
+    */
 };
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(get_info(mel?.src || "silence.")))}</i>`);
