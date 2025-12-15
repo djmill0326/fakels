@@ -318,12 +318,33 @@ const img = (src, iframe=false) => {
     const i = src.lastIndexOf("/");
     popup(img, src.substring(i + 1));
 };
+let auto_lyrics = false;
 const show_lyrics_file = src => {
     const lyrics = $("div");
-    const title = src.title ?? extract_title(get_info(src));
-    const p = popup(lyrics, `Lyrics for [i]${title}[/i]`);
-    p.classList.add("pending");
-    showLyrics(src, lyrics, mel, status_obj(`lyrics for '${title}'`)).then(() => p.classList.remove("pending"));
+    const name = src.title ?? extract_title(get_info(src));
+    const title = `Lyrics for [i]${name}[/i]`;
+    const load_lyrics = () => showLyrics(src, lyrics, mel, status_obj(`lyrics for '${name}'`));
+    if (poppedup?.classList.contains("lyrics-popup")) {
+        lyrics.style.opacity = 0;
+        poppedup.append(lyrics);
+        load_lyrics().then(() => {
+            lyrics.previousElementSibling.remove();
+            lyrics.style.removeProperty("opacity");
+            poppedup.q(".bar span").innerHTML = html(title);
+        });
+        return;
+    }
+    const p = popup(lyrics, title);
+    p.classList.add("lyrics-popup", "pending");
+    const auto = $("button");
+    auto.innerText = "Auto Lyrics";
+    if (auto_lyrics) auto.className = "active";
+    auto.onclick = () => {
+        auto_lyrics = !auto_lyrics;
+        auto.classList[auto_lyrics ? "add" : "remove"]("active");
+    }
+    p.q(".bar button").insertAdjacentElement("beforebegin", auto);
+    load_lyrics().then(() => p.classList.remove("pending"));
 };
 const resolve_link = to => {
     const anchor = typeof to === "number"
@@ -365,6 +386,7 @@ const update_link = (to, set_src=true) => {
         console.debug("[fakels/debug]", describe(info));
         console.log("[fakels/media]", `'${title}' has queued.\n`);
         update_media(link, info);
+        if (auto_lyrics) find_lyrics(link);
         if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);

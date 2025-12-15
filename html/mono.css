@@ -82,6 +82,9 @@ span:nth-child(2) {
         text-wrap: pretty;
         overflow-x: hidden;
     }
+    .active {
+        background: mediumvioletred;
+    }
 }
 
 [data-title="Shortcuts"] {

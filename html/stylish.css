@@ -177,7 +177,7 @@ button:active, #btn:active {
 .popup {
     border-radius: 5px;
     .bar > button {
-        width: 24.667px;
+        min-width: 24.667px;
         height: 24.667px;
     }
 }
