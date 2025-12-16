@@ -7,7 +7,7 @@ function patch(attr) {
     return (x, y) => x === void 0 ? "" : `translate(calc(${xAttr} + ${x}px), calc(${yAttr} + ${y}px))`
 }
 
-export default function dragify(el) {
+export default function dragify(el, signal) {
     const s = el.style;
     const t_attr = s.transform;
     let translate = patch(t_attr);
@@ -24,9 +24,9 @@ export default function dragify(el) {
             s.top = `calc(${s.top} + ${t[1]}px)`;
             s.transform = t_attr;
         };
-        window.addEventListener("mousemove", move);
-        window.addEventListener("mouseup", cancel);
-    });
+        window.addEventListener("mousemove", move, { signal });
+        window.addEventListener("mouseup", cancel, { signal });
+    }, { signal });
     return el;
 }
 

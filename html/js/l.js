@@ -8,6 +8,15 @@ export function id(tag) {
     return document.getElementById(tag);
 }
 
+export function debounce(f, t=50) {
+    let timeout;
+    function debounced(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(f.bind(this, ...args), t);
+    };
+    return debounced;
+}
+
 HTMLElement.prototype.c = HTMLElement.prototype.getElementsByClassName;
 HTMLElement.prototype.q = HTMLElement.prototype.querySelector;
 HTMLElement.prototype.qa = HTMLElement.prototype.querySelectorAll;

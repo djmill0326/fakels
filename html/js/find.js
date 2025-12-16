@@ -85,13 +85,11 @@ const next_anchor = (a, looping=true) => {
 import shuffler from "./shuffle.js";
 const shuffle = window.shuffle = shuffler(frame);
 const fade_time = .05;
-let fade_timeout, fade_wait_timeout, pending_fade;
+let fade_controller;
 const next_queued = mode => {
-    if (pending_fade) {
-        clearTimeout(fade_timeout);
-        clearTimeout(fade_wait_timeout);
-        pending_fade.remove();
-    }
+    fade_controller?.abort();
+    fade_controller = new AbortController();
+    const signal = fade_controller.signal;
     const volume = mel.volume;
     const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)));
     if (!mode && auto_lyrics) find_lyrics(link, true).then();
@@ -100,41 +98,48 @@ const next_queued = mode => {
     next.src = link;
     next.classList.add("pending");
     mel.insertAdjacentElement("beforebegin", next);
-    pending_fade = next;
     let ended = false, end;
     const fade = () => {
+        if (signal.aborted) return;
         const remaining = end - mel.currentTime;
         if (ended || remaining <= 0) {
             next.volume = volume;
             next.autoplay = true;
+            mel.src = "";
             mel.replaceWith(next);
             next.classList.remove("pending");
             mel = next;
-            pending_fade = undefined;
+            fade_controller = undefined;
             update_link([anchor, link], false);
             return;
         }
         const scale = remaining / fade_time * volume;
         mel.volume = scale;
         next.volume = volume - scale;
-        fade_timeout = setTimeout(fade);
+        setTimeout(fade);
     };
     const fade_wait = () => {
+        if (signal.aborted) return;
         if (end - mel.currentTime <= fade_time) {
             next.play();
             fade();
             return;
         }
-        fade_wait_timeout = setTimeout(fade_wait);
+        setTimeout(fade_wait);
     };
     next.addEventListener("canplay", () => {
         end = mode === "immediate" ? 0 
             : mode === "now" ? Math.min(mel.currentTime + fade_time, mel.duration) 
             : mel.duration;
         fade_wait();
-    }, { once: true });
+    }, { once: true, signal });
     mel.ontimeupdate = undefined;
     mel.onended = () => ended = true;
+    signal.addEventListener("abort", () => {
+        next.remove();
+        mel.volume = volume;
+        fade_controller = undefined;
+    });
 };
 const re = el => {
     el.ontimeupdate = () => {
@@ -269,10 +274,13 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
             poppedup.style.cssText
         );
         poppedup.remove();
+        poppedup._controller.abort();
         poppedup = null;
     }
     if (!el) { update_status(); return; };
     const wrapper = $("div");
+    const controller = new AbortController();
+    wrapper._controller = controller;
     wrapper.className = "popup";
     wrapper.style = popup_savestate.get(title.toLowerCase()) ?? style.Centered;
     boundBox(wrapper, "2em", "450px", "450px", "150px", "900px");
@@ -298,7 +306,7 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     const selector = `[style="background: ${link}]`;
     const a = selector + '"]', b = selector + ';"]';
     [...Array.from(wrapper.qa(a)), ...Array.from(wrapper.qa(b)), Array.from(wrapper.c(link))].forEach(b => b.onclick = () => alert("go fuck yourself"));
-    document.body.append(dragify(wrapper));
+    document.body.append(dragify(wrapper, controller.signal));
     poppedup = wrapper;
     update_status();
     patch(el);
@@ -321,26 +329,38 @@ const img = (src, iframe=false) => {
 };
 const lyrics_prefetch = new Map();
 let auto_lyrics = false;
-const show_lyrics_file = (src, prefetch=false) => {
+const show_lyrics_file = (src, options) => {
+    const { prefetch, signal } = options;
     const key = src.path ?? src;
+    if (signal?.aborted) return lyrics_prefetch.delete(key);
     const cache = lyrics_prefetch.get(key);
-    if (!prefetch && cache && !cache.src) return requestIdleCallback(() => show_lyrics_file(src));
+    if (!prefetch && cache && !cache.src) return requestIdleCallback(() => show_lyrics_file(src, options));
     if (cache?.src) src = cache.src;
     lyrics_prefetch.delete(key);
     const lyrics = cache?.lyrics ?? $("div");
     const name = src.title ?? extract_title(get_info(src));
     const title = `Lyrics for [i]${name}[/i]`;
-    const load_lyrics = () => showLyrics(cache?.lyrics ? cache : src, lyrics, mel, status_obj(`lyrics for '${name}'`));
+    const load_lyrics = popup => {
+        const popupSignal = popup._controller.signal;
+        const mergedSignal = signal ? AbortSignal.any([popupSignal, signal]) : popupSignal;
+        popupSignal.addEventListener("abort", () => active_lyrics.delete(key));
+        options.signal = mergedSignal;
+        if (mergedSignal.aborted) {
+            lyrics.remove();
+            lyrics_prefetch.delete(key);
+        };
+        return showLyrics(cache?.lyrics ? cache : src, lyrics, mel, { status: status_obj(`lyrics for '${name}'`), prefetch, signal: mergedSignal });
+    }
     if (poppedup?.classList.contains("lyrics-popup")) {
         lyrics.style.opacity = 0;
         poppedup.append(lyrics);
-        load_lyrics().then(data => {
+        load_lyrics(poppedup).then(data => {
             if (prefetch) {
                 lyrics.remove();
                 lyrics_prefetch.set(key, { src, lyrics, data });
                 return;
             }
-            lyrics.previousElementSibling.remove();
+            lyrics.parentElement.q(".lyrics")?.remove();
             lyrics.style.removeProperty("opacity");
             poppedup.q(".bar span").innerHTML = html(title);
         });
@@ -357,7 +377,7 @@ const show_lyrics_file = (src, prefetch=false) => {
         auto.classList[auto_lyrics ? "add" : "remove"]("active");
     }
     p.q(".bar button").insertAdjacentElement("beforebegin", auto);
-    load_lyrics().then(() => p.classList.remove("pending"));
+    load_lyrics(p).then(() => p.classList.remove("pending"));
 };
 const resolve_link = to => {
     const anchor = typeof to === "number"
@@ -388,7 +408,7 @@ const update_link = (to, set_src=true) => {
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
         if (!ifm) {
-            if (link.endsWith(".lrc")) return show_lyrics_file(link);
+            if (link.endsWith(".lrc")) return show_lyrics_file(link, {});
             return img(link, !link.includes(".jpg"));
         }
         frame.lastElementChild.scrollToEl(queued.parentElement);
@@ -551,19 +571,21 @@ const get_lyrics = (query, o) => {
         active_lyrics = o.src;
     }, status_obj(`lyrics for '${query}'`), null, true);
 }
-const metadata = (src) => new Promise((resolve, reject) => {
+const metadata = (src) => new Promise(resolve => {
+    const name = extract_title(get_info(src));
+    const fallback = () => resolve({ title: name });
     const callback = meta => {
-        if (!meta) return reject();
+        if (!meta) return fallback();
         const c = JSON.parse(meta);
         const artist = c.artist || "";
         const album = c.album?.split(",")[0] || "";
         const title = c.title || "";
         if (title.length) resolve({ artist, album, title })
-        else reject();
+        else fallback();
     }
-    api("m", src, null, callback, status_obj(`${extract_title(get_info(src))}'s metadata`), reject, true);
+    api("m", src, null, callback, status_obj(`${name}'s metadata`), fallback, true);
 });
-const lrclib_search = async (src) => {
+const lrclib_search = async (src, signal) => {
     let status;
     try {
         const { artist, album, title } = await metadata(src);
@@ -574,7 +596,7 @@ const lrclib_search = async (src) => {
         });
         status = status_obj(`lrclib for ${title}`);
         status.enable();
-        const res = await fetch(`https://lrclib.net/api/search?${params}`);
+        const res = await fetch(`https://lrclib.net/api/search?${params}`, { signal });
         const results = await res.json();
         status.disable();
         return { title, path: src, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
@@ -585,19 +607,35 @@ const lrclib_search = async (src) => {
 };
 /*let active_lyrics;
 let lyric_attempt = 0;*/
+const active_lyrics = new Map();
 const find_lyrics = async (src, prefetch) => {
     if(!src) return;
+    for (const x of Array.from(active_lyrics.values())) {
+        if (x.src !== src) {
+            x.controller.abort();
+            active_lyrics.delete(x);
+            continue;
+        }
+        if (x.prefetch && !prefetch) continue;
+        return;
+    };
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const entry = { src, prefetch, controller };
     const lrc_src = `${src.slice(0, src.lastIndexOf("."))}.lrc`;
     if (anchor_from_link(lrc_src, frame)) {
+        active_lyrics.set(lrc_src, entry);
         if (prefetch) lyrics_prefetch.set(lrc_src, {});
-        return show_lyrics_file(lrc_src, prefetch);
+        return show_lyrics_file(lrc_src, { prefetch, signal });
     }
     const path = new URL(src).pathname;
+    active_lyrics.set(path, entry);
     const cache = lyrics_prefetch.get(path);
-    if (cache) return show_lyrics_file(path);
+    if (cache) return show_lyrics_file(path, { signal });
     if (prefetch) lyrics_prefetch.set(path, {});
-    const lyrics = await lrclib_search(path);
-    if (lyrics?.text) return show_lyrics_file(lyrics, prefetch);
+    const lyrics = await lrclib_search(path, signal);
+    if (lyrics?.text) return show_lyrics_file(lyrics, { prefetch, signal });
+    else active_lyrics.delete(path);
     /*
     if (src === active_lyrics) ++lyric_attempt;
     else lyric_attempt = 0;

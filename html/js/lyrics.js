@@ -1,3 +1,5 @@
+import { debounce } from "./l.js";
+
 function normalizeWidth(el) {
     const words = el.textContent.split(/\s+/);
     el.textContent = "";
@@ -75,7 +77,8 @@ function renderLine(time, text, root) {
     return [time, el];
 }
 
-const parseLyrics = (text, root) => text.split("\n").map(line => {
+const parseLyrics = (text, root, signal) => text.split("\n").map(line => {
+    if (signal?.aborted) throw new Error("parsing aborted");
     line = line.trim();
     if (!line.startsWith("[")) return line.length ? renderLine(-1, line, root) : undefined;
     const timeEnd = line.indexOf("]");
@@ -86,19 +89,41 @@ const parseLyrics = (text, root) => text.split("\n").map(line => {
     return renderLine(m * 60 + s, line.slice(timeEnd + 1).trim(), root);
 }).filter(Boolean);
 
-export async function showLyrics(src, root, audio, status) {
+const syncButton = () => {
+    const overlay = document.createElement("div");
+    overlay.style.position = "sticky";
+    overlay.style.bottom = 0;
+    overlay.style.pointerEvents = "none";
+    const sync = document.createElement("button");
+    sync.innerText = "Sync";
+    sync.style.position = "absolute";
+    sync.style.bottom = 0;
+    sync.style.right = 0;
+    sync.style.pointerEvents = "auto";
+    overlay.append(sync);
+    return overlay;
+};
+
+export async function showLyrics(src, root, audio, { status, prefetch, signal }) {
     try {
         root.className = "lyrics";
+        root.style.position = "relative";
         let data = src.data;
         if (data) src = src.src;
         else {
             status?.enable();
             const text = src.text ?? await (await fetch(src)).text();
-            data = parseLyrics(text, root);
+            data = parseLyrics(text, root, signal);
             status?.disable();
         }
+        if (prefetch) return data;
+        const sync = syncButton(root);
+        sync.children[0].onclick = () => {
+            root.scrollTo(0, scrollPosition);
+            sync.remove();
+        }
         const path = src.path ?? src.slice(0, -4);
-        let currentLine;
+        let currentLine, scrollPosition = 0, snapped = true;
         const select = el => {
             if (currentLine) {
                 currentLine.classList.remove("active");
@@ -109,18 +134,24 @@ export async function showLyrics(src, root, audio, status) {
                 line.style.fontSize = line.dataset.scale;
             el.classList.add("active");
             currentLine = el;
-            (el.previousElementSibling ?? el).scrollIntoView({ behavior: "smooth" });
+            const scrollTarget = el.previousElementSibling ?? el;
+            scrollPosition = scrollTarget.offsetTop;
+            if (snapped) scrollTarget.scrollIntoView({ behavior: "smooth" });
         }
-        const isLyrics = el => el.classList.contains("lyrics-text");
+        const isLyrics = el => el?.classList.contains("lyrics-text");
         root.addEventListener("click", ev => {
             let target = isLyrics(ev.target) ? ev.target : isLyrics(ev.target.parentElement) ? ev.target.parentElement : undefined;
             if (!target) return;
             ev.preventDefault();
             if (!audio.src.includes(path) || !target.dataset.time) return;
+            snapped = true;
             select(target);
             audio.currentTime = parseFloat(target.dataset.time);
             audio.play();
-        });
+        }, { signal });
+        const scrollUpdate = debounce(() => snapped = Math.abs(root.scrollTop - Math.min(scrollPosition, root.scrollHeight - root.clientHeight)) < 10);
+        root.addEventListener("scroll", scrollUpdate, { signal });
+        root.addEventListener("scrollend", () => setTimeout(() => snapped ? sync.remove() : sync.isConnected || root.append(sync), 100), { signal });
         audio.addEventListener("timeupdate", () => {
             if (!audio.src.includes(path)) return;
             for (let i = data.length - 1; i >= 0; i--) {
@@ -130,8 +161,8 @@ export async function showLyrics(src, root, audio, status) {
                     break;
                 }
             }
-        });
-        return data;
+        }, { signal });
+        signal?.addEventListener("abort", () => status?.disable());
     } catch (err) {
         status?.disable();
         root.innerText = "Failed to get lyrics";
