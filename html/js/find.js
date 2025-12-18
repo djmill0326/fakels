@@ -92,7 +92,7 @@ const next_queued = mode => {
     const signal = fade_controller.signal;
     const volume = mel.volume;
     const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)));
-    if (!mode && auto_lyrics) show_lyrics(link, true).then();
+    if (!mode && auto_lyrics) find_lyrics(link, true);
     const next = re(make(link));
     next.autoplay = false;
     next.src = link;
@@ -344,6 +344,20 @@ const lrclib_search = async (src, signal) => {
         return { title, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
     } catch (_) { status?.disable() }
 };
+const metadata = (src) => new Promise(resolve => {
+    const name = extract_title(get_info(src));
+    const fallback = () => resolve({ title: name });
+    const callback = meta => {
+        if (!meta) return fallback();
+        const c = JSON.parse(meta);
+        const artist = c.artist || "";
+        const album = c.album?.split(",")[0] || "";
+        const title = c.title || "";
+        if (title.length) resolve({ artist, album, title })
+        else fallback();
+    }
+    api("m", src, null, callback, status_obj(`${name}'s metadata`), fallback, true);
+});
 const lyrics_cache = boundedCache(20);
 const get_lyrics = (src, signal, root) => {
     const id = src.slice(0, src.lastIndexOf("."));
@@ -375,7 +389,7 @@ const get_lyrics = (src, signal, root) => {
 };
 let auto_lyrics = false;
 const lyrics_bus = new EventTarget();
-const show_lyrics = async (src, prefetch) => {
+const find_lyrics = async (src, prefetch) => {
     const controller = new AbortController();
     const viewController = new AbortController();
     const signals = (popup) => {
@@ -433,57 +447,6 @@ const show_lyrics = async (src, prefetch) => {
         dispatch("display");
     } catch { root.remove() }
 }
-const lyrics_prefetch = new Map();
-const show_lyrics_file = (src, options) => {
-    const { prefetch, signal } = options;
-    const key = src.path ?? src;
-    if (signal?.aborted) return lyrics_prefetch.delete(key);
-    const cache = lyrics_prefetch.get(key);
-    if (!prefetch && cache && !cache.src) return requestIdleCallback(() => show_lyrics_file(src, options));
-    if (cache?.src) src = cache.src;
-    lyrics_prefetch.delete(key);
-    const lyrics = cache?.lyrics ?? $("div");
-    const name = src.title ?? extract_title(get_info(src));
-    const title = `Lyrics for [i]${name}[/i]`;
-    const load_lyrics = popup => {
-        const popupSignal = popup._controller.signal;
-        const mergedSignal = signal ? AbortSignal.any([popupSignal, signal]) : popupSignal;
-        popupSignal.addEventListener("abort", () => active_lyrics.delete(key));
-        options.signal = mergedSignal;
-        if (mergedSignal.aborted) {
-            lyrics.remove();
-            lyrics_prefetch.delete(key);
-        };
-        return showLyrics(cache?.lyrics ? cache : src, lyrics, mel, { status: status_obj(`lyrics for '${name}'`), prefetch, signal: mergedSignal });
-    }
-    if (poppedup?.classList.contains("lyrics-popup")) {
-        lyrics.style.opacity = 0;
-        poppedup.append(lyrics);
-        load_lyrics(poppedup).then(data => {
-            if (prefetch) {
-                lyrics.remove();
-                lyrics_prefetch.set(key, { src, lyrics, data });
-                return;
-            }
-            lyrics.parentElement.q(".lyrics")?.remove();
-            lyrics.style.removeProperty("opacity");
-            poppedup.q(".bar span").innerHTML = html(title);
-        });
-        return;
-    }
-    if (prefetch) return lyrics_prefetch.set(key, { src });
-    const p = popup(lyrics, title);
-    p.classList.add("lyrics-popup", "pending");
-    const auto = $("button");
-    auto.innerText = "Auto Lyrics";
-    if (auto_lyrics) auto.className = "active";
-    auto.onclick = () => {
-        auto_lyrics = !auto_lyrics;
-        auto.classList[auto_lyrics ? "add" : "remove"]("active");
-    }
-    p.q(".bar button").insertAdjacentElement("beforebegin", auto);
-    load_lyrics(p).then(() => p.classList.remove("pending"));
-};
 const resolve_link = to => {
     const anchor = typeof to === "number"
         ? frame.children[1].children[to].firstElementChild
@@ -513,7 +476,7 @@ const update_link = (to, set_src=true) => {
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
         if (!ifm) {
-            if (link.endsWith(".lrc")) return show_lyrics(link);
+            if (link.endsWith(".lrc")) return find_lyrics(link);
             return img(link, !link.includes(".jpg"));
         }
         frame.lastElementChild.scrollToEl(queued.parentElement);
@@ -524,7 +487,7 @@ const update_link = (to, set_src=true) => {
         console.debug("[fakels/debug]", describe(info));
         console.log("[fakels/media]", `'${title}' has queued.\n`);
         update_media(link, info);
-        if (auto_lyrics) show_lyrics(link).then();
+        if (auto_lyrics) find_lyrics(link);
         if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
@@ -668,91 +631,6 @@ const load_art = () => {
     );
     link && img(link.href);
 };
-/*const get_lyrics = (query, o) => {
-    api("l", query, null, html => {
-        const el = $("section");
-        el.innerHTML = html.replace("and a s", "in a s").replace(/\bpeak\b/g, "peek");
-        popup(el, `Lyrics for [i]${ o?.artist && o.title ? `${o.artist} - ${o.title}` : query }[/i]`);
-        active_lyrics = o.src;
-    }, status_obj(`lyrics for '${query}'`), null, true);
-}*/
-const metadata = (src) => new Promise(resolve => {
-    const name = extract_title(get_info(src));
-    const fallback = () => resolve({ title: name });
-    const callback = meta => {
-        if (!meta) return fallback();
-        const c = JSON.parse(meta);
-        const artist = c.artist || "";
-        const album = c.album?.split(",")[0] || "";
-        const title = c.title || "";
-        if (title.length) resolve({ artist, album, title })
-        else fallback();
-    }
-    api("m", src, null, callback, status_obj(`${name}'s metadata`), fallback, true);
-});
-/*let active_lyrics;
-let lyric_attempt = 0;*/
-const active_lyrics = new Map();
-const find_lyrics = async (src, prefetch) => {
-    if(!src) return;
-    for (const x of Array.from(active_lyrics.values())) {
-        if (x.src !== src) {
-            x.controller.abort();
-            active_lyrics.delete(x);
-            continue;
-        }
-        if (x.prefetch && !prefetch) continue;
-        return;
-    };
-    const controller = new AbortController();
-    const signal = controller.signal;
-    const entry = { src, prefetch, controller };
-    const lrc_src = `${src.slice(0, src.lastIndexOf("."))}.lrc`;
-    if (anchor_from_link(lrc_src, frame)) {
-        active_lyrics.set(lrc_src, entry);
-        if (prefetch) lyrics_prefetch.set(lrc_src, {});
-        return show_lyrics_file(lrc_src, { prefetch, signal });
-    }
-    const path = new URL(src).pathname;
-    active_lyrics.set(path, entry);
-    const cache = lyrics_prefetch.get(path);
-    if (cache) return show_lyrics_file(path, { signal });
-    if (prefetch) lyrics_prefetch.set(path, {});
-    const lyrics = await lrclib_search(path, signal);
-    if (lyrics?.text) return show_lyrics_file(lyrics, { prefetch, signal });
-    else active_lyrics.delete(path);
-    /*
-    if (src === active_lyrics) ++lyric_attempt;
-    else lyric_attempt = 0;
-    const fallback = () => {
-        const i = src.lastIndexOf("/");
-        const j = src.lastIndexOf(".");
-        const name = decodeURI(path.substring(i + 1, j));  
-        let segments = name.split(" ").filter(s => !(((s.length === 4 && s.includes("-")) || s.length === 2) && (s[0] === "0" || s[0] === "1")));
-        segments = segments.join(" ").split("- ").filter(s => s.length);
-        const last = segments.at(-1);
-        const l = last.lastIndexOf("(");
-        if (l !== -1) {
-            segments.pop();
-            segments.push(last.substring(l, last.lastIndexOf(")") + 1));
-            segments.push(last.substring(0, l).trim());
-        }
-        get_lyrics(segments.reverse().slice(0, Math.min(lyric_attempt + 1, segments.length)).join(" "), { active_lyrics, src });
-    };
-    const callback = ({ artist, album, title }) => {
-        let query;
-        switch(lyric_attempt % 4) {
-            case 0: query = [title]; break;
-            case 1: query = [artist, title]; break;
-            case 2: query = [artist, album, title]; break;
-            case 3: query = [album, title]; break;
-            default: return;
-        };
-        get_lyrics(query.join(" "), { artist, title, src });
-    }
-    metadata(path).then(callback).catch(fallback);
-    */
-};
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(get_info(mel?.src || "silence.")))}</i>`);
 const shortcuts = {
@@ -762,8 +640,7 @@ const shortcuts = {
     ".": ["Next entry", () => next.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
-    "l": ["Find lyrics (may fail)", () => show_lyrics(mel?.src).then()],
-    /*";": ["Find lyrics (specific)", () => get_lyrics(prompt("Lyrics query:"))],*/
+    "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src)],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go up a directory", () => back.click()],
     "?": ["Bring up this help menu", toggle_shortcuts]
