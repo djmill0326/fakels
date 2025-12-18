@@ -17,6 +17,49 @@ export function debounce(f, t=50) {
     return debounced;
 }
 
+export function boundedCache(limit) {
+    const cache = new Map();
+    const list = [];
+    const cacheClear = cache.clear.bind(cache);
+    const cacheDelete = cache.delete.bind(cache);
+    const cacheSet = cache.set.bind(cache);
+    const cacheGet = cache.get.bind(cache);
+    const updatePosition = (key) => {
+        if (list.at(-1) === key) return;
+        const index = list.findIndex(k => key === k);
+        list.splice(index, 1);
+        list.push(key);
+    };
+    cache.clear = () => {
+        list.length = 0;
+        cacheClear();
+    };
+    cache.delete = (key) => {
+        const index = list.findIndex(k => key === k);
+        if (index === -1) return false;
+        list.splice(index, 1);
+        return cacheDelete(key);
+    };
+    cache.set = (key, value) => {
+        if (cache.has(key)) {
+            updatePosition(key);
+            return cacheSet(key, value);
+        }
+        if (list.length === limit) {
+            const k = list.shift();
+            cacheDelete(k);
+        }
+        list.push(key);
+        return cacheSet(key, value);
+    };
+    cache.get = (key) => {
+        if (!cache.has(key)) return;
+        updatePosition(key);
+        return cacheGet(key);
+    };
+    return cache;
+}
+
 HTMLElement.prototype.c = HTMLElement.prototype.getElementsByClassName;
 HTMLElement.prototype.q = HTMLElement.prototype.querySelector;
 HTMLElement.prototype.qa = HTMLElement.prototype.querySelectorAll;

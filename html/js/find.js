@@ -5,9 +5,9 @@ console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
-import $, { _, id, handleHold, boundBox, join, style, anchor_from_link } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, anchor_from_link, boundedCache } from "./l.js";
 import { search, useSearch } from "./search.js";
-import { showLyrics } from "./lyrics.js";
+import { parseLyrics, showLyrics } from "./lyrics.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -92,7 +92,7 @@ const next_queued = mode => {
     const signal = fade_controller.signal;
     const volume = mel.volume;
     const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)));
-    if (!mode && auto_lyrics) find_lyrics(link, true).then();
+    if (!mode && auto_lyrics) show_lyrics(link, true).then();
     const next = re(make(link));
     next.autoplay = false;
     next.src = link;
@@ -327,8 +327,113 @@ const img = (src, iframe=false) => {
     const i = src.lastIndexOf("/");
     popup(img, src.substring(i + 1));
 };
-const lyrics_prefetch = new Map();
+const lrclib_search = async (src, signal) => {
+    let status;
+    try {
+        const { artist, album, title } = await metadata(new URL(src).pathname);
+        const params = new URLSearchParams({
+            track_name: title,
+            ...(album && { album_name: album }),
+            ...(artist && { artist_name: artist })
+        });
+        status = status_obj(`lrclib for ${title}`);
+        status.enable();
+        const res = await fetch(`https://lrclib.net/api/search?${params}`, { signal });
+        const results = await res.json();
+        status.disable();
+        return { title, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
+    } catch (_) { status?.disable() }
+};
+const lyrics_cache = boundedCache(20);
+const get_lyrics = (src, signal, root) => {
+    const id = src.slice(0, src.lastIndexOf("."));
+    const cached = lyrics_cache.get(id);
+    if (cached) return cached;
+    const promise = (async () => {
+        let text, title;
+        const lrc_src = `${id}.lrc`;
+        if (anchor_from_link(lrc_src, frame)) {
+            const res = await fetch(lrc_src, { signal });
+            text = await res.text();
+            title = extract_title(get_info(src));
+        } else {
+            const entry = await lrclib_search(src, signal);
+            if (!entry?.text) throw new Error("lrclib");
+            text = entry.text;
+            title = entry.title;
+        }
+        const lines = parseLyrics(text);
+        if (root) showLyrics(id, lines, root, null, { 
+            status: status_obj(`lyrics for '${title}'`),
+            prefetch: true, signal 
+        });
+        return { lines, title, id };
+    })();
+    lyrics_cache.set(id, promise);
+    promise.catch(() => lyrics_cache.delete(id));
+    return promise;
+};
 let auto_lyrics = false;
+const lyrics_bus = new EventTarget();
+const show_lyrics = async (src, prefetch) => {
+    const controller = new AbortController();
+    const viewController = new AbortController();
+    const signals = (popup) => {
+        return {
+            signal: AbortSignal.any([controller.signal, popup._controller.signal]),
+            viewSignal: AbortSignal.any([viewController.signal, popup._controller.signal])
+        };
+    };
+    const abortOnEvent = (type, controller) => {
+        const callback = ({ detail }) => {
+            if (detail === src) return;
+            controller.abort();
+            lyrics_bus.removeEventListener(type, callback);
+        }
+        lyrics_bus.addEventListener(type, callback);
+    };
+    const dispatch = (type) => lyrics_bus.dispatchEvent(new CustomEvent(type, { detail: src }));
+    dispatch("fetch");
+    abortOnEvent("fetch", controller);
+    abortOnEvent("display", viewController);
+    const root = $("div");
+    if (poppedup?.classList.contains("lyrics-popup")) {
+        root.style.opacity = 0;
+        poppedup.append(root);
+        try {
+            const { signal, viewSignal } = signals(poppedup);
+            const { title, lines, id } = await get_lyrics(src, signal, root);
+            if (prefetch) {
+                root.remove();
+                return;
+            }
+            showLyrics(id, lines, root, mel, { signal: viewSignal });
+            root.style.removeProperty("opacity");
+            poppedup.q(".bar span").innerHTML = `Lyrics for <i>${title}</i>`;
+            dispatch("display");
+        } catch { root.remove() }
+        return;
+    }
+    try {
+        const { title, lines, id } = await get_lyrics(src, controller.signal);
+        if (prefetch) return;
+        const p = popup(root, `Lyrics for [i]${title}[/i]`);
+        const { viewSignal } = signals(p);
+        p.classList.add("lyrics-popup", "pending");
+        const auto = $("button");
+        auto.innerText = "Auto Lyrics";
+        if (auto_lyrics) auto.className = "active";
+        auto.onclick = () => {
+            auto_lyrics = !auto_lyrics;
+            auto.classList[auto_lyrics ? "add" : "remove"]("active");
+        }
+        p.q(".bar button").insertAdjacentElement("beforebegin", auto);
+        showLyrics(id, lines, root, mel, { status: status_obj(`lyrics for ${title}`), signal: viewSignal });
+        p.classList.remove("pending");
+        dispatch("display");
+    } catch { root.remove() }
+}
+const lyrics_prefetch = new Map();
 const show_lyrics_file = (src, options) => {
     const { prefetch, signal } = options;
     const key = src.path ?? src;
@@ -408,7 +513,7 @@ const update_link = (to, set_src=true) => {
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
         if (!ifm) {
-            if (link.endsWith(".lrc")) return show_lyrics_file(link, {});
+            if (link.endsWith(".lrc")) return show_lyrics(link);
             return img(link, !link.includes(".jpg"));
         }
         frame.lastElementChild.scrollToEl(queued.parentElement);
@@ -419,7 +524,7 @@ const update_link = (to, set_src=true) => {
         console.debug("[fakels/debug]", describe(info));
         console.log("[fakels/media]", `'${title}' has queued.\n`);
         update_media(link, info);
-        if (auto_lyrics) find_lyrics(link);
+        if (auto_lyrics) show_lyrics(link).then();
         if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
@@ -563,14 +668,14 @@ const load_art = () => {
     );
     link && img(link.href);
 };
-const get_lyrics = (query, o) => {
+/*const get_lyrics = (query, o) => {
     api("l", query, null, html => {
         const el = $("section");
         el.innerHTML = html.replace("and a s", "in a s").replace(/\bpeak\b/g, "peek");
         popup(el, `Lyrics for [i]${ o?.artist && o.title ? `${o.artist} - ${o.title}` : query }[/i]`);
         active_lyrics = o.src;
     }, status_obj(`lyrics for '${query}'`), null, true);
-}
+}*/
 const metadata = (src) => new Promise(resolve => {
     const name = extract_title(get_info(src));
     const fallback = () => resolve({ title: name });
@@ -585,26 +690,6 @@ const metadata = (src) => new Promise(resolve => {
     }
     api("m", src, null, callback, status_obj(`${name}'s metadata`), fallback, true);
 });
-const lrclib_search = async (src, signal) => {
-    let status;
-    try {
-        const { artist, album, title } = await metadata(src);
-        const params = new URLSearchParams({
-            track_name: title,
-            ...(album && { album_name: album }),
-            ...(artist && { artist_name: artist })
-        });
-        status = status_obj(`lrclib for ${title}`);
-        status.enable();
-        const res = await fetch(`https://lrclib.net/api/search?${params}`, { signal });
-        const results = await res.json();
-        status.disable();
-        return { title, path: src, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
-    } catch (_) {
-        status?.disable();
-        lyrics_prefetch.delete(src);
-    }
-};
 /*let active_lyrics;
 let lyric_attempt = 0;*/
 const active_lyrics = new Map();
@@ -677,8 +762,8 @@ const shortcuts = {
     ".": ["Next entry", () => next.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
-    "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src).then()],
-    ";": ["Find lyrics (specific)", () => get_lyrics(prompt("Lyrics query:"))],
+    "l": ["Find lyrics (may fail)", () => show_lyrics(mel?.src).then()],
+    /*";": ["Find lyrics (specific)", () => get_lyrics(prompt("Lyrics query:"))],*/
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go up a directory", () => back.click()],
     "?": ["Bring up this help menu", toggle_shortcuts]

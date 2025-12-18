@@ -63,34 +63,69 @@ function normalizeWidth(el) {
     }
 }
 
-function renderLine(time, text, root) {
+export function parseLyrics(text) {
+    const lines = [];
+    for (let line of text.split("\n")) {
+        line = line.trim();
+        if (!line.startsWith("[")) {
+            lines.push({ text: line });
+            continue;
+        }
+        const timeEnd = line.indexOf("]");
+        if (timeEnd === -1) continue;
+        const timeStr = line.slice(1, timeEnd);
+        const [m, s] = timeStr.split(":").map(Number);
+        if (isNaN(m) || isNaN(s)) continue;
+        lines.push({
+            time: m * 60 + s, 
+            text: line.slice(timeEnd + 1).trim(),
+        });
+    }
+    return lines;
+};
+
+function renderLine(line, root) {
     const el = document.createElement("a");
     el.className = "lyrics-text";
-    el.innerText = text || "♫";
+    el.innerText = line.text || "♫";
     el.style.display = "block";
     root.append(el);
-    if(time !== -1) {
-        el.dataset.time = time.toFixed(2);
+    if(line.time !== undefined) {
+        el.dataset.time = line.time.toFixed(2);
         el.href = "#";
+        el.onclick = ev => ev.preventDefault();
         normalizeWidth(el);
     }
-    return [time, el];
+    line.el = el;
 }
 
-const parseLyrics = (text, root, signal) => text.split("\n").map(line => {
-    if (signal?.aborted) throw new Error("parsing aborted");
-    line = line.trim();
-    if (!line.startsWith("[")) return line.length ? renderLine(-1, line, root) : undefined;
-    const timeEnd = line.indexOf("]");
-    if (timeEnd === -1) return;
-    const timeStr = line.slice(1, timeEnd);
-    const [m, s] = timeStr.split(":").map(Number);
-    if (isNaN(m) || isNaN(s)) return;
-    return renderLine(m * 60 + s, line.slice(timeEnd + 1).trim(), root);
-}).filter(Boolean);
+function enableLine(line) {
+    line.classList.add("active");
+    for (const el of line.children)
+        el.style.fontSize = el.dataset.scale;
+}
 
-const syncButton = () => {
+function disableLine(line) {
+    line.classList.remove("active");
+    for (const el of line.children)
+        el.style.removeProperty("font-size");
+}
+
+function renderLines(lines, root, signal) {
+    for (const line of lines) {
+        signal?.throwIfAborted();
+        if (line.el) {
+            if (line.el.isConnected) continue;
+            if (line.el.classList.contains("active")) disableLine(line.el);
+            root.append(line.el);
+        }
+        else renderLine(line, root);
+    }
+}
+
+function syncButton() {
     const overlay = document.createElement("div");
+    overlay.className = "sync";
     overlay.style.position = "sticky";
     overlay.style.bottom = 0;
     overlay.style.pointerEvents = "none";
@@ -104,35 +139,25 @@ const syncButton = () => {
     return overlay;
 };
 
-export async function showLyrics(src, root, audio, { status, prefetch, signal }) {
+export function showLyrics(id, lines, root, audio, { status, prefetch, signal }) {
+    if (signal?.aborted) return;
     try {
         root.className = "lyrics";
         root.style.position = "relative";
-        let data = src.data;
-        if (data) src = src.src;
-        else {
-            status?.enable();
-            const text = src.text ?? await (await fetch(src)).text();
-            data = parseLyrics(text, root, signal);
-            status?.disable();
-        }
-        if (prefetch) return data;
+        root.q(".sync")?.remove(); 
+        status?.enable();
+        renderLines(lines, root, signal);
+        status?.disable();
+        if (prefetch) return lines;
         const sync = syncButton(root);
         sync.children[0].onclick = () => {
             root.scrollTo(0, scrollPosition);
             sync.remove();
         }
-        const path = src.path ?? src.slice(0, -4);
         let currentLine, scrollPosition = 0, snapped = true;
         const select = el => {
-            if (currentLine) {
-                currentLine.classList.remove("active");
-                for (const line of currentLine.children)
-                    line.style.removeProperty("font-size");
-            }
-            for (const line of el.children)
-                line.style.fontSize = line.dataset.scale;
-            el.classList.add("active");
+            if (currentLine) disableLine(currentLine);
+            enableLine(el);
             currentLine = el;
             const scrollTarget = el.previousElementSibling ?? el;
             scrollPosition = scrollTarget.offsetTop;
@@ -142,8 +167,7 @@ export async function showLyrics(src, root, audio, { status, prefetch, signal })
         root.addEventListener("click", ev => {
             let target = isLyrics(ev.target) ? ev.target : isLyrics(ev.target.parentElement) ? ev.target.parentElement : undefined;
             if (!target) return;
-            ev.preventDefault();
-            if (!audio.src.includes(path) || !target.dataset.time) return;
+            if (!audio.src.includes(id) || !target.dataset.time) return;
             snapped = true;
             select(target);
             audio.currentTime = parseFloat(target.dataset.time);
@@ -153,18 +177,21 @@ export async function showLyrics(src, root, audio, { status, prefetch, signal })
         root.addEventListener("scroll", scrollUpdate, { signal });
         root.addEventListener("scrollend", () => setTimeout(() => snapped ? sync.remove() : sync.isConnected || root.append(sync), 100), { signal });
         audio.addEventListener("timeupdate", () => {
-            if (!audio.src.includes(path)) return;
-            for (let i = data.length - 1; i >= 0; i--) {
-                const [time, el] = data[i];
-                if (time !== -1 && audio.currentTime + .001 >= time) {
+            if (!audio.src.includes(id)) return;
+            for (let i = lines.length - 1; i >= 0; i--) {
+                const { time, el } = lines[i];
+                if (time !== undefined && audio.currentTime + .001 >= time) {
                     if (currentLine !== el) select(el);
                     break;
                 }
             }
         }, { signal });
-        signal?.addEventListener("abort", () => status?.disable());
+        signal?.addEventListener("abort", () => {
+            status?.disable();
+            root.remove();
+        });
     } catch (err) {
         status?.disable();
-        root.innerText = "Failed to get lyrics";
+        root.remove();
     }
 }
