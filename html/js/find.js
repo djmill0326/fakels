@@ -84,8 +84,8 @@ const next_queued = mode => {
     fade_controller = new AbortController();
     const signal = fade_controller.signal;
     const volume = mel.volume;
-    const [anchor, link] = resolve_link(shuffling ? shuffle.shuffle() : next_anchor(playlist.at(-1)));
-    if (!mode && auto_lyrics) find_lyrics(link, true);
+    const [anchor, link] = resolve_link(shuffling ? shuffle.peek() : next_anchor(queued));
+    if (!mode && auto_lyrics) find_lyrics(anchor, true);
     const next = re(make(link));
     next.autoplay = false;
     next.src = link;
@@ -227,6 +227,7 @@ const on_load = () => {
 };
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
 const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
+const cover_src = (el) => `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/cover.jpg`;
 const enhance_anchor = (el, info) => {
     info ??= get_info(el.href);
     if (!mime[info.ext]) return;
@@ -236,7 +237,7 @@ const enhance_anchor = (el, info) => {
     el.classList.add("song-card");
     const cover = $("img");
     cover.loading = "lazy";
-    cover.src = `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/cover.jpg`
+    cover.src = cover_src(el);
     const text = $("div");
     text.className = "info";
     const title = $("div");
@@ -346,10 +347,11 @@ const img = (src, iframe=false) => {
     const i = src.lastIndexOf("/");
     popup(img, src.substring(i + 1));
 };
-const lrclib_search = async (src, signal) => {
+const lrclib_search = async (el, signal) => {
     let status;
     try {
-        const { artist, album, title } = await metadata(new URL(src).pathname);
+        let { artist, album, title } = el.dataset;
+        title ??= extract_title(get_info(el.href));
         const params = new URLSearchParams({
             track_name: title,
             ...(album && { album_name: album }),
@@ -363,22 +365,9 @@ const lrclib_search = async (src, signal) => {
         return { title, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
     } catch (_) { status?.disable() }
 };
-const metadata = (src) => new Promise(resolve => {
-    const name = extract_title(get_info(src));
-    const fallback = () => resolve({ title: name });
-    const callback = meta => {
-        if (!meta) return fallback();
-        const c = JSON.parse(meta);
-        const artist = c.artist || "";
-        const album = c.album?.split(",")[0] || "";
-        const title = c.title || "";
-        if (title.length) resolve({ artist, album, title })
-        else fallback();
-    }
-    api("m", src, null, callback, status_obj(`${name}'s metadata`), fallback, true);
-});
 const lyrics_cache = boundedCache(20);
-const get_lyrics = (src, signal, root) => {
+const get_lyrics = (ref, signal, root) => {
+    const src = ref.href ?? ref;
     const id = src.slice(0, src.lastIndexOf("."));
     const cached = lyrics_cache.get(id);
     if (cached) return cached;
@@ -390,7 +379,7 @@ const get_lyrics = (src, signal, root) => {
             text = await res.text();
             title = extract_title(get_info(src));
         } else {
-            const entry = await lrclib_search(src, signal);
+            const entry = await lrclib_search(ref, signal);
             if (!entry?.text) throw new Error("lrclib");
             text = entry.text;
             title = entry.title;
@@ -408,7 +397,8 @@ const get_lyrics = (src, signal, root) => {
 };
 let auto_lyrics = false;
 const lyrics_bus = new EventTarget();
-const find_lyrics = async (src, prefetch) => {
+const find_lyrics = async (ref, prefetch) => {
+    const src = ref.href ?? ref;
     const controller = new AbortController();
     const viewController = new AbortController();
     const signals = (popup) => {
@@ -435,7 +425,7 @@ const find_lyrics = async (src, prefetch) => {
         poppedup.append(root);
         try {
             const { signal, viewSignal } = signals(poppedup);
-            const { title, lines, id } = await get_lyrics(src, signal, root);
+            const { title, lines, id } = await get_lyrics(ref, signal, root);
             if (prefetch) {
                 root.remove();
                 return;
@@ -448,7 +438,7 @@ const find_lyrics = async (src, prefetch) => {
         return;
     }
     try {
-        const { title, lines, id } = await get_lyrics(src, controller.signal);
+        const { title, lines, id } = await get_lyrics(ref, controller.signal);
         if (prefetch) return;
         const p = popup(root, `Lyrics for [i]${title}[/i]`);
         const { viewSignal } = signals(p);
@@ -466,11 +456,12 @@ const find_lyrics = async (src, prefetch) => {
         dispatch("display");
     } catch { root.remove() }
 }
-const resolve_link = to => {
+const resolve_link = (to, anchor_only) => {
     const anchor = typeof to === "number"
         ? frame.children[1].children[to].firstElementChild
         : to ?? get_first_anchor();
     if (!anchor?.href) return [];
+    if (anchor_only) return [anchor];
     const decodedLink = join(decodeURI(anchor.href));
     const link = anchor.href = encodeURI(decodedLink);
     return [anchor, link, decodedLink];
@@ -478,7 +469,6 @@ const resolve_link = to => {
 const update_link = (to, set_src=true) => {
     const [anchor, link, decodedLink] = Array.isArray(to) ? to : resolve_link(to);
     if (!anchor) return;
-    queued = anchor;
     const info = get_info(link);
     if (!mime[info.ext]) {
         term.value = decodedLink.split(" /")[1];
@@ -486,7 +476,6 @@ const update_link = (to, set_src=true) => {
     }
     if(set_src) portal.src = link;
     const ifm = types[info.ext];
-    if (ifm) playlist.push(queued);
     if (ifm || link.includes("/media/")) {
         if (!ifm) {
             if (link.endsWith(".lrc")) {
@@ -495,6 +484,9 @@ const update_link = (to, set_src=true) => {
             }
             return img(link, !link.includes(".jpg"));
         }
+        queued = anchor;
+        playlist.push(queued);
+        if (resolve_link(shuffle.peek(), true)[0] === anchor) shuffle.consume();
         if (!mel) {
             mel = re(make(link));
             mel.volume = parseFloat(_.lvol ?? 1);
@@ -509,8 +501,11 @@ const update_link = (to, set_src=true) => {
         document.title = title;
         console.debug("[fakels/debug]", describe(info));
         console.log("[fakels/media]", `'${title}' has queued.\n`);
-        update_media(link, info);
-        if (auto_lyrics) find_lyrics(link);
+        update_media(queued, info);
+        if (auto_lyrics) {
+            const next = resolve_link(shuffling ? shuffle.peek() : next_anchor(anchor), true)[0];
+            find_lyrics(anchor).then(() => find_lyrics(next, true));
+        }
         if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
@@ -605,7 +600,7 @@ export const bundle = (...x) => {
 const prev = $("button");
 const next = $("button");
 const mref = $("a");
-const init_browser = (link, info) => {
+const init_browser = (el, info) => {
     const player = $("div");
     player.className = "player";
     prev.onclick = () => {
@@ -617,8 +612,8 @@ const init_browser = (link, info) => {
     next.onclick = () => next_queued(mel.paused ? "immediate" : "now");
     prev.textContent = "↩";
     next.textContent = "↪";
-    mref.dataset.src = link;
-    mref.innerHTML = html(document.title = extract_title(info));
+    mref.dataset.src = el.href;
+    mref.innerText = document.title = el.dataset.title ?? extract_title(info);
     mref.onclick = () => mel && (mel.currentTime = 0) || mel.play();
     handleHold(mref, toggle_status, null, 500);
     player.append(
@@ -628,9 +623,9 @@ const init_browser = (link, info) => {
     );
     media.append(player);
     browser = {
-        update: (link, info) => {
-            mref.innerHTML = html(extract_title(info));
-            mref.dataset.src = link;
+        update: (el, info) => {
+            mref.innerText = el.dataset.title ?? extract_title(info);
+            mref.dataset.src = el.href;
             const title = poppedup?.firstElementChild;
             if (!(title && title.firstElementChild.textContent.includes("Shortcuts"))) return;
             poppedup.children[1].firstElementChild.children[1].innerHTML = `<i>${mref.innerHTML}</i>`;
@@ -642,9 +637,14 @@ const init_browser = (link, info) => {
         }
     };
 };
-const update_media = (link, info) => {
-    if (browser.update) browser.update(link, info);
-    else init_browser(link, info);
+const update_media = (el, info) => {
+    if("mediaSession" in navigator) 
+        navigator.mediaSession.metadata = new MediaMetadata({ 
+            ...el.dataset, 
+            artwork: [{ src: cover_src(el) }]
+        });
+    if (browser.update) browser.update(el, info);
+    else init_browser(el, info);
 };
 const load_art = () => {
     const link = frame.q(`
@@ -664,7 +664,7 @@ const toggle_mode = () => {
         for (const el of frame.lastElementChild.children) {
             const a = el.firstElementChild;
             if (a.classList.contains("song-card")) {
-                a.replaceChildren(a.dataset.name);
+                a.replaceChildren(document.createTextNode(a.dataset.name));
                 a.classList.remove("song-card");
             } else a.parentElement.style.removeProperty("display");
         }
@@ -679,7 +679,7 @@ const shortcuts = {
     ".": ["Next entry", () => next.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
-    "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src)],
+    "l": ["Find lyrics (may fail)", () => find_lyrics(queued)],
     "m": ["Toggle library mode", toggle_mode],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go up a directory", () => back.click()],

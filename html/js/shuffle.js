@@ -17,20 +17,27 @@ function stupidRand(max) {
 }
 
 export default function shuffler(frame) {
-    let dir, prev, list, cursor;
+    let dir, prev, peeked, list, cursor;
     const provider = {
-        shuffle() {
+        peek() {
+            if (peeked) return peeked;
             const active_dir = frame.children[0].textContent;
             if (dir !== active_dir) provider.reset();
             else if (cursor < 0) cursor = list.length - 1;
             if (list.length < 2) return 0;
             dir = active_dir;
-            // const i = Math.floor(Math.random() * (cursor + 1));
-            const i = secureShuffleIndex(cursor);
-            const selection = list[i];
-            if (selection === prev) return provider.shuffle();
-            prev = selection;
-            list[i] = list[cursor];
+            const i = Math.floor(Math.random() * (cursor + 1));
+            peeked = list[i];
+            if (peeked === prev) {
+                this.consume();
+                return this.peek();
+            }
+            return peeked;
+        },
+        consume() {
+            const selection = peeked ?? this.peek();
+            peeked = null;
+            list[selection] = list[cursor];
             list[cursor--] = selection;
             return selection;
         }, 

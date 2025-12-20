@@ -1,5 +1,6 @@
 node_modules
 node_modules/*node_modules/
+html/covers
 html/media
 html/mp4/edgy_fish_meme.mp4
 text/IDEA.txt

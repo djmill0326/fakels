@@ -136,7 +136,7 @@ const sanitizePath = (name) => {
 }
 
 export function getSemanticPath(path, { artist, album, title }) {
-    artist = sanitizePath(artist);
+    artist = sanitizePath(artist.replace(/\s+\(?feat\..+/i, ""));
     album = sanitizePath(album);
     return [artist || "Unknown Artist", ...(album ? [album] : ["Unknown Album", sanitizePath(title) || sanitizePath(path.slice(path.lastIndexOf("/" + 1), path.lastIndexOf("."))) || "Unknown Title"])].join("/");
 }
