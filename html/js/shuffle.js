@@ -26,7 +26,7 @@ export default function shuffler(frame) {
             if (list.length < 2) return 0;
             dir = active_dir;
             // const i = Math.floor(Math.random() * (cursor + 1));
-            const i = stupidRand(cursor);
+            const i = secureShuffleIndex(cursor);
             const selection = list[i];
             if (selection === prev) return provider.shuffle();
             prev = selection;

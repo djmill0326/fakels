@@ -5,7 +5,7 @@ console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
-import $, { _, id, handleHold, boundBox, join, style, anchor_from_link, boundedCache } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, anchor_from_link, boundedCache, getSemanticPath } from "./l.js";
 import { search, useSearch } from "./search.js";
 import { parseLyrics, showLyrics } from "./lyrics.js";
 const title = document.title;
@@ -34,24 +34,17 @@ handleHold(btn, () => {
     if (query.at(-2) !== "*") term.value = term.value + (term.value.endsWith("/") ? "*" : "/*");
     btn.click();
 });
-export const splitEnd = function(s, x) {
-    const l = s.lastIndexOf(x);
-    return l ? [s.slice(0, l), s.slice(l + 1)] : [s];
-}
 export const html = text => text
     .replace(/<\/?(\w*)\s?.*>/g, "")
     .replaceAll("-", "<i>-</i>")
     .replaceAll("[i]", "<i>")
     .replaceAll("[/i]", "</i>");
 export const get_info = (link = "50x.html") => {
-    // fuck this thing. i hate it and how it's used
-    // this should have been made sane 100 changes ago
-    const split = link.split("/");
-    const uri = decodeURI(split.at(-1));
-    const [name, ext] = splitEnd(uri, ".");
-    if (ext) {
-        return { name, ext };
-    } else return { name };
+    const i = link.lastIndexOf("/");
+    const segment = decodeURI(i === -1 ? link : link.slice(i + 1));
+    const dot = segment.lastIndexOf(".");
+    if (dot === -1) return { name: segment };
+    return { name: segment.slice(0, dot), ext: segment.slice(dot + 1) };
 };
 export const describe = info => `${info.name} [${info.ext ? info.ext : "?"}]`;
 const is_wrapped_anchor = l => !!l?.children[0]?.href;
@@ -200,7 +193,8 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             const li = list[i];
             const a = li.children[0];
             const info = get_info(a.href);
-            if (!info.name || !mime[info.ext]) find_recursive(root + info.ext + "/", count);
+            if (library_mode) enhance_anchor(a);
+            if (!mime[info.ext]) find_recursive(root + info.name + "/", count);
             else found.set(a.href, li);
         }
         if (count.i === count.expected) {
@@ -221,7 +215,7 @@ const on_load = () => {
         replay_slot = null;
     }
     if (!reset) reset = get_first_anchor();
-    if (reset && reset.href) {
+    if (reset?.href) {
         if (!queued) {
             if (!update_link(reset)) return;
             if (_.ltime &&
@@ -232,7 +226,28 @@ const on_load = () => {
     }
 };
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
-const nav = (t, q) => history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
+const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
+const enhance_anchor = (el, info) => {
+    info ??= get_info(el.href);
+    if (!mime[info.ext]) return;
+    if (!types[info.ext]) return el.parentElement.style.display = "none";
+    el.dataset.title ??= extract_title(info);
+    el.dataset.name = el.innerText;
+    el.classList.add("song-card");
+    const cover = $("img");
+    cover.loading = "lazy";
+    cover.src = `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/cover.jpg`
+    const text = $("div");
+    text.className = "info";
+    const title = $("div");
+    title.className = "title";
+    title.innerText = el.dataset.title;
+    const artist = $("div");
+    artist.className = "artist";
+    artist.innerText = el.dataset.artist || "Unknown Artist";
+    text.append(title, artist);
+    el.replaceChildren(cover, text);
+};
 form.onsubmit = (e) => {
     update_status();
     back.disabled = false;
@@ -258,6 +273,10 @@ form.onsubmit = (e) => {
         console.log("[fakels/query]", "found", `'${query}'`);
         if (!just_popped) nav(v, query);
         just_popped = false;
+        if (library_mode) {
+            for (const el of frame.lastElementChild.children)
+                enhance_anchor(el.firstElementChild);
+        }
         on_load();
     }, status_obj(`directory ${query}`));
 };
@@ -452,34 +471,38 @@ const resolve_link = to => {
         ? frame.children[1].children[to].firstElementChild
         : to ?? get_first_anchor();
     if (!anchor?.href) return [];
-    const link = anchor.href = encodeURI(join(decodeURI(anchor.href)));
-    return [anchor, link];
+    const decodedLink = join(decodeURI(anchor.href));
+    const link = anchor.href = encodeURI(decodedLink);
+    return [anchor, link, decodedLink];
 };
 const update_link = (to, set_src=true) => {
-    const [anchor, link] = Array.isArray(to) ? to : resolve_link(to);
+    const [anchor, link, decodedLink] = Array.isArray(to) ? to : resolve_link(to);
     if (!anchor) return;
     queued = anchor;
-    _.lplay = link;
     const info = get_info(link);
-    if (info.name.length === 0 || !mime[info.ext]) {
-        term.value = link.split("%20/")[1];
+    if (!mime[info.ext]) {
+        term.value = decodedLink.split(" /")[1];
         btn.click(); return;
     }
     if(set_src) portal.src = link;
     const ifm = types[info.ext];
     if (ifm) playlist.push(queued);
     if (ifm || link.includes("/media/")) {
+        if (!ifm) {
+            if (link.endsWith(".lrc")) {
+                find_lyrics(link);
+                return;
+            }
+            return img(link, !link.includes(".jpg"));
+        }
         if (!mel) {
             mel = re(make(link));
             mel.volume = parseFloat(_.lvol ?? 1);
         }
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
-        if (!ifm) {
-            if (link.endsWith(".lrc")) return find_lyrics(link);
-            return img(link, !link.includes(".jpg"));
-        }
         frame.lastElementChild.scrollToEl(queued.parentElement);
+        _.lplay = link;
         if (set_src) mel.src = link;
         np = query;
         const title = extract_title(info);
@@ -631,6 +654,22 @@ const load_art = () => {
     );
     link && img(link.href);
 };
+let library_mode = _.library === "true";
+const toggle_mode = () => {
+    _.library = library_mode = !library_mode;
+    if (library_mode) {
+        for (const el of frame.lastElementChild.children)
+            enhance_anchor(el.firstElementChild);
+    } else {
+        for (const el of frame.lastElementChild.children) {
+            const a = el.firstElementChild;
+            if (a.classList.contains("song-card")) {
+                a.replaceChildren(a.dataset.name);
+                a.classList.remove("song-card");
+            } else a.parentElement.style.removeProperty("display");
+        }
+    }
+};
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(get_info(mel?.src || "silence.")))}</i>`);
 const shortcuts = {
@@ -641,6 +680,7 @@ const shortcuts = {
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
     "l": ["Find lyrics (may fail)", () => find_lyrics(mel?.src)],
+    "m": ["Toggle library mode", toggle_mode],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go up a directory", () => back.click()],
     "?": ["Bring up this help menu", toggle_shortcuts]

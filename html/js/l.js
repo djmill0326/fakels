@@ -127,6 +127,20 @@ export function join(...x) {
     return out.join("");
 }
 
+const numberedNames = (...names) => names.flatMap(name => new Array(9).fill().map((_, i) => `${name}${i + 1}`));
+const reservedNames = new Set(["CON", "PRN", "AUX", "NUL", ...numberedNames("COM", "LPT")]);
+const sanitizePath = (name) => {
+    const trimmed = name.replace(/(^[\.\s]+|[\.\s]+$)/g, "");
+    if(reservedNames.has(trimmed.toUpperCase())) return `_${name}`;
+    return trimmed.replace(/[<>:"/\\|?*\x00-\x1f]/g, "_")
+}
+
+export function getSemanticPath(path, { artist, album, title }) {
+    artist = sanitizePath(artist);
+    album = sanitizePath(album);
+    return [artist || "Unknown Artist", ...(album ? [album] : ["Unknown Album", sanitizePath(title) || sanitizePath(path.slice(path.lastIndexOf("/" + 1), path.lastIndexOf("."))) || "Unknown Title"])].join("/");
+}
+
 export const anchor_from_link = (link, frame) => {
     return link ? frame.querySelector(`[href$="${new URL(link).pathname}"]`) : void 0;
 }

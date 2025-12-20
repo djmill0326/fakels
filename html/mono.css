@@ -19,6 +19,13 @@ a[onclick] {
     font-size: 12.5px;
 }
 
+a, .song-card * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
+
 footer {
     position: fixed;
     top: calc(100% - 1.2em);
@@ -78,9 +85,13 @@ span:nth-child(2) {
         user-select: auto;
     }
     :first-child {
-        min-height: calc(4em/3);
         text-wrap: pretty;
         overflow-x: hidden;
+        align-self: center;
+    }
+    button {
+        min-width: 2.1em;
+        height: 2.1em;
     }
     .active {
         background: mediumvioletred;
@@ -123,10 +134,11 @@ span:nth-child(2) {
 }
 
 .lyrics .lyrics-text {
-    color: #aaa;
+    color: #bbb;
     margin: 3px;
     font-size: 100%;
     text-wrap: pretty;
+    transition: color .1s ease;
 }
 
 .lyrics .lyrics-text.active {
@@ -140,6 +152,28 @@ span:nth-child(2) {
 
 .pending {
     position: absolute;
-    opacity: 0;
+    height: 0;
     z-index: -100;
+}
+
+.song-card {
+    display: flex!important;
+    flex-direction: row;
+    gap: 5px;
+    font-size: .9em;
+    * {
+        pointer-events: none;
+    }
+    img {
+        height: 3.5em;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 5px;
+        flex-shrink: 0;
+    }
+    .info {
+        .artist {
+            color: #aaa;
+        }
+    }
 }

@@ -132,8 +132,8 @@ function syncButton() {
     const sync = document.createElement("button");
     sync.innerText = "Sync";
     sync.style.position = "absolute";
-    sync.style.bottom = 0;
-    sync.style.right = 0;
+    sync.style.bottom = "5px";
+    sync.style.right = "5px";
     sync.style.pointerEvents = "auto";
     overlay.append(sync);
     return overlay;
