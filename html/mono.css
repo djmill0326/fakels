@@ -156,6 +156,15 @@ span:nth-child(2) {
     z-index: -100;
 }
 
+@keyframes move-bg {
+    0% {
+        background-position: -100% 0%;
+    }
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
 .song-card {
     display: flex!important;
     flex-direction: row;
@@ -164,12 +173,26 @@ span:nth-child(2) {
     * {
         pointer-events: none;
     }
-    img {
+    .cover {
         height: 3.5em;
-        aspect-ratio: 1/1;
-        object-fit: cover;
+        width: 3.5em;
         border-radius: 5px;
         flex-shrink: 0;
+        background: linear-gradient(45deg, #111 0%, #222 15%, #333 25%, #222 35%, #111 50%, #222 65%, #333 75%, #222 85%, #111 100%);
+        background-size: 200% 200%;
+        animation: move-bg 2s ease infinite paused;
+        img {
+            height: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            transition: opacity .3s ease;
+        }
+        &.loading {
+            animation-play-state: running;
+            img {
+                opacity: 0;
+            }
+        }
     }
     .info {
         .artist {

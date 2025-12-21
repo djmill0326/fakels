@@ -17,32 +17,36 @@ function stupidRand(max) {
 }
 
 export default function shuffler(frame) {
-    let dir, prev, peeked, list, cursor;
+    let dir, prev, peeked, list, cursor, dirty;
     const provider = {
         peek() {
-            if (peeked) return peeked;
-            const active_dir = frame.children[0].textContent;
-            if (dir !== active_dir) provider.reset();
+            const active_dir = location.pathname + frame.children[1].children.length;
+            if (dirty || dir !== active_dir) {
+                dir = active_dir;
+                provider.reset();
+            }
             else if (cursor < 0) cursor = list.length - 1;
-            if (list.length < 2) return 0;
-            dir = active_dir;
+            if (peeked !== null) return list[peeked];
+            if (list.length < 2) return list[0];
             const i = Math.floor(Math.random() * (cursor + 1));
-            peeked = list[i];
-            if (peeked === prev) {
+            peeked = i;
+            const selection = list[i];
+            if (selection === prev) {
                 this.consume();
                 return this.peek();
             }
-            return peeked;
+            prev = selection;
+            return selection;
         },
         consume() {
-            const selection = peeked ?? this.peek();
-            peeked = null;
-            list[selection] = list[cursor];
+            const selection = this.peek();
+            list[peeked] = list[cursor];
             list[cursor--] = selection;
+            peeked = null;
             return selection;
         }, 
         reset() {
-            list = [];
+            list = [], peeked = null;
             const ch = frame.children[1].children;
             for (let i = 0; i < ch.length; i++) {
                 const e = ch[i];
@@ -51,7 +55,10 @@ export default function shuffler(frame) {
                 ) list.push(i);
             }
             cursor = list.length - 1;
-        } 
+        },
+        invalidate() {
+            dirty = true;
+        }
     };
     return provider;
 }

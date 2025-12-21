@@ -233,11 +233,15 @@ const enhance_anchor = (el, info) => {
     if (!mime[info.ext]) return;
     if (!types[info.ext]) return el.parentElement.style.display = "none";
     el.dataset.title ??= extract_title(info);
-    el.dataset.name = el.innerText;
+    el.dataset.name = el.textContent;
     el.classList.add("song-card");
+    const cover_wrap = $("div");
+    cover_wrap.className = "cover loading";
     const cover = $("img");
     cover.loading = "lazy";
+    cover.onload = () => cover_wrap.classList.remove("loading");
     cover.src = cover_src(el);
+    cover_wrap.append(cover);
     const text = $("div");
     text.className = "info";
     const title = $("div");
@@ -247,7 +251,7 @@ const enhance_anchor = (el, info) => {
     artist.className = "artist";
     artist.innerText = el.dataset.artist || "Unknown Artist";
     text.append(title, artist);
-    el.replaceChildren(cover, text);
+    el.replaceChildren(cover_wrap, text);
 };
 form.onsubmit = (e) => {
     update_status();
@@ -664,7 +668,7 @@ const toggle_mode = () => {
         for (const el of frame.lastElementChild.children) {
             const a = el.firstElementChild;
             if (a.classList.contains("song-card")) {
-                a.replaceChildren(document.createTextNode(a.dataset.name));
+                a.replaceChildren(a.dataset.name);
                 a.classList.remove("song-card");
             } else a.parentElement.style.removeProperty("display");
         }
