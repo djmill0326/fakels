@@ -1,6 +1,12 @@
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
 import { overrideConsole } from "./tab-log.js"
 overrideConsole(); // temporary for mobile
+const measure = async () => {
+    const { bytes } = await performance.measureUserAgentSpecificMemory();
+    console.log(`${(bytes / 1000000).toFixed(2)} MB`);
+    await measure();
+};
+measure().then();
 console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
@@ -8,6 +14,7 @@ import types, { make } from "./mediatype.mjs";
 import $, { _, id, handleHold, boundBox, join, style, anchor_from_link, boundedCache, getSemanticPath } from "./l.js";
 import { search, useSearch } from "./search.js";
 import { parseLyrics, showLyrics } from "./lyrics.js";
+import { virtualScroll } from "./vscroll.js";
 const title = document.title;
 const form = main();
 const { back, term, btn } = form.children;
@@ -70,8 +77,7 @@ const next_anchor = (a, looping=true) => {
         } else next = entry.children[0];
         if (!verify_anchor(next)) return;
         const info = get_info(next.href);
-        if (types[info.ext] && !next.parentElement.classList.contains("hidden"))
-            return queued = next;
+        if (types[info.ext] && !next.parentElement.classList.contains("hidden")) return next;
         head = next;
     }
 };
@@ -193,17 +199,28 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             const li = list[i];
             const a = li.children[0];
             const info = get_info(a.href);
-            if (library_mode) enhance_anchor(a);
+            if (library_mode) enhance_anchor(a, info, true);
             if (!mime[info.ext]) find_recursive(root + info.name + "/", count);
             else found.set(a.href, li);
         }
         if (count.i === count.expected) {
             const label = $("h3");
-            label.innerText = `${found.size} entries (flat)`;
+            const test = 1;
+            label.innerText = `${found.size * test} entries (flat)`;
             const list = $("ul");
-            list.append(...found.values());
+            for (let i = 0; i < test; i++) list.append(...Array.from(found.values()).map(x => test > 1 ? x.cloneNode(true) : x));
+            for (let i = 0; i < list.children.length; i++) list.children[i].dataset.index = i;
+            const virtualFrame = frame.cloneNode();
+            virtualFrame.onclick = frame_handler;
+            const virtualList = $("ul");
+            virtualFrame.append(label.cloneNode(true), virtualList);
+            frame.replaceWith(virtualFrame);
             frame.firstElementChild.replaceWith(label);
             frame.lastElementChild.replaceWith(list);
+            virtualScroll(virtualList, list, el => {
+                if (_.library === "true") enhance_anchor(el.firstElementChild);
+                return el;
+            });
             found.clear();
         }
     }, status_obj(`tree (${root})`));
@@ -228,12 +245,13 @@ const on_load = () => {
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
 const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
 const cover_src = (el) => `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/cover.jpg`;
-const enhance_anchor = (el, info) => {
+const enhance_anchor = (el, info, initOnly=false) => {
     info ??= get_info(el.href);
     if (!mime[info.ext]) return;
     if (!types[info.ext]) return el.parentElement.style.display = "none";
     el.dataset.title ??= extract_title(info);
     el.dataset.name = el.textContent;
+    if (initOnly) return;
     el.classList.add("song-card");
     const cover_wrap = $("div");
     cover_wrap.className = "cover loading";
@@ -273,15 +291,16 @@ form.onsubmit = (e) => {
     }
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
     console.debug("[fakels/debug]", "query", `'${query}'`);
+    frame.q(".vscroll")?.dispose();
     api("ls", query, frame, () => {
         if (query === "link") return;
         console.log("[fakels/query]", "found", `'${query}'`);
         if (!just_popped) nav(v, query);
         just_popped = false;
-        if (library_mode) {
-            for (const el of frame.lastElementChild.children)
-                enhance_anchor(el.firstElementChild);
-        }
+        const entries = frame.lastElementChild.children;
+        for (let i = 0; i < entries.length; i++) entries[i].dataset.index = i;
+        if (library_mode) for (const el of entries) enhance_anchor(el.firstElementChild);
+        id("frame").replaceWith(frame);
         on_load();
     }, status_obj(`directory ${query}`));
 };
@@ -399,7 +418,7 @@ const get_lyrics = (ref, signal, root) => {
     promise.catch(() => lyrics_cache.delete(id));
     return promise;
 };
-let auto_lyrics = false;
+let auto_lyrics = _.lyrics === "true";
 const lyrics_bus = new EventTarget();
 const find_lyrics = async (ref, prefetch) => {
     const src = ref.href ?? ref;
@@ -451,7 +470,7 @@ const find_lyrics = async (ref, prefetch) => {
         auto.innerText = "Auto Lyrics";
         if (auto_lyrics) auto.className = "active";
         auto.onclick = () => {
-            auto_lyrics = !auto_lyrics;
+            _.lyrics = auto_lyrics = !auto_lyrics;
             auto.classList[auto_lyrics ? "add" : "remove"]("active");
         }
         p.q(".bar button").insertAdjacentElement("beforebegin", auto);
@@ -463,7 +482,7 @@ const find_lyrics = async (ref, prefetch) => {
 const resolve_link = (to, anchor_only) => {
     const anchor = typeof to === "number"
         ? frame.children[1].children[to].firstElementChild
-        : to ?? get_first_anchor();
+        : to;
     if (!anchor?.href) return [];
     if (anchor_only) return [anchor];
     const decodedLink = join(decodeURI(anchor.href));
@@ -471,7 +490,7 @@ const resolve_link = (to, anchor_only) => {
     return [anchor, link, decodedLink];
 };
 const update_link = (to, set_src=true) => {
-    const [anchor, link, decodedLink] = Array.isArray(to) ? to : resolve_link(to);
+    let [anchor, link, decodedLink] = Array.isArray(to) ? to : resolve_link(to);
     if (!anchor) return;
     const info = get_info(link);
     if (!mime[info.ext]) {
@@ -488,8 +507,20 @@ const update_link = (to, set_src=true) => {
             }
             return img(link, !link.includes(".jpg"));
         }
-        queued = anchor;
-        playlist.push(queued);
+        if (anchor.index != null) {
+            playlist.push(anchor);
+            const target = frame.children[1].children[anchor.index]?.firstElementChild;
+            if (anchor.href === target?.href) anchor = target;
+        } else {
+            const { artist, album, title } = anchor.dataset;
+            const dataset = {
+                ...(artist && { artist }),
+                ...(album && { album }),
+                ...(title && { title })
+            };
+            queued = anchor;
+            playlist.push({ href: link, dataset, index: parseInt(anchor.parentElement.dataset.index) });
+        }
         if (resolve_link(shuffle.peek(), true)[0] === anchor) shuffle.consume();
         if (!mel) {
             mel = re(make(link));
@@ -497,7 +528,7 @@ const update_link = (to, set_src=true) => {
         }
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
-        frame.lastElementChild.scrollToEl(queued.parentElement);
+        if (frame.lastElementChild.contains(anchor.parentElement)) id("frame").lastElementChild.scrollToEl(anchor.parentElement);
         _.lplay = link;
         if (set_src) mel.src = link;
         np = query;
@@ -505,10 +536,10 @@ const update_link = (to, set_src=true) => {
         document.title = title;
         console.debug("[fakels/debug]", describe(info));
         console.log("[fakels/media]", `'${title}' has queued.\n`);
-        update_media(queued, info);
+        update_media(anchor, info);
         if (auto_lyrics) {
-            const next = resolve_link(shuffling ? shuffle.peek() : next_anchor(anchor), true)[0];
-            find_lyrics(anchor).then(() => find_lyrics(next, true));
+            const next = resolve_link(shuffling ? shuffle.peek() : next_anchor(queued), true)[0];
+            find_lyrics(anchor, !poppedup?.classList.contains("lyrics-popup")).then(() => find_lyrics(next, true));
         }
         if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
     } else if (browser.remove) {
@@ -540,7 +571,8 @@ const frame_handler = (e) => {
         term.value = _.ldir;
         search.reset();
     }
-    update_link(target);
+    const index = target.parentElement.dataset.index;
+    update_link(index ? parseInt(index) : target);
 };
 frame.onclick = frame_handler;
 export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
@@ -610,7 +642,7 @@ const init_browser = (el, info) => {
     prev.onclick = () => {
         if (playlist.length === 1) return update_link(playlist[0]);
         const entry = playlist.pop();
-        if (entry.href === queued?.href) return prev.onclick();
+        if (entry.href === mel?.src) return prev.onclick();
         update_link(entry);
     };
     next.onclick = () => next_queued(mel.paused ? "immediate" : "now");
@@ -683,7 +715,7 @@ const shortcuts = {
     ".": ["Next entry", () => next.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
     "c": ["Show cover art", load_art],
-    "l": ["Find lyrics (may fail)", () => find_lyrics(queued)],
+    "l": ["Find lyrics (may fail)", () => find_lyrics(playlist.at(-1))],
     "m": ["Toggle library mode", toggle_mode],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go up a directory", () => back.click()],

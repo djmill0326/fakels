@@ -185,7 +185,7 @@ span:nth-child(2) {
             height: 100%;
             aspect-ratio: 1/1;
             object-fit: cover;
-            transition: opacity .3s ease;
+            transition: opacity .2s ease;
         }
         &.loading {
             animation-play-state: running;
@@ -199,4 +199,8 @@ span:nth-child(2) {
             color: #aaa;
         }
     }
+}
+
+.vscroll > div {
+    will-change: transform;
 }
