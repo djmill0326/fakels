@@ -8,24 +8,27 @@ function patch(attr) {
 }
 
 export default function dragify(el, signal) {
+    el.style.touchAction = "none";
     const s = el.style;
     const t_attr = s.transform;
     let translate = patch(t_attr);
     let t = [0, 0];
-    el.addEventListener("mousedown", ev => {
+    el.addEventListener("pointerdown", ev => {
+        if (!ev.isPrimary) return;
         const l = ev.target;
         if (!(l === el || l.classList.contains("bar"))) return;
         const [x, y] = [ev.clientX, ev.clientY];
-        const move = ev => s.transform = translate(...(t = [ev.clientX - x, ev.clientY - y]));
+        const move = ev => ev.isPrimary && (s.transform = translate(...(t = [ev.clientX - x, ev.clientY - y])));
         const cancel = () => {
-            window.removeEventListener("mousemove", move);
-            window.removeEventListener("mouseup", cancel);
+            if (!ev.isPrimary) return;
+            window.removeEventListener("pointermove", move);
+            window.removeEventListener("pointerup", cancel);
             s.left = `calc(${s.left} + ${t[0]}px)`;
             s.top = `calc(${s.top} + ${t[1]}px)`;
             s.transform = t_attr;
         };
-        window.addEventListener("mousemove", move, { signal });
-        window.addEventListener("mouseup", cancel, { signal });
+        window.addEventListener("pointermove", move, { signal });
+        window.addEventListener("pointerup", cancel, { signal });
     }, { signal });
     return el;
 }

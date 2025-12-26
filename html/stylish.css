@@ -23,7 +23,7 @@ body {
     height: calc(100dvh - 2em);
     margin: 1em auto;
     padding: 1em;
-    background: #2227;
+    background: #222a;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -51,9 +51,13 @@ form {
 input, button, li {
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin: 0 .3em;
+    margin: 0;
     font-family: var(--font);
     background: #111;
+}
+
+input {
+    margin: 0 .3em;
 }
 
 .player button {
@@ -62,12 +66,7 @@ input, button, li {
 }
 
 .player {
-    width: 100%;
     display: flex;
-}
-
-.player span:not(:nth-child(2)) {
-    min-width: 84px;
 }
 
 #term {
@@ -84,16 +83,7 @@ input, button, li {
 }
 
 #el1 {
-    text-align: center;
     color: mediumvioletred;
-    white-space: unset;
-    flex-grow: unset;
-}
-
-.player > :nth-child(2) {
-    flex: 1;
-    text-align: center;
-    display: inline-block;
 }
 
 #porthole {
@@ -159,7 +149,7 @@ li:active {
     scale: 1.02;
 }
 
-span:has(label):active > button, button:active, #btn:active {
+span > label:active ~ button, button:active, #btn:active {
     scale: 1.1;
 }
 

@@ -16,45 +16,42 @@ function stupidRand(max) {
     return x;
 }
 
-export default function shuffler(frame) {
+export default function shuffler(items) {
     let dir, prev, peeked, list, cursor, dirty;
     const provider = {
         peek() {
-            const active_dir = location.pathname + frame.children[1].children.length;
+            const active_dir = location.pathname + items.length;
             if (dirty || dir !== active_dir) {
                 dir = active_dir;
-                provider.reset();
+                this.reset();
             }
             else if (cursor < 0) cursor = list.length - 1;
-            if (peeked !== null) return list[peeked];
+            if (peeked != null) return items[list[peeked]].firstElementChild;
             if (list.length < 2) return list[0];
-            const i = Math.floor(Math.random() * (cursor + 1));
+            // const i = Math.floor(Math.random() * (cursor + 1));
+            const i = secureShuffleIndex(cursor);
             peeked = i;
             const selection = list[i];
-            if (selection === prev) {
+            if (selection === prev || !types[get_info(items[selection].firstElementChild.href).ext]) {
                 this.consume();
                 return this.peek();
             }
             prev = selection;
-            return selection;
+            return items[selection].firstElementChild;
         },
         consume() {
-            const selection = this.peek();
+            const result = this.peek();
+            const selection = list[peeked];
             list[peeked] = list[cursor];
             list[cursor--] = selection;
             peeked = null;
-            return selection;
+            return result;
         }, 
         reset() {
-            list = [], peeked = null;
-            const ch = frame.children[1].children;
-            for (let i = 0; i < ch.length; i++) {
-                const e = ch[i];
-                if (types[get_info(e.firstElementChild.href).ext]
-                    && !e.classList.contains("hidden")
-                ) list.push(i);
-            }
+            list = new Array(items.length).fill().map((_, i) => i);
             cursor = list.length - 1;
+            peeked = null;
+            dirty = false;
         },
         invalidate() {
             dirty = true;

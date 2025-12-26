@@ -3,7 +3,7 @@ import { overrideConsole } from "./tab-log.js"
 overrideConsole(); // temporary for mobile
 const measure = async () => {
     const { bytes } = await performance.measureUserAgentSpecificMemory();
-    console.log(`${(bytes / 1000000).toFixed(2)} MB`);
+    console.debug(`${(bytes / 1000000).toFixed(2)} MB`);
     await measure();
 };
 measure().then();
@@ -20,8 +20,10 @@ const form = main();
 const { back, term, btn } = form.children;
 const portal = id("porthole");
 const media = id("media");
-let frame = id("frame");
-let query = "", np, queued;
+const frame = id("frame");
+const items = [];
+const activeItems = [];
+let query = "", np, queued, vscroll;
 let browser = {};
 const playlist = [];
 let mel;
@@ -58,31 +60,32 @@ const is_wrapped_anchor = l => !!l?.children[0]?.href;
 const verify_anchor = a => a.href.lastIndexOf(".") - location.origin.length > 0;
 const get_first_anchor = () => {
     try {
-        const list = frame.children[1].children[0].children;
-        const a = list[0];
-        if (!verify_anchor(a)) return;
-        return a;
+        const a = activeItems[0].firstElementChild;
+        if (verify_anchor(a)) return a;
     } catch (err) { console.warn("wtf!", term.value) }
 }
 const next_anchor = (a, looping=true) => {
     if (!a?.href) return;
-    const length = a.parentElement.parentElement.children.length;
-    for (let head = a, i = 0; i < length; i++) {
-        const entry = head.parentElement.nextElementSibling; 
+    const length = items.length;
+    for (let head = activeItems.findIndex(v => v === a.parentElement), i = 0; i < length; i++) {
+        const entry = activeItems[++head];
         let next;
         if (!is_wrapped_anchor(entry)) {
-            const initial = get_first_anchor();
-            if (looping && initial) next = initial;
+            const initial = get_first_anchor(); 
+            if (looping && initial) {
+                next = initial;
+                head = 0;
+            }
             else return;
-        } else next = entry.children[0];
+        } else next = entry.firstElementChild;
         if (!verify_anchor(next)) return;
         const info = get_info(next.href);
-        if (types[info.ext] && !next.parentElement.classList.contains("hidden")) return next;
-        head = next;
+        if (types[info.ext]) return next;
     }
 };
 import shuffler from "./shuffle.js";
-const shuffle = window.shuffle = shuffler(frame);
+const shuffle = window.shuffle = shuffler(activeItems);
+const next_track = () => shuffling ? shuffle.peek() : next_anchor(queued);
 const fade_time = .05;
 let fade_controller;
 const next_queued = mode => {
@@ -90,10 +93,11 @@ const next_queued = mode => {
     fade_controller = new AbortController();
     const signal = fade_controller.signal;
     const volume = mel.volume;
-    const [anchor, link] = resolve_link(shuffling ? shuffle.peek() : next_anchor(queued));
+        const [anchor, link] = resolve_link(next_track());
     if (!mode && auto_lyrics) find_lyrics(anchor, true);
     const next = re(make(link));
     next.autoplay = false;
+    next.preload = "true";
     next.src = link;
     next.classList.add("pending");
     mel.insertAdjacentElement("beforebegin", next);
@@ -135,6 +139,7 @@ const next_queued = mode => {
     mel.ontimeupdate = undefined;
     mel.onended = () => ended = true;
     signal.addEventListener("abort", () => {
+        console.log("aborted");
         next.remove();
         mel.volume = volume;
         fade_controller = undefined;
@@ -178,7 +183,7 @@ const update_status = () => {
         _.ldir?.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
         shortcut_ui.isConnected ? "" : statbtn("Press '?' for help menu", "toggle_shortcuts", "help"),
         active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` :
-        frame.children.length > 1 ? `Browsing ${_.ldir?.length ? _.ldir : "/"}` : ""
+        items.length ? `Browsing ${_.ldir?.length ? _.ldir : "/"}` : ""
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
 }
@@ -189,6 +194,41 @@ const status_obj = (name) => ({
 });
 update_status();
 if(_.status !== "false") document.body.append(status);
+const refill_items = (iter) => {
+    if (iter) items.splice(0, items.length, ...iter);
+    activeItems.splice(0, activeItems.length, ...items.filter((item, i) => {
+        const node = item.firstElementChild;
+        const info = get_info(node.href);
+        const withinLibrary = types[info.ext] || !mime[info.ext];
+        if (!item.dataset.index) {
+            // side-effects in filter. more efficient tho
+            item.dataset.index = i;
+            if (withinLibrary) enhance_anchor(node, info, true);
+        }
+        // hide non-media anchors that aren't folders
+        if (library_mode && !withinLibrary) return false;
+        if (search.term) return search.check(node);
+        return true;
+    }));
+    if (frame.firstElementChild.textContent.endsWith(" entries (flat)"))
+        frame.firstElementChild.textContent = `${activeItems.length} entries (flat)`;
+    shuffle.invalidate();
+    vscroll?.update();
+};
+const virtualize = () => {
+    vscroll?.dispose();
+    const list = $("ul");
+    vscroll = virtualScroll(list, activeItems, el => {
+        const a = el.firstElementChild;
+        if (library_mode) enhance_anchor(a);
+        else if (a.classList.contains("song-card")) {
+            a.classList.remove("song-card");
+            a.textContent = a.dataset.name;
+        }
+        return el;
+    });
+    frame.lastElementChild.replaceWith(list);
+};
 const found = new Map();
 const find_recursive = (root, count={ i: 0, expected: 0 }) => {
     ++count.expected;
@@ -199,75 +239,60 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             const li = list[i];
             const a = li.children[0];
             const info = get_info(a.href);
-            if (library_mode) enhance_anchor(a, info, true);
             if (!mime[info.ext]) find_recursive(root + info.name + "/", count);
             else found.set(a.href, li);
         }
         if (count.i === count.expected) {
-            const label = $("h3");
-            const test = 1;
-            label.innerText = `${found.size * test} entries (flat)`;
-            const list = $("ul");
-            for (let i = 0; i < test; i++) list.append(...Array.from(found.values()).map(x => test > 1 ? x.cloneNode(true) : x));
-            for (let i = 0; i < list.children.length; i++) list.children[i].dataset.index = i;
-            const virtualFrame = frame.cloneNode();
-            virtualFrame.onclick = frame_handler;
-            const virtualList = $("ul");
-            virtualFrame.append(label.cloneNode(true), virtualList);
-            frame.replaceWith(virtualFrame);
-            frame.firstElementChild.replaceWith(label);
-            frame.lastElementChild.replaceWith(list);
-            virtualScroll(virtualList, list, el => {
-                if (_.library === "true") enhance_anchor(el.firstElementChild);
-                return el;
-            });
+            virtualize();
+            refill_items(found.values());
             found.clear();
+            const label = $("h3");
+            label.innerText = `${activeItems.length} entries (flat)`;
+            frame.firstElementChild.replaceWith(label);
+            on_load();
         }
     }, status_obj(`tree (${root})`));
 };
 const on_load = () => {
-    let reset;
-    if (replay_slot) {
-        reset = anchor_from_link(replay_slot, frame);
-        replay_slot = null;
-    }
-    if (!reset) reset = get_first_anchor();
-    if (reset?.href) {
-        if (!queued) {
-            if (!update_link(reset)) return;
-            if (_.ltime &&
-                _.lplay.slice(_.lplay.lastIndexOf("/") + 1)
-                === reset.href.slice(reset.href.lastIndexOf("/") + 1)
-            ) mel.currentTime = parseFloat(_.ltime);
-        }
+    const reset = replay_slot ? anchor_from_link(replay_slot, items) : null;
+    replay_slot = null;
+    if (!reset?.href) return;
+    const lplay = _.lplay;
+    if (!queued) {
+        if (!update_link(reset)) return;
+        if (_.ltime &&
+            lplay.slice(lplay.lastIndexOf("/") + 1)
+            === reset.href.slice(reset.href.lastIndexOf("/") + 1)
+        ) mel.currentTime = parseFloat(_.ltime);
     }
 };
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
 const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
-const cover_src = (el) => `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/cover.jpg`;
+const cover_src = (el, isMedia=true) => `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/${isMedia ? "cover" : "folder"}.jpg`;
 const enhance_anchor = (el, info, initOnly=false) => {
+    if (el.classList.contains("song-card")) return;
     info ??= get_info(el.href);
-    if (!mime[info.ext]) return;
-    if (!types[info.ext]) return el.parentElement.style.display = "none";
-    el.dataset.title ??= extract_title(info);
-    el.dataset.name = el.textContent;
+    const isMedia = !!types[info.ext];
+    if (!el.dataset.name) {
+        if (isMedia) el.dataset.title ??= extract_title(info);
+        el.dataset.name = el.textContent;
+    }
     if (initOnly) return;
     el.classList.add("song-card");
     const cover_wrap = $("div");
     cover_wrap.className = "cover loading";
     const cover = $("img");
-    cover.loading = "lazy";
     cover.onload = () => cover_wrap.classList.remove("loading");
-    cover.src = cover_src(el);
+    cover.src = cover_src(el, isMedia);
     cover_wrap.append(cover);
     const text = $("div");
     text.className = "info";
     const title = $("div");
     title.className = "title";
-    title.innerText = el.dataset.title;
+    title.innerText = isMedia ? el.dataset.title : el.dataset.name;
     const artist = $("div");
     artist.className = "artist";
-    artist.innerText = el.dataset.artist || "Unknown Artist";
+    artist.innerText = isMedia ? (el.dataset.artist || "Unknown Artist") : "Folder";
     text.append(title, artist);
     el.replaceChildren(cover_wrap, text);
 };
@@ -284,23 +309,18 @@ form.onsubmit = (e) => {
     if (wildcard !== -1) {
         const c = { i: 0, expected: 0 };
         find_recursive(`/${dir}`, c);
-        if (replay_slot) {
-            const i = setInterval(() => c.expected - c.i || clearInterval(i) || on_load(), 50);
-        }
         return nav(v, query);
     }
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
     console.debug("[fakels/debug]", "query", `'${query}'`);
-    frame.q(".vscroll")?.dispose();
     api("ls", query, frame, () => {
         if (query === "link") return;
         console.log("[fakels/query]", "found", `'${query}'`);
         if (!just_popped) nav(v, query);
         just_popped = false;
-        const entries = frame.lastElementChild.children;
-        for (let i = 0; i < entries.length; i++) entries[i].dataset.index = i;
-        if (library_mode) for (const el of entries) enhance_anchor(el.firstElementChild);
-        id("frame").replaceWith(frame);
+        const list = Array.from(frame.lastElementChild.children);
+        virtualize();
+        refill_items(list);
         on_load();
     }, status_obj(`directory ${query}`));
 };
@@ -326,7 +346,7 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     wrapper._controller = controller;
     wrapper.className = "popup";
     wrapper.style = popup_savestate.get(title.toLowerCase()) ?? style.Centered;
-    boundBox(wrapper, "2em", "450px", "450px", "150px", "900px");
+    boundBox(wrapper, "2.75em", "450px", "450px", "150px", "900px");
     wrapper.dataset.title = title;
     const bar = $("div");
     bar.style = `
@@ -397,7 +417,7 @@ const get_lyrics = (ref, signal, root) => {
     const promise = (async () => {
         let text, title;
         const lrc_src = `${id}.lrc`;
-        if (anchor_from_link(lrc_src, frame)) {
+        if (anchor_from_link(lrc_src, items)) {
             const res = await fetch(lrc_src, { signal });
             text = await res.text();
             title = extract_title(get_info(src));
@@ -421,6 +441,7 @@ const get_lyrics = (ref, signal, root) => {
 let auto_lyrics = _.lyrics === "true";
 const lyrics_bus = new EventTarget();
 const find_lyrics = async (ref, prefetch) => {
+    if (!ref) return;
     const src = ref.href ?? ref;
     const controller = new AbortController();
     const viewController = new AbortController();
@@ -472,6 +493,7 @@ const find_lyrics = async (ref, prefetch) => {
         auto.onclick = () => {
             _.lyrics = auto_lyrics = !auto_lyrics;
             auto.classList[auto_lyrics ? "add" : "remove"]("active");
+            if (auto_lyrics && !playlist.at(-1)?.href.includes(id)) find_lyrics(playlist.at(-1)).then(() => find_lyrics(next_track(), true));
         }
         p.q(".bar button").insertAdjacentElement("beforebegin", auto);
         showLyrics(id, lines, root, mel, { status: status_obj(`lyrics for ${title}`), signal: viewSignal });
@@ -481,7 +503,7 @@ const find_lyrics = async (ref, prefetch) => {
 }
 const resolve_link = (to, anchor_only) => {
     const anchor = typeof to === "number"
-        ? frame.children[1].children[to].firstElementChild
+        ? items[to]?.firstElementChild
         : to;
     if (!anchor?.href) return [];
     if (anchor_only) return [anchor];
@@ -509,7 +531,7 @@ const update_link = (to, set_src=true) => {
         }
         if (anchor.index != null) {
             playlist.push(anchor);
-            const target = frame.children[1].children[anchor.index]?.firstElementChild;
+            const target = items[anchor.index]?.firstElementChild;
             if (anchor.href === target?.href) anchor = target;
         } else {
             const { artist, album, title } = anchor.dataset;
@@ -518,17 +540,17 @@ const update_link = (to, set_src=true) => {
                 ...(album && { album }),
                 ...(title && { title })
             };
-            queued = anchor;
             playlist.push({ href: link, dataset, index: parseInt(anchor.parentElement.dataset.index) });
         }
-        if (resolve_link(shuffle.peek(), true)[0] === anchor) shuffle.consume();
+        if (anchor.index == null) queued = anchor;
+        if (shuffle.peek() === anchor) shuffle.consume();
         if (!mel) {
             mel = re(make(link));
             mel.volume = parseFloat(_.lvol ?? 1);
         }
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
-        if (frame.lastElementChild.contains(anchor.parentElement)) id("frame").lastElementChild.scrollToEl(anchor.parentElement);
+        if (items[parseInt(anchor.parentElement?.dataset.index)]?.firstElementChild.href === link) frame.lastElementChild.scrollToEl(anchor.parentElement);
         _.lplay = link;
         if (set_src) mel.src = link;
         np = query;
@@ -538,8 +560,7 @@ const update_link = (to, set_src=true) => {
         console.log("[fakels/media]", `'${title}' has queued.\n`);
         update_media(anchor, info);
         if (auto_lyrics) {
-            const next = resolve_link(shuffling ? shuffle.peek() : next_anchor(queued), true)[0];
-            find_lyrics(anchor, !poppedup?.classList.contains("lyrics-popup")).then(() => find_lyrics(next, true));
+            find_lyrics(anchor, !poppedup?.classList.contains("lyrics-popup")).then(() => find_lyrics(next_track(), true));
         }
         if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
     } else if (browser.remove) {
@@ -549,7 +570,7 @@ const update_link = (to, set_src=true) => {
     }
     return ifm;
 };
-addEventListener("navigate", ev => update_link(frame.children[1].children[ev.detail.i].firstElementChild));
+addEventListener("navigate", ev => update_link(ev.detail.i));
 let pathname = decodeURI(window.location.pathname).slice(1);
 const paths = ["dope", "raw", "stylish"];
 let path_prefix = "";
@@ -562,7 +583,7 @@ for (const path of paths) {
 }
 term.value = (pathname.length ? pathname : _.ldir) ?? "";
 btn.click();
-useSearch(term, frame);
+useSearch(term, refill_items);
 const frame_handler = (e) => {
     e.preventDefault();
     const target = e.target.href ? e.target : e.target.children[0];
@@ -664,7 +685,7 @@ const init_browser = (el, info) => {
             mref.dataset.src = el.href;
             const title = poppedup?.firstElementChild;
             if (!(title && title.firstElementChild.textContent.includes("Shortcuts"))) return;
-            poppedup.children[1].firstElementChild.children[1].innerHTML = `<i>${mref.innerHTML}</i>`;
+            poppedup.children[1].firstElementChild.children[1].innerHTML = `<i>${html(mref.innerHTML)}</i>`;
         },
         remove: () => {
             player.remove();
@@ -693,21 +714,10 @@ const load_art = () => {
 let library_mode = _.library === "true";
 const toggle_mode = () => {
     _.library = library_mode = !library_mode;
-    if (library_mode) {
-        for (const el of frame.lastElementChild.children)
-            enhance_anchor(el.firstElementChild);
-    } else {
-        for (const el of frame.lastElementChild.children) {
-            const a = el.firstElementChild;
-            if (a.classList.contains("song-card")) {
-                a.replaceChildren(a.dataset.name);
-                a.classList.remove("song-card");
-            } else a.parentElement.style.removeProperty("display");
-        }
-    }
+    refill_items();
 };
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
-window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(extract_title(get_info(mel?.src || "silence.")))}</i>`);
+window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(mel?.isConnected ? mref.innerHTML : "Silence")}</i>`);
 const shortcuts = {
     "Now-Playing": ["None", () => mref.click()],
     " ": ["Play/pause", toggle_playback],

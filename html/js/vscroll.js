@@ -1,5 +1,5 @@
 import $, { debounce } from "./l.js";
-export function virtualScroll(root, backing, render=x=>x) {
+export function virtualScroll(root, list, render=x=>x) {
     root.replaceChildren();
     root.style.position = "relative";
     const wrapper = $("div");
@@ -10,51 +10,73 @@ export function virtualScroll(root, backing, render=x=>x) {
     container.style.width = "100%";
     wrapper.append(container);
     root.append(wrapper);
-    const indexMap = new Map();
-    const list = Array.from(backing.children).map((node, i) => [node, i]).filter(([node]) => {
-        return !(node.style.display === "none" || node.classList.contains("hidden"));
-    }).map(([node, i], j) => {
-        indexMap.set(i, j);
-        return node.cloneNode(true);
-    });
-    const testEl = render(list[0]);
-    container.append(testEl);
-    const margin = parseInt(getComputedStyle(testEl).marginBottom);
-    const height = testEl.getBoundingClientRect().height + margin;
-    const viewSize = Math.ceil(root.clientHeight / height);
-    const size = viewSize * 3;
-    testEl.remove();
-    const scrollHeight = height * list.length;
-    wrapper.style.height = scrollHeight + "px";
+    let height, viewSize, size, index, indexMap = new Map();
     const nodes = (size, start=0) => list.slice(start, start + size).map(render);
-    container.append(...nodes(size));
-    let index = 0;
     const update = () => {
-        const position = Math.min(Math.max(Math.floor(root.scrollTop / height - viewSize), 0), list.length - size);
-        const difference = Math.abs(position - index);
-        if (difference === 0) return;
-        if (difference >= size) container.replaceChildren(
-            ...nodes(size, position));
-        else if (position < index) container.replaceChildren(
-            ...nodes(difference, position),
-            ...Array.from(container.children).slice(0, size - difference)); 
-        else container.replaceChildren(
-            ...Array.from(container.children).slice(difference, size),
-            ...nodes(difference, index + size));
-        index = position;
+        indexMap.clear();
+        list.forEach((node, i) => indexMap.set(parseInt(node.dataset.index), i));
+        let scrollTarget;
+        if (list.length) {
+            const testEl = render(list[0]);
+            container.append(testEl);
+            if (height) scrollTarget = root.scrollTop / height;
+            const margin = parseInt(getComputedStyle(testEl).marginBottom);
+            height = testEl.getBoundingClientRect().height + margin;
+            testEl.remove();
+            viewSize = Math.ceil(root.clientHeight / height);
+            size = viewSize * 3;
+        }
+        const scrollHeight = height * list.length;
+        wrapper.style.height = scrollHeight + "px";
+        if (scrollTarget) root.scrollTop = scrollTarget * height;
+        root.removeEventListener("scroll", listener);
+        callback(true);
+        listen();
+    }
+    const callback = (force=false) => {
+        const position = Math.max(Math.min(Math.floor(root.scrollTop / height - viewSize), list.length - size), 0);
+        if (position - index === 0 && !force) return;
         container.style.transform = `translateY(${height * position}px)`;
+        container.replaceChildren(...nodes(size, position));
+        index = position;
     };
-    const listener = update;
+    const observer = new ResizeObserver(() => {
+        viewSize = Math.ceil(root.clientHeight / height);
+        size = viewSize * 3;
+        callback(true);
+    });
+    observer.observe(root);
+    let ticking = false;
+    const listener = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            callback();
+            ticking = false;
+        })
+    }
+    let prevTime;
+    const scrollTest = () => requestAnimationFrame(t => {
+        if (!prevTime) {
+            prevTime = t;
+            return scrollTest();
+        }
+        const d = t - prevTime;
+        prevTime = t;
+        root.scrollTop += d / 10;
+        scrollTest();
+    });
+    //scrollTest();
     const listen = () => root.addEventListener("scroll", listener, { passive: true });
     listen();
+    const dispose = () => observer.disconnect() || root.removeEventListener("scroll", listener);
     root.scrollToEl = (el) => {
-        root.dispose();
+        root.removeEventListener("scroll", listener);
         const index = indexMap.get(parseInt(el.dataset.index));
         root.scrollTop = index * height + 1;
-        update();
-        list[index].focus();
+        callback();
+        list[index]?.focus();
         listen();
-
     }
-    root.dispose = () => root.removeEventListener("scroll", listener);
+    return { update, dispose };
 }

@@ -5,16 +5,10 @@ export const search = {
     reset: () => {}
 };
 
-function iter(frame, f) {
-    for (const li of frame.lastElementChild.children) f(li);
-}
-
-function clear(frame) {
+function clear(callback) {
     if (search.fresh) return;
-    iter(frame, li => li.classList.remove("hidden"));
-    number(frame);
     search.fresh = true;
-    if (window.shuffle) shuffle.reset();
+    callback();
 }
 
 function check(str, term) {
@@ -48,13 +42,11 @@ function number(frame, total) {
         frame.firstElementChild.textContent = `${total ?? frame.lastElementChild.children.length} entries (flat)`;
 }
 
-function filter(frame, term, loose, useLinks) {
+function filter(callback, term, loose, useLinks) {
     term = term.toLowerCase();
-    const search = parse(term, loose);
-    let total = 0;
-    iter(frame, li => {
-        const a = li.firstElementChild;
-        const result = search.every(([term, tag]) => check((tag 
+    const query = parse(term, loose);
+    search.check = a => {
+        return query.every(([term, tag]) => check((tag 
             ? a.dataset[tag] 
             : useLinks 
                 ? a.href 
@@ -62,44 +54,41 @@ function filter(frame, term, loose, useLinks) {
                     ? a.dataset.name 
                     : a.textContent
         )?.toLowerCase(), term));
-        li.classList[result ? "remove" : "add"]("hidden");
-        if (result) total++;
-    });
-    number(frame, total);
+    };
+    callback();
 }
 
 let hidden = false;
 
-function update(frame, value, useLinks) {
+function update(callback, value, useLinks) {
     const loose = value.charAt(1 + hidden) === "~";
     const term = search.term = value.slice(1 + loose + hidden);
-    if (!term.length) return clear(frame);
-    filter(frame, term, loose, useLinks);
+    if (!term.length) return clear(callback);
     search.active = !hidden;
     search.term = term;
     search.fresh = false;
-    shuffle?.invalidate();
+    filter(callback, term, loose, useLinks);
 }
 
-function reset(frame) {
-    clear(frame);
+function reset(callback) {
     search.active = false;
     search.term = "";
+    clear(callback);
 }
 
-export function useSearch(input, frame) {
+export function useSearch(input, callback) {
     input.addEventListener("input", () => {
         const value = input.value;
         hidden = value.charAt(0) === "!";
         const spec = value.charAt(hidden);
         switch (spec) {
             case ":":
-                return update(frame, value, false);
+                return update(callback, value, false);
             case ";":
-                return update(frame, value, true);
+                return update(callback, value, true);
             default:
-                reset(frame);
+                reset(callback);
         }
     });
-    search.reset = () => reset(frame);
+    search.reset = () => reset(callback);
 }

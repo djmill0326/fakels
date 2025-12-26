@@ -141,8 +141,15 @@ export function getSemanticPath(path, { artist, album, title }) {
     return [artist || "Unknown Artist", ...(album ? [album] : ["Unknown Album", sanitizePath(title) || sanitizePath(path.slice(path.lastIndexOf("/" + 1), path.lastIndexOf("."))) || "Unknown Title"])].join("/");
 }
 
-export const anchor_from_link = (link, frame) => {
-    return link ? frame.querySelector(`[href$="${new URL(link).pathname}"]`) : void 0;
+export const pathname = (link) => {
+    const i = link.lastIndexOf("/");
+    return i === -1 ? link : link.slice(i + 1);
+};
+
+export const anchor_from_link = (link, list) => {
+    if (!link) return;
+    const name = pathname(link);
+    return list.find(node => node.firstElementChild.href.endsWith(name))?.firstElementChild;
 }
 
 export const style = {

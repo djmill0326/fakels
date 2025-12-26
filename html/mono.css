@@ -42,14 +42,15 @@ footer {
 }
 
 span:nth-child(2) {
-    min-width: 0; 
     flex-grow: 1;
-    display: flex;
-    justify-content: center;
 }
 
 #frame * {
     position: relative;
+}
+
+.player {
+    align-items: end;
 }
 
 .player, .player span, li {
@@ -71,6 +72,18 @@ span:nth-child(2) {
     height: 2em;
 }
 
+.player > :nth-child(2) {
+    flex: 1;
+    text-align: center;
+    display: inline-block;
+    align-self: center;
+}
+
+#el1 {
+    white-space: unset;
+    flex-grow: unset;
+}
+
 .popup {
     backdrop-filter: blur(3em);
     background: #111D;
@@ -81,6 +94,7 @@ span:nth-child(2) {
 }
 
 .bar {
+    gap: 5px;
     * {
         user-select: auto;
     }
