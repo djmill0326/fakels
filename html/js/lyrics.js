@@ -65,6 +65,7 @@ function normalizeWidth(el) {
 
 export function parseLyrics(text) {
     const lines = [];
+    let timed = false;
     for (let line of text.split("\n")) {
         line = line.trim();
         if (!line.startsWith("[")) {
@@ -76,12 +77,13 @@ export function parseLyrics(text) {
         const timeStr = line.slice(1, timeEnd);
         const [m, s] = timeStr.split(":").map(Number);
         if (isNaN(m) || isNaN(s)) continue;
+        timed = true;
         lines.push({
             time: m * 60 + s, 
             text: line.slice(timeEnd + 1).trim(),
         });
     }
-    return lines;
+    return { lines, timed };
 };
 
 function renderLine(line, root) {
@@ -130,27 +132,57 @@ function loadTiming(id) {
 }
 
 function updateTiming({ id, offset }) {
-    timing[id] = offset;
+    if ((timing[id] ?? 0) === offset) return;
+    if (offset === 0) delete timing[id];
+    else timing[id] = offset;
     localStorage.setItem("lyrics-timing", JSON.stringify(timing));
 }
 
-function timingMenu(id) {
+function getOffset({ offset }) {
+    return offset / 1000;
+}
+
+function timingMenu(id, signal) {
     const timeObj = { id, offset: loadTiming(id) || 0 };
     const updateTimeStr = () => 
-        offset.textContent = `${timeObj.offset.toFixed(1)}s`;
+        offset.textContent = `${getOffset(timeObj).toFixed(1)}s`;
     const changeOffset = (value) => {
         timeObj.offset = value === "reset" ? 0 : timeObj.offset + value;
         updateTimeStr();
     };
-    const dec = document.createElement("button");
-    dec.textContent = "-";
-    dec.onclick = () => changeOffset(-.1);
+    const offsetButton = (text, num) => {
+        const el = document.createElement("button");
+        el.style.touchAction = "none";
+        el.textContent = text;
+        let timeout, interval;
+        el.onpointerdown = (ev) => {
+            if (!ev.isPrimary) return;
+            timeout = setTimeout(() => {
+                interval = setInterval(() => changeOffset(num), 100);
+                timeout = setTimeout(() => {
+                    clearInterval(interval);
+                    interval = setInterval(() => changeOffset(num), 50);
+                }, 2000);
+            }, 500);
+            el.releasePointerCapture(ev.pointerId);
+        }
+        el.onpointercancel = el.onpointerleave = (ev) => {
+            if (!ev.isPrimary) return;
+            clearTimeout(timeout);
+            clearInterval(interval);
+            interval = null;
+        }
+        el.onpointerup = (ev) => {
+            if (ev.isPrimary && !interval) changeOffset(num);
+        };
+        return el;
+    };
+    const dec = offsetButton("-", -100);
+    const inc = offsetButton("+", 100);
     const offset = document.createElement("button");
-    updateTimeStr();
     offset.onclick = () => changeOffset("reset");
-    const inc = document.createElement("button");
-    inc.textContent = "+";
-    inc.onclick = () => changeOffset(.1);
+    updateTimeStr();
+    signal?.addEventListener("abort", () => updateTiming(timeObj));
     return { timeObj, onMenu: (slot, open) => {
         if (open) slot.append(dec, offset, inc);
         else {
@@ -199,9 +231,13 @@ function syncButton() {
     return sync;
 };
 
-export function showLyrics(id, lines, root, audio, { status, prefetch, signal }) {
+export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch, signal }) {
     if (signal?.aborted) return;
     try {
+        signal?.addEventListener("abort", () => {
+            status?.disable();
+            root.remove();
+        });
         root.className = "lyrics";
         root.style.position = "relative";
         root.q(".overlay")?.remove(); 
@@ -209,7 +245,8 @@ export function showLyrics(id, lines, root, audio, { status, prefetch, signal })
         renderLines(lines, root, signal);
         status?.disable();
         if (prefetch) return lines;
-        const { timeObj, onMenu } = timingMenu(id);
+        if (!timed) return;
+        const { timeObj, onMenu } = timingMenu(id, signal);
         const overlay = addOverlay(root, onMenu);
         const sync = syncButton(root);
         sync.onclick = () => {
@@ -232,7 +269,7 @@ export function showLyrics(id, lines, root, audio, { status, prefetch, signal })
             if (!audio.src.includes(id) || !target.dataset.time) return;
             snapped = true;
             select(target);
-            audio.currentTime = parseFloat(target.dataset.time) + timeObj.offset;
+            audio.currentTime = parseFloat(target.dataset.time) + getOffset(timeObj);
             audio.play();
         }, { signal });
         const scrollUpdate = debounce(() => snapped = Math.abs(root.scrollTop - Math.min(scrollPosition, root.scrollHeight - root.clientHeight)) < 10);
@@ -242,16 +279,12 @@ export function showLyrics(id, lines, root, audio, { status, prefetch, signal })
             if (!audio.src.includes(id)) return;
             for (let i = lines.length - 1; i >= 0; i--) {
                 const { time, el } = lines[i];
-                if (time !== undefined && audio.currentTime + .001 >= time + timeObj.offset) {
+                if (time !== undefined && audio.currentTime + .001 >= time + getOffset(timeObj)) {
                     if (currentLine !== el) select(el);
                     break;
                 }
             }
         }, { signal });
-        signal?.addEventListener("abort", () => {
-            status?.disable();
-            root.remove();
-        });
     } catch (err) {
         status?.disable();
         root.remove();
