@@ -249,6 +249,7 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             label.innerText = `${activeItems.length} entries (flat)`;
             frame.firstElementChild.replaceWith(label);
             on_load();
+            console.log(window);
         }
     }, status_obj(`tree (${root})`));
 };
