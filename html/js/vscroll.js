@@ -10,8 +10,19 @@ export function virtualScroll(root, list, render=x=>x) {
     container.style.width = "100%";
     wrapper.append(container);
     root.append(wrapper);
-    let height, viewSize, size, index, indexMap = new Map();
+    let height, viewSize, size, index, dataIndex, indexMap = new Map();
     const nodes = (size, start=0) => list.slice(start, start + size).map(render);
+    const nearest = (index, distance=10) => {
+        const self = indexMap.get(index);
+        if (self) return self;
+        for (let i = 1; i <= distance; i++) {
+            const a = indexMap.get(index - i);
+            if (a) return a;
+            const b = indexMap.get(index + i);
+            if (b) return b;
+        }
+        return 0;
+    }
     const update = () => {
         indexMap.clear();
         list.forEach((node, i) => indexMap.set(parseInt(node.dataset.index), i));
@@ -28,17 +39,24 @@ export function virtualScroll(root, list, render=x=>x) {
         }
         const scrollHeight = height * list.length;
         wrapper.style.height = scrollHeight + "px";
-        if (scrollTarget) root.scrollTop = scrollTarget * height;
+        if (scrollTarget) {
+            const position = Math.floor(scrollTarget);
+            const difference = scrollTarget - position;
+            const index = nearest(dataIndex);
+            root.scrollTop = (index + difference) * height;
+        }
         root.removeEventListener("scroll", listener);
         callback(true);
         listen();
     }
     const callback = (force=false) => {
-        const position = Math.max(Math.min(Math.floor(root.scrollTop / height - viewSize), list.length - size), 0);
-        if (position - index === 0 && !force) return;
-        container.style.transform = `translateY(${height * position}px)`;
-        container.replaceChildren(...nodes(size, position));
-        index = position;
+        const position = Math.floor(root.scrollTop / height);
+        const top = Math.max(Math.min(position - viewSize, list.length - size), 0);
+        if (top - index === 0 && !force) return;
+        container.style.transform = `translateY(${height * top}px)`;
+        container.replaceChildren(...nodes(size, top));
+        index = top;
+        dataIndex = parseInt(list[position].dataset.index);
     };
     const observer = new ResizeObserver(() => {
         viewSize = Math.ceil(root.clientHeight / height);

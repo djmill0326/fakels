@@ -123,20 +123,80 @@ function renderLines(lines, root, signal) {
     }
 }
 
-function syncButton() {
+let timing;
+function loadTiming(id) {
+    if (!timing) timing = JSON.parse(localStorage.getItem("lyrics-timing") || "{}");
+    return timing[id];
+}
+
+function updateTiming({ id, offset }) {
+    timing[id] = offset;
+    localStorage.setItem("lyrics-timing", JSON.stringify(timing));
+}
+
+function timingMenu(id) {
+    const timeObj = { id, offset: loadTiming(id) || 0 };
+    const updateTimeStr = () => 
+        offset.textContent = `${timeObj.offset.toFixed(1)}s`;
+    const changeOffset = (value) => {
+        timeObj.offset = value === "reset" ? 0 : timeObj.offset + value;
+        updateTimeStr();
+    };
+    const dec = document.createElement("button");
+    dec.textContent = "-";
+    dec.onclick = () => changeOffset(-.1);
+    const offset = document.createElement("button");
+    updateTimeStr();
+    offset.onclick = () => changeOffset("reset");
+    const inc = document.createElement("button");
+    inc.textContent = "+";
+    inc.onclick = () => changeOffset(.1);
+    return { timeObj, onMenu: (slot, open) => {
+        if (open) slot.append(dec, offset, inc);
+        else {
+            slot.replaceChildren();
+            updateTiming(timeObj);
+        }
+    }};
+}
+
+function addOverlay(root, onMenu) {
     const overlay = document.createElement("div");
-    overlay.className = "sync";
+    overlay.className = "overlay";
     overlay.style.position = "sticky";
     overlay.style.bottom = 0;
     overlay.style.pointerEvents = "none";
+    const wrapper = document.createElement("span");
+    wrapper.style.display = "flex";
+    wrapper.style.position = "absolute";
+    wrapper.style.gap = "5px";
+    wrapper.style.bottom = "5px";
+    wrapper.style.right = "5px";
+    wrapper.style.pointerEvents = "auto";
+    let menuOpened = false;
+    const slot = document.createElement("span");
+    slot.style.display = "flex";
+    slot.style.gap = "5px";
+    const menu = document.createElement("button");
+    menu.className = "menu-btn";
+    menu.textContent = "‹";
+    menu.style.fontWeight = "bold";
+    menu.onclick = () => {
+        onMenu(slot, menuOpened = !menuOpened);
+        menu.textContent = menuOpened ? "›" : "‹";
+        if (menuOpened) menu.insertAdjacentElement("beforebegin", slot);
+        else slot.remove();
+    }
+    wrapper.append(menu);
+    overlay.append(wrapper);
+    root.append(overlay);
+    return wrapper;
+}
+
+function syncButton() {
     const sync = document.createElement("button");
     sync.innerText = "Sync";
-    sync.style.position = "absolute";
-    sync.style.bottom = "5px";
-    sync.style.right = "5px";
-    sync.style.pointerEvents = "auto";
-    overlay.append(sync);
-    return overlay;
+    return sync;
 };
 
 export function showLyrics(id, lines, root, audio, { status, prefetch, signal }) {
@@ -144,13 +204,15 @@ export function showLyrics(id, lines, root, audio, { status, prefetch, signal })
     try {
         root.className = "lyrics";
         root.style.position = "relative";
-        root.q(".sync")?.remove(); 
+        root.q(".overlay")?.remove(); 
         status?.enable();
         renderLines(lines, root, signal);
         status?.disable();
         if (prefetch) return lines;
+        const { timeObj, onMenu } = timingMenu(id);
+        const overlay = addOverlay(root, onMenu);
         const sync = syncButton(root);
-        sync.children[0].onclick = () => {
+        sync.onclick = () => {
             root.scrollTo(0, scrollPosition);
             sync.remove();
         }
@@ -170,17 +232,17 @@ export function showLyrics(id, lines, root, audio, { status, prefetch, signal })
             if (!audio.src.includes(id) || !target.dataset.time) return;
             snapped = true;
             select(target);
-            audio.currentTime = parseFloat(target.dataset.time);
+            audio.currentTime = parseFloat(target.dataset.time) + timeObj.offset;
             audio.play();
         }, { signal });
         const scrollUpdate = debounce(() => snapped = Math.abs(root.scrollTop - Math.min(scrollPosition, root.scrollHeight - root.clientHeight)) < 10);
         root.addEventListener("scroll", scrollUpdate, { signal });
-        root.addEventListener("scrollend", () => setTimeout(() => snapped ? sync.remove() : sync.isConnected || root.append(sync), 100), { signal });
+        root.addEventListener("scrollend", () => setTimeout(() => snapped ? sync.remove() : sync.isConnected || overlay.prepend(sync), 100), { signal });
         audio.addEventListener("timeupdate", () => {
             if (!audio.src.includes(id)) return;
             for (let i = lines.length - 1; i >= 0; i--) {
                 const { time, el } = lines[i];
-                if (time !== undefined && audio.currentTime + .001 >= time) {
+                if (time !== undefined && audio.currentTime + .001 >= time + timeObj.offset) {
                     if (currentLine !== el) select(el);
                     break;
                 }

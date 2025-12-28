@@ -139,7 +139,6 @@ const next_queued = mode => {
     mel.ontimeupdate = undefined;
     mel.onended = () => ended = true;
     signal.addEventListener("abort", () => {
-        console.log("aborted");
         next.remove();
         mel.volume = volume;
         fade_controller = undefined;
