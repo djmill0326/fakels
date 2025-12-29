@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1 interactive-widget=resizes-content " />
 		<title>Shared Log</title>
 		<style>
 			* {
@@ -96,7 +96,7 @@
 			const area = document.createElement("section");
 			document.body.append(area);
 			enableLog(area);
-			const inputs = document.querySelectorAll("input");
+			const inputs = document.querySelectorAll("form input");
 			function updateLevel(input) {
 				if (input.checked) area.classList.add(input.id);
 				else area.classList.remove(input.id);

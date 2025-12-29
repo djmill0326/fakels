@@ -1,10 +1,10 @@
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
 import { overrideConsole } from "./tab-log.js"
-overrideConsole(); // temporary for mobile
+overrideConsole("fakels", x => eval(x)); // temporary for mobile
 const measure = async () => {
     const { bytes } = await performance.measureUserAgentSpecificMemory();
-    console.debug(`${(bytes / 1000000).toFixed(2)} MB`);
-    await measure();
+    console.debug("Memory usage:", parseFloat((bytes / 1000000).toFixed(2)), "MB");
+    requestIdleCallback(measure);
 };
 measure().then();
 console.info("fakels (Directory Viewer) [v2.6.0]");
@@ -249,7 +249,6 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
             label.innerText = `${activeItems.length} entries (flat)`;
             frame.firstElementChild.replaceWith(label);
             on_load();
-            console.log(window);
         }
     }, status_obj(`tree (${root})`));
 };
