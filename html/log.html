@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+    <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1 interactive-widget=resizes-content " />
 		<title>Shared Log</title>
 		<style>
@@ -45,8 +46,16 @@
 			.info {
 				color: paleturquoise;
 			}
-			.debug {
+			.debug, .eval {
 				color: #aaa;
+			}
+			.eval > :last-child::before {
+				content: "> ";
+				color: thistle;
+			}
+			.eval-result > :last-child::before {
+				content: "← ";
+				color: thistle;
 			}
 			section:not(.time) .time,
 			section:not(.info) .log,
