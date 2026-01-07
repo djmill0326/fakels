@@ -1,4 +1,5 @@
 import "/socket.io/socket.io.js";
+import { Bus } from "./l.js"
 export let client, socket = io();
 const input = document.getElementById("term");
 socket.on("rpc", ({ event, data }) => {
@@ -8,7 +9,7 @@ socket.on("rpc", ({ event, data }) => {
         socket.emit("rpc", { client, event: "browse", data: input.value });
     }
     if (event === "select") { 
-        dispatchEvent(new CustomEvent("navigate", { detail: { i: parseInt(data) } }));
+        Bus.call.dispatch("navigate", { i: parseInt(data) });
     }
     if (event === "browse") {
         input.value = data;

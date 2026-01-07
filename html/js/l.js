@@ -10,6 +10,17 @@ export function id(tag) {
 
 export function debounce(f, t=50) {
     let timeout;
+    function debounced(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            f.apply(this, args);
+        }, t);
+    };
+    return debounced;
+}
+
+export function throttleDelayed(f, t=50) {
+    let timeout;
     let latestArgs;
     function debounced(...args) {
         latestArgs = args;
@@ -19,6 +30,30 @@ export function debounce(f, t=50) {
         }, t);
     };
     return debounced;
+}
+
+export function throttle(f, t=50) {
+    let timeout;
+    let prevTime;
+    let savedArgs;
+    function throttled(...args) {
+        const time = performance.now();
+        const diff = time - prevTime; 
+        savedArgs = args;
+        if (prevTime != null && diff < t) {
+            if(!timeout) timeout = setTimeout(() => {
+                throttled(...savedArgs);
+                timeout = null;
+            }, t - diff);
+            return;
+        };
+        clearTimeout(timeout);
+        timeout = null;
+        f(...args);
+        prevTime = time;
+        savedArgs = null;
+    }
+    return throttled;
 }
 
 export function boundedCache(limit) {
@@ -160,4 +195,33 @@ export const style = {
         display: flex;
         flex-direction: column;
     `
+};
+
+export const cover_src = (el, isMedia=true) => `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/${isMedia ? "cover" : "folder"}.jpg`;
+
+const event_bus = window.event_bus ??= new EventTarget();
+export const Bus = {
+    dispatch(type, data) {
+        if(window.BUS_DEBUG) console.debug("[Bus]", type, data);
+        event_bus.dispatchEvent(new CustomEvent(type, { detail: data }));
+    },
+    on(type, cb, init) {
+        const callback = ev => cb(ev.detail, ev);
+        event_bus.addEventListener(type, callback, init);
+        return callback;
+    },
+    off(type, cb) {
+        event_bus.removeEventListener(type, cb);
+    },
+    call: {
+        dispatch(type, data) {
+            Bus.dispatch(`call-${type}`, data);
+        },
+        on(type, cb, init) {
+            return Bus.on(`call-${type}`, cb, init);
+        },
+        off(type, cb) {
+            Bus.off(`call-${type}`, cb);
+        }
+    }
 };

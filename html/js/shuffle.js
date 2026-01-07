@@ -29,7 +29,7 @@ export default function shuffler(items) {
             if (peeked != null) return items[list[peeked]].firstElementChild;
             if (list.length < 2) return list[0];
             // const i = Math.floor(Math.random() * (cursor + 1));
-            const i = secureShuffleIndex(cursor);
+            const i = stupidRand(cursor);
             peeked = i;
             const selection = list[i];
             if (selection === prev || !types[get_info(items[selection].firstElementChild.href).ext]) {

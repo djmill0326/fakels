@@ -11,11 +11,13 @@ console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
-import $, { _, id, handleHold, boundBox, join, style, anchor_from_link, boundedCache, getSemanticPath } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, anchor_from_link, boundedCache, cover_src, Bus } from "./l.js";
 import { search, useSearch } from "./search.js";
 import { parseLyrics, showLyrics } from "./lyrics.js";
 import { virtualScroll } from "./vscroll.js";
+import createPlayer from "./player.js"
 const title = document.title;
+const container = id("main");
 const form = main();
 const { back, term, btn } = form.children;
 const portal = id("porthole");
@@ -92,22 +94,32 @@ const next_queued = mode => {
     fade_controller?.abort();
     fade_controller = new AbortController();
     const signal = fade_controller.signal;
-    const volume = mel.volume;
-        const [anchor, link] = resolve_link(next_track());
-    if (!mode && auto_lyrics) find_lyrics(anchor, true);
+    const [anchor, link] = resolve_link(next_track());
     const next = re(make(link));
     next.autoplay = false;
     next.preload = "true";
     next.src = link;
     next.classList.add("pending");
     mel.insertAdjacentElement("beforebegin", next);
-    let ended = false, end;
+    const volumechange = next.onvolumechange;
+    const timeupdate = next.ontimeupdate;
+    next.ontimeupdate = null;
+    let ended = false, end, volume;
+    const wait_for_resume = (f) => mel.addEventListener("play", f, { once: true, signal });
     const fade = () => {
         if (signal.aborted) return;
         const remaining = end - mel.currentTime;
+        if (remaining > fade_time) {
+            mel.volume = volume;
+            next.currentTime = 0;
+            next.pause();
+            return fade_wait();
+        }
         if (ended || remaining <= 0) {
-            next.volume = volume;
             next.autoplay = true;
+            next.volume = volume;
+            next.onvolumechange = volumechange;
+            next.ontimeupdate = timeupdate;
             mel.src = "";
             mel.replaceWith(next);
             next.classList.remove("pending");
@@ -119,15 +131,25 @@ const next_queued = mode => {
         const scale = remaining / fade_time * volume;
         mel.volume = scale;
         next.volume = volume - scale;
+        if (mel.paused) {
+            next.pause();
+            return wait_for_resume(fade);
+        }
+        if (next.paused) next.play();
         setTimeout(fade);
     };
     const fade_wait = () => {
         if (signal.aborted) return;
         if (end - mel.currentTime <= fade_time) {
+            mel.onvolumechange = null;
+            next.onvolumechange = null;
+            volume = mel.volume;
+            next.volume = 0;
             next.play();
             fade();
             return;
         }
+        if (mel.paused) return wait_for_resume(fade_wait);
         setTimeout(fade_wait);
     };
     next.addEventListener("canplay", () => {
@@ -136,30 +158,29 @@ const next_queued = mode => {
             : mel.duration;
         fade_wait();
     }, { once: true, signal });
-    mel.ontimeupdate = undefined;
     mel.onended = () => ended = true;
     signal.addEventListener("abort", () => {
         next.remove();
-        mel.volume = volume;
+        if (volume !== undefined) mel.volume = volume;
         fade_controller = undefined;
     });
 };
 const re = el => {
+    let queuing = false;
     el.ontimeupdate = () => {
         _.ltime = el.currentTime;
-        if (el.duration - el.currentTime < 5) next_queued();
+        Bus.dispatch("time", { progress: el.currentTime || 0, duration: el.duration || 0 });
+        if (!queuing && el.duration - el.currentTime < 5) {
+            queuing = true;
+            next_queued();
+        }
     }
     el.onvolumechange = () => _.lvol = el.volume;
     el.onended = () => next_queued("immediate");
     el.onerror = ev => ev.target.error.message.includes("DEMUXER") && next_queued("immediate");
+    el.onplaying = () => Bus.dispatch("play");
+    el.onpause = () => Bus.dispatch("pause");
     return el;
-};
-let replay_slot = _.lplay?.replace(/10(666|667)/g, await getheader("adapter-port"));
-let just_popped = false;
-window.onpopstate = (ev) => {
-    term.value = ev.state;
-    btn.click();
-    just_popped = true;
 };
 let shuffling = _.shuffling === "true";
 let shuffleHook = () => {}, osh = shuffleHook;
@@ -167,6 +188,29 @@ window.toggle_shuffle = () => {
     _.shuffling = shuffling = !shuffling;
     shuffleHook();
     update_status();
+    Bus.dispatch("shuffle-state", shuffling);
+};
+Bus.call.on("toggle-shuffle", toggle_shuffle);
+Bus.call.on("status", () => {
+    Bus.dispatch("shuffle-state", shuffling);
+    if (mel) Bus.dispatch("status", {
+        progress: mel.currentTime || 0,
+        duration: mel.duration || 0,
+        paused: mel.paused
+    });
+    if (playlist.at(-1)) Bus.dispatch("media", playlist.at(-1));
+});
+Bus.call.on("prev", () => prev?.onclick());
+Bus.call.on("next", () => next?.onclick());
+Bus.call.on("play", () => mel?.play());
+Bus.call.on("pause", () => mel?.pause());
+Bus.call.on("seek", time => mel && (mel.currentTime = time));
+let replay_slot = _.lplay?.replace(/10(666|667)/g, await getheader("adapter-port"));
+let just_popped = false;
+window.onpopstate = (ev) => {
+    term.value = ev.state;
+    btn.click();
+    just_popped = true;
 };
 const status = $('footer');
 const active_requests = new Set();
@@ -191,7 +235,6 @@ const status_obj = (name) => ({
     enable() { this.list.add(this.name); this.update() },
     disable() { this.list.delete(this.name); this.update() }
 });
-update_status();
 if(_.status !== "false") document.body.append(status);
 const refill_items = (iter) => {
     if (iter) items.splice(0, items.length, ...iter);
@@ -213,6 +256,7 @@ const refill_items = (iter) => {
         frame.firstElementChild.textContent = `${activeItems.length} entries (flat)`;
     shuffle.invalidate();
     vscroll?.update();
+    update_status();
 };
 const virtualize = () => {
     vscroll?.dispose();
@@ -267,7 +311,6 @@ const on_load = () => {
 };
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
 const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
-const cover_src = (el, isMedia=true) => `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/${isMedia ? "cover" : "folder"}.jpg`;
 const enhance_anchor = (el, info, initOnly=false) => {
     if (el.classList.contains("song-card")) return;
     info ??= get_info(el.href);
@@ -296,7 +339,6 @@ const enhance_anchor = (el, info, initOnly=false) => {
     el.replaceChildren(cover_wrap, text);
 };
 form.onsubmit = (e) => {
-    update_status();
     back.disabled = false;
     e.preventDefault();
     const wildcard = term.value.indexOf("*");
@@ -323,6 +365,10 @@ form.onsubmit = (e) => {
         on_load();
     }, status_obj(`directory ${query}`));
 };
+Bus.call.on("navigate", link => {
+    term.value = link;
+    btn.click();
+});
 term.oninput = () => term.value === "@" && (term.value = _.ldir);
 term.onfocus = () => term.select();
 import dragify from "./drag.js";
@@ -405,7 +451,7 @@ const lrclib_search = async (el, signal) => {
         const results = await res.json();
         status.disable();
         return { title, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
-    } catch (_) { status?.disable() }
+    } catch { status?.disable() }
 };
 const lyrics_cache = boundedCache(20);
 const get_lyrics = (ref, signal, root) => {
@@ -444,10 +490,11 @@ const find_lyrics = async (ref, prefetch) => {
     const src = ref.href ?? ref;
     const controller = new AbortController();
     const viewController = new AbortController();
+    const playerSignal = player.controller?.signal;
     const signals = (popup) => {
         return {
-            signal: AbortSignal.any([controller.signal, popup._controller.signal]),
-            viewSignal: AbortSignal.any([viewController.signal, popup._controller.signal])
+            signal: AbortSignal.any([controller.signal, playerSignal ?? popup._controller.signal]),
+            viewSignal: AbortSignal.any([viewController.signal, playerSignal ?? popup._controller.signal])
         };
     };
     const abortOnEvent = (type, controller) => {
@@ -462,27 +509,51 @@ const find_lyrics = async (ref, prefetch) => {
     dispatch("fetch");
     abortOnEvent("fetch", controller);
     abortOnEvent("display", viewController);
+    const fetchRoot = $("div");
     const root = $("div");
-    if (poppedup?.classList.contains("lyrics-popup")) {
-        root.style.opacity = 0;
-        poppedup.append(root);
+    if (player.el || poppedup?.classList.contains("lyrics-popup")) {
+        const target = player.el?.q(".container") ?? poppedup;
+        const prevLyrics = target.q(".lyrics");
+        if (prevLyrics?.dataset.src === src) return;
+        if (target !== poppedup) {
+            if (!prevLyrics) {
+                root.style.maxHeight = 0;
+                root.style.opacity = 0;
+            } else root.style.maxHeight = `${prevLyrics.offsetHeight}px`; 
+        }
+        fetchRoot.style.opacity = 0;
+        target.append(fetchRoot);
         try {
-            const { signal, viewSignal } = signals(poppedup);
-            const { title, lines, id } = await get_lyrics(ref, signal, root);
-            if (prefetch) {
-                root.remove();
-                return;
-            }
+            const { signal, viewSignal } = signals(target);
+            const { title, lines, id } = await get_lyrics(ref, signal, fetchRoot);
+            fetchRoot.remove();
+            if (prefetch) return true;
+            root.dataset.src = src;
+            target.append(root);
             showLyrics(id, lines, root, mel, { signal: viewSignal });
-            root.style.removeProperty("opacity");
-            poppedup.q(".bar span").innerHTML = `Lyrics for <i>${title}</i>`;
+            root.style.maxHeight = "100vh";
+            root.style.opacity = 1;
+            if (target === poppedup) poppedup.q(".bar span").innerHTML = `Lyrics for <i>${title}</i>`;
+            else {
+                root.addEventListener("click", () => {
+                    root.classList.add("expanded");
+                }, { signal: viewSignal });
+                const close = $("button");
+                close.textContent = "×";
+                close.onclick = (ev) => {
+                    root.classList.remove("expanded");
+                    ev.stopPropagation();
+                }
+                root.q(".overlay").children[0].append(close);
+            }
             dispatch("display");
-        } catch { root.remove() }
+            return true;
+        } catch { fetchRoot.remove(); root.remove() }
         return;
     }
     try {
         const { title, lines, id } = await get_lyrics(ref, controller.signal);
-        if (prefetch) return;
+        if (prefetch) return true;
         const p = popup(root, `Lyrics for [i]${title}[/i]`);
         const { viewSignal } = signals(p);
         p.classList.add("lyrics-popup", "pending");
@@ -492,12 +563,13 @@ const find_lyrics = async (ref, prefetch) => {
         auto.onclick = () => {
             _.lyrics = auto_lyrics = !auto_lyrics;
             auto.classList[auto_lyrics ? "add" : "remove"]("active");
-            if (auto_lyrics && !playlist.at(-1)?.href.includes(id)) find_lyrics(playlist.at(-1)).then(() => find_lyrics(next_track(), true));
+            if (auto_lyrics && !playlist.at(-1)?.href.includes(id)) find_lyrics(playlist.at(-1)).then((done) => done && find_lyrics(next_track(), true));
         }
         p.q(".bar button").insertAdjacentElement("beforebegin", auto);
         showLyrics(id, lines, root, mel, { status: status_obj(`lyrics for ${title}`), signal: viewSignal });
         p.classList.remove("pending");
         dispatch("display");
+        return true;
     } catch { root.remove() }
 }
 const resolve_link = (to, anchor_only) => {
@@ -533,11 +605,12 @@ const update_link = (to, set_src=true) => {
             const target = items[anchor.index]?.firstElementChild;
             if (anchor.href === target?.href) anchor = target;
         } else {
-            const { artist, album, title } = anchor.dataset;
+            const { artist, album, title, cover } = anchor.dataset;
             const dataset = {
                 ...(artist && { artist }),
                 ...(album && { album }),
-                ...(title && { title })
+                ...(title && { title }),
+                ...(cover && { cover })
             };
             playlist.push({ href: link, dataset, index: parseInt(anchor.parentElement.dataset.index) });
         }
@@ -553,15 +626,16 @@ const update_link = (to, set_src=true) => {
         _.lplay = link;
         if (set_src) mel.src = link;
         np = query;
-        const title = extract_title(info);
+        const title = anchor.dataset.title ||= extract_title(info);
         document.title = title;
         console.debug("[fakels/debug]", describe(info));
         console.log("[fakels/media]", `'${title}' has queued.\n`);
         update_media(anchor, info);
         if (auto_lyrics) {
-            find_lyrics(anchor, !poppedup?.classList.contains("lyrics-popup")).then(() => find_lyrics(next_track(), true));
+            find_lyrics(anchor, !(player.el || poppedup?.classList.contains("lyrics-popup"))).then((done) => done && find_lyrics(next_track(), true));
         }
         if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
+        Bus.dispatch("media", playlist.at(-1));
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
         mel.remove();
@@ -569,7 +643,7 @@ const update_link = (to, set_src=true) => {
     }
     return ifm;
 };
-addEventListener("navigate", ev => update_link(ev.detail.i));
+Bus.call.on("select", data => update_link(data.i));
 let pathname = decodeURI(window.location.pathname).slice(1);
 const paths = ["dope", "raw", "stylish"];
 let path_prefix = "";
@@ -653,6 +727,28 @@ export const bundle = (...x) => {
     el.append(...x);
     return el;
 };
+let player = {};
+const open_player = () => {
+    player.controller = new AbortController();
+    player.el = createPlayer(player.controller.signal);
+    container.append(player.el);
+    setTimeout(() => player.el.classList.add("open"), 0);
+    if (auto_lyrics && playlist.at(-1)) find_lyrics(playlist.at(-1));
+};
+if (_.player === "true") open_player();
+const toggle_player = () => {
+    _.player = _.player !== "true";
+    if (!player.el) open_player()
+    else {
+        player.controller.abort();
+        player.el.classList.remove("open");
+        setTimeout(() => {
+            player.el.remove();
+            player = {};
+        }, 200);
+    }
+};
+Bus.call.on("toggle_player", toggle_player);
 const prev = $("button");
 const next = $("button");
 const mref = $("a");
@@ -670,7 +766,7 @@ const init_browser = (el, info) => {
     next.textContent = "↪";
     mref.dataset.src = el.href;
     mref.innerText = document.title = el.dataset.title ?? extract_title(info);
-    mref.onclick = () => mel && (mel.currentTime = 0) || mel.play();
+    mref.onclick = toggle_player;
     handleHold(mref, toggle_status, null, 500);
     player.append(
         bundle(prev, label(prev, "prev")),
@@ -702,14 +798,7 @@ const update_media = (el, info) => {
     if (browser.update) browser.update(el, info);
     else init_browser(el, info);
 };
-const load_art = () => {
-    const link = frame.q(`
-        [href*='/cover.' i], 
-        [href*='/art.' i], 
-        [href*='/folder.' i]`
-    );
-    link && img(link.href);
-};
+const restart_track = () => mel && ((mel.currentTime = 0) || mel.play());
 let library_mode = _.library === "true";
 const toggle_mode = () => {
     _.library = library_mode = !library_mode;
@@ -718,14 +807,14 @@ const toggle_mode = () => {
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(mel?.isConnected ? mref.innerHTML : "Silence")}</i>`);
 const shortcuts = {
-    "Now-Playing": ["None", () => mref.click()],
+    "Now-Playing": ["None", restart_track],
     " ": ["Play/pause", toggle_playback],
     ",": ["Previous entry", () => prev.click()],
     ".": ["Next entry", () => next.click()],
     "s": ["Shuffle on/off", toggle_shuffle],
-    "c": ["Show cover art", load_art],
     "l": ["Find lyrics (may fail)", () => find_lyrics(playlist.at(-1))],
     "m": ["Toggle library mode", toggle_mode],
+    "p": ["Toggle player view", toggle_player],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go up a directory", () => back.click()],
     "?": ["Bring up this help menu", toggle_shortcuts]
@@ -755,6 +844,18 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
 }));
 
 if ('mediaSession' in navigator) {
-    navigator.mediaSession.setActionHandler('previoustrack', () => mel.currentTime > 4 ? mref.onclick() : prev.onclick());
-    navigator.mediaSession.setActionHandler('nexttrack', () => next.onclick());
+    const init_media_session = () => {
+        navigator.mediaSession.setActionHandler('previoustrack', () => mel.currentTime > 4 ? restart_track() : prev.onclick());
+        navigator.mediaSession.setActionHandler('nexttrack', () => next.onclick());
+    }
+    init_media_session();
+    window.addEventListener("pageshow", (ev) => {
+        if (ev.persisted) {
+            const prevMedia = playlist.at(-1);
+            if (prevMedia) update_media(prevMedia, get_info(prevMedia.href));
+            navigator.mediaSession.setActionHandler("previoustrack", null);
+            navigator.mediaSession.setActionHandler("nexttrack", null);
+            init_media_session();
+        }
+    });
 }

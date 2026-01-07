@@ -73,18 +73,6 @@ export function virtualScroll(root, list, render=x=>x) {
             ticking = false;
         })
     }
-    let prevTime;
-    const scrollTest = () => requestAnimationFrame(t => {
-        if (!prevTime) {
-            prevTime = t;
-            return scrollTest();
-        }
-        const d = t - prevTime;
-        prevTime = t;
-        root.scrollTop += d / 10;
-        scrollTest();
-    });
-    //scrollTest();
     const listen = () => root.addEventListener("scroll", listener, { passive: true });
     listen();
     const dispose = () => observer.disconnect() || root.removeEventListener("scroll", listener);

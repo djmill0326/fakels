@@ -23,20 +23,12 @@
         <script src="/js/find.js" type="module"></script>
         <script type="module">
             import { enable, disable } from "/js/bgvid.js";
+            import { Bus } from "/js/l.js";
             const bg = "/mp4/veo.mp4";
-            const on_audio = audio => {
-                audio.addEventListener("play", () => enable(bg));
-                audio.addEventListener("pause", disable);
-            };
-            const audio_hook = setInterval(() => {
-                const audio = document.querySelector("audio");
-                if (audio) {
-                    audio.paused || enable(bg);
-                    clearInterval(audio_hook);
-                    on_audio(audio);
-                    console.log("[stylish/init] acquired audio element for dynamic video playback!");
-                }
-            }, 50);
+            Bus.on("play", () => enable(bg));
+            Bus.on("pause", disable);
+            Bus.on("status", ({ paused }) => paused ? disable(bg) : enable(bg));
+            Bus.call.dispatch("status");
         </script>
     </body>
 </html>

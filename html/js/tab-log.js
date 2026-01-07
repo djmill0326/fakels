@@ -27,34 +27,65 @@ window.addEventListener("beforeunload", () => {
     channel = null;
 });
 
+function serializeFunc(root, output) {
+    const text = root.toString();
+    output.async = text.startsWith("async");
+    output.name = root.name;
+    output.$$func = text;
+}
 
+const str = (v) => 
+    v === undefined ? "%undefined%" : 
+    (typeof v === "number" || typeof v === "boolean" || v === null) ? v : 
+    String(v);
 const ignoredProperties = new Set(["outerHTML", "innerHTML", "textContent", "innerText", "outerText"]);
 function safeObject(object) {
-    const str = (v) => (typeof v === "number" || typeof v === "boolean" || v == null) ? v : v.toString();
-    if (typeof object !== "object") return str(object);
+    if (!(typeof object === "object" || typeof object === "function") || object == null) return str(object);
     const refs = new Map();
     let i = 0;
     const iter = (root, skipEmptyStrings=false) => {
-        const output = {};
+        const isArray = Array.isArray(root);
+        const output = Array.isArray(root) ? [] : {};
         refs.set(root, output);
+        if (typeof root === "function") {
+            serializeFunc(root, output);
+            return output;
+        }
         const isElement = root instanceof Element;
+        let index = 0;
+        const arrayAppend = (k, v, f) => {
+            if (isArray) {
+                const i = parseInt(k);
+                if (!isNaN(i)) {
+                    const skip = i - index - 1;
+                    if (skip > 0) output.push({ $$skip: skip });
+                    output.push(f(v));
+                    index = i;
+                    return true;
+                }
+            }
+        };
         for (const k in root) {
             const v = root[k];
-            if (v == null ||
+            if (!isArray && (v == null ||
                 (isElement && ignoredProperties.has(k)) ||
                 (skipEmptyStrings && typeof v === "string" && !v)
-            ) continue;
-            if (typeof v !== "object") {
-                output[k] = str(v);
+            )) continue;
+            if (typeof v !== "object" && typeof v !== "function") {
+                if (!arrayAppend(k, v, str))
+                    output[k] = str(v);
                 continue;
             }
             const ref = refs.get(v);
             if (ref) {
                 if (!ref.$ref) ref.$ref = ++i;
-                output[k] = { $$ref: ref.$ref };
+                const o = { $$ref: ref.$ref };
+                if (!arrayAppend(k, o, x => x))
+                    output[k] = { $$ref: ref.$ref };
                 continue;
-            }
-            output[k] = iter(v, k === "style" && isElement); 
+            } 
+            if (!arrayAppend(k, v, iter))
+                output[k] = iter(v, isElement && k === "style");
         }
         return output;
     }
@@ -95,7 +126,7 @@ const typeColors = {
     "string": "#fff",
     "boolean": "thistle",
     "number": "palevioletred",
-    "undefined": "lemonchiffon"
+    "null": "lemonchiffon",
 };
 
 function findRefs(data) {
@@ -115,10 +146,11 @@ function findRefs(data) {
 
 function dataDisplay(data, expand=false, refs) {
     const display = document.createElement("span");
+    if (data === "%undefined%") data = undefined;
     if (refs || typeof data !== "string")
-        display.style.color = typeColors[typeof data];
-    if (typeof data !== "object" || data == null) {
-        display.textContent = data;
+        display.style.color = typeColors[data == null ? "null" : typeof data];
+    if (data == null || typeof data !== "object") {
+        display.textContent = String(data);
         return display;
     }
     refs ??= findRefs(data);
@@ -126,23 +158,51 @@ function dataDisplay(data, expand=false, refs) {
         ev.stopPropagation();
         display.replaceWith(dataDisplay(data, !expand, refs));
     }
-    if (!expand) {
-        display.append("{ ... }");
+    if (data.$$func) {
+        const tag = document.createElement("span");
+        tag.style.color = "aquamarine";
+        tag.textContent = data.async ? "async ƒ " : "ƒ ";
+        const name = document.createElement("span");
+        name.style.color = "mediumaquamarine";
+        name.textContent = data.name || "anonymous";
+        display.style.color = typeColors.string;
+        display.append(tag, name);
+        if (expand) {
+            const wrapper = document.createElement("div");
+            wrapper.style.marginLeft = "1em";
+            wrapper.textContent = data.$$func;
+            display.append(wrapper);
+        }
         return display;
     }
-    display.append("{");
+    const isArray = Array.isArray(data);
+    const tag = isArray ? ["[", "]"] : ["{", "}"];
+    if (!expand) {
+        display.append(`${tag[0]} ... ${tag[1]}`);
+        return display;
+    }
+    display.append(tag[0]);
     for (const k in data) {
         if (k === "$ref") continue;
         const v = data[k];
         const wrapper = document.createElement("div");
         wrapper.style.marginLeft = "1em";
-        const ref = typeof v === "object" && v.$$ref;
-        const value = dataDisplay(typeof v === "string" ? `"${v}"` : ref ? refs.get(ref) : v, false, refs);
-        wrapper.append(`${k}: `, value, ", ");
+        if (isArray) {
+            const skip = v?.$$skip;
+            if (skip) {
+                wrapper.append(skip === 1 ? `(empty)` : `(empty x ${skip})`);
+                display.append(wrapper);
+                continue;
+            }
+        }
+        const ref = v?.$$ref;
+        const value = dataDisplay(typeof v === "string" && v !== "%undefined%" ? `"${v}"` : ref ? refs.get(ref) : v, false, refs);
+        if(isArray) wrapper.append(value, ", ") 
+        else wrapper.append(`${k}: `, value, ", ");
         display.append(wrapper);
     }
     if (display.children.length > 1) display.lastChild.lastChild.remove();
-    display.append("}");
+    display.append(tag[1]);
     return display;
 }
 
@@ -157,7 +217,6 @@ const updateHandles = (handles) => {
         const selector = document.createElement("select");
         selector.className = "message-select";
         selector.style.width = "80px";
-        selector.onchange = () => alert(selector.value);
         const input = document.createElement("input");
         input.type = "text";
         input.placeholder = "Send command to eval";
@@ -207,10 +266,20 @@ const appendMessage = (data) => {
     });
 };
 
-export function enableLog(root = document.body) {
+let observer;
+function init() {
+    observer = new ResizeObserver((entries) => {
+        entries.forEach(entry => {
+            const el = entry.target;
+            const prevHeight = el._prevHeight;
+            const height = el.clientHeight;
+            if (prevHeight > height && el.scrollHeight - el.scrollTop - prevHeight < 10)
+                el.scrollTop = el.scrollHeight;
+            el._prevHeight = height;
+        });
+    });
     const handles = new Map();
     updateHandles(handles);
-    roots.push(root);
     channel.addEventListener("message", ev => {
         if (ev.data.type === "new") {
             if (handles.has(ev.data.id)) return;
@@ -222,6 +291,12 @@ export function enableLog(root = document.body) {
         } else if (ev.data.type === "log") appendMessage(ev.data);
     });
     channel.postMessage({ type: "notify" });
+}
+
+export function enableLog(root = document.body) {
+    if (!roots.length) init();
+    roots.push(root);
+    observer.observe(root);
 }
 
 export function overrideConsole(name = "unknown", evaluator=eval) {

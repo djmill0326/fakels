@@ -156,7 +156,6 @@ Frizzle Fry
 	Folder.jpg	inode=488268	size=10445	mtime=1755341689024.4495
 Genesis (2016)	
 	07. Coming Back.flac	inode=881046	size=17755334	mtime=1757106559277.718	title=Coming Back	album=Genesis	artist=Domo Genesis	year=2016	cover=true
-Get Some (1997)	
 Greatest Hits (1998)	
 	01 - Only the Young.flac	inode=919355	size=32797419	mtime=1758769806268.1619	title=Only the Young	album=Greatest Hits	artist=Journey	year=1988	cover=true
 	02 - Don't Stop Believin'.flac	inode=921594	size=30710787	mtime=1758769831168.1619	title=Don't Stop Believin'	album=Greatest Hits	artist=Journey	year=1988	cover=true
@@ -272,8 +271,24 @@ Pearl Jam (2006)
 	12 - Come Back.flac	inode=481291	size=232466617	mtime=1755437904567	title=Come Back	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
 	13 - Inside Job.flac	inode=478213	size=293672087	mtime=1755437937755	title=Inside Job	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
 Pending	
+	2001 - Comfort Eagle	
+		07 Comfort Eagle.flac	inode=1030946	size=27079140	mtime=1767684156784.5396	title=Comfort Eagle	album=Comfort Eagle	artist=CAKE	year=2001	cover=true
 	A Beautiful Lie	
 		3. The Kill.flac	inode=663493	size=28958608	mtime=1761778184467.8372	title=The Kill	album=A Beautiful Lie	artist=Thirty Seconds to Mars	cover=true
+	As Good as Dead (1996)	
+		Local H - As Good as Dead - 01 - Manifest Density, Part 1.mp3	inode=290280	size=2038894	mtime=1767241146986.1694	title=Manifest Density, Part 1	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 02 - High‐Fiving MF.mp3	inode=993784	size=10326244	mtime=1767241131714.1694	title=High‐Fiving MF	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 03 - Bound for the Floor.mp3	inode=265790	size=8080926	mtime=1767241152754.1694	title=Bound for the Floor	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 04 - Lovey Dovey.mp3	inode=294101	size=6129337	mtime=1767241143586.1694	title=Lovey Dovey	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 05 - I Saw What You Did and I Know Who You Are.mp3	inode=971870	size=7143331	mtime=1767241159382.1694	title=I Saw What You Did and I Know Who You Are	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 06 - No Problem.mp3	inode=322913	size=8503709	mtime=1767241142302.1694	title=No Problem	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 07 - Nothing Special.mp3	inode=989537	size=8540355	mtime=1767241129534.1694	title=Nothing Special	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 08 - Eddie Vedder.mp3	inode=280890	size=7453137	mtime=1767241151122.1694	title=Eddie Vedder	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 09 - Back in the Day.mp3	inode=968165	size=7820396	mtime=1767241135706.1694	title=Back in the Day	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 10 - Freeze‐Dried (F)lies.mp3	inode=995897	size=8705350	mtime=1767241125686.1694	title=Freeze‐Dried (F)lies	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 11 - Fritz’s Corner.mp3	inode=987443	size=6306077	mtime=1767241155970.1694	title=Fritz’s Corner	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 12 - O.K.mp3	inode=1004586	size=14258392	mtime=1767241154826.1694	title=O.K.	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 13 - Manifest Density, Part 2.mp3	inode=670914	size=10136693	mtime=1767241138598.1694	title=Manifest Density, Part 2	album=As Good as Dead	artist=Local H	year=1996	cover=true
 	CD 01	
 		Radiohead - OK Computer - 02 - Paranoid Android.flac	inode=663695	size=48174559	mtime=1761778266747.8372	title=Paranoid Android	album=OK Computer	artist=Radiohead	year=2009	cover=true
 		Radiohead - OK Computer - 06 - Karma Police.flac	inode=662983	size=32230435	mtime=1761778284843.8372	title=Karma Police	album=OK Computer	artist=Radiohead	year=2009	cover=true
@@ -281,6 +296,8 @@ Pending
 		Train - Drive By.flac	inode=665375	size=26229053	mtime=1761778264459.8372	title=Drive By	album=California 37	artist=Train	year=2012	cover=true
 	Drops of Jupiter (2001)	
 		Train - Drops of Jupiter - 03 - Drops Of Jupiter.flac	inode=664073	size=100980470	mtime=1761778276791.8372	title=Drops Of Jupiter	album=Drops of Jupiter	artist=Train	year=2001	cover=true
+	Fashion Nugget	
+		01 Frank Sinatra.flac	inode=1040917	size=23619153	mtime=1767684173652.5396	title=Frank Sinatra	album=Fashion Nugget	artist=CAKE	year=1996	cover=true
 	Foster the People	
 		Foster The People - Pumped Up Kicks.flac	inode=259570	size=28168815	mtime=1761778275059.8372	title=Pumped Up Kicks	album=Torches X (Deluxe Edition)	artist=Foster The People	year=2021	cover=true
 	Get Some	
@@ -342,6 +359,8 @@ Pending
 		14. Good Night.flac	inode=645009	size=22595068	mtime=1761780673295.8362	title=Good Night	album=Graduation	artist=Ye	year=2010	cover=true
 		14. Good Night.lrc	inode=644937	size=2798	mtime=1761780672963.8362
 		cover.jpg	inode=856221	size=1654180	mtime=1761780664251.8362
+	Hey, Killer (2015)	
+		Local H - Hey, Killer - 05 - The Misanthrope.flac	inode=293245	size=43876843	mtime=1767241164998.1694	title=The Misanthrope	album=Hey, Killer	artist=Local H	year=2015	cover=true
 	Labcabincalifornia (1995)	
 		204 - Runnin’ instrumental.flac	inode=302553	size=35279078	mtime=1766126783542.8262	title=Runnin’ (instrumental)	album=Labcabincalifornia	artist=The Pharcyde	year=2012	cover=true
 	Madvillainy	
@@ -407,6 +426,8 @@ Pending
 		Highly Suspect - The Boy Who Died Wolf - 11 - Wolf.flac	inode=254359	size=45572331	mtime=1761778284659.8372	title=Wolf	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
 		album.nfo	inode=935519	size=1439	mtime=1761778263699.8372
 		folder.jpg	inode=643821	size=228132	mtime=1761778263699.8372
+	The Pharcyde - Bizarre Ride II	
+		12 - Passing Me By.flac	inode=1033972	size=32556252	mtime=1767645461631.6057	title=Passing Me By	album=Bizarre Ride II	artist=The Pharcyde
 	To Pimp a Butterfly	
 		01. Wesley's Theory.flac	inode=665481	size=35195353	mtime=1761778266935.8372	title=Wesley’s Theory	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. George Clinton & Thundercat	year=2015	cover=true
 		01. Wesley's Theory.lrc	inode=966302	size=4485	mtime=1765243817412.8186
