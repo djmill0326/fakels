@@ -223,7 +223,7 @@ function renderLines(lines, root, signal) {
     for (const line of lines) {
         signal?.throwIfAborted();
         if (line.el) {
-            if (line.el.isConnected) continue;
+            if (line.el.isConnected) line.el.remove();
             if (line.el.classList.contains("active")) disableLine(line.el);
             root.append(line.el);
         }
@@ -291,6 +291,7 @@ function timingMenu(id, signal) {
     const dec = offsetButton("-", -100);
     const inc = offsetButton("+", 100);
     const offset = document.createElement("button");
+    offset.className = "offset";
     offset.onclick = () => changeOffset("reset");
     updateTimeStr();
     signal?.addEventListener("abort", () => updateTiming(timeObj));
@@ -327,6 +328,7 @@ function addOverlay(root, onMenu) {
         menu.style.fontWeight = "bold";
         menu.onclick = () => {
             onMenu(slot, menuOpened = !menuOpened);
+            menu.dataset.open = menuOpened;
             menu.textContent = menuOpened ? "›" : "‹";
             if (menuOpened) menu.insertAdjacentElement("beforebegin", slot);
             else slot.remove();
@@ -393,7 +395,11 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
         root.addEventListener("scroll", scrollUpdate, { signal });
         root.addEventListener("scrollend", () => setTimeout(() => snapped ? sync.remove() : sync.isConnected || overlay.prepend(sync), 100), { signal });
         audio.addEventListener("timeupdate", () => {
-            if (!audio.src.includes(id)) return;
+            if (!audio.src.includes(id)) {
+                if (currentLine) disableLine(currentLine);
+                currentLine = null;
+                return;
+            }
             for (let i = lines.length - 1; i >= 0; i--) {
                 const { time, el } = lines[i];
                 if (time !== undefined && audio.currentTime + .001 >= time + getOffset(timeObj)) {
@@ -415,8 +421,7 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
             normalize();
         });
         observer.observe(root);
-    } catch (err) {
-        console.error(err.stack);
+    } catch {
         status?.disable();
         root.remove();
     }

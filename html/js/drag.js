@@ -9,6 +9,7 @@ function patch(attr) {
 
 export default function dragify(el, signal) {
     el.style.touchAction = "none";
+    el.style.willChange = "transform";
     const s = el.style;
     const t_attr = s.transform;
     let translate = patch(t_attr);
@@ -18,7 +19,10 @@ export default function dragify(el, signal) {
         const l = ev.target;
         if (!(l === el || l.classList.contains("bar"))) return;
         const [x, y] = [ev.clientX, ev.clientY];
-        const move = ev => ev.isPrimary && (s.transform = translate(...(t = [ev.clientX - x, ev.clientY - y])));
+        const move = ev => {
+            if (!ev.isPrimary) return;
+            s.transform = translate(...(t = [ev.clientX - x, ev.clientY - y]));
+        };
         const cancel = () => {
             if (!ev.isPrimary) return;
             window.removeEventListener("pointermove", move);

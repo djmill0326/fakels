@@ -18,6 +18,7 @@ function stupidRand(max) {
 
 export default function shuffler(items) {
     let dir, prev, peeked, list, cursor, dirty;
+    const isValid = (selection) => types[get_info(items[selection].firstElementChild.href).ext];
     const provider = {
         peek() {
             const active_dir = location.pathname + items.length;
@@ -27,12 +28,13 @@ export default function shuffler(items) {
             }
             else if (cursor < 0) cursor = list.length - 1;
             if (peeked != null) return items[list[peeked]].firstElementChild;
-            if (list.length < 2) return list[0];
+            if (list.length < 2) return isValid(0) && items[0].firstElementChild;
             // const i = Math.floor(Math.random() * (cursor + 1));
             const i = stupidRand(cursor);
             peeked = i;
             const selection = list[i];
-            if (selection === prev || !types[get_info(items[selection].firstElementChild.href).ext]) {
+            for (let i = 0; i < items.length; i++) {
+                if (selection !== prev && isValid(selection)) break;
                 this.consume();
                 return this.peek();
             }

@@ -56,7 +56,7 @@ export function virtualScroll(root, list, render=x=>x) {
         container.style.transform = `translateY(${height * top}px)`;
         container.replaceChildren(...nodes(size, top));
         index = top;
-        dataIndex = parseInt(list[position].dataset.index);
+        dataIndex = parseInt(list[position]?.dataset.index) || 0;
     };
     const observer = new ResizeObserver(() => {
         viewSize = Math.ceil(root.clientHeight / height);

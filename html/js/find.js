@@ -42,8 +42,10 @@ back.onclick = (ev) => {
 };
 (btn.onclick = () => requestIdleCallback(() => btn.style.color = back.checked ? "#00b6f0" : "#333"))();
 handleHold(btn, () => {
-    if (query.at(-2) !== "*") term.value = term.value + (term.value.endsWith("/") ? "*" : "/*");
-    btn.click();
+    if (query.at(-2) !== "*") {
+        term.value = term.value + (term.value.endsWith("/") ? "*" : "/*");
+        form.requestSubmit();
+    }
 });
 export const html = text => text
     .replace(/<\/?(\w*)\s?.*>/g, "")
@@ -95,6 +97,7 @@ const next_queued = mode => {
     fade_controller = new AbortController();
     const signal = fade_controller.signal;
     const [anchor, link] = resolve_link(next_track());
+    if (!anchor) return;
     const next = re(make(link));
     next.autoplay = false;
     next.preload = "true";
@@ -454,7 +457,7 @@ const lrclib_search = async (el, signal) => {
     } catch { status?.disable() }
 };
 const lyrics_cache = boundedCache(20);
-const get_lyrics = (ref, signal, root) => {
+const get_lyrics = (ref, signal, target) => {
     const src = ref.href ?? ref;
     const id = src.slice(0, src.lastIndexOf("."));
     const cached = lyrics_cache.get(id);
@@ -473,10 +476,17 @@ const get_lyrics = (ref, signal, root) => {
             title = entry.title;
         }
         const lines = parseLyrics(text);
-        if (root) showLyrics(id, lines, root, null, { 
-            status: status_obj(`lyrics for '${title}'`),
-            prefetch: true, signal 
-        });
+        if (target) {
+            const root = $("div");
+            root.style.opacity = 0;
+            target.append(root);
+            try {
+                showLyrics(id, lines, root, null, { 
+                    status: status_obj(`lyrics for '${title}'`),
+                    prefetch: true, signal 
+                });
+            } finally { root.remove() }
+        }
         return { lines, title, id };
     })();
     lyrics_cache.set(id, promise);
@@ -484,9 +494,11 @@ const get_lyrics = (ref, signal, root) => {
     return promise;
 };
 let auto_lyrics = _.lyrics === "true";
+let lyrics_id = 0;
 const lyrics_bus = new EventTarget();
 const find_lyrics = async (ref, prefetch) => {
     if (!ref) return;
+    const id = lyrics_id++;
     const src = ref.href ?? ref;
     const controller = new AbortController();
     const viewController = new AbortController();
@@ -499,34 +511,29 @@ const find_lyrics = async (ref, prefetch) => {
     };
     const abortOnEvent = (type, controller) => {
         const callback = ({ detail }) => {
-            if (detail === src) return;
+            if (detail.src === src && (type === "fetch" || detail.id === id)) return;
             controller.abort();
             lyrics_bus.removeEventListener(type, callback);
         }
         lyrics_bus.addEventListener(type, callback);
     };
-    const dispatch = (type) => lyrics_bus.dispatchEvent(new CustomEvent(type, { detail: src }));
+    const dispatch = (type) => lyrics_bus.dispatchEvent(new CustomEvent(type, { detail: { src, id }}));
     dispatch("fetch");
     abortOnEvent("fetch", controller);
     abortOnEvent("display", viewController);
-    const fetchRoot = $("div");
     const root = $("div");
     if (player.el || poppedup?.classList.contains("lyrics-popup")) {
-        const target = player.el?.q(".container") ?? poppedup;
-        const prevLyrics = target.q(".lyrics");
-        if (prevLyrics?.dataset.src === src) return;
+        let target = player.el?.q(".container") ?? poppedup;
         if (target !== poppedup) {
+            const prevLyrics = target.q(".lyrics");
             if (!prevLyrics) {
                 root.style.maxHeight = 0;
                 root.style.opacity = 0;
             } else root.style.maxHeight = `${prevLyrics.offsetHeight}px`; 
         }
-        fetchRoot.style.opacity = 0;
-        target.append(fetchRoot);
         try {
             const { signal, viewSignal } = signals(target);
-            const { title, lines, id } = await get_lyrics(ref, signal, fetchRoot);
-            fetchRoot.remove();
+            const { title, lines, id } = await get_lyrics(ref, signal, target);
             if (prefetch) return true;
             root.dataset.src = src;
             target.append(root);
@@ -541,6 +548,7 @@ const find_lyrics = async (ref, prefetch) => {
                 const close = $("button");
                 close.textContent = "×";
                 close.onclick = (ev) => {
+                    root.q(".menu-btn[data-open=true]")?.click();
                     root.classList.remove("expanded");
                     ev.stopPropagation();
                 }
@@ -548,7 +556,7 @@ const find_lyrics = async (ref, prefetch) => {
             }
             dispatch("display");
             return true;
-        } catch { fetchRoot.remove(); root.remove() }
+        } catch { root.remove() }
         return;
     }
     try {
@@ -748,7 +756,7 @@ const toggle_player = () => {
         }, 200);
     }
 };
-Bus.call.on("toggle_player", toggle_player);
+Bus.call.on("toggle-player", toggle_player);
 const prev = $("button");
 const next = $("button");
 const mref = $("a");
@@ -766,8 +774,8 @@ const init_browser = (el, info) => {
     next.textContent = "↪";
     mref.dataset.src = el.href;
     mref.innerText = document.title = el.dataset.title ?? extract_title(info);
+    handleHold(mref, toggle_status);
     mref.onclick = toggle_player;
-    handleHold(mref, toggle_status, null, 500);
     player.append(
         bundle(prev, label(prev, "prev")),
         bundle(label(mref, "♫", "#00b6f0"), mref),
@@ -858,4 +866,7 @@ if ('mediaSession' in navigator) {
             init_media_session();
         }
     });
+}
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("/sw.js");
 }

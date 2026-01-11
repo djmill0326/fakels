@@ -102,34 +102,44 @@ export function boundedCache(limit) {
 HTMLElement.prototype.c = HTMLElement.prototype.getElementsByClassName;
 HTMLElement.prototype.q = HTMLElement.prototype.querySelector;
 HTMLElement.prototype.qa = HTMLElement.prototype.querySelectorAll;
-HTMLElement.prototype.scrollToEl = function(el, focus=true) {
-    this.scrollTop = el.offsetTop - 4;
-    if (focus) el.focus();
-};
 
-export function handleHold(el, onHold, onClick, t=500, needsPress=false) {
-    let downTime = 0;
-    let triggered = false;
-    let timeout;
+export function handleHold(el, onHold, t=500, needsRelease=false) {
+    let timeout, onMove, interceptClick;
+    const cancel = () => {
+        clearTimeout(timeout);
+        el.removeEventListener("pointermove", onMove);
+        setTimeout(() => window.removeEventListener("click", interceptClick, true), 0);
+    };
     el.addEventListener("pointerdown", ev => {
-        ev.preventDefault();
-        el.style.userSelect = "none";
-        downTime = performance.now();
-        if(!needsPress) timeout = setTimeout(() => {
-            onHold(ev);
-            triggered = true;
+        if (!ev.isPrimary || ev.button !== 0) return cancel();
+        el.releasePointerCapture(ev.pointerId);
+        timeout = setTimeout(() => {
+            timeout = null;
+            if (!needsRelease) onHold(ev);
         }, t);
+        const x = ev.x;
+        const y = ev.y;
+        onMove = ev => {
+            if (ev.isPrimary && (Math.abs(ev.x - x) > 20 || Math.abs(ev.y - y) > 20)) cancel();
+        }
+        el.addEventListener("pointermove", onMove);
+        interceptClick = ev => {
+            if (!timeout && (ev.target === el || el.contains(ev.target))) {
+                ev.stopImmediatePropagation();
+                ev.preventDefault();
+                interceptClick = null;
+            }
+        };
+        window.addEventListener("click", interceptClick, true);
     });
     el.addEventListener("pointerup", ev => {
-        ev.preventDefault()
-        clearTimeout(timeout);
-        const time = performance.now();
-        if (needsPress) {
-            if (time - downTime >= t) onHold(ev);
-            else onClick?.(ev);
-        } else if (!triggered) onClick?.(ev);
-        triggered = false;
+        if (!ev.isPrimary) return;
+        if (timeout) return cancel();
+        if (needsRelease) onHold(ev);
+        cancel();
     });
+    el.addEventListener("pointerleave", cancel);
+    el.addEventListener("pointercancel", cancel);
 }
 
 export function boundBox(el, gutter, minW, maxW, minH, maxH) {

@@ -1,16 +1,14 @@
 * {
     box-sizing: border-box;
     --rot: 90deg;
-    --gradwarm: rgba(160,60,180,1) 0%, #f02040 50%, rgba(255,221,69,1) 100%;
+    --gradwarm: rgba(136,72,150,1) 0%, #f02040 50%, rgba(255,201,69,1) 100%;
     --gradcold: rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%;
     --gradcols: var(--gradwarm);
     --font: system-ui, serif;
     color: #ccc;
-    user-select: none;
 }
 
 body {
-    backdrop-filter: blur(7.27em) grayscale(.1);
     background: linear-gradient(calc(222deg + var(--rot)), var(--gradcols));
     height: 100dvh;
     display: flex;
@@ -28,11 +26,11 @@ body {
     display: flex;
     flex-direction: column;
     align-self: center;
-    box-shadow: inset 0 0 .9em 0 rgba(0,0,.05);
+    box-shadow: inset 0 0 .5em 0 rgba(0,0,0,.4);
 }
 
 #back {
-    scale: 161%;
+    scale: 150%;
     margin-right: .6em;
 }
 
@@ -46,6 +44,7 @@ audio {
 form {
     display: flex;
     width: 100%;
+    align-items: center;
 }
 
 input, button, li {
@@ -75,7 +74,7 @@ input {
 }
 
 #btn {
-    width: 4em;
+    font-size: .93em;
 }
 
 #lel1 {
@@ -132,7 +131,7 @@ h3 {
     filter: drop-shadow(1px 2px 4px #0003);
 }
 
-audio, li, button, input:not([type="radio"]), footer {
+audio, li, button, input:not([type="radio"]), footer, .cover {
     box-shadow: 0 0 .4em 0 rgba(0,0,0,.3);
     filter: drop-shadow(1px 2px 4px #0003);
 }

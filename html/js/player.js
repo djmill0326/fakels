@@ -124,7 +124,8 @@ export default function createPlayer(signal) {
         el.duration.textContent = formatTime(duration);
     };
     Bus.on("status", (data) => {
-        el.play.innerHTML = data.paused ? svg.play : svg.pause;
+        paused = data.paused;
+        el.play.innerHTML = paused ? svg.play : svg.pause;
         updateProgress(data);
     }, { signal });
     Bus.on("time", (data) => scrubTime === null && updateProgress(data), { signal });
@@ -152,7 +153,7 @@ export default function createPlayer(signal) {
         el.mode.innerHTML = shuffle ? svg.shuffle : svg.loop;
     });
     el.mode.onclick = () => Bus.call.dispatch("toggle-shuffle");
-    el.close.onclick = () => Bus.call.dispatch("toggle_player");
+    el.close.onclick = () => Bus.call.dispatch("toggle-player");
     el.prev.onclick = () => Bus.call.dispatch("prev");
     el.next.onclick = () => Bus.call.dispatch("next");
     el.play.onclick = () => {

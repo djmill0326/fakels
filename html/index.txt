@@ -3,6 +3,7 @@
 	10 - Original Prankster.m4a	inode=466513	size=7945534	mtime=1755339319252.4504	title=Original Prankster	album=Greatest Hits	artist=The Offspring	year=2005	cover=true
 	102 - Vitamin.flac	inode=886307	size=25316335	mtime=1757177525302.2424	title=Vitamin	album=S.C.I.E.N.C.E.	artist=Incubus	year=1997	cover=true
 	14 Incubus - Leech.flac	inode=885499	size=31459381	mtime=1757177495430.2424	title=Leech	album=A Crow Left of the Murder	artist=Incubus	year=2004
+	Local H - Hey, Killer - 05 - The Misanthrope.flac	inode=293245	size=43876843	mtime=1767241164998.1694	title=The Misanthrope	album=Hey, Killer	artist=Local H	year=2015	cover=true
 "Album" 2	
 	00 - Garette's Revenge.mp3	inode=615987	size=4807741	mtime=1760127336242.6702	title=garette`s revenge	artist=xxxtentacion
 	01 - DIRT.flac	inode=734459	size=29460540	mtime=1755361758552.442	title=DIRT	album=DIRT	artist=Y2K feat. JPEGMAFIA	year=2022	cover=true
@@ -94,6 +95,19 @@ Coral Fang (2003)
 	10 - The Distillers - For Tonight You're Only Here to Know.flac	inode=836684	size=25534009	mtime=1755535511247.0662	title=For Tonight You're Only Here to Know	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
 	10 - The Distillers - For Tonight You're Only Here to Know.lrc	inode=972951	size=1225	mtime=1764990547894.542
 	11 - The Distillers - Deathsex.flac	inode=799396	size=81482216	mtime=1755535537343.0662	title=Deathsex	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+Core (1992)	
+	Core - 01 - Dead And Bloated.mp3	inode=1064748	size=10761900	mtime=1768106833864.3086	title=Dead And Bloated	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 02 - Sex Type Thing.mp3	inode=1062848	size=7763594	mtime=1768106839372.3086	title=Sex Type Thing	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 03 - Wicked Garden.mp3	inode=1066531	size=7631640	mtime=1768106843452.3086	title=Wicked Garden	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 04 - No Memory.mp3	inode=1069687	size=3035273	mtime=1768106846072.3086	title=No Memory	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 05 - Sin.mp3	inode=1036695	size=11637294	mtime=1768106851244.3086	title=Sin	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 06 - Naked Sunday.mp3	inode=294901	size=7549480	mtime=1768106854600.3086	title=Naked Sunday	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 07 - Creep.mp3	inode=1069664	size=10957962	mtime=1768106861772.3086	title=Creep	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 08 - Piece Of Pie.mp3	inode=324313	size=11725132	mtime=1768106868072.3086	title=Piece Of Pie	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 09 - Plush.mp3	inode=1044954	size=10573706	mtime=1768106874532.3086	title=Plush	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 10 - Wet My Bed.mp3	inode=1066233	size=3427199	mtime=1768106877188.3086	title=Wet My Bed	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 11 - Crackerman.mp3	inode=1065158	size=7180731	mtime=1768106884064.3086	title=Crackerman	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 12 - Where The River Goes.mp3	inode=1068697	size=17003005	mtime=1768106892784.3086	title=Where The River Goes	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
 Death of a Bachelor	
 	02 Don't Threaten Me with a Good Time.flac	inode=886256	size=27812663	mtime=1757156607393.562	title=Don't Threaten Me with a Good Time	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
 	02 Don't Threaten Me with a Good Time.lrc	inode=844303	size=3318	mtime=1757156607585.562
@@ -359,8 +373,6 @@ Pending
 		14. Good Night.flac	inode=645009	size=22595068	mtime=1761780673295.8362	title=Good Night	album=Graduation	artist=Ye	year=2010	cover=true
 		14. Good Night.lrc	inode=644937	size=2798	mtime=1761780672963.8362
 		cover.jpg	inode=856221	size=1654180	mtime=1761780664251.8362
-	Hey, Killer (2015)	
-		Local H - Hey, Killer - 05 - The Misanthrope.flac	inode=293245	size=43876843	mtime=1767241164998.1694	title=The Misanthrope	album=Hey, Killer	artist=Local H	year=2015	cover=true
 	Labcabincalifornia (1995)	
 		204 - Runnin’ instrumental.flac	inode=302553	size=35279078	mtime=1766126783542.8262	title=Runnin’ (instrumental)	album=Labcabincalifornia	artist=The Pharcyde	year=2012	cover=true
 	Madvillainy	
