@@ -1,13 +1,6 @@
 import { get_info } from "./find.js";
 import types from "./mediatype.mjs";
 
-// very important function provided by Microsoft Copilot
-function secureShuffleIndex(max) {
-    const arr = new Uint32Array(1);
-    crypto.getRandomValues(arr);
-    return arr[0] % (max + 1);
-}
-
 function stupidRand(max) {
     if (max === 0) return 0;
     const getDigit = () => Math.random().toString().at(-2);
@@ -26,18 +19,21 @@ export default function shuffler(items) {
                 dir = active_dir;
                 this.reset();
             }
-            else if (cursor < 0) cursor = list.length - 1;
             if (peeked != null) return items[list[peeked]].firstElementChild;
             if (list.length < 2) return isValid(0) && items[0].firstElementChild;
             // const i = Math.floor(Math.random() * (cursor + 1));
-            const i = stupidRand(cursor);
-            peeked = i;
-            const selection = list[i];
+            let selection, success = false;
             for (let i = 0; i < items.length; i++) {
-                if (selection !== prev && isValid(selection)) break;
+                const i = stupidRand(cursor);
+                peeked = i;
+                selection = list[i];
+                if (selection !== prev && isValid(selection)) {
+                    success = true;
+                    break;
+                }
                 this.consume();
-                return this.peek();
             }
+            if (!success) return;
             prev = selection;
             return items[selection].firstElementChild;
         },
@@ -47,6 +43,7 @@ export default function shuffler(items) {
             list[peeked] = list[cursor];
             list[cursor--] = selection;
             peeked = null;
+            if (cursor < 0) cursor = list.length - 1;
             return result;
         }, 
         reset() {

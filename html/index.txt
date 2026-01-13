@@ -308,6 +308,9 @@ Pending
 		Radiohead - OK Computer - 06 - Karma Police.flac	inode=662983	size=32230435	mtime=1761778284843.8372	title=Karma Police	album=OK Computer	artist=Radiohead	year=2009	cover=true
 	California 37	
 		Train - Drive By.flac	inode=665375	size=26229053	mtime=1761778264459.8372	title=Drive By	album=California 37	artist=Train	year=2012	cover=true
+	Deathconsciousness (2008)	
+		05 - Telefony.flac	inode=1060099	size=26885319	mtime=1768278599802.123	title=Telefony	album=Deathconsciousness	artist=Have a Nice Life	year=2014	cover=true
+		09 - Holy Fucking Shit 40,000.flac	inode=1060017	size=42487187	mtime=1768278596858.123	title=Holy Fucking Shit: 40,000	album=Deathconsciousness	artist=Have a Nice Life	year=2014	cover=true
 	Drops of Jupiter (2001)	
 		Train - Drops of Jupiter - 03 - Drops Of Jupiter.flac	inode=664073	size=100980470	mtime=1761778276791.8372	title=Drops Of Jupiter	album=Drops of Jupiter	artist=Train	year=2001	cover=true
 	Fashion Nugget	

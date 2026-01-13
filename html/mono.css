@@ -260,7 +260,7 @@ span:nth-child(2) {
     .cover {
         max-height: 100%;
         max-width: 90%;
-        width: 90%;
+        width: calc(min(90%, 40dvh));
         border-radius: 1em;
         overflow: hidden;
     }
@@ -331,6 +331,25 @@ span:nth-child(2) {
         * {
             pointer-events: none;
         }
+    }
+    .repeat {
+        position: relative;
+    }
+    .repeat::after {
+        content: "1";
+        position: absolute;
+        bottom: .7em;
+        right: .7em;
+        font-size: .6em;
+        width: 1.2em;
+        padding: .1em;
+        font-weight: bold;
+        line-height: 1.2em;
+        margin: auto;
+        border-radius: 50%;
+        color: #fff;
+        background: #222;
+        border: 1px solid #fff;
     }
     .scrubber {
         height: 4px;

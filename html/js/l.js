@@ -207,6 +207,8 @@ export const style = {
     `
 };
 
+export const display_mode = () => _.mode === "repeat" ? "Repeat one" : `Shuffle ${_.mode === "shuffle" ? "on" : "off"}`;
+
 export const cover_src = (el, isMedia=true) => `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/${isMedia ? "cover" : "folder"}.jpg`;
 
 const event_bus = window.event_bus ??= new EventTarget();

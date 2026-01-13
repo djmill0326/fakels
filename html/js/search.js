@@ -1,86 +1,60 @@
+import parse from "./query-parser.js";
+
 export const search = {
     fresh: true,
     active: false,
     term: "",
-    reset: () => {}
+    reset: () => {},
+    check: () => true
 };
 
-function clear(callback) {
+function reset(callback) {
     if (search.fresh) return;
+    search.term = "";
     search.fresh = true;
+    search.check = () => true;
     callback();
 }
 
-function check(str, term) {
-    if (!str) return;
-    if (typeof term === "string") return str.includes(term);
-    return term.every(w => str.includes(w));
+function match(el, query, useLinks, tag) {
+    if (!query) return true;
+    let result;
+    if (query.type === "and") {
+        result = query.group.every(group => match(el, group, useLinks, tag));
+    } else if (query.type === "or") {
+        result = query.group.some(group => match(el, group, useLinks, tag));
+    } else {
+        tag ??= query.tag;
+        if (query.group) result = match(el, query.group, useLinks, tag);
+        else {
+            const text = tag ? el.dataset[tag] : useLinks ? el.href : el.textContent;
+            if (text) result = text.toLowerCase().includes(query.str);
+            else result = false;
+        }
+    }
+    return result ^ query.invert;
 }
 
-function split(term) {
-    return term.split(/\s+/);
-}
-
-function parse(term, loose, useLinks) {
-    return term.split(";").map(x => {
-        if (!x) return;
-        const i = x.indexOf("=");
-        if (i === -1) return [useLinks 
-            ? loose ? split(x).map(encodeURI) : encodeURI(x)
-            : loose ? split(x) : x
-        ];
-        const tag = x.slice(0, i);
-        const val = x.slice(i + 1);
-        if (!tag) return [x];
-        if (!val) return;
-        return [loose ? split(val) : val, tag];
-    }).filter(Boolean);
-}
-
-function number(frame, total) {
-    if (frame.firstElementChild.textContent.endsWith(" entries (flat)"))
-        frame.firstElementChild.textContent = `${total ?? frame.lastElementChild.children.length} entries (flat)`;
-}
-
-function filter(callback, term, loose, useLinks) {
+function filter(callback, term, useLinks) {
     term = term.toLowerCase();
-    const query = parse(term, loose);
-    search.check = a => {
-        return query.every(([term, tag]) => check((tag 
-            ? a.dataset[tag] 
-            : useLinks 
-                ? a.href 
-                : a.dataset.name 
-                    ? a.dataset.name 
-                    : a.textContent
-        )?.toLowerCase(), term));
-    };
+    const query = parse(term);
+    search.check = el => match(el, query, useLinks);
     callback();
 }
-
-let hidden = false;
 
 function update(callback, value, useLinks) {
-    const loose = value.charAt(1 + hidden) === "~";
-    const term = search.term = value.slice(1 + loose + hidden);
-    if (!term.length) return clear(callback);
-    search.active = !hidden;
-    search.term = term;
+    const offset = 1 + search.persistent;
+    const term = search.term = value.slice(offset);
+    if (!term.length) return reset(callback);
     search.fresh = false;
-    filter(callback, term, loose, useLinks);
-}
-
-function reset(callback) {
-    search.active = false;
-    search.term = "";
-    clear(callback);
+    filter(callback, term, useLinks);
 }
 
 export function useSearch(input, callback) {
     input.addEventListener("input", () => {
         const value = input.value;
-        hidden = value.charAt(0) === "!";
-        const spec = value.charAt(hidden);
+        const spec = value[0];
+        search.persistent = value[1] === spec;
         switch (spec) {
             case ":":
                 return update(callback, value, false);

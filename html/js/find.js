@@ -11,7 +11,7 @@ console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
-import $, { _, id, handleHold, boundBox, join, style, anchor_from_link, boundedCache, cover_src, Bus } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, anchor_from_link, boundedCache, cover_src, display_mode, Bus } from "./l.js";
 import { search, useSearch } from "./search.js";
 import { parseLyrics, showLyrics } from "./lyrics.js";
 import { virtualScroll } from "./vscroll.js";
@@ -89,7 +89,7 @@ const next_anchor = (a, looping=true) => {
 };
 import shuffler from "./shuffle.js";
 const shuffle = window.shuffle = shuffler(activeItems);
-const next_track = () => shuffling ? shuffle.peek() : next_anchor(queued);
+const next_track = () => mode === "shuffle" ? shuffle.peek() : mode === "repeat" ? playlist.at(-1) : next_anchor(queued);
 const fade_time = .05;
 let fade_controller;
 const next_queued = mode => {
@@ -185,17 +185,22 @@ const re = el => {
     el.onpause = () => Bus.dispatch("pause");
     return el;
 };
-let shuffling = _.shuffling === "true";
+let mode = _.mode ??= "loop";
 let shuffleHook = () => {}, osh = shuffleHook;
-window.toggle_shuffle = () => {
-    _.shuffling = shuffling = !shuffling;
+const next_mode = {
+    loop: "repeat",
+    repeat: "shuffle",
+    shuffle: "loop"
+}
+window.switch_mode = () => {
+    mode = _.mode = next_mode[_.mode];
     shuffleHook();
     update_status();
-    Bus.dispatch("shuffle-state", shuffling);
+    Bus.dispatch("shuffle-state", mode);
 };
-Bus.call.on("toggle-shuffle", toggle_shuffle);
+Bus.call.on("switch-mode", switch_mode);
 Bus.call.on("status", () => {
-    Bus.dispatch("shuffle-state", shuffling);
+    Bus.dispatch("shuffle-state", mode);
     if (mel) Bus.dispatch("status", {
         progress: mel.currentTime || 0,
         duration: mel.duration || 0,
@@ -226,7 +231,7 @@ const toggle_status = () => {
 const statbtn = (text, f, cursor) => `<a onclick='${f}()' style='cursor: ${cursor}'>${text}</a>`;
 const update_status = () => {
     const segments = [
-        _.ldir?.includes("media") ? statbtn(`Shuffle ${shuffling?"on":"off"}`, "toggle_shuffle", "pointer") : "",
+        _.ldir?.includes("media") ? statbtn(display_mode(), "switch_mode", "pointer") : "",
         shortcut_ui.isConnected ? "" : statbtn("Press '?' for help menu", "toggle_shortcuts", "help"),
         active_requests.size ? `Loading ${Array.from(active_requests).join(", ")}...` :
         items.length ? `Browsing ${_.ldir?.length ? _.ldir : "/"}` : ""
@@ -241,6 +246,7 @@ const status_obj = (name) => ({
 if(_.status !== "false") document.body.append(status);
 const refill_items = (iter) => {
     if (iter) items.splice(0, items.length, ...iter);
+    const t = performance.now();
     activeItems.splice(0, activeItems.length, ...items.filter((item, i) => {
         const node = item.firstElementChild;
         const info = get_info(node.href);
@@ -255,6 +261,7 @@ const refill_items = (iter) => {
         if (search.term) return search.check(node);
         return true;
     }));
+    console.debug(`activeItems fill took ${(performance.now() - t).toFixed(2)} ms`);
     if (frame.firstElementChild.textContent.endsWith(" entries (flat)"))
         frame.firstElementChild.textContent = `${activeItems.length} entries (flat)`;
     shuffle.invalidate();
@@ -669,7 +676,7 @@ const frame_handler = (e) => {
     e.preventDefault();
     const target = e.target.href ? e.target : e.target.children[0];
     if (target?.tagName !== "A") return;
-    if (search.active) {
+    if (search.term && !search.persistent) {
         term.value = _.ldir;
         search.reset();
     }
@@ -764,6 +771,7 @@ const init_browser = (el, info) => {
     const player = $("div");
     player.className = "player";
     prev.onclick = () => {
+        if (mel.currentTime > 4) return restart_track();
         if (playlist.length === 1) return update_link(playlist[0]);
         const entry = playlist.pop();
         if (entry.href === mel?.src) return prev.onclick();
@@ -819,7 +827,7 @@ const shortcuts = {
     " ": ["Play/pause", toggle_playback],
     ",": ["Previous entry", () => prev.click()],
     ".": ["Next entry", () => next.click()],
-    "s": ["Shuffle on/off", toggle_shuffle],
+    "s": ["Playback mode", switch_mode],
     "l": ["Find lyrics (may fail)", () => find_lyrics(playlist.at(-1))],
     "m": ["Toggle library mode", toggle_mode],
     "p": ["Toggle player view", toggle_player],
@@ -853,7 +861,7 @@ shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
 
 if ('mediaSession' in navigator) {
     const init_media_session = () => {
-        navigator.mediaSession.setActionHandler('previoustrack', () => mel.currentTime > 4 ? restart_track() : prev.onclick());
+        navigator.mediaSession.setActionHandler('previoustrack', () => prev.onclick());
         navigator.mediaSession.setActionHandler('nexttrack', () => next.onclick());
     }
     init_media_session();

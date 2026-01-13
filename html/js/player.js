@@ -149,10 +149,12 @@ export default function createPlayer(signal) {
         paused = true;
         el.play.innerHTML = svg.play;
     }, { signal });
-    Bus.on("shuffle-state", shuffle => {
-        el.mode.innerHTML = shuffle ? svg.shuffle : svg.loop;
+    Bus.on("shuffle-state", state => {
+        el.mode.innerHTML = state === "shuffle" ? svg.shuffle : svg.loop;
+        if (state === "repeat") el.mode.classList.add("repeat");
+        else el.mode.classList.remove("repeat");
     });
-    el.mode.onclick = () => Bus.call.dispatch("toggle-shuffle");
+    el.mode.onclick = () => Bus.call.dispatch("switch-mode");
     el.close.onclick = () => Bus.call.dispatch("toggle-player");
     el.prev.onclick = () => Bus.call.dispatch("prev");
     el.next.onclick = () => Bus.call.dispatch("next");
