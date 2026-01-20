@@ -23,7 +23,16 @@ const BatchState = {
     TEST_END: 19
 }
 function normalizeBatch(list) {
-    const batch = list.filter(line => line.el.children.length === 0 && line.time != null).map(line => ({ el: line.el, state: BatchState.INIT }));
+    const batch = list.filter(line => line.el.children.length === 0 && line.time != null).map(line => ({
+        state: BatchState.INIT,
+        el: line.el,
+        i: 0,
+        words: null,
+        line: null,
+        str: null,
+        testStr: null,
+        baseHeight: 0
+    }));
     const batch2 = [];
     let complete = 0;
     while (complete < batch.length) {
@@ -59,7 +68,7 @@ function normalizeBatch(list) {
                 break;
             case BatchState.BATCH_END:
                 item.el.style.removeProperty("padding-left");
-                item.state = null;
+                item.state = -1;
                 break;
         }
         for (const item of batch) switch (item.state) {
@@ -78,9 +87,15 @@ function normalizeBatch(list) {
                 break;
             case BatchState.PUSH_CHILDREN:
                 for (let i = 0; i < item.el.children.length; i++)
-                    batch2.push({ i, parent: item.el, el: item.el.children[i], state: BatchState.TEST_INLINE, min: 100, max: 100 });
+                    batch2.push({
+                        state: BatchState.TEST_INLINE,
+                        el: item.el.children[i],
+                        width: 0,
+                        min: 100,
+                        max: 100,
+                        size: 100
+                    });
                 item.state = BatchState.BATCH_END;
-                item.el._children = [];
                 complete++;
         }
     }
@@ -88,15 +103,11 @@ function normalizeBatch(list) {
     while (complete < batch2.length) {
         for (const item of batch2) switch (item.state) {
             case BatchState.TEST_INLINE:
-                const tmp = item.parent.cloneNode();
-                item.el.remove();
-                tmp.append(item.el);
-                item.parent.parentElement.append(tmp);
                 item.el.style.display = "inline-block";
                 item.state = BatchState.TEST_MEASURE;
                 break;
             case BatchState.TEST_APPLY:
-                item.el.parentElement.classList.add("active");
+                item.el.classList.add("active");
                 item.state = BatchState.TEST_SEARCH_INIT;
                 break;
             case BatchState.TEST_LINEAR_GT_UPDATE:
@@ -113,13 +124,11 @@ function normalizeBatch(list) {
                 item.state = BatchState.TEST_BINARY_CMP;
                 break;
             case BatchState.TEST_END:
-                item.el.dataset.scale = item.size || "100%";
                 item.el.style.removeProperty("font-size");
+                item.el.classList.remove("active");
                 item.el.style.display = "block";
-                item.el.parentElement.remove();
-                item.parent._children[item.i] = item.el;
                 complete++;
-                item.state = null;
+                item.state = -1;
         }
         for (const item of batch2) switch (item.state) {
             case BatchState.TEST_MEASURE:
@@ -154,18 +163,12 @@ function normalizeBatch(list) {
                 else item.min = item.size;
             case BatchState.TEST_BINARY:
                 if (Math.abs(item.el.scrollWidth - item.width) < 1) {
-                    item.size = item.el.style.fontSize;
+                    item.el.dataset.scale = item.el.style.fontSize;
                     item.state = BatchState.TEST_END;
                     break;
                 }
                 item.state = BatchState.TEST_BINARY_UPDATE;
-                break;
-
         }
-    }
-    for (const { el } of batch) {
-        el.append(...el._children);
-        delete el._children;
     }
 }
 
@@ -404,8 +407,13 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
                 const { time, el } = lines[i];
                 if (time !== undefined && audio.currentTime + .001 >= time + getOffset(timeObj)) {
                     if (currentLine !== el) select(el);
-                    break;
+                    return;
                 }
+            }
+            if (currentLine) {
+                disableLine(currentLine);
+                currentLine = null;
+                if (snapped) root.scrollTo({ top: 0, behavior: "smooth" });
             }
         }, { signal });
         const forceScroll = debounce(() => scrollTarget.scrollIntoView());

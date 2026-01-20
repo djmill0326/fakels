@@ -214,7 +214,7 @@ export const cover_src = (el, isMedia=true) => `${location.origin}/covers/${el.d
 const event_bus = window.event_bus ??= new EventTarget();
 export const Bus = {
     dispatch(type, data) {
-        if(window.BUS_DEBUG) console.debug("[Bus]", type, data);
+        if(window.BUS_DEBUG >= 1 || window.BUS_DEBUG?.has?.(type) || window.BUS_DEBUG?.find?.(t => t === type)) console.debug("[Bus]", type, data);
         event_bus.dispatchEvent(new CustomEvent(type, { detail: data }));
     },
     on(type, cb, init) {

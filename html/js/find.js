@@ -123,6 +123,7 @@ const next_queued = mode => {
             next.volume = volume;
             next.onvolumechange = volumechange;
             next.ontimeupdate = timeupdate;
+            mel.onpause = mel.onerror = undefined;
             mel.src = "";
             mel.replaceWith(next);
             next.classList.remove("pending");
@@ -180,9 +181,9 @@ const re = el => {
     }
     el.onvolumechange = () => _.lvol = el.volume;
     el.onended = () => next_queued("immediate");
-    el.onerror = ev => ev.target.error.message.includes("DEMUXER") && next_queued("immediate");
     el.onplaying = () => Bus.dispatch("play");
     el.onpause = () => Bus.dispatch("pause");
+    el.addEventListener("canplay", () => el.onerror = () => next_queued("immediate"), { once: true });
     return el;
 };
 let mode = _.mode ??= "loop";
@@ -459,9 +460,8 @@ const lrclib_search = async (el, signal) => {
         status.enable();
         const res = await fetch(`https://lrclib.net/api/search?${params}`, { signal });
         const results = await res.json();
-        status.disable();
         return { title, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
-    } catch { status?.disable() }
+    } finally { status?.disable() }
 };
 const lyrics_cache = boundedCache(20);
 const get_lyrics = (ref, signal, target) => {
@@ -512,7 +512,7 @@ const find_lyrics = async (ref, prefetch) => {
     const playerSignal = player.controller?.signal;
     const signals = (popup) => {
         return {
-            signal: AbortSignal.any([controller.signal, playerSignal ?? popup._controller.signal]),
+            signal: controller.signal,
             viewSignal: AbortSignal.any([viewController.signal, playerSignal ?? popup._controller.signal])
         };
     };
@@ -531,12 +531,24 @@ const find_lyrics = async (ref, prefetch) => {
     const root = $("div");
     if (player.el || poppedup?.classList.contains("lyrics-popup")) {
         let target = player.el?.q(".container") ?? poppedup;
+        const prevLyrics = target.q(".lyrics");
         if (target !== poppedup) {
-            const prevLyrics = target.q(".lyrics");
-            if (!prevLyrics) {
-                root.style.maxHeight = 0;
-                root.style.opacity = 0;
-            } else root.style.maxHeight = `${prevLyrics.offsetHeight}px`; 
+            root.style.opacity = 0;
+            if (prevLyrics) root.style.maxHeight = `${prevLyrics.offsetHeight}px`; 
+            else root.style.maxHeight = 0;
+        }
+        let loading;
+        if (!prefetch) {
+            loading = $("div");
+            loading.className = "lyrics";
+            const text = $("div");
+            text.className = "lyrics-text loading";
+            text.textContent = "Loading lyrics...";
+            loading.append(text);
+            if (prevLyrics) {
+                loading.style.minHeight = `${prevLyrics.offsetHeight}px`;
+                prevLyrics.replaceWith(loading);
+            } else target.append(loading);
         }
         try {
             const { signal, viewSignal } = signals(target);
@@ -562,8 +574,18 @@ const find_lyrics = async (ref, prefetch) => {
                 root.q(".overlay").children[0].append(close);
             }
             dispatch("display");
+            loading?.remove();
             return true;
-        } catch { root.remove() }
+        } catch (err) {
+            root.remove();
+            if (err?.message === "lrclib") {
+                const text = loading?.children[0];
+                if (!text) return;
+                loading.style.minHeight = "";
+                text.classList.remove("loading");
+                text.textContent = "No lyrics found :("
+            }
+        }
         return;
     }
     try {
