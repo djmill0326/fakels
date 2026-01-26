@@ -1,40 +1,40 @@
 "Album" 1	
-	02 Lithonia.mp3	inode=888071	size=7275231	mtime=1757298740105.4353	title=Lithonia	album=Bando Stone and the New World	artist=Childish Gambino	year=2024	cover=true
-	10 - Original Prankster.m4a	inode=466513	size=7945534	mtime=1755339319252.4504	title=Original Prankster	album=Greatest Hits	artist=The Offspring	year=2005	cover=true
-	102 - Vitamin.flac	inode=886307	size=25316335	mtime=1757177525302.2424	title=Vitamin	album=S.C.I.E.N.C.E.	artist=Incubus	year=1997	cover=true
+	02 Lithonia.mp3	inode=888071	size=7275231	mtime=1757298740105.4353	title=Lithonia	album=Bando Stone and the New World	artist=Childish Gambino	year=2024
+	10 - Original Prankster.m4a	inode=466513	size=7945534	mtime=1755339319252.4504	title=Original Prankster	album=Greatest Hits	artist=The Offspring	year=2005
+	102 - Vitamin.flac	inode=886307	size=25316335	mtime=1757177525302.2424	title=Vitamin	album=S.C.I.E.N.C.E.	artist=Incubus	year=1997
 	14 Incubus - Leech.flac	inode=885499	size=31459381	mtime=1757177495430.2424	title=Leech	album=A Crow Left of the Murder	artist=Incubus	year=2004
-	Local H - Hey, Killer - 05 - The Misanthrope.flac	inode=293245	size=43876843	mtime=1767241164998.1694	title=The Misanthrope	album=Hey, Killer	artist=Local H	year=2015	cover=true
+	Local H - Hey, Killer - 05 - The Misanthrope.flac	inode=293245	size=43876843	mtime=1767241164998.1694	title=The Misanthrope	album=Hey, Killer	artist=Local H	year=2015
 "Album" 2	
 	00 - Garette's Revenge.mp3	inode=615987	size=4807741	mtime=1760127336242.6702	title=garette`s revenge	artist=xxxtentacion
-	01 - DIRT.flac	inode=734459	size=29460540	mtime=1755361758552.442	title=DIRT	album=DIRT	artist=Y2K feat. JPEGMAFIA	year=2022	cover=true
+	01 - DIRT.flac	inode=734459	size=29460540	mtime=1755361758552.442	title=DIRT	album=DIRT	artist=Y2K feat. JPEGMAFIA	year=2022
 	01 - Guess What Bitch, We Back Hoe!.mp3	inode=759710	size=40519116	mtime=1755361811512.442
-	02 - Maze.flac	inode=487410	size=18035788	mtime=1755341832024.4495	title=Maze	album=Death Race for Love	artist=Juice WRLD	year=2019	cover=true
+	02 - Maze.flac	inode=487410	size=18035788	mtime=1755341832024.4495	title=Maze	album=Death Race for Love	artist=Juice WRLD	year=2019
 	04 - Not Worth It.flac	inode=861984	size=13317559	mtime=1757312054366.1938	title=Not Worth It	album=DOG BOY	artist=ZillaKami	year=2021
 	15 - Space Cowboy.flac	inode=862224	size=16752986	mtime=1757312065838.1938	title=Space Cowboy	album=DOG BOY	artist=ZillaKami	year=2021
-	17 - The Bees Knees.flac	inode=487699	size=40997538	mtime=1755341816376.4495	title=The Bees Knees	album=Death Race for Love	artist=Juice WRLD	year=2019	cover=true
-	18 - Lucid Dreams.flac	inode=486072	size=27202528	mtime=1755341737324.4495	title=Lucid Dreams	album=Goodbye & Good Riddance	artist=Juice WRLD	year=2021	cover=true
-	23 - Make Believe.flac	inode=487538	size=18814788	mtime=1755341827696.4495	title=Make Believe	album=Death Race for Love	artist=Juice WRLD	year=2019	cover=true
+	17 - The Bees Knees.flac	inode=487699	size=40997538	mtime=1755341816376.4495	title=The Bees Knees	album=Death Race for Love	artist=Juice WRLD	year=2019
+	18 - Lucid Dreams.flac	inode=486072	size=27202528	mtime=1755341737324.4495	title=Lucid Dreams	album=Goodbye & Good Riddance	artist=Juice WRLD	year=2021
+	23 - Make Believe.flac	inode=487538	size=18814788	mtime=1755341827696.4495	title=Make Believe	album=Death Race for Love	artist=Juice WRLD	year=2019
 	folder.jpg	inode=744541	size=148687	mtime=1755361865980.4417
 A Fever You Can’t Sweat Out	
 	01 Introduction	inode=882243	size=2208286	mtime=1757156581485.562
-	02 The Only Difference Between Martyrdom and Suicide Is Press Coverage.flac	inode=877838	size=23183333	mtime=1757122277761.4097	title=The Only Difference Between Martyrdom and Suicide Is Press Coverage	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
-	03 London Beckoned Songs About Money Written by Machines.flac	inode=877547	size=26333819	mtime=1757122285309.4097	title=London Beckoned Songs About Money Written by Machines	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
-	04 Nails for Breakfast, Tacks for Snacks.flac	inode=890934	size=27386542	mtime=1757122294073.4097	title=Nails for Breakfast, Tacks for Snacks	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
+	02 The Only Difference Between Martyrdom and Suicide Is Press Coverage.flac	inode=877838	size=23183333	mtime=1757122277761.4097	title=The Only Difference Between Martyrdom and Suicide Is Press Coverage	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
+	03 London Beckoned Songs About Money Written by Machines.flac	inode=877547	size=26333819	mtime=1757122285309.4097	title=London Beckoned Songs About Money Written by Machines	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
+	04 Nails for Breakfast, Tacks for Snacks.flac	inode=890934	size=27386542	mtime=1757122294073.4097	title=Nails for Breakfast, Tacks for Snacks	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
 	04 Nails for Breakfast, Tacks for Snacks.lrc	inode=894290	size=2077	mtime=1757122294393.4097
-	05 Camisado.flac	inode=891038	size=25039649	mtime=1757122303093.4097	title=Camisado	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
+	05 Camisado.flac	inode=891038	size=25039649	mtime=1757122303093.4097	title=Camisado	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
 	05 Camisado.lrc	inode=886329	size=3058	mtime=1757122302897.4097
-	06 Time to Dance.flac	inode=841555	size=28688854	mtime=1757122312913.4097	title=Time to Dance	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
-	07 Lying Is the Most Fun a Girl Can Have Without Taking Her Clothes Off.flac	inode=878760	size=25679178	mtime=1757122318613.4097	title=Lying Is the Most Fun a Girl Can Have Without Taking Her Clothes Off	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
+	06 Time to Dance.flac	inode=841555	size=28688854	mtime=1757122312913.4097	title=Time to Dance	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
+	07 Lying Is the Most Fun a Girl Can Have Without Taking Her Clothes Off.flac	inode=878760	size=25679178	mtime=1757122318613.4097	title=Lying Is the Most Fun a Girl Can Have Without Taking Her Clothes Off	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
 	07 Lying Is the Most Fun a Girl Can Have Without Taking Her Clothes Off.lrc	inode=823514	size=3043	mtime=1757122318941.4097
-	08 Intermission.flac	inode=887660	size=12881612	mtime=1757122322613.4097	title=Intermission	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
-	09 But It’s Better If You Do.flac	inode=883063	size=26887998	mtime=1757122330281.4097	title=But It’s Better If You Do	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
+	08 Intermission.flac	inode=887660	size=12881612	mtime=1757122322613.4097	title=Intermission	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
+	09 But It’s Better If You Do.flac	inode=883063	size=26887998	mtime=1757122330281.4097	title=But It’s Better If You Do	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
 	09 But It’s Better If You Do.lrc	inode=877714	size=2361	mtime=1757122330177.4097
-	10 I Write Sins Not Tragedies.flac	inode=890148	size=23392546	mtime=1757122338561.4097	title=I Write Sins Not Tragedies	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
+	10 I Write Sins Not Tragedies.flac	inode=890148	size=23392546	mtime=1757122338561.4097	title=I Write Sins Not Tragedies	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
 	10 I Write Sins Not Tragedies.lrc	inode=880720	size=2070	mtime=1757122338409.4097
-	11 I Constantly Thank God for Esteban.flac	inode=870790	size=27116644	mtime=1757122344921.4097	title=I Constantly Thank God for Esteban	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
+	11 I Constantly Thank God for Esteban.flac	inode=870790	size=27116644	mtime=1757122344921.4097	title=I Constantly Thank God for Esteban	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
 	11 I Constantly Thank God for Esteban.lrc	inode=421571	size=2688	mtime=1757122345105.4097
-	12 There’s a Good Reason These Tables Are Numbered Honey, You Just Haven’t Thought of It Yet.flac	inode=873034	size=26042052	mtime=1757122350869.4094	title=There’s a Good Reason These Tables Are Numbered Honey, You Just Haven’t Thought of It Yet	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
-	13 Build God, Then We’ll Talk.flac	inode=884617	size=29086418	mtime=1757122356945.4094	title=Build God, Then We’ll Talk	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005	cover=true
+	12 There’s a Good Reason These Tables Are Numbered Honey, You Just Haven’t Thought of It Yet.flac	inode=873034	size=26042052	mtime=1757122350869.4094	title=There’s a Good Reason These Tables Are Numbered Honey, You Just Haven’t Thought of It Yet	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
+	13 Build God, Then We’ll Talk.flac	inode=884617	size=29086418	mtime=1757122356945.4094	title=Build God, Then We’ll Talk	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
 	13 Build God, Then We’ll Talk.lrc	inode=870181	size=2687	mtime=1757122357197.4094
 	album.nfo	inode=871552	size=4260	mtime=1757122318481.4097
 	cover.jpg	inode=863188	size=621672	mtime=1757122358001.4094
@@ -67,91 +67,91 @@ Absolution (2004)
 	14 - Ruled By Secrecy.lrc	inode=768950	size=688	mtime=1757303848269.5051
 	14 - Ruled By Secrecy.mp3	inode=460209	size=11768730	mtime=1757303854749.5051	title=Ruled By Secrecy	album=Absolution	artist=Muse	year=2003
 Americana	
-	03 Original Prankster.mp3	inode=740095	size=8975534	mtime=1755334474312.4521	title=Original Prankster	album=Conspiracy of One	artist=The Offspring	year=2000	cover=true
-	03 You’re Gonna Go Far, Kid.mp3	inode=490244	size=7188184	mtime=1755334532732.4521	title=You’re Gonna Go Far, Kid	album=Rise and Fall, Rage and Grace	artist=The Offspring	year=2008	cover=true
-	04 Pretty Fly (for a White Guy).mp3	inode=489835	size=7665245	mtime=1755334513360.4521	title=Pretty Fly (for a White Guy)	album=Americana	artist=The Offspring	year=1998	cover=true
-	05 The Kids Aren’t Alright.mp3	inode=489351	size=7326649	mtime=1755334510388.4521	title=The Kids Aren’t Alright	album=Americana	artist=The Offspring	year=1998	cover=true
-	06 (Can't Get My) Head Around You.mp3	inode=486465	size=5455102	mtime=1755334520428.4521	title=(Can't Get My) Head Around You	album=Splinter	artist=The Offspring	year=2003	cover=true
-	07 Gone Away.mp3	inode=489639	size=10883149	mtime=1755334487956.4521	title=Gone Away	album=Ixnay on the Hombre	artist=The Offspring	year=2016	cover=true
+	03 Original Prankster.mp3	inode=740095	size=8975534	mtime=1755334474312.4521	title=Original Prankster	album=Conspiracy of One	artist=The Offspring	year=2000
+	03 You’re Gonna Go Far, Kid.mp3	inode=490244	size=7188184	mtime=1755334532732.4521	title=You’re Gonna Go Far, Kid	album=Rise and Fall, Rage and Grace	artist=The Offspring	year=2008
+	04 Pretty Fly (for a White Guy).mp3	inode=489835	size=7665245	mtime=1755334513360.4521	title=Pretty Fly (for a White Guy)	album=Americana	artist=The Offspring	year=1998
+	05 The Kids Aren’t Alright.mp3	inode=489351	size=7326649	mtime=1755334510388.4521	title=The Kids Aren’t Alright	album=Americana	artist=The Offspring	year=1998
+	06 (Can't Get My) Head Around You.mp3	inode=486465	size=5455102	mtime=1755334520428.4521	title=(Can't Get My) Head Around You	album=Splinter	artist=The Offspring	year=2003
+	07 Gone Away.mp3	inode=489639	size=10883149	mtime=1755334487956.4521	title=Gone Away	album=Ixnay on the Hombre	artist=The Offspring	year=2016
 Coral Fang (2003)	
-	01 - The Distillers - Drain the Blood.flac	inode=839831	size=23886314	mtime=1755535424099.0662	title=Drain the Blood	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	01 - The Distillers - Drain the Blood.flac	inode=839831	size=23886314	mtime=1755535424099.0662	title=Drain the Blood	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	01 - The Distillers - Drain the Blood.lrc	inode=970234	size=1745	mtime=1764990538974.542
-	02 - The Distillers - Dismantle Me.flac	inode=838819	size=19834793	mtime=1755535431591.0662	title=Dismantle Me	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	02 - The Distillers - Dismantle Me.flac	inode=838819	size=19834793	mtime=1755535431591.0662	title=Dismantle Me	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	02 - The Distillers - Dismantle Me.lrc	inode=969990	size=1305	mtime=1764990540058.542
-	03 - The Distillers - Die on a Rope.flac	inode=839259	size=21881276	mtime=1755535440931.0662	title=Die on a Rope	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	03 - The Distillers - Die on a Rope.flac	inode=839259	size=21881276	mtime=1755535440931.0662	title=Die on a Rope	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	03 - The Distillers - Die on a Rope.lrc	inode=969711	size=1526	mtime=1764990540978.542
-	04 - The Distillers - The Gallow Is God.flac	inode=837095	size=33708119	mtime=1755535451351.0662	title=The Gallow Is God	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	04 - The Distillers - The Gallow Is God.flac	inode=837095	size=33708119	mtime=1755535451351.0662	title=The Gallow Is God	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	04 - The Distillers - The Gallow Is God.lrc	inode=670019	size=1639	mtime=1764990541790.542
-	05 - The Distillers - Coral Fang.flac	inode=836414	size=17862753	mtime=1755535462359.0662	title=Coral Fang	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	05 - The Distillers - Coral Fang.flac	inode=836414	size=17862753	mtime=1755535462359.0662	title=Coral Fang	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	05 - The Distillers - Coral Fang.lrc	inode=969572	size=1174	mtime=1764990542674.542
-	06 - The Distillers - The Hunger.flac	inode=839247	size=39016362	mtime=1755535474719.0662	title=The Hunger	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	06 - The Distillers - The Hunger.flac	inode=839247	size=39016362	mtime=1755535474719.0662	title=The Hunger	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	06 - The Distillers - The Hunger.lrc	inode=971669	size=1307	mtime=1764990543554.542
-	07 - The Distillers - Hall of Mirrors.flac	inode=451895	size=30677134	mtime=1755535485147.0662	title=Hall of Mirrors	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	07 - The Distillers - Hall of Mirrors.flac	inode=451895	size=30677134	mtime=1755535485147.0662	title=Hall of Mirrors	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	07 - The Distillers - Hall of Mirrors.lrc	inode=971873	size=2300	mtime=1764990544746.542
-	08 - The Distillers - Beat Your Heart Out.flac	inode=794996	size=22448626	mtime=1755535493179.0662	title=Beat Your Heart Out	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	08 - The Distillers - Beat Your Heart Out.flac	inode=794996	size=22448626	mtime=1755535493179.0662	title=Beat Your Heart Out	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	08 - The Distillers - Beat Your Heart Out.lrc	inode=971740	size=2012	mtime=1764990545794.542
-	09 - The Distillers - Love Is Paranoid.flac	inode=836709	size=16920237	mtime=1755535503023.0662	title=Love Is Paranoid	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	09 - The Distillers - Love Is Paranoid.flac	inode=836709	size=16920237	mtime=1755535503023.0662	title=Love Is Paranoid	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	09 - The Distillers - Love Is Paranoid.lrc	inode=972798	size=1241	mtime=1764990546878.542
-	10 - The Distillers - For Tonight You're Only Here to Know.flac	inode=836684	size=25534009	mtime=1755535511247.0662	title=For Tonight You're Only Here to Know	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	10 - The Distillers - For Tonight You're Only Here to Know.flac	inode=836684	size=25534009	mtime=1755535511247.0662	title=For Tonight You're Only Here to Know	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 	10 - The Distillers - For Tonight You're Only Here to Know.lrc	inode=972951	size=1225	mtime=1764990547894.542
-	11 - The Distillers - Deathsex.flac	inode=799396	size=81482216	mtime=1755535537343.0662	title=Deathsex	album=Coral Fang (PA Version)	artist=The Distillers	year=2003	cover=true
+	11 - The Distillers - Deathsex.flac	inode=799396	size=81482216	mtime=1755535537343.0662	title=Deathsex	album=Coral Fang (PA Version)	artist=The Distillers	year=2003
 Core (1992)	
-	Core - 01 - Dead And Bloated.mp3	inode=1064748	size=10761900	mtime=1768106833864.3086	title=Dead And Bloated	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 02 - Sex Type Thing.mp3	inode=1062848	size=7763594	mtime=1768106839372.3086	title=Sex Type Thing	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 03 - Wicked Garden.mp3	inode=1066531	size=7631640	mtime=1768106843452.3086	title=Wicked Garden	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 04 - No Memory.mp3	inode=1069687	size=3035273	mtime=1768106846072.3086	title=No Memory	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 05 - Sin.mp3	inode=1036695	size=11637294	mtime=1768106851244.3086	title=Sin	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 06 - Naked Sunday.mp3	inode=294901	size=7549480	mtime=1768106854600.3086	title=Naked Sunday	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 07 - Creep.mp3	inode=1069664	size=10957962	mtime=1768106861772.3086	title=Creep	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 08 - Piece Of Pie.mp3	inode=324313	size=11725132	mtime=1768106868072.3086	title=Piece Of Pie	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 09 - Plush.mp3	inode=1044954	size=10573706	mtime=1768106874532.3086	title=Plush	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 10 - Wet My Bed.mp3	inode=1066233	size=3427199	mtime=1768106877188.3086	title=Wet My Bed	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 11 - Crackerman.mp3	inode=1065158	size=7180731	mtime=1768106884064.3086	title=Crackerman	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
-	Core - 12 - Where The River Goes.mp3	inode=1068697	size=17003005	mtime=1768106892784.3086	title=Where The River Goes	album=Core	artist=Stone Temple Pilots	year=1992	cover=true
+	Core - 01 - Dead And Bloated.mp3	inode=1064748	size=10761900	mtime=1768106833864.3086	title=Dead And Bloated	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 02 - Sex Type Thing.mp3	inode=1062848	size=7763594	mtime=1768106839372.3086	title=Sex Type Thing	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 03 - Wicked Garden.mp3	inode=1066531	size=7631640	mtime=1768106843452.3086	title=Wicked Garden	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 04 - No Memory.mp3	inode=1069687	size=3035273	mtime=1768106846072.3086	title=No Memory	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 05 - Sin.mp3	inode=1036695	size=11637294	mtime=1768106851244.3086	title=Sin	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 06 - Naked Sunday.mp3	inode=294901	size=7549480	mtime=1768106854600.3086	title=Naked Sunday	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 07 - Creep.mp3	inode=1069664	size=10957962	mtime=1768106861772.3086	title=Creep	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 08 - Piece Of Pie.mp3	inode=324313	size=11725132	mtime=1768106868072.3086	title=Piece Of Pie	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 09 - Plush.mp3	inode=1044954	size=10573706	mtime=1768106874532.3086	title=Plush	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 10 - Wet My Bed.mp3	inode=1066233	size=3427199	mtime=1768106877188.3086	title=Wet My Bed	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 11 - Crackerman.mp3	inode=1065158	size=7180731	mtime=1768106884064.3086	title=Crackerman	album=Core	artist=Stone Temple Pilots	year=1992
+	Core - 12 - Where The River Goes.mp3	inode=1068697	size=17003005	mtime=1768106892784.3086	title=Where The River Goes	album=Core	artist=Stone Temple Pilots	year=1992
 Death of a Bachelor	
-	02 Don't Threaten Me with a Good Time.flac	inode=886256	size=27812663	mtime=1757156607393.562	title=Don't Threaten Me with a Good Time	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
+	02 Don't Threaten Me with a Good Time.flac	inode=886256	size=27812663	mtime=1757156607393.562	title=Don't Threaten Me with a Good Time	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
 	02 Don't Threaten Me with a Good Time.lrc	inode=844303	size=3318	mtime=1757156607585.562
-	03 Hallelujah.flac	inode=899974	size=23742936	mtime=1757156611449.562	title=Hallelujah	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
+	03 Hallelujah.flac	inode=899974	size=23742936	mtime=1757156611449.562	title=Hallelujah	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
 	03 Hallelujah.lrc	inode=866741	size=2692	mtime=1757156615885.562
-	04 Emperor's New Clothes.flac	inode=896699	size=21540421	mtime=1757156637025.562	title=Emperor's New Clothes	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
-	05 Death of a Bachelor.flac	inode=896751	size=23748620	mtime=1757156644521.562	title=Death of a Bachelor	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
+	04 Emperor's New Clothes.flac	inode=896699	size=21540421	mtime=1757156637025.562	title=Emperor's New Clothes	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
+	05 Death of a Bachelor.flac	inode=896751	size=23748620	mtime=1757156644521.562	title=Death of a Bachelor	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
 	05 Death of a Bachelor.lrc	inode=896781	size=1850	mtime=1757156644745.562
-	06 Crazy=Genius.flac	inode=901312	size=26195812	mtime=1757156615685.562	title=Crazy=Genius	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
-	07 LA Devotee.flac	inode=899930	size=26589709	mtime=1757156625249.562	title=LA Devotee	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
-	08 Golden Days.flac	inode=864732	size=33160152	mtime=1757156620801.562	title=Golden Days	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
+	06 Crazy=Genius.flac	inode=901312	size=26195812	mtime=1757156615685.562	title=Crazy=Genius	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
+	07 LA Devotee.flac	inode=899930	size=26589709	mtime=1757156625249.562	title=LA Devotee	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
+	08 Golden Days.flac	inode=864732	size=33160152	mtime=1757156620801.562	title=Golden Days	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
 	08 Golden Days.lrc	inode=895228	size=2005	mtime=1757156620941.562
-	09 The Good, the Bad and the Dirty.flac	inode=866235	size=22387248	mtime=1757156628937.562	title=The Good, the Bad and the Dirty	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
-	10 House of Memories.flac	inode=896617	size=27528972	mtime=1757156633317.562	title=House of Memories	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
+	09 The Good, the Bad and the Dirty.flac	inode=866235	size=22387248	mtime=1757156628937.562	title=The Good, the Bad and the Dirty	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
+	10 House of Memories.flac	inode=896617	size=27528972	mtime=1757156633317.562	title=House of Memories	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
 	10 House of Memories.lrc	inode=896715	size=2281	mtime=1757156637281.562
-	11 Impossible Year.flac	inode=896819	size=20692144	mtime=1757156640837.562	title=Impossible Year	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016	cover=true
+	11 Impossible Year.flac	inode=896819	size=20692144	mtime=1757156640837.562	title=Impossible Year	album=Death of a Bachelor	artist=Panic! at the Disco	year=2016
 	album.nfo	inode=896782	size=3148	mtime=1757156645137.562
 	cover.jpg	inode=896605	size=1904076	mtime=1757156646797.562
 D˃E˃A˃T˃H˃M˃E˃T˃A˃L (2000)	
-	01. D˃E˃A˃T˃H˃M˃E˃T˃A˃L.flac	inode=861143	size=26378506	mtime=1757983576011.8118	title=D>E>A>T>H>M>E>T>A>L	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	02. Stabilisers For Big Boys.flac	inode=907771	size=27738478	mtime=1757983588235.8118	title=Stabilisers For Big Boys	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	03. Laputa.flac	inode=851602	size=17863646	mtime=1757983596327.8118	title=Laputa	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	04. The Eyes of Ibad.flac	inode=908500	size=43348137	mtime=1757983615755.8118	title=The Eyes of Ibad	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	05. CUT.flac	inode=912880	size=35662146	mtime=1757983629971.8118	title=CUT	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	06. Sodium Chloride.flac	inode=883494	size=19737769	mtime=1757983638823.8118	title=Sodium Chloride	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	07. Kicking Cars.flac	inode=870738	size=30087414	mtime=1757983650859.8118	title=Kicking Cars	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	08. D˃E˃A˃T˃H˃M˃E˃T˃A˃L_R˃O˃T.flac	inode=892495	size=30870503	mtime=1757983660787.8118	title=D>E>A>T>H>M>E>T>A>L_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	09. Stabilisers For Big Boys_R˃O˃T.flac	inode=853683	size=31528225	mtime=1757983672575.8118	title=Stabilisers For Big Boys_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	10. Laputa_R˃O˃T.flac	inode=886301	size=19927538	mtime=1757983680207.8118	title=Laputa_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
-	11. The Eyes of Ibad_R˃O˃T.flac	inode=912222	size=48353163	mtime=1757983699919.8118	title=The Eyes of Ibad_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000	cover=true
+	01. D˃E˃A˃T˃H˃M˃E˃T˃A˃L.flac	inode=861143	size=26378506	mtime=1757983576011.8118	title=D>E>A>T>H>M>E>T>A>L	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	02. Stabilisers For Big Boys.flac	inode=907771	size=27738478	mtime=1757983588235.8118	title=Stabilisers For Big Boys	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	03. Laputa.flac	inode=851602	size=17863646	mtime=1757983596327.8118	title=Laputa	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	04. The Eyes of Ibad.flac	inode=908500	size=43348137	mtime=1757983615755.8118	title=The Eyes of Ibad	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	05. CUT.flac	inode=912880	size=35662146	mtime=1757983629971.8118	title=CUT	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	06. Sodium Chloride.flac	inode=883494	size=19737769	mtime=1757983638823.8118	title=Sodium Chloride	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	07. Kicking Cars.flac	inode=870738	size=30087414	mtime=1757983650859.8118	title=Kicking Cars	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	08. D˃E˃A˃T˃H˃M˃E˃T˃A˃L_R˃O˃T.flac	inode=892495	size=30870503	mtime=1757983660787.8118	title=D>E>A>T>H>M>E>T>A>L_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	09. Stabilisers For Big Boys_R˃O˃T.flac	inode=853683	size=31528225	mtime=1757983672575.8118	title=Stabilisers For Big Boys_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	10. Laputa_R˃O˃T.flac	inode=886301	size=19927538	mtime=1757983680207.8118	title=Laputa_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
+	11. The Eyes of Ibad_R˃O˃T.flac	inode=912222	size=48353163	mtime=1757983699919.8118	title=The Eyes of Ibad_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
 	2020_02_11 17-03-45.jpg	inode=913049	size=1181160	mtime=1757983702659.8118
 	cover.jpg	inode=904809	size=1037627	mtime=1757983705999.8118
 Era Vulgaris	
-	01. Turnin' On The Screw.mp3	inode=830072	size=13229743	mtime=1755215067819.6392	title=Turnin' On The Screw	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	02. Sick, Sick, Sick.mp3	inode=830330	size=9005213	mtime=1755215084599.6392	title=Sick, Sick, Sick	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	03. I'm Designer.mp3	inode=830063	size=10185939	mtime=1755215072803.6392	title=I'm Designer	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	04. Into The Hollow.mp3	inode=830306	size=9309276	mtime=1755215090051.6392	title=Into The Hollow	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	05. Misfit Love.mp3	inode=830231	size=14010264	mtime=1755215104683.6392	title=Misfit Love	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	06. Battery Acid.mp3	inode=823984	size=10260127	mtime=1755215109531.6392	title=Battery Acid	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	07. Make It Wit Chu.mp3	inode=829958	size=12035415	mtime=1755215116119.6392	title=Make It Wit Chu	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	08. 3's & 7's.mp3	inode=830726	size=8978031	mtime=1755215123543.6392	title=3's & 7's	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	09. Suture Up Your Future.mp3	inode=832577	size=11508798	mtime=1755215128255.6392	title=Suture Up Your Future	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	10. River In The Road.mp3	inode=831759	size=8412757	mtime=1755215131383.6392	title=River In The Road	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
-	11. Run, Pig, Run.mp3	inode=830505	size=11623721	mtime=1755215137827.6392	title=Run, Pig, Run	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007	cover=true
+	01. Turnin' On The Screw.mp3	inode=830072	size=13229743	mtime=1755215067819.6392	title=Turnin' On The Screw	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	02. Sick, Sick, Sick.mp3	inode=830330	size=9005213	mtime=1755215084599.6392	title=Sick, Sick, Sick	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	03. I'm Designer.mp3	inode=830063	size=10185939	mtime=1755215072803.6392	title=I'm Designer	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	04. Into The Hollow.mp3	inode=830306	size=9309276	mtime=1755215090051.6392	title=Into The Hollow	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	05. Misfit Love.mp3	inode=830231	size=14010264	mtime=1755215104683.6392	title=Misfit Love	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	06. Battery Acid.mp3	inode=823984	size=10260127	mtime=1755215109531.6392	title=Battery Acid	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	07. Make It Wit Chu.mp3	inode=829958	size=12035415	mtime=1755215116119.6392	title=Make It Wit Chu	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	08. 3's & 7's.mp3	inode=830726	size=8978031	mtime=1755215123543.6392	title=3's & 7's	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	09. Suture Up Your Future.mp3	inode=832577	size=11508798	mtime=1755215128255.6392	title=Suture Up Your Future	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	10. River In The Road.mp3	inode=831759	size=8412757	mtime=1755215131383.6392	title=River In The Road	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
+	11. Run, Pig, Run.mp3	inode=830505	size=11623721	mtime=1755215137827.6392	title=Run, Pig, Run	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
 	album.nfo	inode=830824	size=3942	mtime=1755215138163.6392
 Frizzle Fry	
 	01 - To Defy The Laws Of Tradition.mp3	inode=837238	size=7968829	mtime=1755341586228.4495	title=To Defy The Laws Of Tradition	album=Frizzle Fry	artist=Primus	year=1990
@@ -160,7 +160,7 @@ Frizzle Fry
 	04 - Mr. Knowitall.mp3	inode=486766	size=4578975	mtime=1755341606324.4495	title=Mr. Knowitall	album=Frizzle Fry	artist=Primus	year=1990
 	05 - Frizzle Fry.mp3	inode=836701	size=7196556	mtime=1755341618208.4495	title=Frizzle Fry	album=Frizzle Fry	artist=Primus	year=1990
 	06 - John The Fisherman.mp3	inode=486929	size=4303888	mtime=1755341626864.4495	title=John The Fisherman	album=Frizzle Fry	artist=Primus	year=1990
-	07 - You Can't Kill Michael Malloy.flac	inode=867000	size=20957747	mtime=1757464726250.6038	title=You Can't Kill Michael Malloy	album=Hallucino-Genetics [CD2]	artist=Primus	year=2004	cover=true
+	07 - You Can't Kill Michael Malloy.flac	inode=867000	size=20957747	mtime=1757464726250.6038	title=You Can't Kill Michael Malloy	album=Hallucino-Genetics [CD2]	artist=Primus	year=2004
 	08 - The Toys Go Winding Down.mp3	inode=809756	size=5861675	mtime=1755341642560.4495	title=The Toys Go Winding Down	album=Frizzle Fry	artist=Primus	year=1990
 	09 - Pudding Time.mp3	inode=238249	size=5259821	mtime=1755341657568.4495	title=Pudding Time	album=Frizzle Fry	artist=Primus	year=1990
 	10 - Sathington Willoughby.mp3	inode=483502	size=599269	mtime=1755341660804.4495	title=Sathington Willoughby	album=Frizzle Fry	artist=Primus	year=1990
@@ -169,154 +169,154 @@ Frizzle Fry
 	13 - To Defy.mp3	inode=488561	size=797844	mtime=1755341687052.4495	title=To Defy	album=Frizzle Fry	artist=Primus	year=1990
 	Folder.jpg	inode=488268	size=10445	mtime=1755341689024.4495
 Genesis (2016)	
-	07. Coming Back.flac	inode=881046	size=17755334	mtime=1757106559277.718	title=Coming Back	album=Genesis	artist=Domo Genesis	year=2016	cover=true
+	07. Coming Back.flac	inode=881046	size=17755334	mtime=1757106559277.718	title=Coming Back	album=Genesis	artist=Domo Genesis	year=2016
 Greatest Hits (1998)	
-	01 - Only the Young.flac	inode=919355	size=32797419	mtime=1758769806268.1619	title=Only the Young	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	02 - Don't Stop Believin'.flac	inode=921594	size=30710787	mtime=1758769831168.1619	title=Don't Stop Believin'	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	03 - Wheel in the Sky.flac	inode=952188	size=32124446	mtime=1758769818412.1619	title=Wheel in the Sky	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	04 - Faithfully.flac	inode=918413	size=32469561	mtime=1758769841832.1619	title=Faithfully	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	05 - I'll Be Alright Without You.flac	inode=952612	size=33779321	mtime=1758769860812.1619	title=I'll Be Alright Without You	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	06 - Any Way You Want It.flac	inode=943995	size=26094330	mtime=1758769870868.1619	title=Any Way You Want It	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	07 - Ask the Lonely.flac	inode=945062	size=31605121	mtime=1758769884348.1619	title=Ask the Lonely	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	08 - Who's Crying Now.flac	inode=939891	size=36305278	mtime=1758769900236.1619	title=Who's Crying Now	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	09 - Separate Ways (Worlds Apart).flac	inode=944897	size=43674673	mtime=1758769917540.1619	title=Separate Ways (Worlds Apart)	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	10 - Lights.flac	inode=488108	size=23168206	mtime=1758769928168.1619	title=Lights	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	11 - Lovin', Touchin', Squeezin'.flac	inode=914017	size=27936092	mtime=1758769939428.1619	title=Lovin', Touchin', Squeezin'	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	12 - Open Arms.flac	inode=945994	size=21920261	mtime=1758769955572.1619	title=Open Arms	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	13 - Girl Can't Help It.flac	inode=946746	size=29972430	mtime=1758769971456.1619	title=Girl Can't Help It	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	14 - Send Her My Love.flac	inode=885542	size=28917199	mtime=1758769983064.1619	title=Send Her My Love	album=Greatest Hits	artist=Journey	year=1988	cover=true
-	15 - Be Good to Yourself.flac	inode=947729	size=30898360	mtime=1758769997372.1619	title=Be Good to Yourself	album=Greatest Hits	artist=Journey	year=1988	cover=true
+	01 - Only the Young.flac	inode=919355	size=32797419	mtime=1758769806268.1619	title=Only the Young	album=Greatest Hits	artist=Journey	year=1988
+	02 - Don't Stop Believin'.flac	inode=921594	size=30710787	mtime=1758769831168.1619	title=Don't Stop Believin'	album=Greatest Hits	artist=Journey	year=1988
+	03 - Wheel in the Sky.flac	inode=952188	size=32124446	mtime=1758769818412.1619	title=Wheel in the Sky	album=Greatest Hits	artist=Journey	year=1988
+	04 - Faithfully.flac	inode=918413	size=32469561	mtime=1758769841832.1619	title=Faithfully	album=Greatest Hits	artist=Journey	year=1988
+	05 - I'll Be Alright Without You.flac	inode=952612	size=33779321	mtime=1758769860812.1619	title=I'll Be Alright Without You	album=Greatest Hits	artist=Journey	year=1988
+	06 - Any Way You Want It.flac	inode=943995	size=26094330	mtime=1758769870868.1619	title=Any Way You Want It	album=Greatest Hits	artist=Journey	year=1988
+	07 - Ask the Lonely.flac	inode=945062	size=31605121	mtime=1758769884348.1619	title=Ask the Lonely	album=Greatest Hits	artist=Journey	year=1988
+	08 - Who's Crying Now.flac	inode=939891	size=36305278	mtime=1758769900236.1619	title=Who's Crying Now	album=Greatest Hits	artist=Journey	year=1988
+	09 - Separate Ways (Worlds Apart).flac	inode=944897	size=43674673	mtime=1758769917540.1619	title=Separate Ways (Worlds Apart)	album=Greatest Hits	artist=Journey	year=1988
+	10 - Lights.flac	inode=488108	size=23168206	mtime=1758769928168.1619	title=Lights	album=Greatest Hits	artist=Journey	year=1988
+	11 - Lovin', Touchin', Squeezin'.flac	inode=914017	size=27936092	mtime=1758769939428.1619	title=Lovin', Touchin', Squeezin'	album=Greatest Hits	artist=Journey	year=1988
+	12 - Open Arms.flac	inode=945994	size=21920261	mtime=1758769955572.1619	title=Open Arms	album=Greatest Hits	artist=Journey	year=1988
+	13 - Girl Can't Help It.flac	inode=946746	size=29972430	mtime=1758769971456.1619	title=Girl Can't Help It	album=Greatest Hits	artist=Journey	year=1988
+	14 - Send Her My Love.flac	inode=885542	size=28917199	mtime=1758769983064.1619	title=Send Her My Love	album=Greatest Hits	artist=Journey	year=1988
+	15 - Be Good to Yourself.flac	inode=947729	size=30898360	mtime=1758769997372.1619	title=Be Good to Yourself	album=Greatest Hits	artist=Journey	year=1988
 	cover.jpg	inode=954116	size=1378140	mtime=1758769998020.1619
 Greatest Hits Volume 1	
-	Korn - 03 - Y'all Want A Single.mp3	inode=480900	size=5203968	mtime=1755334917372.4521	title=Y'all Want A Single	album=Greatest Hits Vol. 1	artist=Korn	year=2004	cover=true
-	Korn - 10 - Make Me Bad.mp3	inode=489382	size=6379520	mtime=1755334921512.4521	title=Make Me Bad	album=Greatest Hits Vol. 1	artist=Korn	year=2004	cover=true
-	Korn - 11 - Falling Away From Me.mp3	inode=491798	size=8300544	mtime=1755334915632.4521	title=Falling Away From Me	album=Greatest Hits Vol. 1	artist=Korn	year=2004	cover=true
-	Korn - 12 - Got The Life.mp3	inode=238761	size=6733824	mtime=1755334928048.4521	title=Got The Life	album=Greatest Hits Vol. 1	artist=Korn	year=2004	cover=true
-	Korn - 13 - Freak On A Leash.mp3	inode=808268	size=6391808	mtime=1755334931204.4521	title=Freak On A Leash	album=Greatest Hits Vol. 1	artist=Korn	year=2004	cover=true
+	Korn - 03 - Y'all Want A Single.mp3	inode=480900	size=5203968	mtime=1755334917372.4521	title=Y'all Want A Single	album=Greatest Hits Vol. 1	artist=Korn	year=2004
+	Korn - 10 - Make Me Bad.mp3	inode=489382	size=6379520	mtime=1755334921512.4521	title=Make Me Bad	album=Greatest Hits Vol. 1	artist=Korn	year=2004
+	Korn - 11 - Falling Away From Me.mp3	inode=491798	size=8300544	mtime=1755334915632.4521	title=Falling Away From Me	album=Greatest Hits Vol. 1	artist=Korn	year=2004
+	Korn - 12 - Got The Life.mp3	inode=238761	size=6733824	mtime=1755334928048.4521	title=Got The Life	album=Greatest Hits Vol. 1	artist=Korn	year=2004
+	Korn - 13 - Freak On A Leash.mp3	inode=808268	size=6391808	mtime=1755334931204.4521	title=Freak On A Leash	album=Greatest Hits Vol. 1	artist=Korn	year=2004
 In Times New Roman…	
-	01 Obscenery.m4a	inode=479104	size=4783957	mtime=1755215008311.6392	title=Obscenery	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	02 Paper Machete.m4a	inode=265281	size=4144666	mtime=1755215010139.6392	title=Paper Machete	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	03 Negative Space.m4a	inode=829390	size=4770485	mtime=1755215016071.6392	title=Negative Space	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	04 Time & Place.m4a	inode=829448	size=5682695	mtime=1755215020859.6392	title=Time & Place	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	05 Made to Parade.m4a	inode=828274	size=6086650	mtime=1755215023587.6392	title=Made to Parade	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	06 Carnavoyeur.m4a	inode=829153	size=4664211	mtime=1755215025763.6392	title=Carnavoyeur	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	07 What The Peephole Say.m4a	inode=829210	size=4601298	mtime=1755215027927.6392	title=What The Peephole Say	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	08 Sicily.m4a	inode=829217	size=5437439	mtime=1755215030583.6392	title=Sicily	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	09 Emotion Sickness.m4a	inode=829192	size=4700598	mtime=1755215033271.6392	title=Emotion Sickness	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
-	10 Straight Jacket Fitting.m4a	inode=823236	size=10407105	mtime=1755215046687.6392	title=Straight Jacket Fitting	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023	cover=true
+	01 Obscenery.m4a	inode=479104	size=4783957	mtime=1755215008311.6392	title=Obscenery	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	02 Paper Machete.m4a	inode=265281	size=4144666	mtime=1755215010139.6392	title=Paper Machete	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	03 Negative Space.m4a	inode=829390	size=4770485	mtime=1755215016071.6392	title=Negative Space	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	04 Time & Place.m4a	inode=829448	size=5682695	mtime=1755215020859.6392	title=Time & Place	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	05 Made to Parade.m4a	inode=828274	size=6086650	mtime=1755215023587.6392	title=Made to Parade	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	06 Carnavoyeur.m4a	inode=829153	size=4664211	mtime=1755215025763.6392	title=Carnavoyeur	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	07 What The Peephole Say.m4a	inode=829210	size=4601298	mtime=1755215027927.6392	title=What The Peephole Say	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	08 Sicily.m4a	inode=829217	size=5437439	mtime=1755215030583.6392	title=Sicily	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	09 Emotion Sickness.m4a	inode=829192	size=4700598	mtime=1755215033271.6392	title=Emotion Sickness	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
+	10 Straight Jacket Fitting.m4a	inode=823236	size=10407105	mtime=1755215046687.6392	title=Straight Jacket Fitting	album=In Times New Roman...	artist=Queens of the Stone Age	year=2023
 Labcabincalifornia	
-	01. The Pharcyde - Bullshit.mp3	inode=579704	size=10074958	mtime=1762217070993.6963	title=Bullshit	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	02. The Pharcyde - Pharcyde.mp3	inode=661979	size=10517981	mtime=1762217080817.6963	title=Pharcyde	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	03. The Pharcyde - Groupie Therapy.mp3	inode=229691	size=12560765	mtime=1762217088177.6963	title=Groupie Therapy	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	04. The Pharcyde - Runnin'.mp3	inode=638555	size=11903528	mtime=1762217097781.6963	title=Runnin'	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	05. The Pharcyde - She Said.mp3	inode=283189	size=12678864	mtime=1762217121521.6963	title=She Said	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	06. The Pharcyde - Splattitorium.mp3	inode=621387	size=7203589	mtime=1762217110381.6963	title=Splattitorium	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	07. The Pharcyde - Somethin' That Means Somethin'.mp3	inode=268971	size=8487802	mtime=1762217126141.6963	title=Somethin' That Means Somethin'	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	08. The Pharcyde - All Live.mp3	inode=911939	size=2147304	mtime=1762217130693.6963	title=All Live	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	09. The Pharcyde - Drop.mp3	inode=912397	size=13431163	mtime=1762217158353.6963	title=Drop	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	10. The Pharcyde - Hey You.mp3	inode=913355	size=9432364	mtime=1762217299433.696	title=Hey You	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	11. The Pharcyde - Y.mp3	inode=273660	size=12247319	mtime=1762217221285.6963	title=Y?	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	12. The Pharcyde - It's All Good!.mp3	inode=274539	size=1720997	mtime=1762217225861.6963	title=It's All Good!	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	13. The Pharcyde - Moment In Time.mp3	inode=288891	size=6614308	mtime=1762217240105.6963	title=Moment In Time	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	14. The Pharcyde - The Hustle.mp3	inode=273716	size=13444744	mtime=1762217246953.6963	title=The Hustle	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	15. The Pharcyde - Little D.mp3	inode=273532	size=3703157	mtime=1762217250785.6963	title=Little D	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	16. The Pharcyde - Devil Music.mp3	inode=991009	size=10166891	mtime=1762217266553.6963	title=Devil Music	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
-	17. The Pharcyde - The E.N.D..mp3	inode=290229	size=11252538	mtime=1762217287613.6963	title=The E.N.D.	album=Labcabincalifornia	artist=The Pharcyde	year=1995	cover=true
+	01. The Pharcyde - Bullshit.mp3	inode=579704	size=10074958	mtime=1762217070993.6963	title=Bullshit	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	02. The Pharcyde - Pharcyde.mp3	inode=661979	size=10517981	mtime=1762217080817.6963	title=Pharcyde	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	03. The Pharcyde - Groupie Therapy.mp3	inode=229691	size=12560765	mtime=1762217088177.6963	title=Groupie Therapy	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	04. The Pharcyde - Runnin'.mp3	inode=638555	size=11903528	mtime=1762217097781.6963	title=Runnin'	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	05. The Pharcyde - She Said.mp3	inode=283189	size=12678864	mtime=1762217121521.6963	title=She Said	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	06. The Pharcyde - Splattitorium.mp3	inode=621387	size=7203589	mtime=1762217110381.6963	title=Splattitorium	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	07. The Pharcyde - Somethin' That Means Somethin'.mp3	inode=268971	size=8487802	mtime=1762217126141.6963	title=Somethin' That Means Somethin'	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	08. The Pharcyde - All Live.mp3	inode=911939	size=2147304	mtime=1762217130693.6963	title=All Live	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	09. The Pharcyde - Drop.mp3	inode=912397	size=13431163	mtime=1762217158353.6963	title=Drop	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	10. The Pharcyde - Hey You.mp3	inode=913355	size=9432364	mtime=1762217299433.696	title=Hey You	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	11. The Pharcyde - Y.mp3	inode=273660	size=12247319	mtime=1762217221285.6963	title=Y?	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	12. The Pharcyde - It's All Good!.mp3	inode=274539	size=1720997	mtime=1762217225861.6963	title=It's All Good!	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	13. The Pharcyde - Moment In Time.mp3	inode=288891	size=6614308	mtime=1762217240105.6963	title=Moment In Time	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	14. The Pharcyde - The Hustle.mp3	inode=273716	size=13444744	mtime=1762217246953.6963	title=The Hustle	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	15. The Pharcyde - Little D.mp3	inode=273532	size=3703157	mtime=1762217250785.6963	title=Little D	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	16. The Pharcyde - Devil Music.mp3	inode=991009	size=10166891	mtime=1762217266553.6963	title=Devil Music	album=Labcabincalifornia	artist=The Pharcyde	year=1995
+	17. The Pharcyde - The E.N.D..mp3	inode=290229	size=11252538	mtime=1762217287613.6963	title=The E.N.D.	album=Labcabincalifornia	artist=The Pharcyde	year=1995
 	cover.jpg	inode=965541	size=238861	mtime=1762217289233.6963
 Lullabies to Paralyze (2005)	
-	01 - This Lullaby.flac	inode=832004	size=7344489	mtime=1755213308559.64	title=This Lullaby	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	01 - This Lullaby.flac	inode=832004	size=7344489	mtime=1755213308559.64	title=This Lullaby	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	01 - This Lullaby.lrc	inode=610325	size=665	mtime=1765603650332.0662
-	02 - Medication.flac	inode=832143	size=14133801	mtime=1755213321543.64	title=Medication	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	02 - Medication.flac	inode=832143	size=14133801	mtime=1755213321543.64	title=Medication	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	02 - Medication.lrc	inode=287250	size=629	mtime=1765603651376.0662
-	03 - Everybody Knows That You Are Insane.flac	inode=832496	size=31834825	mtime=1755213337491.64	title=Everybody Knows That You Are Insane	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	03 - Everybody Knows That You Are Insane.flac	inode=832496	size=31834825	mtime=1755213337491.64	title=Everybody Knows That You Are Insane	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	03 - Everybody Knows That You Are Insane.lrc	inode=1010193	size=1156	mtime=1765603652492.0662
-	04 - Tangled Up in Plaid.flac	inode=832234	size=30956291	mtime=1755213351095.64	title=Tangled Up in Plaid	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	04 - Tangled Up in Plaid.flac	inode=832234	size=30956291	mtime=1755213351095.64	title=Tangled Up in Plaid	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	04 - Tangled Up in Plaid.lrc	inode=1003469	size=1400	mtime=1765603653600.0662
-	05 - Burn the Witch.flac	inode=832604	size=23082190	mtime=1755213361435.64	title=Burn the Witch	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	05 - Burn the Witch.flac	inode=832604	size=23082190	mtime=1755213361435.64	title=Burn the Witch	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	05 - Burn the Witch.lrc	inode=969025	size=1193	mtime=1765603654956.0662
-	06 - In My Head.flac	inode=832635	size=30358458	mtime=1755213374383.64	title=In My Head	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	06 - In My Head.flac	inode=832635	size=30358458	mtime=1755213374383.64	title=In My Head	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	06 - In My Head.lrc	inode=1013333	size=1320	mtime=1765603655868.0662
-	07 - Little Sister.flac	inode=832607	size=20069067	mtime=1755213382939.64	title=Little Sister	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	07 - Little Sister.flac	inode=832607	size=20069067	mtime=1755213382939.64	title=Little Sister	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	07 - Little Sister.lrc	inode=996466	size=996	mtime=1765603656824.0662
-	08 - I Never Came.flac	inode=832751	size=31855655	mtime=1755213395887.64	title=I Never Came	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	08 - I Never Came.flac	inode=832751	size=31855655	mtime=1755213395887.64	title=I Never Came	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	08 - I Never Came.lrc	inode=1011366	size=1217	mtime=1765603657848.0662
-	09 - Someone’s in the Wolf.flac	inode=833092	size=51930149	mtime=1755213414363.64	title=Someone’s in the Wolf	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	09 - Someone’s in the Wolf.flac	inode=833092	size=51930149	mtime=1755213414363.64	title=Someone’s in the Wolf	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	09 - Someone’s in the Wolf.lrc	inode=1008818	size=1074	mtime=1765603658908.0662
-	10 - The Blood Is Love.flac	inode=832959	size=48093657	mtime=1755213429087.64	title=The Blood Is Love	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	10 - The Blood Is Love.flac	inode=832959	size=48093657	mtime=1755213429087.64	title=The Blood Is Love	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	10 - The Blood Is Love.lrc	inode=988645	size=1069	mtime=1765603659976.0662
-	11 - Skin on Skin.flac	inode=832717	size=24992527	mtime=1755213444271.64	title=Skin on Skin	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	11 - Skin on Skin.flac	inode=832717	size=24992527	mtime=1755213444271.64	title=Skin on Skin	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	11 - Skin on Skin.lrc	inode=942721	size=1212	mtime=1765603660828.0662
-	12 - Broken Box.flac	inode=832764	size=23152632	mtime=1755213457219.64	title=Broken Box	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	12 - Broken Box.flac	inode=832764	size=23152632	mtime=1755213457219.64	title=Broken Box	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	12 - Broken Box.lrc	inode=988691	size=1490	mtime=1765603661956.0662
-	13 - “You Got a Killer Scene There, Man…”.flac	inode=832964	size=32388202	mtime=1755213465959.64	title=“You Got a Killer Scene There, Man…”	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	13 - “You Got a Killer Scene There, Man…”.flac	inode=832964	size=32388202	mtime=1755213465959.64	title=“You Got a Killer Scene There, Man…”	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	13 - “You Got a Killer Scene There, Man…”.lrc	inode=296364	size=1632	mtime=1765603662996.0662
-	14 - Long Slow Goodbye.flac	inode=832910	size=42194571	mtime=1755213479631.64	title=Long Slow Goodbye	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	14 - Long Slow Goodbye.flac	inode=832910	size=42194571	mtime=1755213479631.64	title=Long Slow Goodbye	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	14 - Long Slow Goodbye.lrc	inode=988376	size=1234	mtime=1765603663964.0662
-	15 - Like a Drug.flac	inode=833198	size=19232034	mtime=1755213487887.64	title=Like a Drug	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005	cover=true
+	15 - Like a Drug.flac	inode=833198	size=19232034	mtime=1755213487887.64	title=Like a Drug	album=Lullabies to Paralyze	artist=Queens of the Stone Age	year=2005
 	15 - Like a Drug.lrc	inode=1004769	size=917	mtime=1765603664928.0662
 	album.nfo	inode=833470	size=2892	mtime=1755213553879.64
 	discart.png	inode=833239	size=378651	mtime=1755213555851.64
 	folder.jpg	inode=822505	size=378494	mtime=1755213557563.64
 NO_ONE EVER REALLY DIES (2017)	
-	01 Lemon.flac	inode=897859	size=44221203	mtime=1757176436922.243	title=Lemon	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	02 Deep Down Body Thurst.flac	inode=898057	size=47882512	mtime=1757176449946.243	title=Deep Down Body Thurst	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	03 Voilà.flac	inode=898815	size=53834478	mtime=1757176468310.243	title=Voilà	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	04 1000.flac	inode=867397	size=52677741	mtime=1757176484454.243	title=1000	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	05 Don't Don't Do It!.flac	inode=899156	size=51485906	mtime=1757176497466.243	title=Don't Don't Do It!	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	06 ESP.flac	inode=899887	size=65682306	mtime=1757176520766.243	title=ESP	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	07 Lightning Fire Magic Prayer.flac	inode=902093	size=94112819	mtime=1757176542210.243	title=Lightning Fire Magic Prayer	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	08 Rollinem 7's.flac	inode=894704	size=63216443	mtime=1757176557522.243	title=Rollinem 7's	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	09 Kites.flac	inode=794547	size=58475608	mtime=1757176573626.243	title=Kites	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	10 Secret Life Of Tigers.flac	inode=892953	size=43915075	mtime=1757176585058.243	title=Secret Life Of Tigers	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
-	11 Lifting You.flac	inode=871048	size=40161092	mtime=1757176595018.243	title=Lifting You	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017	cover=true
+	01 Lemon.flac	inode=897859	size=44221203	mtime=1757176436922.243	title=Lemon	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	02 Deep Down Body Thurst.flac	inode=898057	size=47882512	mtime=1757176449946.243	title=Deep Down Body Thurst	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	03 Voilà.flac	inode=898815	size=53834478	mtime=1757176468310.243	title=Voilà	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	04 1000.flac	inode=867397	size=52677741	mtime=1757176484454.243	title=1000	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	05 Don't Don't Do It!.flac	inode=899156	size=51485906	mtime=1757176497466.243	title=Don't Don't Do It!	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	06 ESP.flac	inode=899887	size=65682306	mtime=1757176520766.243	title=ESP	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	07 Lightning Fire Magic Prayer.flac	inode=902093	size=94112819	mtime=1757176542210.243	title=Lightning Fire Magic Prayer	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	08 Rollinem 7's.flac	inode=894704	size=63216443	mtime=1757176557522.243	title=Rollinem 7's	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	09 Kites.flac	inode=794547	size=58475608	mtime=1757176573626.243	title=Kites	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	10 Secret Life Of Tigers.flac	inode=892953	size=43915075	mtime=1757176585058.243	title=Secret Life Of Tigers	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
+	11 Lifting You.flac	inode=871048	size=40161092	mtime=1757176595018.243	title=Lifting You	album=NO ONE EVER REALLY DIES	artist=N.E.R.D	year=2017
 	album.nfo	inode=873885	size=1914	mtime=1757176595826.243
 Pearl Jam (2006)	
-	01 - Life Wasted.flac	inode=838208	size=172274436	mtime=1755342476780.4492	title=Life Wasted	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	02 - World Wide Suicide.flac	inode=286356	size=151303545	mtime=1755342498408.4492	title=World Wide Suicide	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	03 - Comatose.flac	inode=782532	size=102246798	mtime=1755342512160.4492	title=Comatose	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	04 - Severed Hand.flac	inode=486560	size=193747386	mtime=1755342542128.4492	title=Severed Hand	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	05 - Marker in the Sand.flac	inode=761771	size=190281900	mtime=1755342567192.4492	title=Marker in the Sand	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	06 - Parachutes.flac	inode=486865	size=152386567	mtime=1755342590992.4492	title=Parachutes	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	07 - Unemployable.flac	inode=483870	size=133365823	mtime=1755342612656.4492	title=Unemployable	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	08 - Big Wave.flac	inode=806008	size=130859062	mtime=1755342633992.449	title=Big Wave	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	09 - Gone.flac	inode=486745	size=176333112	mtime=1755342675276.449	title=Gone	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	10 - Wasted Reprise.flac	inode=837925	size=34530247	mtime=1755342679792.449	title=Wasted Reprise	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	11 - Army Reserve.flac	inode=763042	size=158942968	mtime=1755437874415	title=Army Reserve	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	12 - Come Back.flac	inode=481291	size=232466617	mtime=1755437904567	title=Come Back	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
-	13 - Inside Job.flac	inode=478213	size=293672087	mtime=1755437937755	title=Inside Job	album=Pearl Jam	artist=Pearl Jam	year=2006	cover=true
+	01 - Life Wasted.flac	inode=838208	size=172274436	mtime=1755342476780.4492	title=Life Wasted	album=Pearl Jam	artist=Pearl Jam	year=2006
+	02 - World Wide Suicide.flac	inode=286356	size=151303545	mtime=1755342498408.4492	title=World Wide Suicide	album=Pearl Jam	artist=Pearl Jam	year=2006
+	03 - Comatose.flac	inode=782532	size=102246798	mtime=1755342512160.4492	title=Comatose	album=Pearl Jam	artist=Pearl Jam	year=2006
+	04 - Severed Hand.flac	inode=486560	size=193747386	mtime=1755342542128.4492	title=Severed Hand	album=Pearl Jam	artist=Pearl Jam	year=2006
+	05 - Marker in the Sand.flac	inode=761771	size=190281900	mtime=1755342567192.4492	title=Marker in the Sand	album=Pearl Jam	artist=Pearl Jam	year=2006
+	06 - Parachutes.flac	inode=486865	size=152386567	mtime=1755342590992.4492	title=Parachutes	album=Pearl Jam	artist=Pearl Jam	year=2006
+	07 - Unemployable.flac	inode=483870	size=133365823	mtime=1755342612656.4492	title=Unemployable	album=Pearl Jam	artist=Pearl Jam	year=2006
+	08 - Big Wave.flac	inode=806008	size=130859062	mtime=1755342633992.449	title=Big Wave	album=Pearl Jam	artist=Pearl Jam	year=2006
+	09 - Gone.flac	inode=486745	size=176333112	mtime=1755342675276.449	title=Gone	album=Pearl Jam	artist=Pearl Jam	year=2006
+	10 - Wasted Reprise.flac	inode=837925	size=34530247	mtime=1755342679792.449	title=Wasted Reprise	album=Pearl Jam	artist=Pearl Jam	year=2006
+	11 - Army Reserve.flac	inode=763042	size=158942968	mtime=1755437874415	title=Army Reserve	album=Pearl Jam	artist=Pearl Jam	year=2006
+	12 - Come Back.flac	inode=481291	size=232466617	mtime=1755437904567	title=Come Back	album=Pearl Jam	artist=Pearl Jam	year=2006
+	13 - Inside Job.flac	inode=478213	size=293672087	mtime=1755437937755	title=Inside Job	album=Pearl Jam	artist=Pearl Jam	year=2006
 Pending	
 	2001 - Comfort Eagle	
-		07 Comfort Eagle.flac	inode=1030946	size=27079140	mtime=1767684156784.5396	title=Comfort Eagle	album=Comfort Eagle	artist=CAKE	year=2001	cover=true
+		07 Comfort Eagle.flac	inode=1030946	size=27079140	mtime=1767684156784.5396	title=Comfort Eagle	album=Comfort Eagle	artist=CAKE	year=2001
 	A Beautiful Lie	
-		3. The Kill.flac	inode=663493	size=28958608	mtime=1761778184467.8372	title=The Kill	album=A Beautiful Lie	artist=Thirty Seconds to Mars	cover=true
+		3. The Kill.flac	inode=663493	size=28958608	mtime=1761778184467.8372	title=The Kill	album=A Beautiful Lie	artist=Thirty Seconds to Mars
 	As Good as Dead (1996)	
-		Local H - As Good as Dead - 01 - Manifest Density, Part 1.mp3	inode=290280	size=2038894	mtime=1767241146986.1694	title=Manifest Density, Part 1	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 02 - High‐Fiving MF.mp3	inode=993784	size=10326244	mtime=1767241131714.1694	title=High‐Fiving MF	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 03 - Bound for the Floor.mp3	inode=265790	size=8080926	mtime=1767241152754.1694	title=Bound for the Floor	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 04 - Lovey Dovey.mp3	inode=294101	size=6129337	mtime=1767241143586.1694	title=Lovey Dovey	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 05 - I Saw What You Did and I Know Who You Are.mp3	inode=971870	size=7143331	mtime=1767241159382.1694	title=I Saw What You Did and I Know Who You Are	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 06 - No Problem.mp3	inode=322913	size=8503709	mtime=1767241142302.1694	title=No Problem	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 07 - Nothing Special.mp3	inode=989537	size=8540355	mtime=1767241129534.1694	title=Nothing Special	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 08 - Eddie Vedder.mp3	inode=280890	size=7453137	mtime=1767241151122.1694	title=Eddie Vedder	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 09 - Back in the Day.mp3	inode=968165	size=7820396	mtime=1767241135706.1694	title=Back in the Day	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 10 - Freeze‐Dried (F)lies.mp3	inode=995897	size=8705350	mtime=1767241125686.1694	title=Freeze‐Dried (F)lies	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 11 - Fritz’s Corner.mp3	inode=987443	size=6306077	mtime=1767241155970.1694	title=Fritz’s Corner	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 12 - O.K.mp3	inode=1004586	size=14258392	mtime=1767241154826.1694	title=O.K.	album=As Good as Dead	artist=Local H	year=1996	cover=true
-		Local H - As Good as Dead - 13 - Manifest Density, Part 2.mp3	inode=670914	size=10136693	mtime=1767241138598.1694	title=Manifest Density, Part 2	album=As Good as Dead	artist=Local H	year=1996	cover=true
+		Local H - As Good as Dead - 01 - Manifest Density, Part 1.mp3	inode=290280	size=2038894	mtime=1767241146986.1694	title=Manifest Density, Part 1	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 02 - High‐Fiving MF.mp3	inode=993784	size=10326244	mtime=1767241131714.1694	title=High‐Fiving MF	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 03 - Bound for the Floor.mp3	inode=265790	size=8080926	mtime=1767241152754.1694	title=Bound for the Floor	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 04 - Lovey Dovey.mp3	inode=294101	size=6129337	mtime=1767241143586.1694	title=Lovey Dovey	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 05 - I Saw What You Did and I Know Who You Are.mp3	inode=971870	size=7143331	mtime=1767241159382.1694	title=I Saw What You Did and I Know Who You Are	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 06 - No Problem.mp3	inode=322913	size=8503709	mtime=1767241142302.1694	title=No Problem	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 07 - Nothing Special.mp3	inode=989537	size=8540355	mtime=1767241129534.1694	title=Nothing Special	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 08 - Eddie Vedder.mp3	inode=280890	size=7453137	mtime=1767241151122.1694	title=Eddie Vedder	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 09 - Back in the Day.mp3	inode=968165	size=7820396	mtime=1767241135706.1694	title=Back in the Day	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 10 - Freeze‐Dried (F)lies.mp3	inode=995897	size=8705350	mtime=1767241125686.1694	title=Freeze‐Dried (F)lies	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 11 - Fritz’s Corner.mp3	inode=987443	size=6306077	mtime=1767241155970.1694	title=Fritz’s Corner	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 12 - O.K.mp3	inode=1004586	size=14258392	mtime=1767241154826.1694	title=O.K.	album=As Good as Dead	artist=Local H	year=1996
+		Local H - As Good as Dead - 13 - Manifest Density, Part 2.mp3	inode=670914	size=10136693	mtime=1767241138598.1694	title=Manifest Density, Part 2	album=As Good as Dead	artist=Local H	year=1996
 	CD 01	
-		Radiohead - OK Computer - 02 - Paranoid Android.flac	inode=663695	size=48174559	mtime=1761778266747.8372	title=Paranoid Android	album=OK Computer	artist=Radiohead	year=2009	cover=true
-		Radiohead - OK Computer - 06 - Karma Police.flac	inode=662983	size=32230435	mtime=1761778284843.8372	title=Karma Police	album=OK Computer	artist=Radiohead	year=2009	cover=true
+		Radiohead - OK Computer - 02 - Paranoid Android.flac	inode=663695	size=48174559	mtime=1761778266747.8372	title=Paranoid Android	album=OK Computer	artist=Radiohead	year=2009
+		Radiohead - OK Computer - 06 - Karma Police.flac	inode=662983	size=32230435	mtime=1761778284843.8372	title=Karma Police	album=OK Computer	artist=Radiohead	year=2009
 	California 37	
-		Train - Drive By.flac	inode=665375	size=26229053	mtime=1761778264459.8372	title=Drive By	album=California 37	artist=Train	year=2012	cover=true
+		Train - Drive By.flac	inode=665375	size=26229053	mtime=1761778264459.8372	title=Drive By	album=California 37	artist=Train	year=2012
 	Deathconsciousness (2008)	
-		05 - Telefony.flac	inode=1060099	size=26885319	mtime=1768278599802.123	title=Telefony	album=Deathconsciousness	artist=Have a Nice Life	year=2014	cover=true
-		09 - Holy Fucking Shit 40,000.flac	inode=1060017	size=42487187	mtime=1768278596858.123	title=Holy Fucking Shit: 40,000	album=Deathconsciousness	artist=Have a Nice Life	year=2014	cover=true
+		05 - Telefony.flac	inode=1060099	size=26885319	mtime=1768278599802.123	title=Telefony	album=Deathconsciousness	artist=Have a Nice Life	year=2014
+		09 - Holy Fucking Shit 40,000.flac	inode=1060017	size=42487187	mtime=1768278596858.123	title=Holy Fucking Shit: 40,000	album=Deathconsciousness	artist=Have a Nice Life	year=2014
 	Drops of Jupiter (2001)	
-		Train - Drops of Jupiter - 03 - Drops Of Jupiter.flac	inode=664073	size=100980470	mtime=1761778276791.8372	title=Drops Of Jupiter	album=Drops of Jupiter	artist=Train	year=2001	cover=true
+		Train - Drops of Jupiter - 03 - Drops Of Jupiter.flac	inode=664073	size=100980470	mtime=1761778276791.8372	title=Drops Of Jupiter	album=Drops of Jupiter	artist=Train	year=2001
 	Fashion Nugget	
-		01 Frank Sinatra.flac	inode=1040917	size=23619153	mtime=1767684173652.5396	title=Frank Sinatra	album=Fashion Nugget	artist=CAKE	year=1996	cover=true
+		01 Frank Sinatra.flac	inode=1040917	size=23619153	mtime=1767684173652.5396	title=Frank Sinatra	album=Fashion Nugget	artist=CAKE	year=1996
 	Foster the People	
-		Foster The People - Pumped Up Kicks.flac	inode=259570	size=28168815	mtime=1761778275059.8372	title=Pumped Up Kicks	album=Torches X (Deluxe Edition)	artist=Foster The People	year=2021	cover=true
+		Foster The People - Pumped Up Kicks.flac	inode=259570	size=28168815	mtime=1761778275059.8372	title=Pumped Up Kicks	album=Torches X (Deluxe Edition)	artist=Foster The People	year=2021
 	Get Some	
 		01 Snot.lrc	inode=740558	size=3466	mtime=1765034426814.5254
 		01 Snot.mp3	inode=960971	size=8117996	mtime=1765034496366.5251	title=Snot	album=Get Some	artist=Snot	year=1997
@@ -347,220 +347,222 @@ Pending
 		15 My Balls.lrc	inode=972303	size=3392	mtime=1765034482098.5251
 		15 My Balls.mp3	inode=631543	size=7088728	mtime=1765034551878.5251	title=My Balls	album=Get Some	artist=Snot	year=1997
 	Graduation [E]	
-		01. Good Morning.flac	inode=647865	size=23142966	mtime=1761780702079.8362	title=Good Morning	album=Graduation	artist=Ye	year=2010	cover=true
+		01. Good Morning.flac	inode=647865	size=23142966	mtime=1761780702079.8362	title=Good Morning	album=Graduation	artist=Ye	year=2010
 		01. Good Morning.lrc	inode=643476	size=2974	mtime=1761780098259.8364
-		02. Champion.flac	inode=663605	size=19992056	mtime=1761780154531.8364	title=Champion	album=Graduation	artist=Ye	year=2010	cover=true
+		02. Champion.flac	inode=663605	size=19992056	mtime=1761780154531.8364	title=Champion	album=Graduation	artist=Ye	year=2010
 		02. Champion.lrc	inode=665507	size=3326	mtime=1761780155359.8364
-		03. Stronger.flac	inode=647529	size=38521586	mtime=1761780235923.8364	title=Stronger	album=Graduation	artist=Ye	year=2010	cover=true
+		03. Stronger.flac	inode=647529	size=38521586	mtime=1761780235923.8364	title=Stronger	album=Graduation	artist=Ye	year=2010
 		03. Stronger.lrc	inode=924639	size=5930	mtime=1761780234819.8364
-		04. I Wonder.flac	inode=627678	size=25779607	mtime=1761780305447.8364	title=I Wonder	album=Graduation	artist=Ye	year=2010	cover=true
+		04. I Wonder.flac	inode=627678	size=25779607	mtime=1761780305447.8364	title=I Wonder	album=Graduation	artist=Ye	year=2010
 		04. I Wonder.lrc	inode=267687	size=2401	mtime=1761780427327.8364
-		05. Good Life.flac	inode=640852	size=26603168	mtime=1761780513663.8362	title=Good Life	album=Graduation	artist=Ye	year=2010	cover=true
+		05. Good Life.flac	inode=640852	size=26603168	mtime=1761780513663.8362	title=Good Life	album=Graduation	artist=Ye	year=2010
 		05. Good Life.lrc	inode=624073	size=3668	mtime=1761780514363.8362
-		06. Can't Tell Me Nothing.flac	inode=637935	size=33447733	mtime=1761780427115.8364	title=Can’t Tell Me Nothing	album=Graduation	artist=Ye	year=2010	cover=true
+		06. Can't Tell Me Nothing.flac	inode=637935	size=33447733	mtime=1761780427115.8364	title=Can’t Tell Me Nothing	album=Graduation	artist=Ye	year=2010
 		06. Can't Tell Me Nothing.lrc	inode=615930	size=4219	mtime=1761780515143.8362
-		07. Barry Bonds.flac	inode=983710	size=21902714	mtime=1761780523823.8362	title=Barry Bonds	album=Graduation	artist=Ye	year=2010	cover=true
+		07. Barry Bonds.flac	inode=983710	size=21902714	mtime=1761780523823.8362	title=Barry Bonds	album=Graduation	artist=Ye	year=2010
 		07. Barry Bonds.lrc	inode=628527	size=3209	mtime=1761780513923.8362
-		08. Drunk and Hot Girls.flac	inode=615786	size=36468772	mtime=1761780446455.8364	title=Drunk and Hot Girls	album=Graduation	artist=Ye	year=2010	cover=true
+		08. Drunk and Hot Girls.flac	inode=615786	size=36468772	mtime=1761780446455.8364	title=Drunk and Hot Girls	album=Graduation	artist=Ye	year=2010
 		08. Drunk and Hot Girls.lrc	inode=983803	size=3128	mtime=1761780523803.8362
-		09. Flashing Lights.flac	inode=662872	size=29187412	mtime=1761780556547.8362	title=Flashing Lights	album=Graduation	artist=Ye	year=2010	cover=true
+		09. Flashing Lights.flac	inode=662872	size=29187412	mtime=1761780556547.8362	title=Flashing Lights	album=Graduation	artist=Ye	year=2010
 		09. Flashing Lights.lrc	inode=29479	size=2548	mtime=1761780427935.8364
-		10. Everything I Am.flac	inode=625728	size=26810067	mtime=1761780535427.8362	title=Everything I Am	album=Graduation	artist=Ye	year=2010	cover=true
+		10. Everything I Am.flac	inode=625728	size=26810067	mtime=1761780535427.8362	title=Everything I Am	album=Graduation	artist=Ye	year=2010
 		10. Everything I Am.lrc	inode=625948	size=3092	mtime=1761780535131.8362
-		11. The Glory.flac	inode=623469	size=24787489	mtime=1761780546167.8362	title=The Glory	album=Graduation	artist=Ye	year=2010	cover=true
+		11. The Glory.flac	inode=623469	size=24787489	mtime=1761780546167.8362	title=The Glory	album=Graduation	artist=Ye	year=2010
 		11. The Glory.lrc	inode=638846	size=4301	mtime=1761780545855.8362
-		12. Homecoming.flac	inode=961049	size=25119101	mtime=1761780714019.8362	title=Homecoming	album=Graduation	artist=Ye	year=2010	cover=true
+		12. Homecoming.flac	inode=961049	size=25119101	mtime=1761780714019.8362	title=Homecoming	album=Graduation	artist=Ye	year=2010
 		12. Homecoming.lrc	inode=642576	size=3235	mtime=1761780556247.8362
-		13. Big Brother.flac	inode=258017	size=35914424	mtime=1761780663451.8362	title=Big Brother	album=Graduation	artist=Ye	year=2010	cover=true
+		13. Big Brother.flac	inode=258017	size=35914424	mtime=1761780663451.8362	title=Big Brother	album=Graduation	artist=Ye	year=2010
 		13. Big Brother.lrc	inode=661927	size=4888	mtime=1761780665043.8362
-		14. Good Night.flac	inode=645009	size=22595068	mtime=1761780673295.8362	title=Good Night	album=Graduation	artist=Ye	year=2010	cover=true
+		14. Good Night.flac	inode=645009	size=22595068	mtime=1761780673295.8362	title=Good Night	album=Graduation	artist=Ye	year=2010
 		14. Good Night.lrc	inode=644937	size=2798	mtime=1761780672963.8362
 		cover.jpg	inode=856221	size=1654180	mtime=1761780664251.8362
 	Labcabincalifornia (1995)	
-		204 - Runnin’ instrumental.flac	inode=302553	size=35279078	mtime=1766126783542.8262	title=Runnin’ (instrumental)	album=Labcabincalifornia	artist=The Pharcyde	year=2012	cover=true
+		204 - Runnin’ instrumental.flac	inode=302553	size=35279078	mtime=1766126783542.8262	title=Runnin’ (instrumental)	album=Labcabincalifornia	artist=The Pharcyde	year=2012
 	Madvillainy	
-		01 The Illest Villains.mp3	inode=268188	size=4789557	mtime=1762036301529.6677	title=The Illest Villains	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		02 Accordion.mp3	inode=268774	size=6039245	mtime=1762036307721.6677	title=Accordion	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		03 Meat Grinder.mp3	inode=269234	size=4335019	mtime=1762036311205.6677	title=Meat Grinder	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		04 Bistro.mp3	inode=666193	size=2876335	mtime=1762036312897.6677	title=Bistro	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		05 Raid.mp3	inode=267396	size=6190786	mtime=1762036318489.6677	title=Raid	album=Madvillainy	artist=Madvillain feat. MED	year=2004	cover=true
-		06 America’s Most Blunted.mp3	inode=231023	size=9533418	mtime=1762036333325.6677	title=America’s Most Blunted	album=Madvillainy	artist=Madvillain feat. Quasimoto	year=2004	cover=true
-		07 Sickfit (instrumental).mp3	inode=668016	size=3418653	mtime=1762036322501.6677	title=Sickfit (instrumental)	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		08 Rainbows.mp3	inode=268548	size=7072648	mtime=1762036338025.6677	title=Rainbows	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		09 Curls.mp3	inode=268966	size=3994375	mtime=1762036342493.6677	title=Curls	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		10 Do Not Fire! (instrumental).mp3	inode=269466	size=2282855	mtime=1762036344885.6677	title=Do Not Fire! (instrumental)	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		11 Money Folder.mp3	inode=269473	size=7484342	mtime=1762036350921.6677	title=Money Folder	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		12 Shadows of Tomorrow.mp3	inode=269486	size=6422755	mtime=1762036355457.6677	title=Shadows of Tomorrow	album=Madvillainy	artist=Madvillain feat. Quasimoto	year=2004	cover=true
-		13 Operation Lifesaver aka Mint Test.mp3	inode=267172	size=3790652	mtime=1762036358289.6677	title=Operation Lifesaver aka Mint Test	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		14 Figaro.mp3	inode=665973	size=5986998	mtime=1762036363565.6677	title=Figaro	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		15 Hardcore Hustle.mp3	inode=665574	size=3450016	mtime=1762036367261.6677	title=Hardcore Hustle	album=Madvillainy	artist=Madvillain feat. Wildchild	year=2004	cover=true
-		16 Strange Ways.mp3	inode=230594	size=4638040	mtime=1762036371521.6677	title=Strange Ways	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		17 Fancy Clown.mp3	inode=269709	size=4805249	mtime=1762036376457.6677	title=Fancy Clown	album=Madvillainy	artist=Madvillain feat. Viktor Vaughn	year=2004	cover=true
-		18 Eye.mp3	inode=266866	size=4881516	mtime=1762036381061.6677	title=Eye	album=Madvillainy	artist=Madvillain feat. Stacy Epps	year=2004	cover=true
-		19 Supervillain Theme (instrumental).mp3	inode=660245	size=2282861	mtime=1762036383317.6677	title=Supervillain Theme (instrumental)	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		20 All Caps.mp3	inode=632622	size=5391408	mtime=1762036387569.6677	title=All Caps	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		21 Great Day.mp3	inode=266923	size=5904454	mtime=1762036392705.6677	title=Great Day	album=Madvillainy	artist=Madvillain	year=2004	cover=true
-		22 Rhinestone Cowboy.mp3	inode=642945	size=9508315	mtime=1762036399961.6677	title=Rhinestone Cowboy	album=Madvillainy	artist=Madvillain	year=2004	cover=true
+		01 The Illest Villains.mp3	inode=268188	size=4789557	mtime=1762036301529.6677	title=The Illest Villains	album=Madvillainy	artist=Madvillain	year=2004
+		02 Accordion.mp3	inode=268774	size=6039245	mtime=1762036307721.6677	title=Accordion	album=Madvillainy	artist=Madvillain	year=2004
+		03 Meat Grinder.mp3	inode=269234	size=4335019	mtime=1762036311205.6677	title=Meat Grinder	album=Madvillainy	artist=Madvillain	year=2004
+		04 Bistro.mp3	inode=666193	size=2876335	mtime=1762036312897.6677	title=Bistro	album=Madvillainy	artist=Madvillain	year=2004
+		05 Raid.mp3	inode=267396	size=6190786	mtime=1762036318489.6677	title=Raid	album=Madvillainy	artist=Madvillain feat. MED	year=2004
+		06 America’s Most Blunted.mp3	inode=231023	size=9533418	mtime=1762036333325.6677	title=America’s Most Blunted	album=Madvillainy	artist=Madvillain feat. Quasimoto	year=2004
+		07 Sickfit (instrumental).mp3	inode=668016	size=3418653	mtime=1762036322501.6677	title=Sickfit (instrumental)	album=Madvillainy	artist=Madvillain	year=2004
+		08 Rainbows.mp3	inode=268548	size=7072648	mtime=1762036338025.6677	title=Rainbows	album=Madvillainy	artist=Madvillain	year=2004
+		09 Curls.mp3	inode=268966	size=3994375	mtime=1762036342493.6677	title=Curls	album=Madvillainy	artist=Madvillain	year=2004
+		10 Do Not Fire! (instrumental).mp3	inode=269466	size=2282855	mtime=1762036344885.6677	title=Do Not Fire! (instrumental)	album=Madvillainy	artist=Madvillain	year=2004
+		11 Money Folder.mp3	inode=269473	size=7484342	mtime=1762036350921.6677	title=Money Folder	album=Madvillainy	artist=Madvillain	year=2004
+		12 Shadows of Tomorrow.mp3	inode=269486	size=6422755	mtime=1762036355457.6677	title=Shadows of Tomorrow	album=Madvillainy	artist=Madvillain feat. Quasimoto	year=2004
+		13 Operation Lifesaver aka Mint Test.mp3	inode=267172	size=3790652	mtime=1762036358289.6677	title=Operation Lifesaver aka Mint Test	album=Madvillainy	artist=Madvillain	year=2004
+		14 Figaro.mp3	inode=665973	size=5986998	mtime=1762036363565.6677	title=Figaro	album=Madvillainy	artist=Madvillain	year=2004
+		15 Hardcore Hustle.mp3	inode=665574	size=3450016	mtime=1762036367261.6677	title=Hardcore Hustle	album=Madvillainy	artist=Madvillain feat. Wildchild	year=2004
+		16 Strange Ways.mp3	inode=230594	size=4638040	mtime=1762036371521.6677	title=Strange Ways	album=Madvillainy	artist=Madvillain	year=2004
+		17 Fancy Clown.mp3	inode=269709	size=4805249	mtime=1762036376457.6677	title=Fancy Clown	album=Madvillainy	artist=Madvillain feat. Viktor Vaughn	year=2004
+		18 Eye.mp3	inode=266866	size=4881516	mtime=1762036381061.6677	title=Eye	album=Madvillainy	artist=Madvillain feat. Stacy Epps	year=2004
+		19 Supervillain Theme (instrumental).mp3	inode=660245	size=2282861	mtime=1762036383317.6677	title=Supervillain Theme (instrumental)	album=Madvillainy	artist=Madvillain	year=2004
+		20 All Caps.mp3	inode=632622	size=5391408	mtime=1762036387569.6677	title=All Caps	album=Madvillainy	artist=Madvillain	year=2004
+		21 Great Day.mp3	inode=266923	size=5904454	mtime=1762036392705.6677	title=Great Day	album=Madvillainy	artist=Madvillain	year=2004
+		22 Rhinestone Cowboy.mp3	inode=642945	size=9508315	mtime=1762036399961.6677	title=Rhinestone Cowboy	album=Madvillainy	artist=Madvillain	year=2004
 		cover.jpg	inode=267202	size=59294	mtime=1762036400617.6677
 	Nevermind (Remastered)	
-		01 Smells Like Teen Spirit.flac	inode=662539	size=119021022	mtime=1761915545758.4688	title=Smells Like Teen Spirit	album=Nevermind	artist=Nirvana	cover=true
+		01 Smells Like Teen Spirit.flac	inode=662539	size=119021022	mtime=1761915545758.4688	title=Smells Like Teen Spirit	album=Nevermind	artist=Nirvana
 		02 In Bloom	inode=672488	size=1251	mtime=1761915488086.4688
-		02 In Bloom.flac	inode=232368	size=102903232	mtime=1761944647919.6453	title=In Bloom	album=Nevermind	artist=Nirvana	cover=true
+		02 In Bloom.flac	inode=232368	size=102903232	mtime=1761944647919.6453	title=In Bloom	album=Nevermind	artist=Nirvana
 		03 Come As You Are	inode=888283	size=648	mtime=1761915567882.4688
-		03 Come As You Are.flac	inode=644451	size=85201861	mtime=1761915510902.4688	title=Come as You Are	album=Nevermind	artist=Nirvana	cover=true
+		03 Come As You Are.flac	inode=644451	size=85201861	mtime=1761915510902.4688	title=Come as You Are	album=Nevermind	artist=Nirvana
 		04 Breed	inode=615162	size=1334	mtime=1761915545770.4688
-		04 Breed.flac	inode=888130	size=74016603	mtime=1761915687782.4688	title=Breed	album=Nevermind	artist=Nirvana	cover=true
+		04 Breed.flac	inode=888130	size=74016603	mtime=1761915687782.4688	title=Breed	album=Nevermind	artist=Nirvana
 		05 Lithium	inode=664425	size=1469	mtime=1761915544666.4688
-		05 Lithium.flac	inode=626879	size=97673147	mtime=1761915798090.4688	title=Lithium	album=Nevermind	artist=Nirvana	cover=true
+		05 Lithium.flac	inode=626879	size=97673147	mtime=1761915798090.4688	title=Lithium	album=Nevermind	artist=Nirvana
 		06 Polly	inode=371466	size=1035	mtime=1761915546994.4688
-		06 Polly.flac	inode=888148	size=65137029	mtime=1761915568926.4688	title=Polly	album=Nevermind	artist=Nirvana	cover=true
+		06 Polly.flac	inode=888148	size=65137029	mtime=1761915568926.4688	title=Polly	album=Nevermind	artist=Nirvana
 		07 Territorial Pissings	inode=671967	size=883	mtime=1761915795626.4688
-		07 Territorial Pissings.flac	inode=228568	size=57995080	mtime=1761915611378.4688	title=Territorial Pissings	album=Nevermind	artist=Nirvana	cover=true
-		08 Drain You.flac	inode=672918	size=89275199	mtime=1761916008130.4685	title=Drain You	album=Nevermind	artist=Nirvana	cover=true
-		09 Lounge Act.flac	inode=230056	size=62224332	mtime=1761916090010.4685	title=Lounge Act	album=Nevermind	artist=Nirvana	cover=true
-		10 Stay Away.flac	inode=239561	size=82663985	mtime=1761916177682.4685	title=Stay Away	album=Nevermind	artist=Nirvana	cover=true
-		11 On A Plain.flac	inode=671888	size=78327266	mtime=1761916253374.4685	title=On a Plain	album=Nevermind	artist=Nirvana	cover=true
-		12 Something In The Way.flac	inode=615241	size=81725390	mtime=1761916273578.4685	title=Something in the Way	album=Nevermind	artist=Nirvana	cover=true
-		13 Endless, Nameless.flac	inode=271916	size=153504977	mtime=1761916307082.4685	title=Endless, Nameless	album=Nevermind	artist=Nirvana	cover=true
+		07 Territorial Pissings.flac	inode=228568	size=57995080	mtime=1761915611378.4688	title=Territorial Pissings	album=Nevermind	artist=Nirvana
+		08 Drain You.flac	inode=672918	size=89275199	mtime=1761916008130.4685	title=Drain You	album=Nevermind	artist=Nirvana
+		09 Lounge Act.flac	inode=230056	size=62224332	mtime=1761916090010.4685	title=Lounge Act	album=Nevermind	artist=Nirvana
+		10 Stay Away.flac	inode=239561	size=82663985	mtime=1761916177682.4685	title=Stay Away	album=Nevermind	artist=Nirvana
+		11 On A Plain.flac	inode=671888	size=78327266	mtime=1761916253374.4685	title=On a Plain	album=Nevermind	artist=Nirvana
+		12 Something In The Way.flac	inode=615241	size=81725390	mtime=1761916273578.4685	title=Something in the Way	album=Nevermind	artist=Nirvana
+		13 Endless, Nameless.flac	inode=271916	size=153504977	mtime=1761916307082.4685	title=Endless, Nameless	album=Nevermind	artist=Nirvana
 		discart.jpeg	inode=675779	size=389682	mtime=1761916304658.4685
 		discart.png	inode=666812	size=607770	mtime=1761916306398.4685
 		folder.jpg	inode=662978	size=263502	mtime=1761916308050.4685
 	Swimming (2018)	
-		Mac Miller - Swimming - 02 - Hurt Feelings.flac	inode=258134	size=47169279	mtime=1761778265959.8372	title=Hurt Feelings	album=Swimming	artist=Mac Miller	year=2018	cover=true
+		Mac Miller - Swimming - 02 - Hurt Feelings.flac	inode=258134	size=47169279	mtime=1761778265959.8372	title=Hurt Feelings	album=Swimming	artist=Mac Miller	year=2018
 	The Boy Who Died Wolf (2016)	
-		Highly Suspect - The Boy Who Died Wolf - 01 - My Name Is Human.flac	inode=622678	size=33024903	mtime=1761778265279.8372	title=My Name Is Human	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 02 - Look Alive, Stay Alive.flac	inode=233269	size=17340520	mtime=1761966934628.0068	title=Look Alive, Stay Alive	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 03 - Little One.flac	inode=907702	size=27026170	mtime=1761778276047.8372	title=Little One	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 04 - For Billy.flac	inode=643580	size=29106918	mtime=1761778280455.8372	title=For Billy	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 05 - Serotonia.flac	inode=485658	size=40677843	mtime=1761778278615.8372	title=Serotonia	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 06 - Postres.flac	inode=644575	size=19446550	mtime=1761778283331.8372	title=Postres	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 07 - Send Me an Angel.flac	inode=270815	size=32757454	mtime=1761778276943.8372	title=Send Me an Angel	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 08 - Viper Strike.flac	inode=666074	size=24288369	mtime=1761778284687.8372	title=Viper Strike	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 09 - F.W.Y.T.flac	inode=262410	size=22192334	mtime=1761778276511.8372	title=F.W.Y.T	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 10 - Chicago.flac	inode=665450	size=21390521	mtime=1761778284811.8372	title=Chicago	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
-		Highly Suspect - The Boy Who Died Wolf - 11 - Wolf.flac	inode=254359	size=45572331	mtime=1761778284659.8372	title=Wolf	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016	cover=true
+		Highly Suspect - The Boy Who Died Wolf - 01 - My Name Is Human.flac	inode=622678	size=33024903	mtime=1761778265279.8372	title=My Name Is Human	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 02 - Look Alive, Stay Alive.flac	inode=233269	size=17340520	mtime=1761966934628.0068	title=Look Alive, Stay Alive	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 03 - Little One.flac	inode=907702	size=27026170	mtime=1761778276047.8372	title=Little One	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 04 - For Billy.flac	inode=643580	size=29106918	mtime=1761778280455.8372	title=For Billy	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 05 - Serotonia.flac	inode=485658	size=40677843	mtime=1761778278615.8372	title=Serotonia	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 06 - Postres.flac	inode=644575	size=19446550	mtime=1761778283331.8372	title=Postres	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 07 - Send Me an Angel.flac	inode=270815	size=32757454	mtime=1761778276943.8372	title=Send Me an Angel	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 08 - Viper Strike.flac	inode=666074	size=24288369	mtime=1761778284687.8372	title=Viper Strike	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 09 - F.W.Y.T.flac	inode=262410	size=22192334	mtime=1761778276511.8372	title=F.W.Y.T	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 10 - Chicago.flac	inode=665450	size=21390521	mtime=1761778284811.8372	title=Chicago	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
+		Highly Suspect - The Boy Who Died Wolf - 11 - Wolf.flac	inode=254359	size=45572331	mtime=1761778284659.8372	title=Wolf	album=The Boy Who Died Wolf	artist=Highly Suspect	year=2016
 		album.nfo	inode=935519	size=1439	mtime=1761778263699.8372
 		folder.jpg	inode=643821	size=228132	mtime=1761778263699.8372
 	The Pharcyde - Bizarre Ride II	
 		12 - Passing Me By.flac	inode=1033972	size=32556252	mtime=1767645461631.6057	title=Passing Me By	album=Bizarre Ride II	artist=The Pharcyde
 	To Pimp a Butterfly	
-		01. Wesley's Theory.flac	inode=665481	size=35195353	mtime=1761778266935.8372	title=Wesley’s Theory	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. George Clinton & Thundercat	year=2015	cover=true
+		01. Wesley's Theory.flac	inode=665481	size=35195353	mtime=1761778266935.8372	title=Wesley’s Theory	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. George Clinton & Thundercat	year=2015
 		01. Wesley's Theory.lrc	inode=966302	size=4485	mtime=1765243817412.8186
-		02. For Free_ (Interlude).flac	inode=662479	size=17088169	mtime=1761778275919.8372	title=For Free? (interlude)	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		02. For Free_ (Interlude).flac	inode=662479	size=17088169	mtime=1761778275919.8372	title=For Free? (interlude)	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		02. For Free_ (Interlude).lrc	inode=989954	size=2790	mtime=1765227682257.1836
-		03. King Kunta.flac	inode=663868	size=28956379	mtime=1761778267343.8372	title=King Kunta	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		03. King Kunta.flac	inode=663868	size=28956379	mtime=1761778267343.8372	title=King Kunta	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		03. King Kunta.lrc	inode=989950	size=4705	mtime=1765227681449.1836
-		04. Institutionalized.flac	inode=951435	size=33139532	mtime=1761778266343.8372	title=Institutionalized	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. Bilal, Anna Wise & Snoop Dogg	year=2015	cover=true
+		04. Institutionalized.flac	inode=951435	size=33139532	mtime=1761778266343.8372	title=Institutionalized	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. Bilal, Anna Wise & Snoop Dogg	year=2015
 		04. Institutionalized.lrc	inode=989836	size=4366	mtime=1765227675957.1836
-		05. These Walls.flac	inode=917547	size=34064246	mtime=1761778266447.8372	title=These Walls	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. Bilal, Anna Wise & Thundercat	year=2015	cover=true
+		05. These Walls.flac	inode=917547	size=34064246	mtime=1761778266447.8372	title=These Walls	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. Bilal, Anna Wise & Thundercat	year=2015
 		05. These Walls.lrc	inode=989858	size=4587	mtime=1765227678421.1836
-		06. u.flac	inode=364480	size=32453474	mtime=1761778275851.8372	title=u	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
-		07. Alright.flac	inode=645548	size=27237697	mtime=1761778284167.8372	title=Alright	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		06. u.flac	inode=364480	size=32453474	mtime=1761778275851.8372	title=u	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
+		07. Alright.flac	inode=645548	size=27237697	mtime=1761778284167.8372	title=Alright	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		07. Alright.lrc	inode=982056	size=4509	mtime=1765233973436.8223
-		08. For Sale_ (Interlude).flac	inode=663174	size=33600076	mtime=1761778279995.8372	title=For Sale? (interlude)	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		08. For Sale_ (Interlude).flac	inode=663174	size=33600076	mtime=1761778279995.8372	title=For Sale? (interlude)	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		08. For Sale_ (Interlude).lrc	inode=989902	size=3505	mtime=1765227679521.1836
-		09. Momma.flac	inode=649520	size=32220057	mtime=1761778280607.8372	title=Momma	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		09. Momma.flac	inode=649520	size=32220057	mtime=1761778280607.8372	title=Momma	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		09. Momma.lrc	inode=989827	size=5624	mtime=1765227674593.1836
-		10. Hood Politics.flac	inode=664055	size=30232278	mtime=1761778285035.8372	title=Hood Politics	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		10. Hood Politics.flac	inode=664055	size=30232278	mtime=1761778285035.8372	title=Hood Politics	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		10. Hood Politics.lrc	inode=989839	size=5424	mtime=1765227676581.1836
-		11. How Much a Dollar Cost.flac	inode=650142	size=32022448	mtime=1761778283259.8372	title=How Much a Dollar Cost	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. James Fauntleroy & Ronald Isley	year=2015	cover=true
+		11. How Much a Dollar Cost.flac	inode=650142	size=32022448	mtime=1761778283259.8372	title=How Much a Dollar Cost	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. James Fauntleroy & Ronald Isley	year=2015
 		11. How Much a Dollar Cost.lrc	inode=989846	size=4559	mtime=1765227677793.1836
-		12. Complexion (A Zulu Love).flac	inode=642204	size=29155272	mtime=1761778264663.8372	title=Complexion (A Zulu Love)	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. Rapsody	year=2015	cover=true
+		12. Complexion (A Zulu Love).flac	inode=642204	size=29155272	mtime=1761778264663.8372	title=Complexion (A Zulu Love)	album=To Pimp a Butterfly	artist=Kendrick Lamar feat. Rapsody	year=2015
 		12. Complexion (A Zulu Love).lrc	inode=989843	size=4263	mtime=1765227677141.1836
-		13. The Blacker the Berry.flac	inode=665600	size=38812058	mtime=1761778269591.8372	title=The Blacker the Berry	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		13. The Blacker the Berry.flac	inode=665600	size=38812058	mtime=1761778269591.8372	title=The Blacker the Berry	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		13. The Blacker the Berry.lrc	inode=989916	size=5906	mtime=1765227680465.1836
-		14. You Ain't Gotta Lie (Momma Said).flac	inode=666032	size=28791861	mtime=1761778273919.8372	title=You Ain’t Gotta Lie (Momma Said)	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		14. You Ain't Gotta Lie (Momma Said).flac	inode=666032	size=28791861	mtime=1761778273919.8372	title=You Ain’t Gotta Lie (Momma Said)	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		14. You Ain't Gotta Lie (Momma Said).lrc	inode=989866	size=4207	mtime=1765227678937.1836
-		15. i.flac	inode=883264	size=39530214	mtime=1761778270915.8372	title=i	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		15. i.flac	inode=883264	size=39530214	mtime=1761778270915.8372	title=i	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		15. i.lrc	inode=989832	size=6755	mtime=1765227675305.1836
-		16. Mortal Man.flac	inode=644576	size=70981782	mtime=1761778272235.8372	title=Mortal Man	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015	cover=true
+		16. Mortal Man.flac	inode=644576	size=70981782	mtime=1761778272235.8372	title=Mortal Man	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		16. Mortal Man.lrc	inode=989909	size=13595	mtime=1765227679997.1836
 		folder.jpg	inode=993131	size=1486207	mtime=1761778263707.8372
+	[1994] Sixteen Stone	
+		Bush_Sixteen Stone_01_Everything Zen.flac	inode=1026638	size=37753239	mtime=1768763093604.3499	title=Everything Zen	album=Sixteen Stone	artist=Bush	year=2014
 Queens of the Stone Age	
-	01 Regular John.m4a	inode=830365	size=6561082	mtime=1755214976407.6392	title=Regular John	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	02 Avon.m4a	inode=830312	size=5059662	mtime=1755214978931.6392	title=Avon	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	03 If Only.m4a	inode=828049	size=8066691	mtime=1755214982675.6392	title=If Only	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	04 Walkin' on the Sidewalks.m4a	inode=479994	size=7115181	mtime=1755214986527.6392	title=Walkin' on the Sidewalks	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	05 You Would Know.m4a	inode=829080	size=6370056	mtime=1755214989135.6392	title=You Would Know	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	06 How to Handle a Rope.m4a	inode=828774	size=5436090	mtime=1755214991399.6392	title=How to Handle a Rope	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	06 The Bronze.flac	inode=647435	size=27038883	mtime=1765048485914.52	title=The Bronze	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	07 Mexicola.m4a	inode=829425	size=10272222	mtime=1755214995527.6392	title=Mexicola	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	08 Hispanic Impressions.m4a	inode=829396	size=4250173	mtime=1755214997507.6392	title=Hispanic Impressions	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	09 You Can't Quit Me Baby.m4a	inode=828240	size=14817222	mtime=1755215001455.6392	title=You Can't Quit Me Baby	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	10 Give the Mule What He Wants.m4a	inode=829284	size=7037889	mtime=1755215003783.6392	title=Give the Mule What He Wants	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
-	11 I Was a Teenage Hand Model.m4a	inode=828231	size=7648658	mtime=1755215006171.6392	title=I Was a Teenage Hand Model	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998	cover=true
+	01 Regular John.m4a	inode=830365	size=6561082	mtime=1755214976407.6392	title=Regular John	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	02 Avon.m4a	inode=830312	size=5059662	mtime=1755214978931.6392	title=Avon	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	03 If Only.m4a	inode=828049	size=8066691	mtime=1755214982675.6392	title=If Only	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	04 Walkin' on the Sidewalks.m4a	inode=479994	size=7115181	mtime=1755214986527.6392	title=Walkin' on the Sidewalks	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	05 You Would Know.m4a	inode=829080	size=6370056	mtime=1755214989135.6392	title=You Would Know	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	06 How to Handle a Rope.m4a	inode=828774	size=5436090	mtime=1755214991399.6392	title=How to Handle a Rope	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	06 The Bronze.flac	inode=647435	size=27038883	mtime=1765048485914.52	title=The Bronze	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	07 Mexicola.m4a	inode=829425	size=10272222	mtime=1755214995527.6392	title=Mexicola	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	08 Hispanic Impressions.m4a	inode=829396	size=4250173	mtime=1755214997507.6392	title=Hispanic Impressions	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	09 You Can't Quit Me Baby.m4a	inode=828240	size=14817222	mtime=1755215001455.6392	title=You Can't Quit Me Baby	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	10 Give the Mule What He Wants.m4a	inode=829284	size=7037889	mtime=1755215003783.6392	title=Give the Mule What He Wants	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
+	11 I Was a Teenage Hand Model.m4a	inode=828231	size=7648658	mtime=1755215006171.6392	title=I Was a Teenage Hand Model	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
 Rated R	
-	01 Feel Good Hit of the Summer.m4a	inode=829577	size=6511346	mtime=1755215049003.6392	title=Feel Good Hit of the Summer	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	02 The Lost Art of Keeping a Secret.m4a	inode=829391	size=8135235	mtime=1755215052183.6392	title=The Lost Art of Keeping a Secret	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	03 Leg of Lamb.m4a	inode=829266	size=6965104	mtime=1755215055179.6392	title=Leg of Lamb	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	04 Auto Pilot.m4a	inode=788274	size=9149501	mtime=1755215058967.6392	title=Auto Pilot	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	05 Better Living Through Chemistry.m4a	inode=829974	size=13259352	mtime=1755215064303.6392	title=Better Living Through Chemistry	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	06 Monsters in the Parasol.m4a	inode=829463	size=8120657	mtime=1755215067123.6392	title=Monsters in the Parasol	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	07 Quick and to the Pointless.m4a	inode=829296	size=4064690	mtime=1755215069127.6392	title=Quick and to the Pointless	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	08 In the Fade _ Feel Good Hit of the Summer (reprise).m4a	inode=830023	size=9928676	mtime=1755215079339.6392	title=In the Fade / Feel Good Hit of the Summer (reprise)	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	09 Tension Head.m4a	inode=830299	size=6684442	mtime=1755215083747.6392	title=Tension Head	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	10 Lightning Song.m4a	inode=830198	size=4764892	mtime=1755215087003.6392	title=Lightning Song	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
-	11 I Think I Lost My Headache.m4a	inode=830212	size=19714024	mtime=1755215103283.6392	title=I Think I Lost My Headache	album=Rated R	artist=Queens of the Stone Age	year=2000	cover=true
+	01 Feel Good Hit of the Summer.m4a	inode=829577	size=6511346	mtime=1755215049003.6392	title=Feel Good Hit of the Summer	album=Rated R	artist=Queens of the Stone Age	year=2000
+	02 The Lost Art of Keeping a Secret.m4a	inode=829391	size=8135235	mtime=1755215052183.6392	title=The Lost Art of Keeping a Secret	album=Rated R	artist=Queens of the Stone Age	year=2000
+	03 Leg of Lamb.m4a	inode=829266	size=6965104	mtime=1755215055179.6392	title=Leg of Lamb	album=Rated R	artist=Queens of the Stone Age	year=2000
+	04 Auto Pilot.m4a	inode=788274	size=9149501	mtime=1755215058967.6392	title=Auto Pilot	album=Rated R	artist=Queens of the Stone Age	year=2000
+	05 Better Living Through Chemistry.m4a	inode=829974	size=13259352	mtime=1755215064303.6392	title=Better Living Through Chemistry	album=Rated R	artist=Queens of the Stone Age	year=2000
+	06 Monsters in the Parasol.m4a	inode=829463	size=8120657	mtime=1755215067123.6392	title=Monsters in the Parasol	album=Rated R	artist=Queens of the Stone Age	year=2000
+	07 Quick and to the Pointless.m4a	inode=829296	size=4064690	mtime=1755215069127.6392	title=Quick and to the Pointless	album=Rated R	artist=Queens of the Stone Age	year=2000
+	08 In the Fade _ Feel Good Hit of the Summer (reprise).m4a	inode=830023	size=9928676	mtime=1755215079339.6392	title=In the Fade / Feel Good Hit of the Summer (reprise)	album=Rated R	artist=Queens of the Stone Age	year=2000
+	09 Tension Head.m4a	inode=830299	size=6684442	mtime=1755215083747.6392	title=Tension Head	album=Rated R	artist=Queens of the Stone Age	year=2000
+	10 Lightning Song.m4a	inode=830198	size=4764892	mtime=1755215087003.6392	title=Lightning Song	album=Rated R	artist=Queens of the Stone Age	year=2000
+	11 I Think I Lost My Headache.m4a	inode=830212	size=19714024	mtime=1755215103283.6392	title=I Think I Lost My Headache	album=Rated R	artist=Queens of the Stone Age	year=2000
 SAVAGE MODE II	
 	01 Intro.lrc	inode=967518	size=788	mtime=1761963485164.008
-	01 Intro.m4a	inode=667628	size=3061981	mtime=1761963487832.008	title=Intro	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	01 Intro.m4a	inode=667628	size=3061981	mtime=1761963487832.008	title=Intro	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	02 Runnin.lrc	inode=648207	size=3465	mtime=1761963488532.008
-	02 Runnin.m4a	inode=261871	size=7379511	mtime=1761963508048.008	title=Runnin	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	02 Runnin.m4a	inode=261871	size=7379511	mtime=1761963508048.008	title=Runnin	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	03 Glock in My Lap.lrc	inode=260787	size=3505	mtime=1761963508092.008
-	03 Glock in My Lap.m4a	inode=619366	size=7151086	mtime=1761963505192.008	title=Glock in My Lap	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	03 Glock in My Lap.m4a	inode=619366	size=7151086	mtime=1761963505192.008	title=Glock in My Lap	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	04 Mr. Right Now (feat. Drake).lrc	inode=631797	size=4005	mtime=1761963502284.008
-	04 Mr. Right Now (feat. Drake).m4a	inode=633456	size=7511302	mtime=1761963501740.008	title=Mr. Right Now (feat. Drake)	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	04 Mr. Right Now (feat. Drake).m4a	inode=633456	size=7511302	mtime=1761963501740.008	title=Mr. Right Now (feat. Drake)	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	05 Rich Nigga Shit (feat. Young Thug).lrc	inode=648237	size=3305	mtime=1761963488840.008
-	05 Rich Nigga Shit (feat. Young Thug).m4a	inode=267220	size=7161682	mtime=1761963523864.008	title=Rich Nigga Shit (feat. Young Thug)	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	05 Rich Nigga Shit (feat. Young Thug).m4a	inode=267220	size=7161682	mtime=1761963523864.008	title=Rich Nigga Shit (feat. Young Thug)	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	06 Slidin.lrc	inode=922616	size=3326	mtime=1761963485568.008
-	06 Slidin.m4a	inode=965545	size=7081865	mtime=1761963528952.008	title=Slidin	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
-	07 Many Men.m4a	inode=640345	size=7435686	mtime=1761963533548.008	title=Many Men	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	06 Slidin.m4a	inode=965545	size=7081865	mtime=1761963528952.008	title=Slidin	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
+	07 Many Men.m4a	inode=640345	size=7435686	mtime=1761963533548.008	title=Many Men	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	08 Snitches & Rats (Interlude).lrc	inode=265428	size=692	mtime=1761963533804.008
-	08 Snitches & Rats (Interlude).m4a	inode=232302	size=2655628	mtime=1761963538516.008	title=Snitches & Rats (Interlude)	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	08 Snitches & Rats (Interlude).m4a	inode=232302	size=2655628	mtime=1761963538516.008	title=Snitches & Rats (Interlude)	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	09 Snitches & Rats (feat. Young Nudy).lrc	inode=232435	size=3873	mtime=1761963538932.008
-	09 Snitches & Rats (feat. Young Nudy).m4a	inode=993390	size=6918222	mtime=1761963542236.008	title=Snitches & Rats (feat. Young Nudy)	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	09 Snitches & Rats (feat. Young Nudy).m4a	inode=993390	size=6918222	mtime=1761963542236.008	title=Snitches & Rats (feat. Young Nudy)	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	10 My Dawg.lrc	inode=228653	size=3657	mtime=1761963539140.008
-	10 My Dawg.m4a	inode=993697	size=6888860	mtime=1761963548464.008	title=My Dawg	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	10 My Dawg.m4a	inode=993697	size=6888860	mtime=1761963548464.008	title=My Dawg	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	11 Steppin on Niggas.lrc	inode=674334	size=2300	mtime=1761963549328.008
-	11 Steppin on Niggas.m4a	inode=665002	size=5607637	mtime=1761963552100.008	title=Steppin on Niggas	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	11 Steppin on Niggas.m4a	inode=665002	size=5607637	mtime=1761963552100.008	title=Steppin on Niggas	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	12 Brand New Draco.lrc	inode=665141	size=3828	mtime=1761963552128.008
-	12 Brand New Draco.m4a	inode=625582	size=8081819	mtime=1761963571492.008	title=Brand New Draco	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	12 Brand New Draco.m4a	inode=625582	size=8081819	mtime=1761963571492.008	title=Brand New Draco	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	13 No Opp Left Behind.lrc	inode=664668	size=3790	mtime=1761963552756.008
-	13 No Opp Left Behind.m4a	inode=664697	size=7323651	mtime=1761963556232.008	title=No Opp Left Behind	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	13 No Opp Left Behind.m4a	inode=664697	size=7323651	mtime=1761963556232.008	title=No Opp Left Behind	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	14 RIP Luv.lrc	inode=230244	size=3295	mtime=1761963594564.008
-	14 RIP Luv.m4a	inode=672563	size=7828941	mtime=1761963584640.008	title=RIP Luv	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	14 RIP Luv.m4a	inode=672563	size=7828941	mtime=1761963584640.008	title=RIP Luv	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 	15 Said N Done.lrc	inode=672494	size=4052	mtime=1761963584624.008
-	15 Said N Done.m4a	inode=230351	size=8465314	mtime=1761963594516.008	title=Said N Done	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020	cover=true
+	15 Said N Done.m4a	inode=230351	size=8465314	mtime=1761963594516.008	title=Said N Done	album=SAVAGE MODE II	artist=21 Savage & Metro Boomin	year=2020
 Sailing the Seas of Cheese	
-	01 - Seas of Cheese.flac	inode=490622	size=11035641	mtime=1755341716552.4495	title=Seas of Cheese	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	02 - Here Come the Bastards.flac	inode=837343	size=27026164	mtime=1755341586352.4495	title=Here Come the Bastards	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	03 - Sgt. Baker.flac	inode=835866	size=35919865	mtime=1755341598804.4495	title=Sgt. Baker	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	04 - American Life.flac	inode=481839	size=37597575	mtime=1755341614744.4495	title=American Life	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	05 - Jerry Was a Race Car Driver.flac	inode=835271	size=30347686	mtime=1755341591192.4495	title=Jerry Was a Race Car Driver	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	06 - Eleven.flac	inode=484895	size=38973606	mtime=1755341636168.4495	title=Eleven	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	07 - Is It Luck_.flac	inode=828021	size=31881703	mtime=1755341623908.4495	title=Is It Luck?	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	08 - Grandad’s Little Ditty.flac	inode=809837	size=10611737	mtime=1755341638892.4495	title=Grandad’s Little Ditty	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	09 - Tommy the Cat.flac	inode=482905	size=36953570	mtime=1755341657328.4495	title=Tommy the Cat	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	10 - Sathington Waltz.flac	inode=483732	size=16597607	mtime=1755341663204.4495	title=Sathington Waltz	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	11 - Those Damned Blue‐Collar Tweekers.flac	inode=487913	size=42500771	mtime=1755341674864.4495	title=Those Damned Blue‐Collar Tweekers	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	12 - Fish On (Fisherman Chronicles, Chapter II).flac	inode=488936	size=54915613	mtime=1755341693228.4495	title=Fish On (Fisherman Chronicles, Chapter II)	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
-	13 - Los Bastardos.flac	inode=490137	size=26345706	mtime=1755341704188.4495	title=Los Bastardos	album=Sailing the Seas of Cheese	artist=Primus	year=1991	cover=true
+	01 - Seas of Cheese.flac	inode=490622	size=11035641	mtime=1755341716552.4495	title=Seas of Cheese	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	02 - Here Come the Bastards.flac	inode=837343	size=27026164	mtime=1755341586352.4495	title=Here Come the Bastards	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	03 - Sgt. Baker.flac	inode=835866	size=35919865	mtime=1755341598804.4495	title=Sgt. Baker	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	04 - American Life.flac	inode=481839	size=37597575	mtime=1755341614744.4495	title=American Life	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	05 - Jerry Was a Race Car Driver.flac	inode=835271	size=30347686	mtime=1755341591192.4495	title=Jerry Was a Race Car Driver	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	06 - Eleven.flac	inode=484895	size=38973606	mtime=1755341636168.4495	title=Eleven	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	07 - Is It Luck_.flac	inode=828021	size=31881703	mtime=1755341623908.4495	title=Is It Luck?	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	08 - Grandad’s Little Ditty.flac	inode=809837	size=10611737	mtime=1755341638892.4495	title=Grandad’s Little Ditty	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	09 - Tommy the Cat.flac	inode=482905	size=36953570	mtime=1755341657328.4495	title=Tommy the Cat	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	10 - Sathington Waltz.flac	inode=483732	size=16597607	mtime=1755341663204.4495	title=Sathington Waltz	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	11 - Those Damned Blue‐Collar Tweekers.flac	inode=487913	size=42500771	mtime=1755341674864.4495	title=Those Damned Blue‐Collar Tweekers	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	12 - Fish On (Fisherman Chronicles, Chapter II).flac	inode=488936	size=54915613	mtime=1755341693228.4495	title=Fish On (Fisherman Chronicles, Chapter II)	album=Sailing the Seas of Cheese	artist=Primus	year=1991
+	13 - Los Bastardos.flac	inode=490137	size=26345706	mtime=1755341704188.4495	title=Los Bastardos	album=Sailing the Seas of Cheese	artist=Primus	year=1991
 	cover.jpg	inode=490535	size=22133123	mtime=1755341712232.4495
 Songs for the Deaf	
-	01 You Think I Ain't Worth a Dollar, but I Feel Like a Millionaire.m4a	inode=830030	size=7426480	mtime=1755215106583.6392	title=You Think I Ain't Worth a Dollar, but I Feel Like a Millionaire	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	02 No One Knows.m4a	inode=792650	size=10557163	mtime=1755215112179.6392	title=No One Knows	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	03 First It Giveth.m4a	inode=830634	size=8012746	mtime=1755215117707.6392	title=First It Giveth	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	04 A Song for the Dead.m4a	inode=829042	size=13742623	mtime=1755215135863.6392	title=A Song for the Dead	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	05 The Sky Is Fallin'.m4a	inode=808199	size=13874134	mtime=1755215144383.6392	title=The Sky Is Fallin'	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	06 Six Shooter.m4a	inode=829971	size=3444550	mtime=1755215158715.6392	title=Six Shooter	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	07 Hangin' Tree.m4a	inode=830627	size=7378579	mtime=1755215156219.6392	title=Hangin' Tree	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	08 Go With the Flow.m4a	inode=833000	size=7456735	mtime=1755215163371.6392	title=Go With the Flow	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	09 Gonna Leave You.m4a	inode=828268	size=6599490	mtime=1755215166563.6392	title=Gonna Leave You	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	10 Do It Again.m4a	inode=830779	size=9108138	mtime=1755215170487.6392	title=Do It Again	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	11 God Is in the Radio.m4a	inode=830674	size=13934268	mtime=1755215175779.6392	title=God Is in the Radio	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	12 Another Love Song.m4a	inode=823603	size=7414037	mtime=1755215178727.6392	title=Another Love Song	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	13 A Song for the Deaf _ Feel Good Hit of the Summer (incomplete).m4a	inode=831516	size=8372788	mtime=1755215194623.6392	title=A Song for the Deaf / Feel Good Hit of the Summer (incomplete)	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
-	14 Mosquito Song.m4a	inode=823292	size=12967074	mtime=1755215191127.6392	title=Mosquito Song	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002	cover=true
+	01 You Think I Ain't Worth a Dollar, but I Feel Like a Millionaire.m4a	inode=830030	size=7426480	mtime=1755215106583.6392	title=You Think I Ain't Worth a Dollar, but I Feel Like a Millionaire	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	02 No One Knows.m4a	inode=792650	size=10557163	mtime=1755215112179.6392	title=No One Knows	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	03 First It Giveth.m4a	inode=830634	size=8012746	mtime=1755215117707.6392	title=First It Giveth	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	04 A Song for the Dead.m4a	inode=829042	size=13742623	mtime=1755215135863.6392	title=A Song for the Dead	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	05 The Sky Is Fallin'.m4a	inode=808199	size=13874134	mtime=1755215144383.6392	title=The Sky Is Fallin'	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	06 Six Shooter.m4a	inode=829971	size=3444550	mtime=1755215158715.6392	title=Six Shooter	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	07 Hangin' Tree.m4a	inode=830627	size=7378579	mtime=1755215156219.6392	title=Hangin' Tree	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	08 Go With the Flow.m4a	inode=833000	size=7456735	mtime=1755215163371.6392	title=Go With the Flow	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	09 Gonna Leave You.m4a	inode=828268	size=6599490	mtime=1755215166563.6392	title=Gonna Leave You	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	10 Do It Again.m4a	inode=830779	size=9108138	mtime=1755215170487.6392	title=Do It Again	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	11 God Is in the Radio.m4a	inode=830674	size=13934268	mtime=1755215175779.6392	title=God Is in the Radio	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	12 Another Love Song.m4a	inode=823603	size=7414037	mtime=1755215178727.6392	title=Another Love Song	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	13 A Song for the Deaf _ Feel Good Hit of the Summer (incomplete).m4a	inode=831516	size=8372788	mtime=1755215194623.6392	title=A Song for the Deaf / Feel Good Hit of the Summer (incomplete)	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
+	14 Mosquito Song.m4a	inode=823292	size=12967074	mtime=1755215191127.6392	title=Mosquito Song	album=Songs for the Deaf	artist=Queens of the Stone Age	year=2002
 Supernatural	
 	01 (Da Le) Yaleo.flac	inode=743646	size=14368587	mtime=1755301599765.9119
 	02 Love of My Life.flac	inode=837337	size=14137456	mtime=1755301604917.9119
@@ -593,128 +595,128 @@ Supernatural (Deluxe)
 	02-10_The Calling Jam.mp3	inode=224575	size=12168537	mtime=1755288829798.0444	title=The Calling Jam	album=Supernatural	artist=Santana	year=2010
 	02-11_Olympic Festival.mp3	inode=832242	size=11154944	mtime=1755288834070.0444	title=Olympic Festival	album=Supernatural	artist=Santana	year=2010
 Take Me To Your Leader (2003)	
-	01. Fazers.mp3	inode=764055	size=8034404	mtime=1757303718521.5051	title=Fazers	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	02. Fastlane.mp3	inode=478610	size=7690962	mtime=1757303722233.5051	title=Fastlane	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	03. Krazy World.mp3	inode=262267	size=11496311	mtime=1757303728625.5051	title=Krazy World	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	04. The Final Hour.mp3	inode=245075	size=2103187	mtime=1757303730265.5051	title=The Final Hour	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	05. Monster Zero.mp3	inode=221091	size=12763252	mtime=1757303739029.5051	title=Monster Zero	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	06. Next Levels.mp3	inode=260366	size=9221616	mtime=1757303813261.5051	title=Next Levels	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	07. No Snakes Alive.mp3	inode=792010	size=8639594	mtime=1757303780041.5051	title=No Snakes Alive	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	08. Anti-Matter.mp3	inode=758344	size=8417035	mtime=1757303789597.5051	title=Anti-Matter	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	09. Take Me to Your Leader.mp3	inode=788114	size=5295393	mtime=1757303784001.5051	title=Take Me to Your Leader	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	10. Lockjaw.mp3	inode=753477	size=2661089	mtime=1757303791245.5051	title=Lockjaw	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	11. I Wonder.mp3	inode=446595	size=8890343	mtime=1757303798225.5051	title=I Wonder	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	12. One Smart Nigger.mp3	inode=438089	size=6515067	mtime=1757303800657.5051	title=One Smart Nigger	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
-	13. The Fine Print.mp3	inode=345337	size=10922285	mtime=1757303807089.5051	title=The Fine Print	album=Take Me to Your Leader	artist=King Geedorah	year=2003	cover=true
+	01. Fazers.mp3	inode=764055	size=8034404	mtime=1757303718521.5051	title=Fazers	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	02. Fastlane.mp3	inode=478610	size=7690962	mtime=1757303722233.5051	title=Fastlane	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	03. Krazy World.mp3	inode=262267	size=11496311	mtime=1757303728625.5051	title=Krazy World	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	04. The Final Hour.mp3	inode=245075	size=2103187	mtime=1757303730265.5051	title=The Final Hour	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	05. Monster Zero.mp3	inode=221091	size=12763252	mtime=1757303739029.5051	title=Monster Zero	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	06. Next Levels.mp3	inode=260366	size=9221616	mtime=1757303813261.5051	title=Next Levels	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	07. No Snakes Alive.mp3	inode=792010	size=8639594	mtime=1757303780041.5051	title=No Snakes Alive	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	08. Anti-Matter.mp3	inode=758344	size=8417035	mtime=1757303789597.5051	title=Anti-Matter	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	09. Take Me to Your Leader.mp3	inode=788114	size=5295393	mtime=1757303784001.5051	title=Take Me to Your Leader	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	10. Lockjaw.mp3	inode=753477	size=2661089	mtime=1757303791245.5051	title=Lockjaw	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	11. I Wonder.mp3	inode=446595	size=8890343	mtime=1757303798225.5051	title=I Wonder	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	12. One Smart Nigger.mp3	inode=438089	size=6515067	mtime=1757303800657.5051	title=One Smart Nigger	album=Take Me to Your Leader	artist=King Geedorah	year=2003
+	13. The Fine Print.mp3	inode=345337	size=10922285	mtime=1757303807089.5051	title=The Fine Print	album=Take Me to Your Leader	artist=King Geedorah	year=2003
 	cover.jpg	inode=309235	size=976583	mtime=1757303808621.5051
 The Mouse and the Mask (2005)	
-	01 El Chupa Nibre.mp3	inode=490150	size=6401516	mtime=1755334161560.4524	title=El Chupa Nibre	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	02 Sofa King.mp3	inode=490009	size=7278185	mtime=1755334164432.4524	title=Sofa King	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	03 The Mask.mp3	inode=490312	size=7880047	mtime=1755334170780.4524	title=The Mask	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	04 Perfect Hair.mp3	inode=746901	size=5130920	mtime=1755334168052.4524	title=Perfect Hair	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	05 Benzie Box.mp3	inode=490327	size=7393124	mtime=1755334178516.4524	title=Benzie Box	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	06 Old School.mp3	inode=490511	size=6607361	mtime=1755334181148.4524	title=Old School	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	07 A.T.H.F.mp3	inode=490604	size=7534185	mtime=1755334184012.4524	title=A.T.H.F.	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	08 Basket Case.mp3	inode=489687	size=6375394	mtime=1755334186544.4524	title=Basket Case	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	09 No Names.mp3	inode=409352	size=7682561	mtime=1755334189380.4524	title=No Names	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	10 Crosshairs.mp3	inode=490214	size=6060879	mtime=1755334191840.4524	title=Crosshairs	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	11 Mince Meat.mp3	inode=490618	size=6308520	mtime=1755334194360.4524	title=Mince Meat	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	12 Vats of Urine.mp3	inode=490806	size=4512340	mtime=1755334196588.4524	title=Vats of Urine	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	13 Space Ho's.mp3	inode=490825	size=8572814	mtime=1755334200104.4524	title=Space Ho's	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
-	14 Bada Bing.mp3	inode=490460	size=10825614	mtime=1755334204248.4524	title=Bada Bing	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005	cover=true
+	01 El Chupa Nibre.mp3	inode=490150	size=6401516	mtime=1755334161560.4524	title=El Chupa Nibre	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	02 Sofa King.mp3	inode=490009	size=7278185	mtime=1755334164432.4524	title=Sofa King	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	03 The Mask.mp3	inode=490312	size=7880047	mtime=1755334170780.4524	title=The Mask	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	04 Perfect Hair.mp3	inode=746901	size=5130920	mtime=1755334168052.4524	title=Perfect Hair	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	05 Benzie Box.mp3	inode=490327	size=7393124	mtime=1755334178516.4524	title=Benzie Box	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	06 Old School.mp3	inode=490511	size=6607361	mtime=1755334181148.4524	title=Old School	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	07 A.T.H.F.mp3	inode=490604	size=7534185	mtime=1755334184012.4524	title=A.T.H.F.	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	08 Basket Case.mp3	inode=489687	size=6375394	mtime=1755334186544.4524	title=Basket Case	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	09 No Names.mp3	inode=409352	size=7682561	mtime=1755334189380.4524	title=No Names	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	10 Crosshairs.mp3	inode=490214	size=6060879	mtime=1755334191840.4524	title=Crosshairs	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	11 Mince Meat.mp3	inode=490618	size=6308520	mtime=1755334194360.4524	title=Mince Meat	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	12 Vats of Urine.mp3	inode=490806	size=4512340	mtime=1755334196588.4524	title=Vats of Urine	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	13 Space Ho's.mp3	inode=490825	size=8572814	mtime=1755334200104.4524	title=Space Ho's	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
+	14 Bada Bing.mp3	inode=490460	size=10825614	mtime=1755334204248.4524	title=Bada Bing	album=The Mouse and the Mask	artist=DANGERDOOM	year=2005
 	folder.jpg	inode=490814	size=8179	mtime=1755334201264.4524
 The Sun and the Moon	
-	01 Intro.flac	inode=896207	size=2619716	mtime=1757161446353.56	title=Intro	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	02 Believe.flac	inode=762926	size=30074378	mtime=1757161452437.56	title=Believe	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	03 This Is Not the End.flac	inode=894012	size=31420449	mtime=1757161457945.56	title=This Is Not the End	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	04 Every Word Is a Knife in My Ear.flac	inode=872167	size=28880010	mtime=1757161463057.56	title=Every Word Is a Knife in My Ear	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	05 Bad Sun.flac	inode=818023	size=31939093	mtime=1757161472489.56	title=Bad Sun	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	06 Time Won’t Let Me Go.flac	inode=867819	size=33733701	mtime=1757161478357.56	title=Time Won’t Let Me Go	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	07 Tragedy Bound.flac	inode=452586	size=15060998	mtime=1757161481681.56	title=Tragedy Bound	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	08 Fistful of Sand.flac	inode=881802	size=24474009	mtime=1757161486469.56	title=Fistful of Sand	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	09 Angelina.flac	inode=899802	size=26863468	mtime=1757161492465.56	title=Angelina	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	10 Split Me Wide Open.flac	inode=899045	size=29708542	mtime=1757161510293.56	title=Split Me Wide Open	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	11 Above and Below.flac	inode=901215	size=27200599	mtime=1757161515849.56	title=Above and Below	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
-	12 The Ocean.flac	inode=895334	size=25230280	mtime=1757161524897.56	title=The Ocean	album=The Sun and the Moon	artist=The Bravery	year=2007	cover=true
+	01 Intro.flac	inode=896207	size=2619716	mtime=1757161446353.56	title=Intro	album=The Sun and the Moon	artist=The Bravery	year=2007
+	02 Believe.flac	inode=762926	size=30074378	mtime=1757161452437.56	title=Believe	album=The Sun and the Moon	artist=The Bravery	year=2007
+	03 This Is Not the End.flac	inode=894012	size=31420449	mtime=1757161457945.56	title=This Is Not the End	album=The Sun and the Moon	artist=The Bravery	year=2007
+	04 Every Word Is a Knife in My Ear.flac	inode=872167	size=28880010	mtime=1757161463057.56	title=Every Word Is a Knife in My Ear	album=The Sun and the Moon	artist=The Bravery	year=2007
+	05 Bad Sun.flac	inode=818023	size=31939093	mtime=1757161472489.56	title=Bad Sun	album=The Sun and the Moon	artist=The Bravery	year=2007
+	06 Time Won’t Let Me Go.flac	inode=867819	size=33733701	mtime=1757161478357.56	title=Time Won’t Let Me Go	album=The Sun and the Moon	artist=The Bravery	year=2007
+	07 Tragedy Bound.flac	inode=452586	size=15060998	mtime=1757161481681.56	title=Tragedy Bound	album=The Sun and the Moon	artist=The Bravery	year=2007
+	08 Fistful of Sand.flac	inode=881802	size=24474009	mtime=1757161486469.56	title=Fistful of Sand	album=The Sun and the Moon	artist=The Bravery	year=2007
+	09 Angelina.flac	inode=899802	size=26863468	mtime=1757161492465.56	title=Angelina	album=The Sun and the Moon	artist=The Bravery	year=2007
+	10 Split Me Wide Open.flac	inode=899045	size=29708542	mtime=1757161510293.56	title=Split Me Wide Open	album=The Sun and the Moon	artist=The Bravery	year=2007
+	11 Above and Below.flac	inode=901215	size=27200599	mtime=1757161515849.56	title=Above and Below	album=The Sun and the Moon	artist=The Bravery	year=2007
+	12 The Ocean.flac	inode=895334	size=25230280	mtime=1757161524897.56	title=The Ocean	album=The Sun and the Moon	artist=The Bravery	year=2007
 	cover.jpg	inode=892311	size=583660	mtime=1757161517481.56
 They Can’t All Be Zingers (2006)	
-	01 - To Defy the Laws of Tradition [FLAC 907 kbps].flac	inode=831330	size=46061218	mtime=1755341602460.4495	title=To Defy the Laws of Tradition	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	02 - John the Fisherman [FLAC 1007 kbps].flac	inode=836692	size=27892912	mtime=1755341619284.4495	title=John the Fisherman	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	03 - Too Many Puppies [FLAC 957 kbps].flac	inode=486059	size=29050122	mtime=1755341638220.4495	title=Too Many Puppies	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	04 - Jerry Was a Race Car Driver [FLAC 1001 kbps].flac	inode=483020	size=24555981	mtime=1755341656388.4495	title=Jerry Was a Race Car Driver	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	04 - Jerry Was a Race Car Driver [FLAC 1003 kbps].flac	inode=485145	size=24551136	mtime=1755341665832.4495	title=Jerry Was a Race Car Driver	album=They Can’t All Be Zingers	artist=Primus	year=2006	cover=true
-	05 - Those Damned Blue‐Collar Tweekers [FLAC 917 kbps].flac	inode=488843	size=36926175	mtime=1755341691256.4495	title=Those Damned Blue‐Collar Tweekers	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	06 - Tommy the Cat [FLAC 971 kbps].flac	inode=489312	size=31458669	mtime=1755341699452.4495	title=Tommy the Cat	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	07 - My Name Is Mud [FLAC 955 kbps].flac	inode=490643	size=34631538	mtime=1755341717868.4495	title=My Name Is Mud	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	08 - Mr. Krinkle [FLAC 880 kbps].flac	inode=744026	size=36336848	mtime=1755341732828.4495	title=Mr. Krinkle	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	09 - DMV [FLAC 978 kbps].flac	inode=458203	size=36825866	mtime=1755341744152.4495	title=DMV	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	10 - Over the Electric Grapevine [FLAC 928 kbps].flac	inode=486708	size=45070341	mtime=1755341750092.4495	title=Over the Electric Grapevine	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	11 - Wynona’s Big Brown Beaver [FLAC 945 kbps].flac	inode=486971	size=31628619	mtime=1755341759524.4495	title=Wynona’s Big Brown Beaver	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	12 - Southbound Pachyderm [FLAC 841 kbps].flac	inode=487062	size=40840831	mtime=1755341771624.4495	title=Southbound Pachyderm	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	13 - Over the Falls [FLAC 962 kbps].flac	inode=487019	size=20001849	mtime=1755341762664.4495	title=Over the Falls	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	14 - Shake Hands With Beef (extended version) [FLAC 944 kbps].flac	inode=487137	size=31698849	mtime=1755341784136.4495	title=Shake Hands With Beef (extended version)	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	15 - Coattails of a Dead Man [FLAC 860 kbps].flac	inode=487014	size=34745554	mtime=1755341789280.4495	title=Coattails of a Dead Man	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
-	16 - Mary the Ice Cube [FLAC 837 kbps].flac	inode=487048	size=29613864	mtime=1755341797788.4495	title=Mary the Ice Cube	album=They Can’t All Be Zingers	artist=Primus	year=17	cover=true
+	01 - To Defy the Laws of Tradition [FLAC 907 kbps].flac	inode=831330	size=46061218	mtime=1755341602460.4495	title=To Defy the Laws of Tradition	album=They Can’t All Be Zingers	artist=Primus	year=17
+	02 - John the Fisherman [FLAC 1007 kbps].flac	inode=836692	size=27892912	mtime=1755341619284.4495	title=John the Fisherman	album=They Can’t All Be Zingers	artist=Primus	year=17
+	03 - Too Many Puppies [FLAC 957 kbps].flac	inode=486059	size=29050122	mtime=1755341638220.4495	title=Too Many Puppies	album=They Can’t All Be Zingers	artist=Primus	year=17
+	04 - Jerry Was a Race Car Driver [FLAC 1001 kbps].flac	inode=483020	size=24555981	mtime=1755341656388.4495	title=Jerry Was a Race Car Driver	album=They Can’t All Be Zingers	artist=Primus	year=17
+	04 - Jerry Was a Race Car Driver [FLAC 1003 kbps].flac	inode=485145	size=24551136	mtime=1755341665832.4495	title=Jerry Was a Race Car Driver	album=They Can’t All Be Zingers	artist=Primus	year=2006
+	05 - Those Damned Blue‐Collar Tweekers [FLAC 917 kbps].flac	inode=488843	size=36926175	mtime=1755341691256.4495	title=Those Damned Blue‐Collar Tweekers	album=They Can’t All Be Zingers	artist=Primus	year=17
+	06 - Tommy the Cat [FLAC 971 kbps].flac	inode=489312	size=31458669	mtime=1755341699452.4495	title=Tommy the Cat	album=They Can’t All Be Zingers	artist=Primus	year=17
+	07 - My Name Is Mud [FLAC 955 kbps].flac	inode=490643	size=34631538	mtime=1755341717868.4495	title=My Name Is Mud	album=They Can’t All Be Zingers	artist=Primus	year=17
+	08 - Mr. Krinkle [FLAC 880 kbps].flac	inode=744026	size=36336848	mtime=1755341732828.4495	title=Mr. Krinkle	album=They Can’t All Be Zingers	artist=Primus	year=17
+	09 - DMV [FLAC 978 kbps].flac	inode=458203	size=36825866	mtime=1755341744152.4495	title=DMV	album=They Can’t All Be Zingers	artist=Primus	year=17
+	10 - Over the Electric Grapevine [FLAC 928 kbps].flac	inode=486708	size=45070341	mtime=1755341750092.4495	title=Over the Electric Grapevine	album=They Can’t All Be Zingers	artist=Primus	year=17
+	11 - Wynona’s Big Brown Beaver [FLAC 945 kbps].flac	inode=486971	size=31628619	mtime=1755341759524.4495	title=Wynona’s Big Brown Beaver	album=They Can’t All Be Zingers	artist=Primus	year=17
+	12 - Southbound Pachyderm [FLAC 841 kbps].flac	inode=487062	size=40840831	mtime=1755341771624.4495	title=Southbound Pachyderm	album=They Can’t All Be Zingers	artist=Primus	year=17
+	13 - Over the Falls [FLAC 962 kbps].flac	inode=487019	size=20001849	mtime=1755341762664.4495	title=Over the Falls	album=They Can’t All Be Zingers	artist=Primus	year=17
+	14 - Shake Hands With Beef (extended version) [FLAC 944 kbps].flac	inode=487137	size=31698849	mtime=1755341784136.4495	title=Shake Hands With Beef (extended version)	album=They Can’t All Be Zingers	artist=Primus	year=17
+	15 - Coattails of a Dead Man [FLAC 860 kbps].flac	inode=487014	size=34745554	mtime=1755341789280.4495	title=Coattails of a Dead Man	album=They Can’t All Be Zingers	artist=Primus	year=17
+	16 - Mary the Ice Cube [FLAC 837 kbps].flac	inode=487048	size=29613864	mtime=1755341797788.4495	title=Mary the Ice Cube	album=They Can’t All Be Zingers	artist=Primus	year=17
 Tiny Music…	
-	204. Stone Temple Pilots - Big Bang Baby (Early Version) [2021 Remaster].flac	inode=875642	size=77938916	mtime=1757123726269.409	title=Big Bang Baby (Early Version) [2021 Remaster]	album=Tiny Music... Songs From The Vatican Gift Shop (Super Deluxe Edition) [2021 Remaster]	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 01 - Press Play.mp3	inode=835016	size=3366118	mtime=1755342176596.4492	title=Press Play	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 02 - Pop's Love Suicide.mp3	inode=704806	size=9055603	mtime=1755342202320.4492	title=Pop's Love Suicide	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 03 - Tumble in the Rough.mp3	inode=836739	size=8074446	mtime=1755342186160.4492	title=Tumble in the Rough	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 04 - Big Bang Baby.mp3	inode=821197	size=8272965	mtime=1755342191452.4492	title=Big Bang Baby	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 05 - Lady Picture Show.mp3	inode=482323	size=10076467	mtime=1755342211672.4492	title=Lady Picture Show	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 06 - And So I Know.mp3	inode=385824	size=9635512	mtime=1755342218088.4492	title=And So I Know	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 07 - Trippin' on a Hole in a Paper Heart.mp3	inode=221743	size=7190494	mtime=1755342225004.4492	title=Trippin' on a Hole in a Paper Heart	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 08 - Art School Girl.mp3	inode=243599	size=8737948	mtime=1755342221724.4492	title=Art School Girl	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 09 - Adhesive.mp3	inode=747067	size=13503714	mtime=1755342235552.4492	title=Adhesive	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 10 - Ride the Clich.mp3	inode=704473	size=8036820	mtime=1755342238276.4492	title=Ride the Clich	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 11 - Daisy.mp3	inode=490234	size=5671153	mtime=1755342244008.4492	title=Daisy	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
-	Stone Temple Pilots - 12 - Seven Caged Tigers.mp3	inode=777248	size=10412926	mtime=1755342254200.4492	title=Seven Caged Tigers	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996	cover=true
+	204. Stone Temple Pilots - Big Bang Baby (Early Version) [2021 Remaster].flac	inode=875642	size=77938916	mtime=1757123726269.409	title=Big Bang Baby (Early Version) [2021 Remaster]	album=Tiny Music... Songs From The Vatican Gift Shop (Super Deluxe Edition) [2021 Remaster]	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 01 - Press Play.mp3	inode=835016	size=3366118	mtime=1755342176596.4492	title=Press Play	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 02 - Pop's Love Suicide.mp3	inode=704806	size=9055603	mtime=1755342202320.4492	title=Pop's Love Suicide	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 03 - Tumble in the Rough.mp3	inode=836739	size=8074446	mtime=1755342186160.4492	title=Tumble in the Rough	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 04 - Big Bang Baby.mp3	inode=821197	size=8272965	mtime=1755342191452.4492	title=Big Bang Baby	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 05 - Lady Picture Show.mp3	inode=482323	size=10076467	mtime=1755342211672.4492	title=Lady Picture Show	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 06 - And So I Know.mp3	inode=385824	size=9635512	mtime=1755342218088.4492	title=And So I Know	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 07 - Trippin' on a Hole in a Paper Heart.mp3	inode=221743	size=7190494	mtime=1755342225004.4492	title=Trippin' on a Hole in a Paper Heart	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 08 - Art School Girl.mp3	inode=243599	size=8737948	mtime=1755342221724.4492	title=Art School Girl	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 09 - Adhesive.mp3	inode=747067	size=13503714	mtime=1755342235552.4492	title=Adhesive	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 10 - Ride the Clich.mp3	inode=704473	size=8036820	mtime=1755342238276.4492	title=Ride the Clich	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 11 - Daisy.mp3	inode=490234	size=5671153	mtime=1755342244008.4492	title=Daisy	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
+	Stone Temple Pilots - 12 - Seven Caged Tigers.mp3	inode=777248	size=10412926	mtime=1755342254200.4492	title=Seven Caged Tigers	album=Tiny Music... Songs from the Vatican Gift Shop	artist=Stone Temple Pilots	year=1996
 Vices & Virtues (2011)	
-	01 - The Ballad of Mona Lisa.flac	inode=790682	size=28073280	mtime=1758937722992.0222	title=The Ballad of Mona Lisa	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	02 - Let's Kill Tonight.flac	inode=939312	size=28125756	mtime=1758937726908.0222	title=Let’s Kill Tonight	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	03 - Hurricane.mp3	inode=762208	size=11204515	mtime=1758936211688.0227	title=Hurricane	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	04 - Memories.mp3	inode=939379	size=8812742	mtime=1758936213096.0227	title=Memories	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	05 - Trade Mistakes.mp3	inode=447466	size=9234892	mtime=1758936216580.0227	title=Trade Mistakes	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	06 - Ready to Go (Get Me Out of My Mind).mp3	inode=930051	size=9272551	mtime=1758936217988.0227	title=Ready to Go (Get Me Out of My Mind)	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	07 - Always.mp3	inode=929229	size=6737570	mtime=1758936221052.0227	title=Always	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	08 - The Calendar.mp3	inode=911439	size=11914007	mtime=1758936224120.0227	title=The Calendar	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	09 - Sarah Smiles.mp3	inode=928035	size=9124129	mtime=1758936225996.0227	title=Sarah Smiles	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	10 - Nearly Witches (Ever Since We Met.).mp3	inode=930533	size=10849308	mtime=1758936230276.0227	title=Nearly Witches (Ever Since We Met…)	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	11 - Stall Me.mp3	inode=923058	size=8179535	mtime=1758936233236.0227	title=Stall Me	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	12 - Oh Glory (Demo).mp3	inode=827828	size=7899517	mtime=1758936235424.0227	title=Oh Glory (Demo)	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	13 - I Wanna Be Free.mp3	inode=912618	size=7187941	mtime=1758936236876.0227	title=I Wanna Be Free	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
-	14 - Turn Off the Lights.mp3	inode=908240	size=10185761	mtime=1758936238332.0227	title=Turn Off the Lights	album=Vices & Virtues	artist=Panic! at the Disco	year=2011	cover=true
+	01 - The Ballad of Mona Lisa.flac	inode=790682	size=28073280	mtime=1758937722992.0222	title=The Ballad of Mona Lisa	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	02 - Let's Kill Tonight.flac	inode=939312	size=28125756	mtime=1758937726908.0222	title=Let’s Kill Tonight	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	03 - Hurricane.mp3	inode=762208	size=11204515	mtime=1758936211688.0227	title=Hurricane	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	04 - Memories.mp3	inode=939379	size=8812742	mtime=1758936213096.0227	title=Memories	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	05 - Trade Mistakes.mp3	inode=447466	size=9234892	mtime=1758936216580.0227	title=Trade Mistakes	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	06 - Ready to Go (Get Me Out of My Mind).mp3	inode=930051	size=9272551	mtime=1758936217988.0227	title=Ready to Go (Get Me Out of My Mind)	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	07 - Always.mp3	inode=929229	size=6737570	mtime=1758936221052.0227	title=Always	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	08 - The Calendar.mp3	inode=911439	size=11914007	mtime=1758936224120.0227	title=The Calendar	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	09 - Sarah Smiles.mp3	inode=928035	size=9124129	mtime=1758936225996.0227	title=Sarah Smiles	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	10 - Nearly Witches (Ever Since We Met.).mp3	inode=930533	size=10849308	mtime=1758936230276.0227	title=Nearly Witches (Ever Since We Met…)	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	11 - Stall Me.mp3	inode=923058	size=8179535	mtime=1758936233236.0227	title=Stall Me	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	12 - Oh Glory (Demo).mp3	inode=827828	size=7899517	mtime=1758936235424.0227	title=Oh Glory (Demo)	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	13 - I Wanna Be Free.mp3	inode=912618	size=7187941	mtime=1758936236876.0227	title=I Wanna Be Free	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
+	14 - Turn Off the Lights.mp3	inode=908240	size=10185761	mtime=1758936238332.0227	title=Turn Off the Lights	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
 Villains	
-	01. Feet Don't Fail Me.mp3	inode=811937	size=13990235	mtime=1755215303003.6392	title=Feet Don't Fail Me	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
-	02. The Way You Used To Do.mp3	inode=832195	size=11288137	mtime=1755215307047.6392	title=The Way You Used To Do	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
-	03. Domesticated Animals.mp3	inode=831452	size=13128198	mtime=1755215312071.6392	title=Domesticated Animals	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
-	04. Fortress.mp3	inode=831988	size=13405072	mtime=1755215316859.6392	title=Fortress	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
-	05. Head Like A Haunted House.mp3	inode=832072	size=8358249	mtime=1755215320303.6392	title=Head Like A Haunted House	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
-	06. Un-Reborn Again.mp3	inode=829436	size=16622856	mtime=1755215327715.6392	title=Un-Reborn Again	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
-	07. Hideaway.mp3	inode=822425	size=10920834	mtime=1755215332151.6392	title=Hideaway	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
-	08. The Evil Has Landed.mp3	inode=832349	size=16217444	mtime=1755215337663.6392	title=The Evil Has Landed	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
-	09. Villains Of Circumstance.mp3	inode=831804	size=15367952	mtime=1755215342195.6392	title=Villains Of Circumstance	album=Villains	artist=Queens Of The Stone Age	year=2017	cover=true
+	01. Feet Don't Fail Me.mp3	inode=811937	size=13990235	mtime=1755215303003.6392	title=Feet Don't Fail Me	album=Villains	artist=Queens Of The Stone Age	year=2017
+	02. The Way You Used To Do.mp3	inode=832195	size=11288137	mtime=1755215307047.6392	title=The Way You Used To Do	album=Villains	artist=Queens Of The Stone Age	year=2017
+	03. Domesticated Animals.mp3	inode=831452	size=13128198	mtime=1755215312071.6392	title=Domesticated Animals	album=Villains	artist=Queens Of The Stone Age	year=2017
+	04. Fortress.mp3	inode=831988	size=13405072	mtime=1755215316859.6392	title=Fortress	album=Villains	artist=Queens Of The Stone Age	year=2017
+	05. Head Like A Haunted House.mp3	inode=832072	size=8358249	mtime=1755215320303.6392	title=Head Like A Haunted House	album=Villains	artist=Queens Of The Stone Age	year=2017
+	06. Un-Reborn Again.mp3	inode=829436	size=16622856	mtime=1755215327715.6392	title=Un-Reborn Again	album=Villains	artist=Queens Of The Stone Age	year=2017
+	07. Hideaway.mp3	inode=822425	size=10920834	mtime=1755215332151.6392	title=Hideaway	album=Villains	artist=Queens Of The Stone Age	year=2017
+	08. The Evil Has Landed.mp3	inode=832349	size=16217444	mtime=1755215337663.6392	title=The Evil Has Landed	album=Villains	artist=Queens Of The Stone Age	year=2017
+	09. Villains Of Circumstance.mp3	inode=831804	size=15367952	mtime=1755215342195.6392	title=Villains Of Circumstance	album=Villains	artist=Queens Of The Stone Age	year=2017
 	album.nfo	inode=832469	size=3676	mtime=1755215342095.6392
 Wax Ecstatic (1996)	
-	01 - My Purity.mp3	inode=880619	size=7620262	mtime=1757161495085.56	title=My Purity	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	02 - Got to Be a Bore.mp3	inode=886898	size=7687862	mtime=1757161492797.56	title=Got to Be a Bore	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	03 - Wax Ecstatic (To Sell Angelina).mp3	inode=307571	size=8732297	mtime=1757161497409.56	title=Wax Ecstatic (To Sell Angelina)	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	04 - The Drag Queen of Memphis.mp3	inode=899299	size=9746985	mtime=1757161500189.56	title=The Drag Queens of Memphis	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	05 - I Am Anastasia.mp3	inode=899396	size=8509053	mtime=1757161502481.56	title=I Am Anastasia	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	06 - Silence Is Their Drug.mp3	inode=874867	size=7025462	mtime=1757161505133.56	title=Silence Is Their Drug	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	07 - Have You Seen Mary.mp3	inode=898952	size=7817471	mtime=1757161507545.56	title=Have You Seen Mary	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	08 - My Baby Said.mp3	inode=899210	size=6874321	mtime=1757161509589.56	title=My Baby Said	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	09 - The Death of a Drag Queen.mp3	inode=894510	size=11013542	mtime=1757161517129.56	title=The Death of a Drag Queen	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
-	10 - Velveteen.mp3	inode=899065	size=14317505	mtime=1757161521149.56	title=Velveteen	album=Wax Ecstatic	artist=Sponge	year=1996	cover=true
+	01 - My Purity.mp3	inode=880619	size=7620262	mtime=1757161495085.56	title=My Purity	album=Wax Ecstatic	artist=Sponge	year=1996
+	02 - Got to Be a Bore.mp3	inode=886898	size=7687862	mtime=1757161492797.56	title=Got to Be a Bore	album=Wax Ecstatic	artist=Sponge	year=1996
+	03 - Wax Ecstatic (To Sell Angelina).mp3	inode=307571	size=8732297	mtime=1757161497409.56	title=Wax Ecstatic (To Sell Angelina)	album=Wax Ecstatic	artist=Sponge	year=1996
+	04 - The Drag Queen of Memphis.mp3	inode=899299	size=9746985	mtime=1757161500189.56	title=The Drag Queens of Memphis	album=Wax Ecstatic	artist=Sponge	year=1996
+	05 - I Am Anastasia.mp3	inode=899396	size=8509053	mtime=1757161502481.56	title=I Am Anastasia	album=Wax Ecstatic	artist=Sponge	year=1996
+	06 - Silence Is Their Drug.mp3	inode=874867	size=7025462	mtime=1757161505133.56	title=Silence Is Their Drug	album=Wax Ecstatic	artist=Sponge	year=1996
+	07 - Have You Seen Mary.mp3	inode=898952	size=7817471	mtime=1757161507545.56	title=Have You Seen Mary	album=Wax Ecstatic	artist=Sponge	year=1996
+	08 - My Baby Said.mp3	inode=899210	size=6874321	mtime=1757161509589.56	title=My Baby Said	album=Wax Ecstatic	artist=Sponge	year=1996
+	09 - The Death of a Drag Queen.mp3	inode=894510	size=11013542	mtime=1757161517129.56	title=The Death of a Drag Queen	album=Wax Ecstatic	artist=Sponge	year=1996
+	10 - Velveteen.mp3	inode=899065	size=14317505	mtime=1757161521149.56	title=Velveteen	album=Wax Ecstatic	artist=Sponge	year=1996
 	cover.jpg	inode=890780	size=487838	mtime=1757161522325.56
 …Like Clockwork	
-	01 - Keep Your Eyes Peeled.mp3	inode=830359	size=12209910	mtime=1755215101815.6392	title=Keep Your Eyes Peeled	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	02 - I Sat by the Ocean.mp3	inode=832662	size=9467047	mtime=1755215113123.6392	title=I Sat by the Ocean	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	03 - The Vampyre of Time and Memory.mp3	inode=830377	size=8626973	mtime=1755215123747.6392	title=The Vampyre of Time and Memory	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	04 - If I Had a Tail.mp3	inode=830200	size=11867172	mtime=1755215138111.6392	title=If I Had a Tail	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	05 - My God Is the Sun.mp3	inode=830508	size=9459731	mtime=1755215162555.6392	title=My God Is the Sun	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	06 - Kalopsia.mp3	inode=829441	size=11168121	mtime=1755215170851.6392	title=Kalopsia	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	07 - Fairweather Friends.mp3	inode=420720	size=8979082	mtime=1755215188675.6392	title=Fairweather Friends	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	08 - Smooth Sailing.mp3	inode=823497	size=11699986	mtime=1755215198707.6392	title=Smooth Sailing	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	09 - I Appear Missing.mp3	inode=793687	size=14471060	mtime=1755215202823.6392	title=I Appear Missing	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
-	10 - …Like Clockwork.mp3	inode=831368	size=13016560	mtime=1755215206215.6392	title=…Like Clockwork	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013	cover=true
+	01 - Keep Your Eyes Peeled.mp3	inode=830359	size=12209910	mtime=1755215101815.6392	title=Keep Your Eyes Peeled	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	02 - I Sat by the Ocean.mp3	inode=832662	size=9467047	mtime=1755215113123.6392	title=I Sat by the Ocean	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	03 - The Vampyre of Time and Memory.mp3	inode=830377	size=8626973	mtime=1755215123747.6392	title=The Vampyre of Time and Memory	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	04 - If I Had a Tail.mp3	inode=830200	size=11867172	mtime=1755215138111.6392	title=If I Had a Tail	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	05 - My God Is the Sun.mp3	inode=830508	size=9459731	mtime=1755215162555.6392	title=My God Is the Sun	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	06 - Kalopsia.mp3	inode=829441	size=11168121	mtime=1755215170851.6392	title=Kalopsia	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	07 - Fairweather Friends.mp3	inode=420720	size=8979082	mtime=1755215188675.6392	title=Fairweather Friends	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	08 - Smooth Sailing.mp3	inode=823497	size=11699986	mtime=1755215198707.6392	title=Smooth Sailing	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	09 - I Appear Missing.mp3	inode=793687	size=14471060	mtime=1755215202823.6392	title=I Appear Missing	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013
+	10 - …Like Clockwork.mp3	inode=831368	size=13016560	mtime=1755215206215.6392	title=…Like Clockwork	album=…Like Clockwork	artist=Queens of the Stone Age	year=2013

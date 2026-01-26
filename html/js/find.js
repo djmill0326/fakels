@@ -458,9 +458,9 @@ const lrclib_search = async (el, signal) => {
         });
         status = status_obj(`lrclib for ${title}`);
         status.enable();
-        const res = await fetch(`https://lrclib.net/api/search?${params}`, { signal });
-        const results = await res.json();
-        return { title, text: results[0]?.syncedLyrics || results[0]?.plainLyrics };
+        const res = await fetch(`http://${location.hostname}:${await getheader("adapter-port")}/lrc?${params}`, { signal });
+        const text = await res.text();
+        return { title, text };
     } finally { status?.disable() }
 };
 const lyrics_cache = boundedCache(20);

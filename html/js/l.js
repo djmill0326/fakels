@@ -175,13 +175,14 @@ export function join(...x) {
 const numberedNames = (...names) => names.flatMap(name => new Array(9).fill().map((_, i) => `${name}${i + 1}`));
 const reservedNames = new Set(["CON", "PRN", "AUX", "NUL", ...numberedNames("COM", "LPT")]);
 const sanitizePath = (name) => {
+    if (!name) return "";
     const trimmed = name.replace(/(^[\.\s]+|[\.\s]+$)/g, "");
     if(reservedNames.has(trimmed.toUpperCase())) return `_${name}`;
     return trimmed.replace(/[<>:"/\\|?*\x00-\x1f]/g, "_")
 }
 
 export function getSemanticPath(path, { artist, album, title }) {
-    artist = sanitizePath(artist.replace(/\s+\(?feat\..+/i, ""));
+    artist = sanitizePath(artist?.replace(/\s+\(?feat\..+/i, ""));
     album = sanitizePath(album);
     return [artist || "Unknown Artist", ...(album ? [album] : ["Unknown Album", sanitizePath(title) || sanitizePath(path.slice(path.lastIndexOf("/" + 1), path.lastIndexOf("."))) || "Unknown Title"])].join("/");
 }
@@ -209,7 +210,7 @@ export const style = {
 
 export const display_mode = () => _.mode === "repeat" ? "Repeat one" : `Shuffle ${_.mode === "shuffle" ? "on" : "off"}`;
 
-export const cover_src = (el, isMedia=true) => `${location.origin}/covers/${el.dataset.cover ? getSemanticPath(el.href, el.dataset) : "default"}/${isMedia ? "cover" : "folder"}.jpg`;
+export const cover_src = (el, isMedia=true) => `${location.origin}/covers/${isMedia ? `${getSemanticPath(el.href, el.dataset)}/cover` : "default/folder"}.jpg`;
 
 const event_bus = window.event_bus ??= new EventTarget();
 export const Bus = {
