@@ -162,21 +162,26 @@ export default function createPlayer(signal) {
         if (paused) Bus.call.dispatch("play");
         else Bus.call.dispatch("pause");
     };
-    el.scrubber.onpointerdown = (ev) => {
+    const move = (ev) => {
         if (!ev.isPrimary) return;
-        el.scrubber.setPointerCapture(ev.pointerId);
-        el.scrubber.onpointermove(ev);
-    };
-    el.scrubber.onpointermove = (ev) => {
         scrubTime = Math.max(0, Math.min(ev.offsetX / el.scrubber.offsetWidth * length, length));
         updateProgress({ progress: scrubTime, duration: length });
     };
-    el.scrubber.onpointercancel = el.scrubber.onpointerup = (ev) => {
+    const cancel = (ev) => {
         if (!ev.isPrimary) return;
+        el.scrubber.onpointercancel = el.scrubber.onpointerup = null;
+        el.scrubber.onpointermove = null;
         el.scrubber.releasePointerCapture(ev.pointerId);
         Bus.call.dispatch("seek", scrubTime);
         scrubTime = null;
-    }
+    };
+    el.scrubber.onpointerdown = (ev) => {
+        if (!(ev.isPrimary && ev.buttons & 1)) return;
+        el.scrubber.setPointerCapture(ev.pointerId);
+        el.scrubber.onpointermove = move;
+        el.scrubber.onpointercancel = el.scrubber.onpointerup = cancel;
+        move(ev);
+    };
     Bus.call.dispatch("status");
     return main;
 }
