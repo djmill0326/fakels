@@ -1,10 +1,12 @@
+const reserved = "!();|";
 function parseTerm(str, s, parent) {
     let buf = "";
     while (s.i < str.length) {
         const c = str[s.i];
         if (c === ";" || c === "|" || c === ")") break;
-        if (c === "\\" && str.length - s.i > 1) {
-            buf += str[s.i + 1];
+        const next = str[s.i + 1];
+        if (c === "\\" && reserved.includes(next)) {
+            buf += next;
             s.i += 2;
             continue;
         }
@@ -37,8 +39,9 @@ function parseTagged(str, s, parent) {
     while (s.i < str.length) {
         const c = str[s.i];
         if (c === ";" || c === "|" || c === ")") break;
-        if (c === "\\" && str.length - s.i > 1) {
-            buf += str[s.i + 1];
+        const next = str[s.i + 1];
+        if (c === "\\" && reserved.includes(next)) {
+            buf += next;
             s.i += 2;
             continue;
         }

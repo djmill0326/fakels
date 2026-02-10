@@ -16,7 +16,7 @@ function reset(callback) {
     callback();
 }
 
-function match(el, query, useLinks, tag) {
+/* function match(el, query, useLinks, tag) {
     if (!query) return true;
     let result;
     if (query.type === "and") {
@@ -33,12 +33,46 @@ function match(el, query, useLinks, tag) {
         }
     }
     return result ^ query.invert;
+} */
+
+function escapeRegex(str) {
+    const toEscape = "+*?^$\\.[]{}()|/";
+    let slash = false;
+    let escaped = "";
+    for (let i = 0; i < str.length; i++) {
+        const c = str[i];
+        if (c === "\\" && !slash) {
+            slash = true;
+            continue;
+        }
+        if (toEscape.includes(c)) {
+            if (slash) escaped += c;
+            else escaped += `\\${c}`;
+        } else {
+            if (slash) escaped += `\\${c}`;
+            else escaped += c;
+        }
+        slash = false;
+    }
+    if (slash) escaped += "\\\\";
+    return escaped;
+}
+
+function build(query, useLinks, tag) {
+    if (!query) return "true";
+    const prefix = query.invert ? "!" : "";
+    if (query.type === "and") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join(" && ")})`;
+    if (query.type === "or") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join(" || ")})`;
+    tag ??= query.tag;
+    if (query.group) return `${prefix}${build(query.group, useLinks, tag)}`;
+    return `${prefix}((text = ${tag ? `el.getAttribute("data-${tag}")` : useLinks ? "el.href" : "el.textContent"}) && /${escapeRegex(query.str)}/i.test(text))`;
 }
 
 function filter(callback, term, useLinks) {
     term = term.toLowerCase();
     const query = parse(term);
-    search.check = el => match(el, query, useLinks);
+    search.check = new Function("el", `return ${build(query, useLinks)}`);
+    //search.check = el => match(el, query, useLinks);
     callback();
 }
 

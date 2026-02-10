@@ -308,6 +308,8 @@ Pending
 		Radiohead - OK Computer - 06 - Karma Police.flac	inode=662983	size=32230435	mtime=1761778284843.8372	title=Karma Police	album=OK Computer	artist=Radiohead	year=2009
 	California 37	
 		Train - Drive By.flac	inode=665375	size=26229053	mtime=1761778264459.8372	title=Drive By	album=California 37	artist=Train	year=2012
+	Come Over When You're Sober, Pt. 2 (2018)	
+		12 - Falling Down.flac	inode=1045122	size=20648124	mtime=1770389199718.836	title=Falling Down	album=Come Over When You're Sober, Pt. 2	artist=Lil Peep	year=2018
 	Deathconsciousness (2008)	
 		05 - Telefony.flac	inode=1060099	size=26885319	mtime=1768278599802.123	title=Telefony	album=Deathconsciousness	artist=Have a Nice Life	year=2014
 		09 - Holy Fucking Shit 40,000.flac	inode=1060017	size=42487187	mtime=1768278596858.123	title=Holy Fucking Shit: 40,000	album=Deathconsciousness	artist=Have a Nice Life	year=2014
@@ -346,36 +348,6 @@ Pending
 		14 Get Some Keez.mp3	inode=997492	size=6641517	mtime=1765034549802.5251	title=Get Some Keez	album=Get Some	artist=Snot	year=1997
 		15 My Balls.lrc	inode=972303	size=3392	mtime=1765034482098.5251
 		15 My Balls.mp3	inode=631543	size=7088728	mtime=1765034551878.5251	title=My Balls	album=Get Some	artist=Snot	year=1997
-	Graduation [E]	
-		01. Good Morning.flac	inode=647865	size=23142966	mtime=1761780702079.8362	title=Good Morning	album=Graduation	artist=Ye	year=2010
-		01. Good Morning.lrc	inode=643476	size=2974	mtime=1761780098259.8364
-		02. Champion.flac	inode=663605	size=19992056	mtime=1761780154531.8364	title=Champion	album=Graduation	artist=Ye	year=2010
-		02. Champion.lrc	inode=665507	size=3326	mtime=1761780155359.8364
-		03. Stronger.flac	inode=647529	size=38521586	mtime=1761780235923.8364	title=Stronger	album=Graduation	artist=Ye	year=2010
-		03. Stronger.lrc	inode=924639	size=5930	mtime=1761780234819.8364
-		04. I Wonder.flac	inode=627678	size=25779607	mtime=1761780305447.8364	title=I Wonder	album=Graduation	artist=Ye	year=2010
-		04. I Wonder.lrc	inode=267687	size=2401	mtime=1761780427327.8364
-		05. Good Life.flac	inode=640852	size=26603168	mtime=1761780513663.8362	title=Good Life	album=Graduation	artist=Ye	year=2010
-		05. Good Life.lrc	inode=624073	size=3668	mtime=1761780514363.8362
-		06. Can't Tell Me Nothing.flac	inode=637935	size=33447733	mtime=1761780427115.8364	title=Can’t Tell Me Nothing	album=Graduation	artist=Ye	year=2010
-		06. Can't Tell Me Nothing.lrc	inode=615930	size=4219	mtime=1761780515143.8362
-		07. Barry Bonds.flac	inode=983710	size=21902714	mtime=1761780523823.8362	title=Barry Bonds	album=Graduation	artist=Ye	year=2010
-		07. Barry Bonds.lrc	inode=628527	size=3209	mtime=1761780513923.8362
-		08. Drunk and Hot Girls.flac	inode=615786	size=36468772	mtime=1761780446455.8364	title=Drunk and Hot Girls	album=Graduation	artist=Ye	year=2010
-		08. Drunk and Hot Girls.lrc	inode=983803	size=3128	mtime=1761780523803.8362
-		09. Flashing Lights.flac	inode=662872	size=29187412	mtime=1761780556547.8362	title=Flashing Lights	album=Graduation	artist=Ye	year=2010
-		09. Flashing Lights.lrc	inode=29479	size=2548	mtime=1761780427935.8364
-		10. Everything I Am.flac	inode=625728	size=26810067	mtime=1761780535427.8362	title=Everything I Am	album=Graduation	artist=Ye	year=2010
-		10. Everything I Am.lrc	inode=625948	size=3092	mtime=1761780535131.8362
-		11. The Glory.flac	inode=623469	size=24787489	mtime=1761780546167.8362	title=The Glory	album=Graduation	artist=Ye	year=2010
-		11. The Glory.lrc	inode=638846	size=4301	mtime=1761780545855.8362
-		12. Homecoming.flac	inode=961049	size=25119101	mtime=1761780714019.8362	title=Homecoming	album=Graduation	artist=Ye	year=2010
-		12. Homecoming.lrc	inode=642576	size=3235	mtime=1761780556247.8362
-		13. Big Brother.flac	inode=258017	size=35914424	mtime=1761780663451.8362	title=Big Brother	album=Graduation	artist=Ye	year=2010
-		13. Big Brother.lrc	inode=661927	size=4888	mtime=1761780665043.8362
-		14. Good Night.flac	inode=645009	size=22595068	mtime=1761780673295.8362	title=Good Night	album=Graduation	artist=Ye	year=2010
-		14. Good Night.lrc	inode=644937	size=2798	mtime=1761780672963.8362
-		cover.jpg	inode=856221	size=1654180	mtime=1761780664251.8362
 	Labcabincalifornia (1995)	
 		204 - Runnin’ instrumental.flac	inode=302553	size=35279078	mtime=1766126783542.8262	title=Runnin’ (instrumental)	album=Labcabincalifornia	artist=The Pharcyde	year=2012
 	Madvillainy	
