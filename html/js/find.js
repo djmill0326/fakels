@@ -93,6 +93,7 @@ const next_track = () => mode === "shuffle" ? shuffle.peek() : mode === "repeat"
 const fade_time = .05;
 let fade_controller;
 const next_queued = mode => {
+    if (fade_controller && mode !== "immediate") return;
     fade_controller?.abort();
     fade_controller = new AbortController();
     const signal = fade_controller.signal;
@@ -132,15 +133,15 @@ const next_queued = mode => {
             update_link([anchor, link], false);
             return;
         }
-        const scale = remaining / fade_time * volume;
-        mel.volume = scale;
-        next.volume = volume - scale;
+        const scale = Math.pow(remaining / fade_time, 2);
+        mel.volume = volume * scale;
+        next.volume = volume * (1 - scale);
         if (mel.paused) {
             next.pause();
             return wait_for_resume(fade);
         }
         if (next.paused) next.play();
-        setTimeout(fade);
+        setTimeout(fade, 0);
     };
     const fade_wait = () => {
         if (signal.aborted) return;
@@ -154,7 +155,7 @@ const next_queued = mode => {
             return;
         }
         if (mel.paused) return wait_for_resume(fade_wait);
-        setTimeout(fade_wait);
+        setTimeout(fade_wait, 0);
     };
     next.addEventListener("canplay", () => {
         end = mode === "immediate" ? 0 
@@ -266,21 +267,74 @@ const refill_items = (iter) => {
     if (frame.firstElementChild.textContent.endsWith(" entries (flat)"))
         frame.firstElementChild.textContent = `${activeItems.length} entries (flat)`;
     shuffle.invalidate();
-    vscroll?.update();
+    vscroll?.update(library_mode ? "enhanced" : "basic");
     update_status();
+};
+const enhance_anchor = (el, info, initOnly=false) => {
+    if (el.classList.contains("song-card")) return;
+    info ??= get_info(el.href);
+    const isMedia = !!types[info.ext];
+    if (!el.dataset.name) {
+        if (isMedia) el.dataset.title ??= extract_title(info);
+        el.dataset.name = el.textContent;
+    }
+    if (initOnly) return;
+    el.classList.add("song-card");
+    const cover = $("div");
+    cover.className = "cover";
+    const text = $("div");
+    text.className = "info";
+    const title = $("div");
+    title.className = "title";
+    title.innerText = isMedia ? el.dataset.title : el.dataset.name;
+    const artist = $("div");
+    artist.className = "artist";
+    artist.innerText = isMedia ? (el.dataset.artist || "Unknown Artist") : "Folder";
+    text.append(title, artist);
+    el.replaceChildren(cover, text);
+};
+const basicShell = $("li");
+basicShell.append($("a"));
+const enhancedShell = basicShell.cloneNode(true);
+enhance_anchor(enhancedShell.firstElementChild);
+const vscrollModes = {
+    basic: {
+        shell() {
+            return basicShell.cloneNode(true);
+        },
+        update(el, ref) {
+            const a = el.firstElementChild;
+            const a_ref = ref.firstElementChild;
+            a.href = a_ref.href;
+            a.innerText = a_ref.innerText;
+            el.dataset.index = ref.getAttribute("data-index");
+        }
+    },
+    enhanced: {
+        shell() {
+            return enhancedShell.cloneNode(true);
+        },
+        update(el, ref) {
+            const a = el.firstElementChild;
+            const a_ref = ref.firstElementChild;
+            a.href = a_ref.href;
+            el.dataset.index = ref.getAttribute("data-index");
+            const isMedia = !!types[get_info(a.href).ext];
+            const cover = a.q(".cover");
+            const src = encodeURI(cover_src(a_ref, isMedia));
+            if (cover._src !== src) {
+                cover._src = src;
+                cover.style.setProperty("--cover-src", `url(${src})`);
+            }
+            a.q(".title").innerText = isMedia ? a_ref.getAttribute("data-title") : a_ref.innerText;
+            a.q(".artist").innerText = isMedia ? a_ref.getAttribute("data-artist") : "Folder";
+        }
+    }
 };
 const virtualize = () => {
     vscroll?.dispose();
     const list = $("ul");
-    vscroll = virtualScroll(list, activeItems, el => {
-        const a = el.firstElementChild;
-        if (library_mode) enhance_anchor(a);
-        else if (a.classList.contains("song-card")) {
-            a.classList.remove("song-card");
-            a.textContent = a.dataset.name;
-        }
-        return el;
-    });
+    vscroll = virtualScroll(list, activeItems, vscrollModes);
     frame.lastElementChild.replaceWith(list);
 };
 const found = new Map();
@@ -292,8 +346,8 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
         for (let i = 0; i < list.length; i++) {
             const li = list[i];
             const a = li.children[0];
-            const info = get_info(a.href);
-            if (!mime[info.ext]) find_recursive(root + info.name + "/", count);
+            const { name, ext } = get_info(a.href);
+            if (!mime[ext]) find_recursive(`${root}${name}${ext ? `.${ext}` : ""}/`, count);
             else found.set(a.href, li);
         }
         if (count.i === count.expected) {
@@ -322,33 +376,6 @@ const on_load = () => {
 };
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
 const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
-const enhance_anchor = (el, info, initOnly=false) => {
-    if (el.classList.contains("song-card")) return;
-    info ??= get_info(el.href);
-    const isMedia = !!types[info.ext];
-    if (!el.dataset.name) {
-        if (isMedia) el.dataset.title ??= extract_title(info);
-        el.dataset.name = el.textContent;
-    }
-    if (initOnly) return;
-    el.classList.add("song-card");
-    const cover_wrap = $("div");
-    cover_wrap.className = "cover loading";
-    const cover = $("img");
-    cover.onload = () => cover_wrap.classList.remove("loading");
-    cover.src = cover_src(el, isMedia);
-    cover_wrap.append(cover);
-    const text = $("div");
-    text.className = "info";
-    const title = $("div");
-    title.className = "title";
-    title.innerText = isMedia ? el.dataset.title : el.dataset.name;
-    const artist = $("div");
-    artist.className = "artist";
-    artist.innerText = isMedia ? (el.dataset.artist || "Unknown Artist") : "Folder";
-    text.append(title, artist);
-    el.replaceChildren(cover_wrap, text);
-};
 form.onsubmit = (e) => {
     back.disabled = false;
     e.preventDefault();
@@ -627,8 +654,9 @@ const update_link = (to, set_src=true) => {
         term.value = decodedLink.split(" /")[1];
         btn.click(); return;
     }
-    if(set_src) portal.src = link;
+    clear_search();
     const ifm = types[info.ext];
+    if(!ifm && set_src) portal.src = link;
     if (ifm || link.includes("/media/")) {
         if (!ifm) {
             if (link.endsWith(".lrc")) {
@@ -661,7 +689,10 @@ const update_link = (to, set_src=true) => {
         portal.remove();
         if (items[parseInt(anchor.parentElement?.dataset.index)]?.firstElementChild.href === link) frame.lastElementChild.scrollToEl(anchor.parentElement);
         _.lplay = link;
-        if (set_src) mel.src = link;
+        if (set_src) {
+            fade_controller?.abort();
+            mel.src = link;
+        }
         np = query;
         const title = anchor.dataset.title ||= extract_title(info);
         document.title = title;
@@ -694,14 +725,16 @@ for (const path of paths) {
 term.value = (pathname.length ? pathname : _.ldir) ?? "";
 btn.click();
 useSearch(term, refill_items);
-const frame_handler = (e) => {
-    e.preventDefault();
-    const target = e.target.href ? e.target : e.target.children[0];
-    if (target?.tagName !== "A") return;
+const clear_search = () => {
     if (search.term && !search.persistent) {
         term.value = _.ldir;
         search.reset();
     }
+};
+const frame_handler = (e) => {
+    e.preventDefault();
+    const target = e.target.href ? e.target : e.target.children[0];
+    if (target?.tagName !== "A") return;
     const index = target.parentElement.dataset.index;
     update_link(index ? parseInt(index) : target);
 };

@@ -61,11 +61,11 @@ function escapeRegex(str) {
 function build(query, useLinks, tag) {
     if (!query) return "true";
     const prefix = query.invert ? "!" : "";
-    if (query.type === "and") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join(" && ")})`;
-    if (query.type === "or") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join(" || ")})`;
+    if (query.type === "and") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join("&&")})`;
+    if (query.type === "or") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join("||")})`;
     tag ??= query.tag;
     if (query.group) return `${prefix}${build(query.group, useLinks, tag)}`;
-    return `${prefix}((text = ${tag ? `el.getAttribute("data-${tag}")` : useLinks ? "el.href" : "el.textContent"}) && /${escapeRegex(query.str)}/i.test(text))`;
+    return `${prefix}((t = ${tag ? `el.getAttribute("data-${tag}")` : useLinks ? "el.href" : "el.textContent"})&&/${escapeRegex(query.str)}/i.test(t))`;
 }
 
 function filter(callback, term, useLinks) {

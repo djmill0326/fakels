@@ -3,7 +3,10 @@
     --rot: 90deg;
     --gradwarm: rgba(136,72,150,1) 0%, #f02040 50%, rgba(255,201,69,1) 100%;
     --gradcold: rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%;
-    --gradcols: var(--gradwarm);
+    --ds2: #1d7a8c 0%, #412a63 45%, #8e2b4f 100%; 
+    --ds2-vivid: #008ba3 0%, #4b0082 45%, #9d003d 100%;
+    --gradcols: var(--ds2);
+    --gradtext: var(--ds2-vivid);
     --font: system-ui, serif;
     color: #ccc;
 }
@@ -119,7 +122,7 @@ li {
 }
 
 #frame a:not(.song-card), .song-card .title {
-    background: linear-gradient(calc(222deg + var(--rot)), var(--gradcols));
+    background: linear-gradient(calc(222deg + var(--rot)), var(--gradtext));
     background-clip: text;
     color: #ccc6;
 }

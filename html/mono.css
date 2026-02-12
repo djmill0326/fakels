@@ -211,33 +211,13 @@ span:nth-child(2) {
         height: 3.5em;
         width: 3.5em;
         border-radius: 5px;
+        flex-shrink: 0;
+        background: var(--cover-src), linear-gradient(45deg, #111 0%, #222 30%, #333 50%, #222 70%, #111 100%);
+        background-size: cover;
     }
     .info {
         .artist {
             color: #aaa;
-        }
-    }
-}
-
-.song-card, .player-ui {
-    .cover {
-        background: linear-gradient(45deg, #111 0%, #222 15%, #333 25%, #222 35%, #111 50%, #222 65%, #333 75%, #222 85%, #111 100%);
-        background-size: 200% 200%;
-        animation: move-bg 2s ease infinite paused;
-        aspect-ratio: 1/1;
-        flex-shrink: 0;
-        img {
-            width: 100%;
-            height: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            transition: opacity .2s ease;
-        }
-        &.loading {
-            animation-play-state: running;
-            img {
-                opacity: 0;
-            }
         }
     }
 }
@@ -273,6 +253,24 @@ span:nth-child(2) {
         width: calc(min(90%, 40dvh));
         border-radius: 1em;
         overflow: hidden;
+        background: linear-gradient(45deg, #111 0%, #222 15%, #333 25%, #222 35%, #111 50%, #222 65%, #333 75%, #222 85%, #111 100%);
+        background-size: 200% 200%;
+        animation: move-bg 2s ease infinite paused;
+        aspect-ratio: 1/1;
+        flex-shrink: 0;
+        img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            transition: opacity .2s ease;
+        }
+        &.loading {
+            animation-play-state: running;
+            img {
+                opacity: 0;
+            }
+        }
     }
     .info {
         max-height: 2.5em;
