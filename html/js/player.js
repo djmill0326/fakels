@@ -130,7 +130,7 @@ export default function createPlayer(signal) {
     }, { signal });
     Bus.on("time", (data) => scrubTime === null && updateProgress(data), { signal });
     Bus.on("media", (data) => {
-        let { artist, album, title } = data.dataset;
+        let { artist, album, title } = data;
         artist ||= "Unknown Artist";
         album ||= "Unknown Album";
         updateTitle(title);

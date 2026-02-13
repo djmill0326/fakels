@@ -11,7 +11,7 @@ function stupidRand(max) {
 
 export default function shuffler(items) {
     let dir, prev, peeked, list, cursor, dirty;
-    const isValid = (selection) => types[get_info(items[selection].firstElementChild.href).ext];
+    const isValid = (selection) => items[selection].isMedia;
     const provider = {
         peek() {
             const active_dir = location.pathname + items.length;
@@ -19,8 +19,8 @@ export default function shuffler(items) {
                 dir = active_dir;
                 this.reset();
             }
-            if (peeked != null) return items[list[peeked]].firstElementChild;
-            if (list.length < 2) return isValid(0) && items[0].firstElementChild;
+            if (peeked != null) return items[list[peeked]];
+            if (list.length < 2) return isValid(0) && items[0];
             // const i = Math.floor(Math.random() * (cursor + 1));
             let selection, success = false;
             for (let i = 0; i < items.length; i++) {
@@ -35,7 +35,7 @@ export default function shuffler(items) {
             }
             if (!success) return;
             prev = selection;
-            return items[selection].firstElementChild;
+            return items[selection];
         },
         consume() {
             const result = this.peek();

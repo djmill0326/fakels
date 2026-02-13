@@ -65,13 +65,13 @@ function build(query, useLinks, tag) {
     if (query.type === "or") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join("||")})`;
     tag ??= query.tag;
     if (query.group) return `${prefix}${build(query.group, useLinks, tag)}`;
-    return `${prefix}((t = ${tag ? `el.getAttribute("data-${tag}")` : useLinks ? "el.href" : "el.textContent"})&&/${escapeRegex(query.str)}/i.test(t))`;
+    return `${prefix}((t = ${tag ? `item["${tag}"]` : useLinks ? "item.href" : "item.name"})&&/${escapeRegex(query.str)}/i.test(t))`;
 }
 
 function filter(callback, term, useLinks) {
     term = term.toLowerCase();
     const query = parse(term);
-    search.check = new Function("el", `return ${build(query, useLinks)}`);
+    search.check = new Function("item", `return ${build(query, useLinks)}`);
     //search.check = el => match(el, query, useLinks);
     callback();
 }

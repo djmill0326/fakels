@@ -152,7 +152,7 @@ export function boundBox(el, gutter, minW, maxW, minH, maxH) {
 export function join(...x) {
     const path = x.join("/").replace(/[—\\\/]+/g, "/");
     const tok = path.indexOf(":/") + 2;
-    const out = path[0] === "/" ? ["/"] : [];
+    const out = [];
     let last = 0;
     let dots = 0;
     if (tok !== 1) {
@@ -162,9 +162,9 @@ export function join(...x) {
     for (let i = 0; i < path.length; i++) {
         const c = path[i];
         if (c === "/") {
-            if (dots === 0) out.push(path.slice(last, i));
+            if (dots === 0) out.push(path.slice(last, i + 1));
             else if (dots === 2) out.pop();
-            last = i;
+            last = i + 1;
             dots = 0;
         } else if (c === "." && (dots === 1 || path[i - 1] === "/")) ++dots;
     }
@@ -174,17 +174,19 @@ export function join(...x) {
 
 const numberedNames = (...names) => names.flatMap(name => new Array(9).fill().map((_, i) => `${name}${i + 1}`));
 const reservedNames = new Set(["CON", "PRN", "AUX", "NUL", ...numberedNames("COM", "LPT")]);
-const sanitizePath = (name) => {
+const sanitizePath = (name, skip=false) => {
     if (!name) return "";
     const trimmed = name.replace(/(^[\.\s]+|[\.\s]+$)/g, "");
+    if (skip) return trimmed;
     if(reservedNames.has(trimmed.toUpperCase())) return `_${name}`;
     return trimmed.replace(/[<>:"/\\|?*\x00-\x1f]/g, "_")
 }
 
-export function getSemanticPath(path, { artist, album, title }) {
-    artist = sanitizePath(artist?.replace(/\s+\(?feat\..+/i, ""));
-    album = sanitizePath(album);
-    return [artist || "Unknown Artist", ...(album ? [album] : ["Unknown Album", sanitizePath(title) || sanitizePath(path.slice(path.lastIndexOf("/" + 1), path.lastIndexOf("."))) || "Unknown Title"])].join("/");
+export function getSemanticPath({ name, artist, album, title }, sanitize=true) {
+    const s = !sanitize;
+    artist = sanitizePath(artist?.replace(/\s+\(?feat\..+/i, ""), s);
+    album = sanitizePath(album, s);
+    return [artist || "Unknown Artist", ...(album ? [album] : ["Unknown Album", sanitizePath(title, s) || sanitizePath(name.slice(0, name.lastIndexOf(".")), s) || "Unknown Title"])].join("/");
 }
 
 export const pathname = (link) => {
@@ -210,7 +212,7 @@ export const style = {
 
 export const display_mode = () => _.mode === "repeat" ? "Repeat one" : `Shuffle ${_.mode === "shuffle" ? "on" : "off"}`;
 
-export const cover_src = (el, isMedia=true) => `${location.origin}/covers/${isMedia ? `${getSemanticPath(el.href, el.dataset)}/cover` : "default/folder"}.jpg`;
+export const cover_src = (item, isMedia=true) => `${location.origin}/covers/${isMedia ? `${getSemanticPath(item)}/cover` : "default/folder"}.jpg`;
 
 const event_bus = window.event_bus ??= new EventTarget();
 export const Bus = {

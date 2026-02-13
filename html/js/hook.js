@@ -23,7 +23,7 @@ export const getheader = async name => {
 };
 
 const query_cache = new Map();
-export async function api(endpoint, query, frame, cb, req, err, cached=false) {
+export async function api(endpoint, query, frame, cb, req, err, cached=false, opt={}, signal=null) {
     let link = `${endpoint}%20${query}`;
     let response, wait = true;
     const callback = data => {
@@ -67,9 +67,10 @@ export async function api(endpoint, query, frame, cb, req, err, cached=false) {
     };
     setTimeout(timeout, 10000);
     const url = `http://${location.hostname}:${await getheader("adapter-port")}/${link}`;
-    response = await fetch(url).catch(err => console.warn(err));
+    if (opt === true) opt = { headers: { "Accept": "application/json" } };
+    response = await fetch(url, { ...opt, signal }).catch(err => console.warn(err));
     if (timeout()) return;
-    callback(await response.text());
+    callback(await (response.headers.get("content-type")?.includes("json") ? response.json() : response.text()));
 };
 
 export const main = (client=true) => {

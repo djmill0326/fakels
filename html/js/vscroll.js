@@ -25,7 +25,7 @@ export function virtualScroll(root, list, modes) {
     const update = (mode, resizeOnly=false) => {
         if (!resizeOnly) {
             indexMap.clear();
-            list.forEach((node, i) => indexMap.set(parseInt(node.dataset.index), i));
+            list.forEach((item, i) => indexMap.set(item.id, i));
         }
         let scrollTarget;
         if (list.length) {
@@ -70,7 +70,7 @@ export function virtualScroll(root, list, modes) {
         const position = Math.floor(root.scrollTop / height);
         const top = Math.max(Math.min(position - gutter, list.length - size), 0);
         const diff = Math.abs(top - index);
-        dataIndex = parseInt(list[position]?.dataset.index) || 0;
+        dataIndex = parseInt(list[position]?.id) || 0;
         const overflowTop = position - gutter;
         const overflowBottom = list.length - position - gutter;
         const overflow = overflowTop < 0 || overflowBottom < 0;
@@ -101,13 +101,13 @@ export function virtualScroll(root, list, modes) {
     const listen = () => root.addEventListener("scroll", listener);
     listen();
     const dispose = () => observer.disconnect() || root.removeEventListener("scroll", listener);
-    root.scrollToEl = (el) => {
+    const scrollTo = listIndex => {
         root.removeEventListener("scroll", listener);
-        const i = indexMap.get(parseInt(el.dataset.index));
+        const i = indexMap.get(listIndex);
         root.scrollTop = i * height + 1;
         callback();
-        list[i - index]?.focus();
+        pool[i - index]?.focus();
         listen();
     }
-    return { update, dispose };
+    return { update, dispose, scrollTo };
 }
