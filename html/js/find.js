@@ -1,17 +1,17 @@
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
 import { overrideConsole } from "./tab-log.js"
 overrideConsole("fakels", x => eval(x)); // temporary for mobile
+console.info("fakels (Directory Viewer) [v2.6.0]");
 const measure = async () => {
     const { bytes } = await performance.measureUserAgentSpecificMemory();
     console.debug("Memory usage:", parseFloat((bytes / 1000000).toFixed(2)), "MB");
     requestIdleCallback(measure);
 };
 measure().then();
-console.info("fakels (Directory Viewer) [v2.6.0]");
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
-import $, { _, id, handleHold, boundBox, join, style, boundedCache, cover_src, display_mode, Bus, getSemanticPath } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, boundedCache, cover_src, display_mode, Bus, tag_sorters, tag_shorthand, tag_normalizers } from "./l.js";
 import { search, useSearch } from "./search.js";
 import { parseLyrics, showLyrics } from "./lyrics.js";
 import { virtualScroll } from "./vscroll.js";
@@ -63,7 +63,7 @@ export const describe = info => `${info.name} [${info.ext ? info.ext : "?"}]`;
 const next_item = (item, looping=true) => {
     if (!item) return;
     for (let head = item.id, i = 0; i < items.length; i++) {
-        const entry = activeItems[++head];
+        const entry = items[++head];
         let next;
         if (!entry) {
             const initial = items[0]; 
@@ -324,30 +324,51 @@ const virtualize = name => {
     vscroll = virtualScroll(list, activeItems, vscroll_modes);
     frame.replaceChildren(title, list);
 };
-let splat_map, last_splat;
-const hierarchicalize = (items) => {
+const normalize_tag = (value, tag) => tag_normalizers[tag]?.(value) || value;
+const sorted = (list, tag) => list.sort(tag_sorters[tag] || tag_sorters.default);
+const hierarchicalize = (items, spec) => {
     const root = {};
     for (const item of items) {
         const info = get_info(item.href);
         if (!types[info.ext]) continue;
-        const [artist, album] = getSemanticPath(item, false).split("/");
-        root[artist] ??= {};
-        root[artist][album] ??= [];
-        root[artist][album].push(item);
+        spec.reduce((n, tag, i) => n[normalize_tag(item[tag], tag)] ??= (i === spec.length - 1 ? [] : {}), root).push(item);
     }
     return root;
 };
+const flat = (root) => root.reduce((list, [_, item]) => {
+    if (item.href) list.push(item);
+    else list.push(...flat(Object.entries(item)));
+    return list;
+}, []);
+let splat_map, last_splat, last_spec, item_cache;
 const splat = (path, items) => {
-    if (items) splat_map = hierarchicalize(items);
+    if (items) item_cache = Array.from(items);
     const [primary, splat_path] = path.split("**");
-    const [_, ...paths] = splat_path.split("/");
-    last_splat = primary;
+    const [spec_str, ...paths] = splat_path.split("/");
+    let spec = ["artist", "album"];
+    if (spec_str.startsWith(":")) spec = spec_str.slice(1).split("").map(x => tag_shorthand[x]);
+    if (items || spec_str !== last_spec) splat_map = hierarchicalize(item_cache, spec);
+    const is_flat = paths.at(-1) === "*";
+    if (is_flat) paths.pop();
     const dir = Object.entries(paths.length ? (paths.reduce((o, k) => o?.[k], splat_map) || []) : splat_map);
-    refill_items(dir.map(([name, item]) => {
-        if (item.href) return item;
-        return { name, href: `${path}/${name}`, isDir: true };
-    }) || []);
+    if (is_flat) refill_items(flat(dir));
+    else {
+        const list = dir.map(([name, item]) => {
+            if (item.href) return item;
+            return { name, href: `${path}/${name}`, isDir: true };
+        }) || [];
+        refill_items(paths.length < spec.length ? sorted(list, spec.at(paths.length)) : list);
+    }
+    last_splat = primary;
+    last_spec = spec_str;
 };
+const unsplat = items => {
+    item_cache = items;
+    last_spec = last_splat = null;
+};
+const splat_or_refill = items => _.ldir.includes("**") 
+    ? splat(_.ldir, items) 
+    : refill_items(items) || unsplat(items);
 const found = new Map();
 const find_recursive = (root, count={ i: 0, expected: 0 }) => {
     ++count.expected;
@@ -360,8 +381,7 @@ const find_recursive = (root, count={ i: 0, expected: 0 }) => {
         }
         if (count.i === count.expected) {
             virtualize("n entries (flat)");
-            if (_.ldir.includes("**")) splat(_.ldir, found.values());
-            else refill_items(found.values());
+            splat_or_refill(found.values());
             found.clear();
             on_load();
         }
@@ -392,11 +412,7 @@ form.onsubmit = (e) => {
     back.checked = query.replace("/", "").length;
     btn.onclick();
     if (wildcard !== -1) {
-        console.log("submit", last_splat, _.ldir);
-        if (splat_map 
-            && _.ldir.includes("**") 
-            && _.ldir.startsWith(last_splat + "**")
-        ) splat(_.ldir);
+        if (splat_map && _.ldir.startsWith(last_splat + "**")) splat(_.ldir);
         else {
             const c = { i: 0, expected: 0 };
             find_recursive(`/${dir}`, c);
@@ -405,6 +421,7 @@ form.onsubmit = (e) => {
     }
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
     console.debug("[fakels/debug]", "query", `'${query}'`);
+    unsplat();
     api("ls", query, null, data => {
         if (query === "link") return;
         console.log("[fakels/query]", "found", `'${query}'`);
