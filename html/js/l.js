@@ -182,11 +182,48 @@ const sanitizePath = (name, skip=false) => {
     return trimmed.replace(/[<>:"/\\|?*\x00-\x1f]/g, "_")
 }
 
+export const tag_shorthand = {
+    a: "album",
+    A: "artist",
+    y: "year"
+};
+
+export const tag_normalizers = {
+    artist: x => x?.replace(/\s+\(?feat\..+/i, "") || "Unknown Artist",
+    album: x => x || "Unknown Album",
+    year: x => {
+        if (x < 1960) return "Pre-60s";
+        if (x < 2000) x -= 1900;
+        return `${Math.floor((n / 10)) * 10}s`
+    }
+};
+
+const strip_the = x => {
+    if (x.length < 5) return x;
+    if ((x[0] === "t" || x[0] === "T") &&
+        (x[1] === "h" || x[1] === "H") &&
+        (x[2] === "e" || x[2] === "E") &&
+         x[3] === " "
+    ) return x.slice(4);
+    return x;
+};
+
+const lex_num = x => {
+    const n = parseInt(x);
+    return isNaN(n) ? -1 : n;
+};
+
+const compare = new Intl.Collator().compare;
+export const tag_sorters = {
+    default: (a, b) => compare(strip_the(a), strip_the(b)),
+    year: (a, b) => lex_num(a) - lex_num(b)
+};
+
 export function getSemanticPath({ name, artist, album, title }, sanitize=true) {
     const s = !sanitize;
-    artist = sanitizePath(artist?.replace(/\s+\(?feat\..+/i, ""), s);
+    artist = sanitizePath(tag_normalizers.artist(artist), s);
     album = sanitizePath(album, s);
-    return [artist || "Unknown Artist", ...(album ? [album] : ["Unknown Album", sanitizePath(title, s) || sanitizePath(name.slice(0, name.lastIndexOf(".")), s) || "Unknown Title"])].join("/");
+    return [artist, ...(album ? [album] : ["Unknown Album", sanitizePath(title, s) || sanitizePath(name.slice(0, name.lastIndexOf(".")), s) || "Unknown Title"])].join("/");
 }
 
 export const pathname = (link) => {
