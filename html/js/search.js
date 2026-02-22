@@ -65,7 +65,10 @@ function build(query, useLinks, tag) {
     if (query.type === "or") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join("||")})`;
     tag ??= query.tag;
     if (query.group) return `${prefix}${build(query.group, useLinks, tag)}`;
-    return `${prefix}((t = ${tag ? `item["${tag}"]` : useLinks ? "item.href" : "item.name"})&&/${escapeRegex(query.str)}/i.test(t))`;
+    const accessor = tag ? `item["${tag}"]` : useLinks ? "item.href" : "item.name";
+    if (query.ineq) return `${accessor}${query.ineq}${query.str}`;
+    if (query.range) return `${accessor}>=${query.range.start}&&${accessor}<${query.range.end}`
+    return `${prefix}((t = ${accessor})&&/${escapeRegex(query.str)}/i.test(t))`;
 }
 
 function filter(callback, term, useLinks) {

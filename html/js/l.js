@@ -1,6 +1,6 @@
 export const _ = localStorage;
 
-export default function(tag) {
+export default function $(tag) {
     return document.createElement(tag);
 }
 
@@ -239,6 +239,35 @@ export const anchor_from_link = (link, list) => {
     if (!link) return;
     const name = pathname(link);
     return list.find(node => node.firstElementChild.href.endsWith(name))?.firstElementChild;
+}
+
+const style_pos = (root, str) => str.split("-").forEach(attr => root.style[attr] = 0);
+export const overlay = (root) => {
+    const wrapper = $("div");
+    wrapper.style = `
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        pointer-events: none;
+    `;
+    wrapper.className = "overlay";
+    root.style.position ||= "relative";
+    root.append(wrapper);
+    return {
+        el: wrapper,
+        add(position, ...children) {
+            const el = $("div");
+            el.style.position = "absolute";
+            el.style.pointerEvents = "none";
+            el.className = position;
+            style_pos(el, position);
+            el.append(...children);
+            wrapper.append(el);
+            return this;
+        }
+    }
 }
 
 export const style = {

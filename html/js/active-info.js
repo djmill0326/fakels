@@ -10,7 +10,7 @@ export function sme(shortcut_ui, mel) {
     }, long ? 1000 : 100);
     const playback = shortcut_ui.children[1].children[1]
     let prev = mel.paused;
-    const tick = () => requestIdleCallback(() => {
+    const tick = () => requestAnimationFrame(() => {
         if (!shortcut_ui.isConnected) return sleep();
         if (mel.paused === prev) return sleep(false);
         playback.innerText = mel.paused ? "Resume playback" : "Pause session";

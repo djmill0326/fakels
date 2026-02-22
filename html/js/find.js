@@ -7,11 +7,11 @@ const measure = async () => {
     console.debug("Memory usage:", parseFloat((bytes / 1000000).toFixed(2)), "MB");
     requestIdleCallback(measure);
 };
-measure().then();
+//measure().then();
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
-import $, { _, id, handleHold, boundBox, join, style, boundedCache, cover_src, display_mode, Bus, tag_sorters, tag_shorthand, tag_normalizers } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, boundedCache, cover_src, display_mode, Bus, tag_sorters, tag_shorthand, tag_normalizers, overlay } from "./l.js";
 import { search, useSearch } from "./search.js";
 import { parseLyrics, showLyrics } from "./lyrics.js";
 import { virtualScroll } from "./vscroll.js";
@@ -40,7 +40,7 @@ back.onclick = (ev) => {
     }
     btn.click();
 };
-(btn.onclick = () => requestIdleCallback(() => btn.style.color = back.checked ? "#00b6f0" : "#333"))();
+(btn.onclick = () => requestAnimationFrame(() => btn.style.color = back.checked ? "#00b6f0" : "#333"))();
 handleHold(btn, () => {
     if (query.at(-2) !== "*") {
         term.value = term.value + (term.value.endsWith("/") ? "*" : "/*");
@@ -237,6 +237,7 @@ const status_obj = (name) => ({
 if(_.status !== "false") document.body.append(status);
 const init_item = (item, info) => {
     item.href = join(item.href);
+    item.fav = favorites.has(item.href);
     if (item.isDir == null && item.isMedia == null) {
         info ??= get_info(item.href);
         item.isDir = !info.ext;
@@ -246,8 +247,9 @@ const init_item = (item, info) => {
     if (item.isMedia) item.title ??= extract_title(info);
 };
 const refill_items = (iter) => {
-    if (iter) items.splice(0, items.length, ...iter);
+    if (iter) items.splice(0, items.length, ...iter, ...(virtual_roots[_.ldir] || []));
     const t = performance.now();
+    let activeIndex = 0;
     activeItems.splice(0, activeItems.length, ...items.filter((item, i) => {
         const info = get_info(item.href);
         const withinLibrary = types[info.ext] || !mime[info.ext];
@@ -256,10 +258,13 @@ const refill_items = (iter) => {
             item.id = i;
             init_item(item, info);
         }
+        let result = true;
         // hide non-media anchors that aren't folders
-        if (library_mode && !withinLibrary) return false;
-        if (search.term) return search.check(item);
-        return true;
+        if (library_mode && !withinLibrary) result = false;
+        else if (search.term) result = search.check(item);
+        if (result) item.activeIndex = activeIndex++;
+        else item.activeIndex = null;
+        return result;
     }));
     console.debug(`activeItems fill took ${(performance.now() - t).toFixed(2)} ms`);
     if (frame.firstElementChild.textContent.endsWith(" entries (flat)"))
@@ -279,10 +284,11 @@ const enhance_anchor = (el) => {
     const artist = $("div");
     artist.className = "artist";
     text.append(title, artist);
-    el.replaceChildren(cover, text);
+    el.prepend(cover, text);
 };
 const basicShell = $("li");
 basicShell.append($("a"));
+overlay(basicShell.firstElementChild).add("bottom-right");
 const enhancedShell = basicShell.cloneNode(true);
 enhance_anchor(enhancedShell.firstElementChild);
 const vscroll_modes = {
@@ -295,6 +301,7 @@ const vscroll_modes = {
             a.href = item.href;
             a.innerText = item.name;
             el.dataset.id = item.id;
+            a.q(".bottom-right").innerText = item.fav ? "🌟" : "";
         }
     },
     enhanced: {
@@ -313,6 +320,7 @@ const vscroll_modes = {
             }
             a.q(".title").innerText = item.isMedia ? item.title : item.name;
             a.q(".artist").innerText = item.isMedia ? (item.artist || "Unknown Artist") : "Folder";
+            a.q(".bottom-right").innerText = item.fav ? "🌟" : "";
         }
     }
 };
@@ -321,7 +329,7 @@ const virtualize = name => {
     const title = $("h3");
     title.innerText = name;
     const list = $("ul");
-    vscroll = virtualScroll(list, activeItems, vscroll_modes);
+    vscroll = virtualScroll(list, vscroll_modes, activeItems, items);
     frame.replaceChildren(title, list);
 };
 const normalize_tag = (value, tag) => tag_normalizers[tag]?.(value) || value;
@@ -370,18 +378,22 @@ const splat_or_refill = items => _.ldir.includes("**")
     ? splat(_.ldir, items) 
     : refill_items(items) || unsplat(items);
 const found = new Map();
-const find_recursive = (root, count={ i: 0, expected: 0 }) => {
+const find_recursive = (root, count, cb) => {
+    count ??= { i: 0, expected: 0 };
     ++count.expected;
     api("ls", root, null, ({ files }) => {
         ++count.i;
         for (const item of files) {
             const { name, ext } = get_info(item.href);
-            if (!mime[ext]) find_recursive(`${root}${name}${ext ? `.${ext}` : ""}/`, count);
+            if (!mime[ext]) find_recursive(`${root}${name}${ext ? `.${ext}` : ""}/`, count, cb);
             else found.set(item.href, item);
         }
         if (count.i === count.expected) {
-            virtualize("n entries (flat)");
-            splat_or_refill(found.values());
+            if (cb) cb(found.values());
+            else {
+                virtualize("n entries (flat)");
+                splat_or_refill(found.values());
+            }
             found.clear();
             on_load();
         }
@@ -400,6 +412,30 @@ const on_load = () => {
         ) mel.currentTime = parseFloat(_.ltime);
     }
 };
+const virtual_paths = {
+    "media/Favorites": () => {
+        find_recursive("/media/", null, items => {
+            const favs = [];
+            items.forEach(item => {
+                if (favorites.has(item.href)) favs.push(item);
+            });
+            virtualize(`Favorites (${favs.length} items)`);
+            splat_or_refill(favs);
+        });
+    }
+};
+const virtual_roots = {};
+Object.keys(virtual_paths).forEach(path => {
+    const i = path.lastIndexOf("/");
+    const root = i === -1 ? "" : path.slice(0, i);
+    virtual_roots[root] ??= [];
+    virtual_roots[root].push({ 
+        name: path.slice(i + 1), 
+        href: path, 
+        virtual: true 
+    });
+});
+const virtual_path = dir => Object.keys(virtual_paths).find(path => dir.startsWith(path));
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
 const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
 form.onsubmit = (e) => {
@@ -411,25 +447,33 @@ form.onsubmit = (e) => {
     query = ((v[0] === "/" ? "" : "/") + v + (v.length ? "/" : ""));
     back.checked = query.replace("/", "").length;
     btn.onclick();
+    const do_nav = () => {
+        if (!just_popped) nav(_.ldir, query);
+        just_popped = false;
+    };
+    const virtualPath = virtual_path(v);
     if (wildcard !== -1) {
         if (splat_map && _.ldir.startsWith(last_splat + "**")) splat(_.ldir);
         else {
-            const c = { i: 0, expected: 0 };
-            find_recursive(`/${dir}`, c);
+            if (virtualPath) virtual_paths[virtualPath]();
+            else find_recursive(`/${dir}`);
         }
-        return nav(v, query);
+        return do_nav();
     }
     if (window.rpc && query !== "/link/") window.rpc.socket.emit("rpc", { client: window.rpc.client, event: "browse", data: query });
     console.debug("[fakels/debug]", "query", `'${query}'`);
     unsplat();
+    if (virtualPath) {
+        virtual_paths[virtualPath]();
+        do_nav();
+        return;
+    }
     api("ls", query, null, data => {
         if (query === "link") return;
         console.log("[fakels/query]", "found", `'${query}'`);
-        if (!just_popped) nav(v, query);
-        just_popped = false;
         virtualize(query);
         refill_items(data.files);
-        on_load();
+        do_nav();
     }, status_obj(`directory ${query}`), null, false, true);
 };
 Bus.call.on("navigate", link => {
@@ -744,13 +788,30 @@ const clear_search = () => {
         search.reset();
     }
 };
-const frame_handler = (e) => {
-    e.preventDefault();
+const dispatch_anchor = (f) => (e) => {
     const target = e.target.href ? e.target.parentElement : e.target;
     if (target?.tagName !== "LI") return;
-    update_link(target);
+    e.preventDefault();
+    f(target);
 };
+const frame_handler = dispatch_anchor(update_link);
 frame.onclick = frame_handler;
+const favorites = new Set(JSON.parse(_.favorites ?? "[]"));
+const update_favorites = (k) => {
+    const v = !favorites.has(k);
+    if (v) favorites.add(k);
+    else favorites.delete(k);
+    _.favorites = JSON.stringify(Array.from(favorites));
+    return v;
+};
+const toggle_favorite = (el) => {
+    const item = resolve(el);
+    const a = el.firstElementChild;
+    const favorited = update_favorites(item.href);
+    item.fav = favorited;
+    a.q(".bottom-right").innerText = favorited ? "🌟" : "";
+}
+handleHold(frame, dispatch_anchor(toggle_favorite));
 export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
 export const is_numeric_ascii = s => {
     let b = 0;

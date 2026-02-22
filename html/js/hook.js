@@ -45,7 +45,7 @@ export async function api(endpoint, query, frame, cb, req, err, cached=false, op
         const term = document.getElementById("term");
         const text = document.querySelector("b")?.textContent ?? "";
         localStorage.llocation = term.value = text === "/" ? "" : text;
-        requestIdleCallback(() => term.nextElementSibling.click());
+        setTimeout(() => term.nextElementSibling.click());
     }
     req?.enable();
     setTimeout(() => {
@@ -81,6 +81,6 @@ export const main = (client=true) => {
         main.id = "dyn";
         document.body.append(main);
     }
-    requestIdleCallback(() => document.body.style.visibility = "visible");
+    requestAnimationFrame(() => document.body.style.visibility = "visible");
     return main;
 };

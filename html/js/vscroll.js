@@ -1,5 +1,5 @@
 import $ from "./l.js";
-export function virtualScroll(root, list, modes) {
+export function virtualScroll(root, modes, list, backing) {
     root.replaceChildren();
     root.style.position = "relative";
     const wrapper = $("div");
@@ -10,23 +10,20 @@ export function virtualScroll(root, list, modes) {
     container.style.width = "100%";
     wrapper.append(container);
     root.append(wrapper);
-    let height, viewSize, size, gutter, index, dataIndex, indexMap = new Map(), currentMode, pool = [];
-    const nearest = (index, distance=10) => {
-        const self = indexMap.get(index);
-        if (self) return self;
+    let height, viewSize, size, gutter, index, dataIndex, currentMode, pool = [];
+    const lookup = (index) => backing[index]?.activeIndex;
+    const nearest = (index, distance=500) => {
+        const self = lookup(index);
+        if (self != null) return self;
         for (let i = 1; i <= distance; i++) {
-            const a = indexMap.get(index - i);
-            if (a) return a;
-            const b = indexMap.get(index + i);
-            if (b) return b;
+            const a = lookup(index - i);
+            if (a != null) return a;
+            const b = lookup(index + i);
+            if (b != null) return b;
         }
         return 0;
     }
     const update = (mode, resizeOnly=false) => {
-        if (!resizeOnly) {
-            indexMap.clear();
-            list.forEach((item, i) => indexMap.set(item.id, i));
-        }
         let scrollTarget;
         if (list.length) {
             const { shell, update } = modes[mode];
@@ -70,7 +67,7 @@ export function virtualScroll(root, list, modes) {
         const position = Math.floor(root.scrollTop / height);
         const top = Math.max(Math.min(position - gutter, list.length - size), 0);
         const diff = Math.abs(top - index);
-        dataIndex = parseInt(list[position]?.id) || 0;
+        dataIndex = list[position]?.id || 0;
         const overflowTop = position - gutter;
         const overflowBottom = list.length - position - gutter;
         const overflow = overflowTop < 0 || overflowBottom < 0;
@@ -103,7 +100,8 @@ export function virtualScroll(root, list, modes) {
     const dispose = () => observer.disconnect() || root.removeEventListener("scroll", listener);
     const scrollTo = listIndex => {
         root.removeEventListener("scroll", listener);
-        const i = indexMap.get(listIndex);
+        const i = lookup(listIndex);
+        if (i == null) return;
         root.scrollTop = i * height + 1;
         callback();
         pool[i - index]?.focus();

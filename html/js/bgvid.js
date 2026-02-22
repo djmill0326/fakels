@@ -3,6 +3,7 @@ const video = document.createElement("video");
 video.autoplay = true;
 video.muted = true;
 video.loop = true;
+video.playsInline = true;
 video.style = `
     position: absolute;
     z-index: -1;

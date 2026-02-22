@@ -1,5 +1,17 @@
-const reserved = "!();|";
-function parseTerm(str, s, parent) {
+const reserved = "!();|=><";
+
+function getRange(str) {
+    const [a, b] = str.split("..");
+    if (b == null) return;
+    const startNaN = isNaN(Number(a));
+    const endNaN = isNaN(Number(b));
+    if (!a && !endNaN) return { ineq: "<", str: b };
+    if (!b && !startNaN) return { ineq: ">=", str: a };
+    if (startNaN || endNaN) return;
+    return { range: { start: a, end: b } }
+}
+
+function parseTerm(str, s, parent, ineq) {
     let buf = "";
     while (s.i < str.length) {
         const c = str[s.i];
@@ -15,8 +27,13 @@ function parseTerm(str, s, parent) {
     }
     buf = buf.trim();
     if (!buf) return;
-    const invert = buf[0] === "!" && buf.length > 1;
-    const result = { type: "term", str: invert ? buf.slice(1).trim() : buf, invert };
+    let result;
+    if (ineq) result = { type: "term", str: buf };
+    else {
+        const invert = buf[0] === "!" && buf.length > 1;
+        const str = invert ? buf.slice(1).trim() : buf;
+        result = { type: "term", str, invert, ...getRange(str) };
+    }
     parent?.push(result);
     return result;
 }
@@ -35,7 +52,7 @@ function detectGroup(str, s) {
 }
 
 function parseTagged(str, s, parent) {
-    let buf = "", term;
+    let buf = "", term, ineq;
     while (s.i < str.length) {
         const c = str[s.i];
         if (c === ";" || c === "|" || c === ")") break;
@@ -43,6 +60,14 @@ function parseTagged(str, s, parent) {
         if (c === "\\" && reserved.includes(next)) {
             buf += next;
             s.i += 2;
+            continue;
+        }
+        if (c === ">" || c === "<") {
+            if (str[++s.i] === "=") {
+                ineq = c + "=";
+                s.i++;
+            } else ineq = c;
+            term = parseTerm(str, s, null, true);
             continue;
         }
         if (c === "=") {
@@ -61,7 +86,7 @@ function parseTagged(str, s, parent) {
         if (!buf) result = term;
         else {
             const tag = buf;
-            result = term.type === "term" ? { ...term, tag } : { type: "term", tag, group: term };
+            result = term.type === "term" ? { tag, ineq, ...term } : { type: "term", tag, group: term };
         }
     } else {
         if (!buf) return;

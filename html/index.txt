@@ -309,8 +309,43 @@ Pending
 		The Pharcyde - 22 - Outro- Praise.flac	inode=1054193	size=13071744	mtime=1770708024206.48	title=Outro: Praise	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
 		album.nfo	inode=1083612	size=1024	mtime=1770708030290.48
 		folder.jpg	inode=1011030	size=76557	mtime=1770708029518.48
+	1991 - Ten	
+		01- Once.mp3	inode=1077510	size=8239316	mtime=1771463327099.3813	title=Once	album=Ten	artist=Pearl Jam	year=1991
+		02- Even Flow.mp3	inode=1076634	size=10492341	mtime=1771463328531.3813	title=Even Flow	album=Ten	artist=Pearl Jam	year=1991
+		03- Alive.mp3	inode=296245	size=12279913	mtime=1771463329939.3813	title=Alive	album=Ten	artist=Pearl Jam	year=1991
+		04- Why Go.mp3	inode=1116029	size=7103114	mtime=1771463330991.3813	title=Why Go	album=Ten	artist=Pearl Jam	year=1991
+		05- Black.mp3	inode=1113428	size=11928937	mtime=1771463333903.3813	title=Black	album=Ten	artist=Pearl Jam	year=1991
+		06- Jeremy.mp3	inode=1103186	size=11237760	mtime=1771463335631.3813	title=Jeremy	album=Ten	artist=Pearl Jam	year=1991
+		07- Oceans.mp3	inode=1102943	size=5764273	mtime=1771463336603.3813	title=Oceans	album=Ten	artist=Pearl Jam	year=1991
+		08- Porch.mp3	inode=301515	size=7409313	mtime=1771463338751.3813	title=Porch	album=Ten	artist=Pearl Jam	year=1991
+		09- Garden.mp3	inode=1047574	size=10266797	mtime=1771463341275.3813	title=Garden	album=Ten	artist=Pearl Jam	year=1991
+		10- Deep.mp3	inode=1047575	size=9327424	mtime=1771463342947.3813	title=Deep	album=Ten	artist=Pearl Jam	year=1991
+		11- Release.mp3	inode=294998	size=10315860	mtime=1771463345311.3813	title=Release	album=Ten	artist=Pearl Jam	year=1991
+		12- Master Slave.mp3	inode=1077014	size=7876361	mtime=1771463346723.3813	title=Master/Slave	album=Ten	artist=Pearl Jam	year=1991
 	2001 - Comfort Eagle	
 		07 Comfort Eagle.flac	inode=1030946	size=27079140	mtime=1767684156784.5396	title=Comfort Eagle	album=Comfort Eagle	artist=CAKE	year=2001
+	2020 - Ferric Oxide - Demos 1997-2001	
+		01 - Panchiko - All They Wanted.flac	inode=301798	size=14790910	mtime=1771341894498.6978	title=All They Wanted	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		02 - Panchiko - NeilSSong.flac	inode=1116607	size=25711328	mtime=1771341902918.6978	title=NeilSSong	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		03 - Panchiko - No. 8.flac	inode=1110167	size=27209383	mtime=1771341918914.6978	title=No. 8	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		04 - Panchiko - Stuck.flac	inode=303029	size=19370026	mtime=1771341924570.6978	title=Stuck	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		05 - Panchiko - Think That's Too Wise.flac	inode=301911	size=21864252	mtime=1771341931414.6978	title=Think That's Too Wise	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		06 - Panchiko - Gwen Everest.flac	inode=302536	size=6551649	mtime=1771341934006.6978	title=Gwen Everest	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		07 - Panchiko - Until I Know.flac	inode=298227	size=12506456	mtime=1771341938390.6978	title=Until I Know	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		08 - Panchiko - Formula.flac	inode=299625	size=12189711	mtime=1771341943122.6978	title=Formula	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		09 - Panchiko - Untitled Demo - 1997.flac	inode=807925	size=10281752	mtime=1771341946670.6978	title=Untitled Demo - 1997	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		10 - Panchiko - That One Time a Girl Sang and Saved The Galaxy.flac	inode=641121	size=22292691	mtime=1771341952990.6978	title=That One Time a Girl Sang and Saved The Galaxy	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		11 - Panchiko - Phoenix Mirror.flac	inode=1119731	size=9765663	mtime=1771341955910.6978	title=Phoenix Mirror	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		12 - Panchiko - Laputa Theme Cover.flac	inode=1044013	size=13131744	mtime=1771341960222.6978	title=Laputa Theme Cover	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		13 - Panchiko - You're This Way Now.flac	inode=302107	size=25452970	mtime=1771341968218.6978	title=You're This Way Now	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		14 - Panchiko - Cricket Club.flac	inode=1025049	size=27574211	mtime=1771341975978.6978	title=Cricket Club	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		15 - Panchiko - Beat One.flac	inode=1112390	size=20347821	mtime=1771341981538.6975	title=Beat One	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		16 - Panchiko - Beat Two.flac	inode=1041923	size=15718663	mtime=1771341986418.6975	title=Beat Two	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		17 - Panchiko - Naming Conventions.flac	inode=1057027	size=32140735	mtime=1771341997378.6975	title=Naming Conventions	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		18 - Panchiko - Rocking With Keith.flac	inode=1056829	size=42066363	mtime=1771342007606.6975	title=Rocking With Keith	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
+		album.nfo	inode=273543	size=1861	mtime=1771342007218.6975
+		cover.jpg	inode=1011058	size=728023	mtime=1771342014390.6975
+		folder.jpg	inode=1061660	size=154606	mtime=1771342022026.6975
 	A Beautiful Lie	
 		3. The Kill.flac	inode=663493	size=28958608	mtime=1761778184467.8372	title=The Kill	album=A Beautiful Lie	artist=Thirty Seconds to Mars
 	As Good as Dead (1996)	
@@ -374,6 +409,16 @@ Pending
 		09 - Holy Fucking Shit 40,000.flac	inode=1060017	size=42487187	mtime=1768278596858.123	title=Holy Fucking Shit: 40,000	album=Deathconsciousness	artist=Have a Nice Life	year=2014
 	Drops of Jupiter (2001)	
 		Train - Drops of Jupiter - 03 - Drops Of Jupiter.flac	inode=664073	size=100980470	mtime=1761778276791.8372	title=Drops Of Jupiter	album=Drops of Jupiter	artist=Train	year=2001
+	Failed at Math(s)	
+		01 - Failed at Math(s).flac	inode=1122859	size=20797247	mtime=1771341874186.6978	title=Failed at Math(s)	album=Failed at Math(s)	artist=Panchiko	year=2023
+		02 - Portraits.flac	inode=1121517	size=24623044	mtime=1771341878962.6978	title=Portraits	album=Failed at Math(s)	artist=Panchiko	year=2023
+		03 - Until I Know.flac	inode=1045531	size=26828229	mtime=1771341883934.6978	title=Until I Know	album=Failed at Math(s)	artist=Panchiko	year=2023
+		04 - Breakfast Séance.flac	inode=1122309	size=20218047	mtime=1771341889090.6978	title=Breakfast Séance	album=Failed at Math(s)	artist=Panchiko	year=2023
+		05 - Find it (A Song).flac	inode=297456	size=15911926	mtime=1771341893138.6978	title=Find it (A Song)	album=Failed at Math(s)	artist=Panchiko	year=2023
+		06 - Gwen Everest.flac	inode=1080701	size=27631097	mtime=1771341899606.6978	title=Gwen Everest	album=Failed at Math(s)	artist=Panchiko	year=2023
+		07 - Think That's Too Wise.flac	inode=303752	size=19660542	mtime=1771341917654.6978	title=Think That's Too Wise	album=Failed at Math(s)	artist=Panchiko	year=2023
+		08 - Rocking with Keith.flac	inode=1047552	size=39525824	mtime=1771341911018.6978	title=Rocking with Keith	album=Failed at Math(s)	artist=Panchiko	year=2023
+		cover.jpg	inode=1089210	size=608835	mtime=1771341918914.6978
 	Fashion Nugget	
 		01 Frank Sinatra.flac	inode=1040917	size=23619153	mtime=1767684173652.5396	title=Frank Sinatra	album=Fashion Nugget	artist=CAKE	year=1996
 	Foster the People	
@@ -407,6 +452,8 @@ Pending
 		14 Get Some Keez.mp3	inode=997492	size=6641517	mtime=1765034549802.5251	title=Get Some Keez	album=Get Some	artist=Snot	year=1997
 		15 My Balls.lrc	inode=972303	size=3392	mtime=1765034482098.5251
 		15 My Balls.mp3	inode=631543	size=7088728	mtime=1765034551878.5251	title=My Balls	album=Get Some	artist=Snot	year=1997
+	Issa Album (2017)	
+		21 Savage - Issa Album - 02 - Bank Account.mp3	inode=1068423	size=9004935	mtime=1771339938526.6985	title=Bank Account	album=Issa Album	artist=21 Savage	year=2017
 	Labcabincalifornia (1995)	
 		204 - Runnin’ instrumental.flac	inode=302553	size=35279078	mtime=1766126783542.8262	title=Runnin’ (instrumental)	album=Labcabincalifornia	artist=The Pharcyde	year=2012
 	Madvillainy	
@@ -524,6 +571,10 @@ Pending
 		folder.jpg	inode=993131	size=1486207	mtime=1761778263707.8372
 	[1994] Sixteen Stone	
 		Bush_Sixteen Stone_01_Everything Zen.flac	inode=1026638	size=37753239	mtime=1768763093604.3499	title=Everything Zen	album=Sixteen Stone	artist=Bush	year=2014
+	[2019] And Now for the Whatchamacallit	
+		03 Hymn for a Droid.flac	inode=1117333	size=27698926	mtime=1771630348349.651	title=Hymn for a Droid	album=And Now for the Whatchamacallit	artist=Psychedelic Porn Crumpets	year=2019
+	[2021] Tiny Little Adiantum (Omae wa Mou ver.)	
+		cover.jpg	inode=298552	size=6605935	mtime=1771357534329.7158
 	good kid, m.A.A.d city (Deluxe Version)	
 		01 Sherane a.k.a. Master Splinter_s Daughter.m4a	inode=645600	size=9722485	mtime=1770883035151.181	title=Sherane a.k.a. Master Splinter’s Daughter	album=good kid, m.A.A.d city	artist=Kendrick Lamar	year=2012
 		02 Bitch, Don_t Kill My Vibe.m4a	inode=902242	size=10996901	mtime=1770883043007.181	title=Bitch, Don’t Kill My Vibe	album=good kid, m.A.A.d city	artist=Kendrick Lamar	year=2012
@@ -543,6 +594,22 @@ Pending
 		16 Collect Calls (Bonus Track).m4a	inode=1073394	size=8482697	mtime=1770883056963.181	title=Collect Calls	album=good kid, m.A.A.d city	artist=Kendrick Lamar	year=2012
 		17 Swimming Pools (Drank) [Bonus Track].m4a	inode=1073110	size=8756169	mtime=1770883059631.181	title=Swimming Pools (Drank)	album=good kid, m.A.A.d city	artist=Kendrick Lamar	year=2012
 		18 Bitch, Don_t Kill My Vibe (feat. JAY Z) [Remix].m4a	inode=1065846	size=9861981	mtime=1770883058335.181	title=Bitch, Don't Kill My Vibe (Remix)	album=good kid, m.A.A.d city	artist=Kendrick Lamar	year=2012
+	✝ (2007)	
+		01 - Genesis.flac	inode=1085897	size=31025407	mtime=1771315209971.5505	title=Genesis	album=✝	artist=Justice	year=2007
+		02 - Let There Be Light.flac	inode=322611	size=42817097	mtime=1771315204675.5505	title=Let There Be Light	album=✝	artist=Justice	year=2007
+		03 - D.A.N.C.E.flac	inode=1024258	size=35475538	mtime=1771315217851.5505	title=D.A.N.C.E.	album=✝	artist=Justice	year=2007
+		04 - Newjack.flac	inode=1122791	size=31690756	mtime=1771315224411.5505	title=Newjack	album=✝	artist=Justice	year=2007
+		05 - Phantom.flac	inode=1030389	size=36421523	mtime=1771315220599.5505	title=Phantom	album=✝	artist=Justice	year=2007
+		06 - Phantom Pt II.flac	inode=292907	size=26693903	mtime=1771315225787.5505	title=Phantom, Pt II	album=✝	artist=Justice	year=2007
+		07 - Valentine.flac	inode=266779	size=21108383	mtime=1771315231095.5505	title=Valentine	album=✝	artist=Justice	year=2007
+		08 - Tthhee Ppaarrttyy.flac	inode=312796	size=31691080	mtime=1771315234479.5505	title=Tthhee Ppaarrttyy	album=✝	artist=Justice	year=2007
+		09 - DVNO.flac	inode=294404	size=33550606	mtime=1771315237895.5505	title=DVNO	album=✝	artist=Justice	year=2007
+		10 - Stress.flac	inode=296322	size=41932241	mtime=1771315241843.5505	title=Stress	album=✝	artist=Justice	year=2007
+		11 - Waters of Nazareth.flac	inode=1080760	size=35492315	mtime=1771315243647.5505	title=Waters of Nazareth	album=✝	artist=Justice	year=2007
+		12 - One Minute to Midnight.flac	inode=1093934	size=26980460	mtime=1771315247239.5505	title=One Minute to Midnight	album=✝	artist=Justice	year=2007
+		album.nfo	inode=291854	size=319	mtime=1771315243527.5505
+		discart.png	inode=330734	size=104122	mtime=1771315247303.5505
+		folder.jpg	inode=1094399	size=54533	mtime=1771315247519.5505
 Queens of the Stone Age	
 	01 Regular John.m4a	inode=830365	size=6561082	mtime=1755214976407.6392	title=Regular John	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
 	02 Avon.m4a	inode=830312	size=5059662	mtime=1755214978931.6392	title=Avon	album=Queens of the Stone Age	artist=Queens of the Stone Age	year=1998
