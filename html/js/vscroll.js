@@ -72,7 +72,7 @@ export function virtualScroll(root, modes, list, backing) {
         const overflowBottom = list.length - position - gutter;
         const overflow = overflowTop < 0 || overflowBottom < 0;
         if (!(((overflow && diff) || diff >= gutter * .5) || force)) return;
-        container.style.transform = `translateY(${height * top}px)`;
+        container.style.transform = `translateY(${Math.round(height * top)}px)`;
         if (!currentMode) return;
         const updateShell = modes[currentMode].update;
         pool.forEach((el, i) => {

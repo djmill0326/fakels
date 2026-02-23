@@ -488,6 +488,7 @@ Bus.call.on("navigate", link => {
     term.value = link;
     btn.click();
 });
+term.onkeydown = e => { e.key === "Escape" && term.blur() };
 term.oninput = () => term.value === "@" && (term.value = _.ldir);
 term.onfocus = () => term.select();
 import dragify from "./drag.js";
@@ -511,6 +512,7 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     wrapper.className = "popup";
     wrapper.style = popup_savestate.get(title.toLowerCase()) ?? style.Centered;
     boundBox(wrapper, "2.75em", "450px", "450px", "150px", "900px");
+    wrapper.style.setProperty("--width", "450px");
     wrapper.dataset.title = title;
     const bar = $("div");
     bar.style = `
@@ -958,6 +960,7 @@ const toggle_mode = () => {
 };
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(mel?.isConnected ? mref.innerHTML : "Silence")}</i>`);
+const term_cmd = (k) => [null, () => term.value.startsWith(k) ? setTimeout(() => term.focus()) : term.focus()]
 const shortcuts = {
     "Now-Playing": ["None", restart_track],
     " ": ["Play/pause", toggle_playback],
@@ -969,7 +972,10 @@ const shortcuts = {
     "p": ["Toggle player view", toggle_player],
     "t": ["Toggle status bar", toggle_status],
     "b": ["Go up a directory", () => back.click()],
-    "?": ["Bring up this help menu", toggle_shortcuts]
+    "?": ["Bring up this help menu", toggle_shortcuts],
+    ":": term_cmd(":"),
+    ";": term_cmd(";"),
+    "/": [null, () => setTimeout(() => term.focus(), 0)]
 };
 export const eval_keypress = (ev, s=shortcuts) => {
     if (document.activeElement === term) return;
@@ -981,7 +987,7 @@ export const eval_keypress = (ev, s=shortcuts) => {
     }
 };
 window.addEventListener("keypress", eval_keypress);
-shortcut_ui.append(...Object.entries(shortcuts).map(([key, x]) => {
+shortcut_ui.append(...Object.entries(shortcuts).filter(([_, [name]]) => name).map(([key, x]) => {
     const el = $("li");
     el.style.display = "flex";
     el.style.cursor = "pointer";
