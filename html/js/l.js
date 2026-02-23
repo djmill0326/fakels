@@ -8,6 +8,15 @@ export function id(tag) {
     return document.getElementById(tag);
 }
 
+export function staticQuery(el, map) {
+    el.sq ??= {};
+    for (const name in map) {
+        const v = map[name];
+        el.sq[name] = typeof v === "string" ? el.q(map[name]) : v(el);
+    }
+    return el;
+}
+
 export function debounce(f, t=50) {
     let timeout;
     function debounced(...args) {

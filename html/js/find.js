@@ -1,5 +1,5 @@
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
-import { overrideConsole } from "./tab-log.js"
+import { overrideConsole } from "./tab-log.js";
 overrideConsole("fakels", x => eval(x)); // temporary for mobile
 console.info("fakels (Directory Viewer) [v2.6.0]");
 const measure = async () => {
@@ -11,7 +11,7 @@ const measure = async () => {
 import { main, api, getheader } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
-import $, { _, id, handleHold, boundBox, join, style, boundedCache, cover_src, display_mode, Bus, tag_sorters, tag_shorthand, tag_normalizers, overlay } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, boundedCache, cover_src, display_mode, Bus, tag_sorters, tag_shorthand, tag_normalizers, overlay, staticQuery } from "./l.js";
 import { search, useSearch } from "./search.js";
 import { parseLyrics, showLyrics } from "./lyrics.js";
 import { virtualScroll } from "./vscroll.js";
@@ -295,33 +295,40 @@ enhance_anchor(enhancedShell.firstElementChild);
 const vscroll_modes = {
     basic: {
         shell() {
-            return basicShell.cloneNode(true);
+            return staticQuery(basicShell.cloneNode(true), {
+                overlay: ".bottom-right"
+            });
         },
         update(el, item) {
             const a = el.firstElementChild;
             a.href = item.href;
             a.firstChild.data = item.name;
             el.dataset.id = item.id;
-            a.q(".bottom-right").innerText = item.fav ? "🌟" : "";
+            el.sq.overlay.innerText = item.fav ? "🌟" : "";
         }
     },
     enhanced: {
         shell() {
-            return enhancedShell.cloneNode(true);
+            return staticQuery(enhancedShell.cloneNode(true), {
+                cover: ".cover",
+                title: ".title",
+                artist: ".artist",
+                overlay: ".bottom-right"
+            });
         },
         update(el, item) {
             const a = el.firstElementChild;
             a.href = item.href;
             el.dataset.id = item.id;
-            const cover = a.q(".cover");
+            const cover = el.sq.cover;
             const src = item.cover;
             if (cover._src !== src) {
                 cover._src = src;
                 cover.style.setProperty("--cover-src", `url("${src}")`);
             }
-            a.q(".title").innerText = item.isMedia ? item.title : item.name;
-            a.q(".artist").innerText = item.isMedia ? (item.artist || "Unknown Artist") : "Folder";
-            a.q(".bottom-right").innerText = item.fav ? "🌟" : "";
+            el.sq.title.innerText = item.isMedia ? item.title : item.name;
+            el.sq.artist.innerText = item.isMedia ? (item.artist || "Unknown Artist") : "Folder";
+            el.sq.overlay.innerText = item.fav ? "🌟" : "";
         }
     }
 };
