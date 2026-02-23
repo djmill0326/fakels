@@ -288,6 +288,7 @@ const enhance_anchor = (el) => {
 };
 const basicShell = $("li");
 basicShell.append($("a"));
+basicShell.firstElementChild.append("");
 overlay(basicShell.firstElementChild).add("bottom-right");
 const enhancedShell = basicShell.cloneNode(true);
 enhance_anchor(enhancedShell.firstElementChild);
@@ -299,7 +300,7 @@ const vscroll_modes = {
         update(el, item) {
             const a = el.firstElementChild;
             a.href = item.href;
-            a.innerText = item.name;
+            a.firstChild.data = item.name;
             el.dataset.id = item.id;
             a.q(".bottom-right").innerText = item.fav ? "🌟" : "";
         }

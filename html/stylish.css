@@ -20,8 +20,10 @@ body {
 }
 
 #main {
-    width: calc(100svw - 2em); 
-    height: calc(100dvh - 2em);
+    --width: 600px;
+    --height: min(800px, calc(100dvh - 2em));
+    width: var(--width); 
+    height: var(--height);
     margin: 1em auto;
     padding: 1em;
     background: #222a;
@@ -30,6 +32,13 @@ body {
     flex-direction: column;
     align-self: center;
     box-shadow: inset 0 0 .5em 0 rgba(0,0,0,.4);
+}
+
+@media (max-width: 666px) or (max-height: 500px) {
+    #main {
+        --width: calc(100svw - 2em);
+        --height: calc(100dvh - 2em);
+    }
 }
 
 #back {
@@ -102,6 +111,7 @@ input {
 }
 
 ul {
+    scrollbar-width: none;
     list-style: none;
     padding: 5px .4em 0 .4em;
     margin: 5px 0;
@@ -145,11 +155,11 @@ li, button, input {
 }
 
 li:hover, #term:focus {
-    scale: 1.01;
+    scale: calc((var(--width) + 5px) / var(--width));
 }
 
 li:active {
-    scale: .99;
+    scale: calc((var(--width) - 5px) / var(--width));
 }
 
 span > label:active ~ button, button:active, #btn:active {

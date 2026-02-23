@@ -150,6 +150,7 @@ span:nth-child(2) {
     overflow-y: auto;
     font-size: large;
     min-height: 0;
+    scrollbar-width: none;
 }
 
 .lyrics .lyrics-text {
@@ -242,6 +243,7 @@ span:nth-child(2) {
         opacity: 1;
     }
     &, .container {
+        min-width: 0;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -254,7 +256,7 @@ span:nth-child(2) {
     .cover {
         max-height: 100%;
         max-width: 90%;
-        width: calc(min(90%, 40dvh));
+        width: calc(min(90%, .4 * var(--height)));
         border-radius: 1em;
         overflow: hidden;
         background: linear-gradient(45deg, #111 0%, #222 15%, #333 25%, #222 35%, #111 50%, #222 65%, #333 75%, #222 85%, #111 100%);
@@ -420,10 +422,11 @@ span:nth-child(2) {
 #main:has(.player-ui.open) {
     & > :not(.player-ui) {
         opacity: 0;
+        margin-bottom: 0;
     }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 666px) and (max-height: 500px) {
     .player-ui {
         flex-direction: row;
         .container {
@@ -431,7 +434,7 @@ span:nth-child(2) {
             height: 100%;
         }
         .cover {
-            height: calc(min(100%, 40dvw));
+            height: calc(min(100%, .5 * var(--width)));
             width: unset;
         }
     }
