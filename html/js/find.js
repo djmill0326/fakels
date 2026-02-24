@@ -1,6 +1,6 @@
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
-import { overrideConsole } from "./tab-log.js";
-overrideConsole("fakels", x => eval(x)); // temporary for mobile
+import { hookConsole } from "./tab-log.js";
+hookConsole("fakels", x => eval(x)); // temporary for mobile
 console.info("fakels (Directory Viewer) [v2.6.0]");
 const measure = async () => {
     const { bytes } = await performance.measureUserAgentSpecificMemory();
@@ -120,6 +120,7 @@ const next_queued = mode => {
             mel = next;
             fade_controller = undefined;
             update_link(item, false);
+            Bus.dispatch("play");
             return;
         }
         const scale = Math.pow(remaining / fade_time, 2);

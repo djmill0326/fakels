@@ -13,7 +13,7 @@
 
 body {
     background: linear-gradient(calc(222deg + var(--rot)), var(--gradcols));
-    height: 100dvh;
+    height: 100svh;
     display: flex;
     margin: 0;
     font-family: var(--font);
@@ -21,7 +21,7 @@ body {
 
 #main {
     --width: 600px;
-    --height: min(800px, calc(100dvh - 2em));
+    --height: min(800px, calc(100svh - 2em));
     width: var(--width); 
     height: var(--height);
     margin: 1em auto;
@@ -37,7 +37,7 @@ body {
 @media (max-width: 666px) or (max-height: 500px) {
     #main {
         --width: calc(100svw - 2em);
-        --height: calc(100dvh - 2em);
+        --height: calc(100svh - 2em);
     }
 }
 

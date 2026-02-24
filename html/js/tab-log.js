@@ -299,12 +299,17 @@ export function enableLog(root = document.body) {
     observer.observe(root);
 }
 
-export function overrideConsole(name = "unknown", evaluator=eval) {
-    console.log = log;
-    console.warn = warn;
-    console.error = error;
-    console.info = info;
-    console.debug = debug;
+const func = { log, warn, error, info, debug };
+const wrap = (target, src, ...names) => names.forEach(k => {
+    const f = target[k].bind(target);
+    const g = src[k];
+    target[k] = (...args) => {
+        f(...args);
+        g(...args);
+    }
+});
+export function hookConsole(name = "unknown", evaluator=eval) {
+    wrap(console, func, "log", "warn", "error", "info", "debug");
     channel.postMessage({ type: "new", id, name });
     channel.addEventListener("message", (ev) => {
         if (ev.data.type === "eval" && ev.data.id === id)
