@@ -1,4 +1,5 @@
 import $ from "./l.js";
+import { scrollable } from "./scrollbar.js";
 export function virtualScroll(root, modes, list, backing) {
     root.replaceChildren();
     root.style.position = "relative";
@@ -10,6 +11,8 @@ export function virtualScroll(root, modes, list, backing) {
     container.style.width = "100%";
     wrapper.append(container);
     root.append(wrapper);
+    const scrollController = new AbortController();
+    scrollable(root, { signal: scrollController.signal });
     let height, viewSize, size, gutter, index, dataIndex, currentMode, pool = [];
     const lookup = (index) => backing[index]?.activeIndex;
     const nearest = (index, distance=500) => {
@@ -38,7 +41,7 @@ export function virtualScroll(root, modes, list, backing) {
             }
             if (!height) return;
             viewSize = Math.ceil(root.clientHeight / height);
-            gutter = 2 * viewSize;
+            gutter = viewSize * 2;
             size = viewSize + 2 * gutter;
             if (mode !== currentMode) for (let i = 0; i < pool.length; i++) {
                 const el = shell();
@@ -62,16 +65,18 @@ export function virtualScroll(root, modes, list, backing) {
         root.removeEventListener("scroll", listener);
         callback(true);
         listen();
+        root.forceScrollbarUpdate();
     }
     const callback = (force=false) => {
         const position = Math.floor(root.scrollTop / height);
         const top = Math.max(Math.min(position - gutter, list.length - size), 0);
-        const diff = Math.abs(top - index);
+        const diff = top - index;
+        const dist = Math.abs(diff);
         dataIndex = list[position]?.id || 0;
         const overflowTop = position - gutter;
         const overflowBottom = list.length - position - gutter;
         const overflow = overflowTop < 0 || overflowBottom < 0;
-        if (!(((overflow && diff) || diff >= gutter * .5) || force)) return;
+        if (!(((overflow && dist) || dist >= gutter * .5) || force)) return;
         container.style.transform = `translateY(${Math.round(height * top)}px)`;
         if (!currentMode) return;
         const updateShell = modes[currentMode].update;
@@ -79,7 +84,7 @@ export function virtualScroll(root, modes, list, backing) {
             const listIndex = top + i;
             if (listIndex < list.length) {
                 el.style.display = "";
-                updateShell(el, list[top + i]);
+                updateShell(el, list[listIndex]);
             } else el.style.display = "none";
         });
         index = top;
@@ -97,15 +102,20 @@ export function virtualScroll(root, modes, list, backing) {
     }
     const listen = () => root.addEventListener("scroll", listener);
     listen();
-    const dispose = () => observer.disconnect() || root.removeEventListener("scroll", listener);
-    const scrollTo = listIndex => {
-        root.removeEventListener("scroll", listener);
-        const i = lookup(listIndex);
+    const dispose = () => observer.disconnect() || scrollController.abort() || root.removeEventListener("scroll", listener);
+    const scrollTo = item => {
+        const i = item.activeIndex ?? lookup(item);
         if (i == null) return;
+        root.removeEventListener("scroll", listener);
         root.scrollTop = i * height + 1;
         callback();
-        pool[i - index]?.focus();
         listen();
+        setTimeout(() => pool[i - index]?.focus(), 0);
     }
-    return { update, dispose, scrollTo };
+    const focus = item => {
+        const i = item.activeIndex ?? lookup(item);
+        pool[i - index]?.focus();
+    };
+    const head = () => backing[dataIndex];
+    return { update, dispose, scrollTo, focus, head };
 }

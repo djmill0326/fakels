@@ -67,43 +67,26 @@ export function throttle(f, t=50) {
 
 export function boundedCache(limit) {
     const cache = new Map();
-    const list = [];
-    const cacheClear = cache.clear.bind(cache);
-    const cacheDelete = cache.delete.bind(cache);
     const cacheSet = cache.set.bind(cache);
     const cacheGet = cache.get.bind(cache);
     const updatePosition = (key) => {
-        if (list.at(-1) === key) return;
-        const index = list.findIndex(k => key === k);
-        list.splice(index, 1);
-        list.push(key);
-    };
-    cache.clear = () => {
-        list.length = 0;
-        cacheClear();
-    };
-    cache.delete = (key) => {
-        const index = list.findIndex(k => key === k);
-        if (index === -1) return false;
-        list.splice(index, 1);
-        return cacheDelete(key);
+        const v = cacheGet(key);
+        cache.delete(key);
+        cacheSet(key, v);
+        return v;
     };
     cache.set = (key, value) => {
         if (cache.has(key)) {
             updatePosition(key);
             return cacheSet(key, value);
         }
-        if (list.length === limit) {
-            const k = list.shift();
-            cacheDelete(k);
-        }
-        list.push(key);
+        if (cache.size === limit)
+            cache.delete(cache.keys().next().value);
         return cacheSet(key, value);
     };
     cache.get = (key) => {
         if (!cache.has(key)) return;
-        updatePosition(key);
-        return cacheGet(key);
+        return updatePosition(key);
     };
     return cache;
 }
@@ -112,26 +95,31 @@ HTMLElement.prototype.c = HTMLElement.prototype.getElementsByClassName;
 HTMLElement.prototype.q = HTMLElement.prototype.querySelector;
 HTMLElement.prototype.qa = HTMLElement.prototype.querySelectorAll;
 
-export function handleHold(el, onHold, t=500, needsRelease=false) {
-    let timeout, onMove, interceptClick;
+export function handleHold(el, options) {
+    const { t=300, needsRelease=false, onStart, onEnd, onHold, signal } = typeof options === "function" ? { onHold: options } : options;
+    let timeout, onMove, interceptClick, canceled;
     const cancel = () => {
+        if (canceled) return;
+        canceled = true;
+        onEnd?.();
         clearTimeout(timeout);
         el.removeEventListener("pointermove", onMove);
         setTimeout(() => window.removeEventListener("click", interceptClick, true), 0);
     };
     el.addEventListener("pointerdown", ev => {
         if (!ev.isPrimary || ev.button !== 0) return cancel();
-        el.releasePointerCapture(ev.pointerId);
+        canceled = false;
+        onStart?.();
         timeout = setTimeout(() => {
             timeout = null;
-            if (!needsRelease) onHold(ev);
+            if (!needsRelease) onHold?.(ev);
         }, t);
         const x = ev.x;
         const y = ev.y;
         onMove = ev => {
             if (ev.isPrimary && (Math.abs(ev.x - x) > 20 || Math.abs(ev.y - y) > 20)) cancel();
         }
-        el.addEventListener("pointermove", onMove);
+        el.addEventListener("pointermove", onMove, { signal });
         interceptClick = ev => {
             if (!timeout && (ev.target === el || el.contains(ev.target))) {
                 ev.stopImmediatePropagation();
@@ -139,16 +127,16 @@ export function handleHold(el, onHold, t=500, needsRelease=false) {
                 interceptClick = null;
             }
         };
-        window.addEventListener("click", interceptClick, true);
+        document.body.addEventListener("click", interceptClick, { once: true, capture: true, signal });
     });
     el.addEventListener("pointerup", ev => {
         if (!ev.isPrimary) return;
         if (timeout) return cancel();
-        if (needsRelease) onHold(ev);
+        if (needsRelease) onHold?.(ev);
         cancel();
-    });
-    el.addEventListener("pointerleave", cancel);
-    el.addEventListener("pointercancel", cancel);
+    }, { signal });
+    el.addEventListener("pointerleave", cancel, { signal });
+    signal?.addEventListener("abort", () => clearTimeout(timeout));
 }
 
 export function boundBox(el, gutter, minW, maxW, minH, maxH) {
@@ -250,33 +238,65 @@ export const anchor_from_link = (link, list) => {
     return list.find(node => node.firstElementChild.href.endsWith(name))?.firstElementChild;
 }
 
-const style_pos = (root, str) => str.split("-").forEach(attr => root.style[attr] = 0);
-export const overlay = (root) => {
-    const wrapper = $("div");
-    wrapper.style = `
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        pointer-events: none;
-    `;
-    wrapper.className = "overlay";
+export const overlay = (root, opt={}) => {
+    if (root._overlay) return root._overlay;
     root.style.position ||= "relative";
-    root.append(wrapper);
-    return {
-        el: wrapper,
+    const o = {
+        inset: opt.inset ?? 0,
+        sticky: opt.sticky ?? true,
+        overlays: {},
         add(position, ...children) {
+            const existing = o.overlays[position];
+            if (existing) {
+                existing.append(...children);
+                return this;
+            }
+            const [vert, horiz] = position.split("-");
+            if (o.sticky && !o.overlays[vert]) {
+                const wrapper = $("div");
+                wrapper.style = `
+                    position: sticky;
+                    pointer-events: none;
+                    max-height: 0;
+                    ${vert}: ${o.inset};
+                `;
+                wrapper.className = `overlay ${vert}`;
+                root[`${vert === "top" ? "pre" : "ap"}pend`](wrapper);
+                o.overlays[vert] = wrapper; 
+            }
             const el = $("div");
             el.style.position = "absolute";
-            el.style.pointerEvents = "none";
+            el.style.pointerEvents = "all";
+            el.style[horiz] = o.inset;
             el.className = position;
-            style_pos(el, position);
             el.append(...children);
-            wrapper.append(el);
+            if (o.sticky) {
+                el.style[vert] = 0;
+                o.overlays[vert].append(el);
+            } else {
+                el.style[vert] = o.inset;
+                root.append(el);
+            }
+            o.overlays[position] = el;
             return this;
+        },
+        get(position) {
+            const existing = o.overlays[position];
+            if (existing) return existing;
+            else {
+                o.add(position);
+                return o.overlays[position];
+            }
+        },
+        remove(position) {
+            const existing = o.overlays[position];
+            if (!existing) return;
+            existing.remove();
+            delete o.overlays[position];
         }
-    }
+    };
+    root._overlay = o;
+    return o;
 }
 
 export const style = {
@@ -319,3 +339,29 @@ export const Bus = {
         }
     }
 };
+
+export const sleep = (t) => new Promise(resolve => setTimeout(resolve, t));
+
+export const stepInterval = async (sequence, cb, signal) => {
+    let start = performance.now();
+    for (let i = 0; i < sequence.length; i++) {
+        const [t, int, c] = sequence[i];
+        const end = t == null ? Infinity : start + t;
+        let nextTick = start + (sequence[i - 1]?.[0] ?? 0);
+        while (performance.now() < end) {
+            (c || cb)();
+            nextTick += int;
+            const delay = nextTick - performance.now();
+            if (delay > 0) await sleep(delay);
+            if (signal?.aborted) return;
+        }
+        if (signal?.aborted) return;
+    }
+};
+
+export const scrolledToBottom = (el, tolerance=1) => el.scrollHeight - el.scrollTop - el.offsetHeight < tolerance;
+export const withinBottom = (el, root, tolerance=1) => el.offsetTop > root.scrollHeight - root.clientHeight - tolerance;
+
+export const easeInOut = x => x < .5 
+    ? .5 * Math.pow(2 * x, 2)
+    : -.5 * Math.pow(2 * x - 2, 2) + 1;

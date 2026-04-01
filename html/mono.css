@@ -26,6 +26,10 @@ a, .song-card * {
     text-decoration: none;
 }
 
+#frame a {
+    display: block;
+}
+
 footer {
     position: fixed;
     bottom: 0;
@@ -51,6 +55,10 @@ span:nth-child(2) {
 
 #frame a {
     pointer-events: none;
+}
+
+ul {
+    scrollbar-width: none;
 }
 
 .player {
@@ -156,7 +164,6 @@ span:nth-child(2) {
 .lyrics .lyrics-text {
     color: #bbb;
     margin: 3px;
-    font-size: 100%;
     text-wrap: pretty;
     transition: color .1s ease;
     &.active, & > .active {
@@ -209,6 +216,7 @@ span:nth-child(2) {
     flex-direction: row;
     gap: 5px;
     font-size: .9em;
+    height: 3.5em;
     * {
         pointer-events: none;
     }
@@ -269,7 +277,7 @@ span:nth-child(2) {
             height: 100%;
             aspect-ratio: 1/1;
             object-fit: cover;
-            transition: opacity .2s ease;
+            transition: opacity .1s ease;
         }
         &.loading {
             animation-play-state: running;
@@ -387,7 +395,7 @@ span:nth-child(2) {
         width: 100%;
     }
     &, .cover, .container > * {
-        transition: opacity .2s linear, min-height .2s linear, max-height .2s linear, max-width .3s linear;
+        transition: opacity .2s linear, min-height .2s linear, max-height .2s linear, max-width .2s linear;
     }
     &:has(.lyrics.expanded) {
         &, .container {
@@ -402,14 +410,8 @@ span:nth-child(2) {
             opacity: 0;
         }
     }
-    .lyrics:not(.expanded) {
-        overflow: hidden;
-        * {
-            pointer-events: none;
-        }
-        .overlay {
-            display: none;
-        }
+    .lyrics:not(.expanded) .overlay :not(.sync, :has(.sync)) {
+        display: none;
     }
 }
 
@@ -444,4 +446,53 @@ span:nth-child(2) {
     to {
         transform: translateX(var(--distance));
     }
+}
+
+.scrollbar {
+    --nub-top: 0px;
+    --nub-height: 32px;
+    --gutter: 8px;
+    left: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter);
+    position: absolute!important;
+    transition: opacity .5s ease;
+    cursor: grab;
+    opacity: 0;
+    transform: translateZ(0);
+    &::before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 1px;
+        right: 7px;
+        bottom: 1px;
+        left: 7px;
+        border-radius: 2px;
+        background-color: #ccc6;
+        box-shadow: 0 0 4px 2px #2226;
+    }
+    &::after {
+        display: block;
+        content: "";
+        position: absolute;
+        top: var(--nub-top);
+        left: 4.5px;
+        height: var(--nub-height);
+        width: 6px;
+        background-color: #eee;
+        border: #fff 1px solid;
+        border-radius: 6px;
+    }
+}
+
+.scrollbar:active {
+    cursor: grabbing;
+}
+
+:has(> .overlay .scrollbar), .lyrics {
+    overscroll-behavior: none;
+}
+
+.overlay:has(.scrollbar) {
+    z-index: 10;
 }

@@ -1,4 +1,4 @@
-import { debounce, throttle } from "./l.js";
+import { debounce, throttle, overlay, handleHold, stepInterval, withinBottom, scrolledToBottom, easeInOut } from "./l.js";
 
 const BatchState = {
     INIT: 0,
@@ -12,15 +12,8 @@ const BatchState = {
     TEST_INLINE: 8,
     TEST_MEASURE: 9,
     TEST_APPLY: 10,
-    TEST_SEARCH_INIT: 11,
-    TEST_LINEAR_GT: 12,
-    TEST_LINEAR_LT: 13,
-    TEST_LINEAR_GT_UPDATE: 14,
-    TEST_LINEAR_LT_UPDATE: 15,
-    TEST_BINARY: 16,
-    TEST_BINARY_UPDATE: 17,
-    TEST_BINARY_CMP: 18,
-    TEST_END: 19
+    TEST_SCALE: 11,
+    TEST_END: 12
 }
 function normalizeBatch(list) {
     const batch = list.filter(line => line.el.children.length === 0 && line.time != null).map(line => ({
@@ -40,7 +33,7 @@ function normalizeBatch(list) {
             case BatchState.INIT:
                 item.words = item.el.textContent.split(/\s+/);
                 item.el.textContent = "";
-                item.el.style.paddingLeft = "1px";
+                item.el.style.paddingLeft = "2px";
                 item.i = 0;
             case BatchState.LINE_UPDATE:
                 if (item.i === item.words.length) {
@@ -69,6 +62,7 @@ function normalizeBatch(list) {
             case BatchState.BATCH_END:
                 item.el.style.removeProperty("padding-left");
                 item.state = -1;
+                complete++;
                 break;
         }
         for (const item of batch) switch (item.state) {
@@ -91,12 +85,8 @@ function normalizeBatch(list) {
                         state: BatchState.TEST_INLINE,
                         el: item.el.children[i],
                         width: 0,
-                        min: 100,
-                        max: 100,
-                        size: 100
                     });
                 item.state = BatchState.BATCH_END;
-                complete++;
         }
     }
     complete = 0;
@@ -108,20 +98,7 @@ function normalizeBatch(list) {
                 break;
             case BatchState.TEST_APPLY:
                 item.el.classList.add("active");
-                item.state = BatchState.TEST_SEARCH_INIT;
-                break;
-            case BatchState.TEST_LINEAR_GT_UPDATE:
-                item.el.style.fontSize = `${item.min}%`;
-                item.state = BatchState.TEST_LINEAR_GT;
-                break;
-            case BatchState.TEST_LINEAR_LT_UPDATE:
-                item.el.style.fontSize = `${item.max}%`;
-                item.state = BatchState.TEST_LINEAR_LT;
-                break;
-            case BatchState.TEST_BINARY_UPDATE:
-                item.size = (item.min + item.max) / 2;
-                item.el.style.fontSize = `${item.size}%`;
-                item.state = BatchState.TEST_BINARY_CMP;
+                item.state = BatchState.TEST_SCALE;
                 break;
             case BatchState.TEST_END:
                 item.el.style.removeProperty("font-size");
@@ -135,39 +112,10 @@ function normalizeBatch(list) {
                 item.width = item.el.scrollWidth;
                 item.state = BatchState.TEST_APPLY;
                 break;
-            case BatchState.TEST_SEARCH_INIT:
-                if (item.el.scrollWidth < item.width) {
-                    item.state = BatchState.TEST_LINEAR_LT;
-                    break;
-                }
-            case BatchState.TEST_LINEAR_GT:
-                if (item.el.scrollWidth <= item.width) {
-                    item.state = BatchState.TEST_BINARY;
-                    break;
-                }
-                item.max = item.min;
-                item.min--;
-                item.state = BatchState.TEST_LINEAR_GT_UPDATE;
+            case BatchState.TEST_SCALE:
+                item.el.dataset.scale = item.width / item.el.scrollWidth * 100 + "%";
+                item.state = BatchState.TEST_END;
                 break;
-            case BatchState.TEST_LINEAR_LT:
-                if (item.el.scrollWidth >= item.width) {
-                    item.state = BatchState.TEST_BINARY;
-                    break;
-                }
-                item.min = item.max;
-                item.max++;
-                item.state = BatchState.TEST_LINEAR_LT_UPDATE;
-                break;
-            case BatchState.TEST_BINARY_CMP:
-                if (item.el.scrollWidth > item.width) item.max = item.size;
-                else item.min = item.size;
-            case BatchState.TEST_BINARY:
-                if (Math.abs(item.el.scrollWidth - item.width) < 1) {
-                    item.el.dataset.scale = item.el.style.fontSize;
-                    item.state = BatchState.TEST_END;
-                    break;
-                }
-                item.state = BatchState.TEST_BINARY_UPDATE;
         }
     }
 }
@@ -212,7 +160,7 @@ function renderLine(line, root) {
 function enableLine(line) {
     line.classList.add("active");
     for (const el of line.children)
-        el.style.fontSize = el.dataset.scale;
+        el.style.setProperty("font-size", el.dataset.scale);
 }
 
 function disableLine(line) {
@@ -232,9 +180,10 @@ function renderLines(lines, root, signal) {
         }
         else renderLine(line, root);
     }
-    if (lines.normWidth && lines.normWidth !== root.offsetWidth)
-        lines.forEach(line => line.el.replaceChildren(line.text));
-    normalizeBatch(lines);
+    if (lines.normWidth !== root.offsetWidth) {
+        if (lines.normWidth) lines.forEach(line => line.el.replaceChildren(line.text));
+        normalizeBatch(lines);
+    }
     lines.normWidth = root.offsetWidth;
     console.debug("render took", (performance.now() - t).toFixed(2), "ms");
 }
@@ -268,27 +217,18 @@ function timingMenu(id, signal) {
         const el = document.createElement("button");
         el.style.touchAction = "none";
         el.textContent = text;
-        let timeout, interval;
-        el.onpointerdown = (ev) => {
-            if (!ev.isPrimary) return;
-            timeout = setTimeout(() => {
-                interval = setInterval(() => changeOffset(num), 100);
-                timeout = setTimeout(() => {
-                    clearInterval(interval);
-                    interval = setInterval(() => changeOffset(num), 50);
-                }, 2000);
-            }, 500);
-            el.releasePointerCapture(ev.pointerId);
-        }
-        el.onpointercancel = el.onpointerleave = (ev) => {
-            if (!ev.isPrimary) return;
-            clearTimeout(timeout);
-            clearInterval(interval);
-            interval = null;
-        }
-        el.onpointerup = (ev) => {
-            if (ev.isPrimary && !interval) changeOffset(num);
-        };
+        let controller;
+        handleHold(el, { 
+            t: 500,
+            onStart: () => stepInterval([
+                [500, Infinity, () => {}],
+                [2500, 100],
+                [null, 50]
+            ], () => changeOffset(num), (controller = new AbortController()).signal),
+            onEnd: () => controller.abort(),
+            signal
+        });
+        el.onclick = () => changeOffset(num);
         return el;
     };
     const dec = offsetButton("-", -100);
@@ -307,19 +247,11 @@ function timingMenu(id, signal) {
     }};
 }
 
-function addOverlay(root, onMenu) {
-    const overlay = document.createElement("div");
-    overlay.className = "overlay";
-    overlay.style.position = "sticky";
-    overlay.style.bottom = 0;
-    overlay.style.pointerEvents = "none";
-    const wrapper = document.createElement("span");
+function addOverlay(root, onMenu, position="bottom-right") {
+    const ov = overlay(root, { inset: "5px" });
+    const wrapper = ov.get(position);
     wrapper.style.display = "flex";
-    wrapper.style.position = "absolute";
     wrapper.style.gap = "5px";
-    wrapper.style.bottom = "5px";
-    wrapper.style.right = "5px";
-    wrapper.style.pointerEvents = "auto";
     if (onMenu) {
         let menuOpened = false;
         const slot = document.createElement("span");
@@ -338,14 +270,13 @@ function addOverlay(root, onMenu) {
         }
         wrapper.append(menu);
     }
-    overlay.append(wrapper);
-    root.append(overlay);
-    return wrapper;
+    return ov;
 }
 
 function syncButton() {
     const sync = document.createElement("button");
     sync.innerText = "Sync";
+    sync.className = "sync";
     return sync;
 };
 
@@ -371,18 +302,47 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
         }
         const { timeObj, onMenu } = timingMenu(id, signal);
         const overlay = addOverlay(root, onMenu);
-        const sync = syncButton(root);
+        const sync = syncButton();
         sync.onclick = () => {
             root.scrollTo(0, scrollTarget.offsetTop);
             sync.remove();
         }
-        let currentLine, scrollTarget = lines[0].el, snapped = true;
-        const select = el => {
+        let currentLine, scrollTarget = lines[0].el, snapped = true, smoothScrollTop;
+        let pendingScroll;
+        const smoothScroll = (top) => {
+            cancelAnimationFrame(pendingScroll);
+            const scrollTop = root.scrollTop;
+            const offset = top - scrollTop;
+            const duration = Math.pow(Math.abs(offset), 1/3) * 50;
+            let start;
+            smoothScrollTop = scrollTop;
+            const scroll = () => {
+                start ??= performance.now();
+                const elapsed = performance.now() - start;
+                if (elapsed >= duration) {
+                    root.scrollTop = smoothScrollTop = top;
+                    return;
+                }
+                const pos = scrollTop + offset * easeInOut(elapsed / duration);
+                root.scrollTop = smoothScrollTop = pos;
+                pendingScroll = requestAnimationFrame(scroll)
+            };
+            pendingScroll = requestAnimationFrame(scroll);
+        };
+        const select = (el, init) => {
             if (currentLine) disableLine(currentLine);
             enableLine(el);
             currentLine = el;
             scrollTarget = el.previousElementSibling ?? el;
-            if (snapped) scrollTarget.scrollIntoView({ behavior: "smooth" });
+            console.log("select while", snapped ? "snapped" : "unsnapped");
+            if (snapped) {
+                if (init) root.scrollTop = scrollTarget.offsetTop;
+                else smoothScroll(scrollTarget.offsetTop);
+            }
+            if (scrolledToBottom(root) && withinBottom(el, root)) {
+                snapped = true;
+                scrollCommit();
+            }
         }
         const isLyrics = el => el?.classList.contains("lyrics-text");
         root.addEventListener("click", ev => {
@@ -394,10 +354,26 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
             audio.currentTime = parseFloat(target.dataset.time) + getOffset(timeObj);
             audio.play();
         }, { signal });
-        const scrollUpdate = throttle(() => snapped = Math.abs(root.scrollTop - Math.min(scrollTarget.offsetTop, root.scrollHeight - root.clientHeight)) < 10);
+        const scrollTest = throttle(() => {
+            snapped = Math.abs(root.scrollTop - Math.min(scrollTarget.offsetTop, root.scrollHeight - root.offsetHeight)) < 10
+        });
+        const scrollCommit = debounce(() => {
+            if (snapped) sync.remove();
+            else if (!sync.isConnected) overlay.get("top-right").append(sync);
+        }); 
+        const scrollUpdate = () => {
+            if (Math.abs(root.scrollTop - smoothScrollTop) < 1) snapped = true;
+            else {
+                cancelAnimationFrame(pendingScroll);
+                scrollTest();
+            }
+        };
         root.addEventListener("scroll", scrollUpdate, { signal });
-        root.addEventListener("scrollend", () => setTimeout(() => snapped ? sync.remove() : sync.isConnected || overlay.prepend(sync), 100), { signal });
-        audio.addEventListener("timeupdate", () => {
+        root.addEventListener("scrollend", () => {
+            scrollUpdate();
+            scrollCommit();
+        }, { signal });
+        const update = (init) => {
             if (!audio.src.includes(id)) {
                 if (currentLine) disableLine(currentLine);
                 currentLine = null;
@@ -406,29 +382,46 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
             for (let i = lines.length - 1; i >= 0; i--) {
                 const { time, el } = lines[i];
                 if (time !== undefined && audio.currentTime + .001 >= time + getOffset(timeObj)) {
-                    if (currentLine !== el) select(el);
+                    if (currentLine !== el) {
+                        select(el, init);
+                        if (!snapped) {
+                            scrollUpdate();
+                            scrollCommit();
+                        }
+                    }
                     return;
                 }
             }
             if (currentLine) {
                 disableLine(currentLine);
                 currentLine = null;
-                if (snapped) root.scrollTo({ top: 0, behavior: "smooth" });
+                scrollTarget = lines[0].el;
+                if (snapped) smoothScroll(0);
             }
-        }, { signal });
-        const forceScroll = debounce(() => scrollTarget.scrollIntoView());
+        };
+        audio.addEventListener("timeupdate", () => update(), { signal });
         const normalize = throttle(() => {
-            if (lines.normWidth === root.offsetWidth) return;
-            lines.normWidth = root.offsetWidth;
             lines.forEach(line => line.el.replaceChildren(line.text));
             normalizeBatch(lines);
-            scrollTarget.scrollIntoView();
+            lines.normWidth = root.offsetWidth;
+            root.scrollTop = scrollTarget.offsetTop;
+            scrollUpdate();
+            scrollCommit();
         });
+        let prevHeight = root.offsetHeight;
         observer = new ResizeObserver(() => {
-            forceScroll();
-            normalize();
+            if (lines.normWidth === root.offsetWidth) {
+                const height = root.offsetHeight; 
+                if (height < prevHeight && root.scrollHeight - root.scrollTop - prevHeight < prevHeight - height) {
+                    const top = root.scrollTop + prevHeight - height;
+                    root.scrollTop = top;
+                    if (snapped) smoothScrollTop = top;
+                }
+                prevHeight = root.offsetHeight;
+            } else normalize();
         });
         observer.observe(root);
+        update(true);
     } catch {
         status?.disable();
         root.remove();

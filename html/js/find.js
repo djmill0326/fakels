@@ -178,7 +178,6 @@ const re = el => {
     return el;
 };
 let mode = _.mode ??= "loop";
-let shuffleHook = () => {}, osh = shuffleHook;
 const next_mode = {
     loop: "repeat",
     repeat: "shuffle",
@@ -186,7 +185,6 @@ const next_mode = {
 }
 window.switch_mode = () => {
     mode = _.mode = next_mode[_.mode];
-    shuffleHook();
     update_status();
     Bus.dispatch("shuffle-state", mode);
 };
@@ -238,7 +236,6 @@ const status_obj = (name) => ({
 if(_.status !== "false") document.body.append(status);
 const init_item = (item, info) => {
     item.href = join(item.href);
-    item.fav = favorites.has(item.href);
     if (item.isDir == null && item.isMedia == null) {
         info ??= get_info(item.href);
         item.isDir = !info.ext;
@@ -254,11 +251,9 @@ const refill_items = (iter) => {
     activeItems.splice(0, activeItems.length, ...items.filter((item, i) => {
         const info = get_info(item.href);
         const withinLibrary = types[info.ext] || !mime[info.ext];
-        if (!item.id) {
-            // side-effects in filter. more efficient tho
-            item.id = i;
-            init_item(item, info);
-        }
+        if (!item.id) init_item(item, info);
+        item.id = i;
+        item.fav = favorites.has(item.href);
         let result = true;
         // hide non-media anchors that aren't folders
         if (library_mode && !withinLibrary) result = false;
@@ -268,8 +263,7 @@ const refill_items = (iter) => {
         return result;
     }));
     console.debug(`activeItems fill took ${(performance.now() - t).toFixed(2)} ms`);
-    if (frame.firstElementChild.textContent.endsWith(" entries (flat)"))
-        frame.firstElementChild.innerText = `${activeItems.length} entries (flat)`;
+    update_frame_counts();
     shuffle.invalidate();
     vscroll?.update(library_mode ? "enhanced" : "basic");
     update_status();
@@ -290,31 +284,31 @@ const enhance_anchor = (el) => {
 const basicShell = $("li");
 basicShell.append($("a"));
 basicShell.firstElementChild.append("");
-overlay(basicShell.firstElementChild).add("bottom-right");
 const enhancedShell = basicShell.cloneNode(true);
 enhance_anchor(enhancedShell.firstElementChild);
 const vscroll_modes = {
     basic: {
         shell() {
-            return staticQuery(basicShell.cloneNode(true), {
-                overlay: ".bottom-right"
-            });
+            const el = basicShell.cloneNode(true);
+            overlay(el.firstElementChild, { sticky: false });
+            return el;
         },
         update(el, item) {
             const a = el.firstElementChild;
             a.href = item.href;
             a.firstChild.data = item.name;
             el.dataset.id = item.id;
-            el.sq.overlay.innerText = item.fav ? "🌟" : "";
+            overlay(a).get("bottom-right").innerText = item.fav ? "🌟" : "";
         }
     },
     enhanced: {
         shell() {
-            return staticQuery(enhancedShell.cloneNode(true), {
+            const el = enhancedShell.cloneNode(true);
+            overlay(el.firstElementChild, { sticky: false });
+            return staticQuery(el, {
                 cover: ".cover",
                 title: ".title",
                 artist: ".artist",
-                overlay: ".bottom-right"
             });
         },
         update(el, item) {
@@ -329,7 +323,7 @@ const vscroll_modes = {
             }
             el.sq.title.innerText = item.isMedia ? item.title : item.name;
             el.sq.artist.innerText = item.isMedia ? (item.artist || "Unknown Artist") : "Folder";
-            el.sq.overlay.innerText = item.fav ? "🌟" : "";
+            overlay(a).get("bottom-right").innerText = item.fav ? "🌟" : "";
         }
     }
 };
@@ -386,6 +380,7 @@ const unsplat = items => {
 const splat_or_refill = items => _.ldir.includes("**") 
     ? splat(_.ldir, items) 
     : refill_items(items) || unsplat(items);
+/*
 const found = new Map();
 const find_recursive = (root, count, cb) => {
     count ??= { i: 0, expected: 0 };
@@ -400,12 +395,23 @@ const find_recursive = (root, count, cb) => {
         if (count.i === count.expected) {
             if (cb) cb(found.values());
             else {
-                virtualize("n entries (flat)");
+                virtualize("0 entries (flat)");
                 splat_or_refill(found.values());
             }
             found.clear();
             on_load();
         }
+    }, status_obj(`tree (${root})`), null, false, true);
+};
+ */
+const find_recursive = (root, cb) => {
+    api("ls -r", root, null, ({ files }) => {
+        if (cb) cb(files);
+        else {
+            virtualize("0 entries (flat)");
+            splat_or_refill(files);
+        }
+        on_load();
     }, status_obj(`tree (${root})`), null, false, true);
 };
 const on_load = () => {
@@ -423,7 +429,7 @@ const on_load = () => {
 };
 const virtual_paths = {
     "media/Favorites": () => {
-        find_recursive("/media/", null, items => {
+        find_recursive("/media/", items => {
             const favs = [];
             items.forEach(item => {
                 if (favorites.has(item.href)) favs.push(item);
@@ -448,8 +454,20 @@ const virtual_path = dir => Object.keys(virtual_paths).find(path => dir.startsWi
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
 const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
 form.onsubmit = (e) => {
-    back.disabled = false;
     e.preventDefault();
+    back.disabled = false;
+    if (search.term && term.value.endsWith(search.term)) {
+        if (vscroll) {
+            const head = vscroll.head();
+            if (head) {
+                term.blur();
+                update_link(head);
+                setTimeout(() => vscroll.focus(head), 0);
+            }
+        }
+        return;
+    }
+    search.reset(true);
     const wildcard = term.value.indexOf("*");
     const dir = term.value.slice(0, wildcard);
     const v = _.ldir = term.value = clean(term.value.replace(/[\/\\]+/g, "/"));
@@ -457,12 +475,12 @@ form.onsubmit = (e) => {
     back.checked = query.replace("/", "").length;
     btn.onclick();
     const do_nav = () => {
-        if (!just_popped) nav(_.ldir, query);
+        if (!just_popped) nav(v, query);
         just_popped = false;
     };
     const virtualPath = virtual_path(v);
     if (wildcard !== -1) {
-        if (splat_map && _.ldir.startsWith(last_splat + "**")) splat(_.ldir);
+        if (splat_map && v.startsWith(last_splat + "**")) splat(v);
         else {
             if (virtualPath) virtual_paths[virtualPath]();
             else find_recursive(`/${dir}`);
@@ -493,7 +511,6 @@ term.onkeydown = e => { e.key === "Escape" && term.blur() };
 term.oninput = () => term.value === "@" && (term.value = _.ldir);
 term.onfocus = () => term.select();
 import dragify from "./drag.js";
-import { sme } from "./active-info.js";
 const popup_savestate = new Map();
 let poppedup;
 export const popup = window.popup = (el, title, patch=_el=>{}) => {
@@ -621,9 +638,15 @@ const find_lyrics = async (ref, prefetch) => {
     const viewController = new AbortController();
     const playerSignal = player.controller?.signal;
     const signals = (popup) => {
+        let ext;
+        if (playerSignal) {
+            const delayed = new AbortController();
+            ext = delayed.signal;
+            playerSignal.addEventListener("abort", () => setTimeout(() => delayed.abort(), 200)); // wait for player close
+        } else ext = popup._controller.signal;
         return {
             signal: controller.signal,
-            viewSignal: AbortSignal.any([viewController.signal, playerSignal ?? popup._controller.signal])
+            viewSignal: AbortSignal.any([viewController.signal, ext])
         };
     };
     const abortOnEvent = (type, controller) => {
@@ -671,9 +694,8 @@ const find_lyrics = async (ref, prefetch) => {
             root.style.opacity = 1;
             if (target === poppedup) poppedup.q(".bar span").innerHTML = `Lyrics for <i>${title}</i>`;
             else {
-                root.addEventListener("click", () => {
-                    root.classList.add("expanded");
-                }, { signal: viewSignal });
+                handleHold(root, { onHold: () => root.classList.add("expanded"), signal: viewSignal });
+                root.addEventListener("contextmenu", e => e.preventDefault(), { signal: viewSignal });
                 const close = $("button");
                 close.textContent = "×";
                 close.onclick = (ev) => {
@@ -770,7 +792,6 @@ const update_link = (to, set_src=true) => {
         if (auto_lyrics) {
             find_lyrics(item, !(player.el || poppedup?.classList.contains("lyrics-popup"))).then((done) => done && find_lyrics(next_track(), true));
         }
-        if (shuffleHook === osh) (shuffleHook = sme(shortcut_ui, mel).shuffleHook)();
         Bus.dispatch("media", playlist.at(-1));
     } else if (browser.remove) {
         mel.insertAdjacentElement("beforebegin", portal);
@@ -815,12 +836,23 @@ const update_favorites = (k) => {
     _.favorites = JSON.stringify(Array.from(favorites));
     return v;
 };
+const update_frame_counts = () => {
+    const el = frame.firstElementChild;
+    if (!el) return;
+    el.innerText = el.innerText
+        .replace(/ \(\d+ items\)$/, ` (${activeItems.length} items)`)
+        .replace(/\d+ entries \(flat\)$/, `${activeItems.length} entries (flat)`);
+};
 const toggle_favorite = (el) => {
     const item = resolve(el);
     const a = el.firstElementChild;
     const favorited = update_favorites(item.href);
     item.fav = favorited;
-    a.q(".bottom-right").innerText = favorited ? "🌟" : "";
+    overlay(a).get("bottom-right").innerText = favorited ? "🌟" : "";
+    if (favorited) return;
+    const in_favs = _.ldir.startsWith("media/Favorites");
+    if (in_favs) items.splice(item.id, 1);
+    if (in_favs || (search.term && !search.check(item))) refill_items();
 }
 handleHold(frame, dispatch_anchor(toggle_favorite));
 export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
@@ -931,11 +963,8 @@ const init_browser = (item, info) => {
     media.append(player);
     browser = {
         update: (item, info) => {
-            mref.innerText = item.title ?? extract_title(info);
+            mref.innerText = item.title;
             mref.dataset.src = item.href;
-            const title = poppedup?.firstElementChild;
-            if (!(title && title.firstElementChild.textContent.includes("Shortcuts"))) return;
-            poppedup.children[1].firstElementChild.children[1].innerHTML = `<i>${html(mref.innerHTML)}</i>`;
         },
         remove: () => {
             player.remove();
@@ -960,15 +989,19 @@ const toggle_mode = () => {
     refill_items();
 };
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
-window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => el.children[0].children[1].innerHTML = `<i>${html(mel?.isConnected ? mref.innerHTML : "Silence")}</i>`);
+window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => {
+    id("shortcut-np").innerHTML = `<i>${html(mel?.isConnected ? mref.innerHTML : "Silence")}</i>`
+    if (mel.isConnected) id("shortcut-playback").innerText = mel.paused ? "Resume playback" : "Pause session";
+    id("shortcut-shuffle").innerText = display_mode();
+});
 const term_cmd = (k) => [null, () => term.value.startsWith(k) ? setTimeout(() => term.focus()) : term.focus()]
 const shortcuts = {
-    "Now-Playing": ["None", restart_track],
-    " ": ["Play/pause", toggle_playback],
+    "Now-Playing": ["None", restart_track, "np"],
+    " ": ["Play/pause", toggle_playback, "playback"],
     ",": ["Previous entry", () => prev.click()],
     ".": ["Next entry", () => next.click()],
-    "s": ["Playback mode", switch_mode],
-    "l": ["Find lyrics (may fail)", () => find_lyrics(playlist.at(-1))],
+    "s": ["Playback mode", switch_mode, "shuffle"],
+    "l": ["Find lyrics", () => find_lyrics(playlist.at(-1))],
     "m": ["Toggle library mode", toggle_mode],
     "p": ["Toggle player view", toggle_player],
     "t": ["Toggle status bar", toggle_status],
@@ -988,7 +1021,7 @@ export const eval_keypress = (ev, s=shortcuts) => {
     }
 };
 window.addEventListener("keypress", eval_keypress);
-shortcut_ui.append(...Object.entries(shortcuts).filter(([_, [name]]) => name).map(([key, x]) => {
+shortcut_ui.append(...Object.entries(shortcuts).filter(([_, [name]]) => name).map(([key, [name, _, id]]) => {
     const el = $("li");
     el.style.display = "flex";
     el.style.cursor = "pointer";
@@ -997,11 +1030,19 @@ shortcut_ui.append(...Object.entries(shortcuts).filter(([_, [name]]) => name).ma
     label.innerText = key.replace(" ", "<Space>");
     label.style.flexShrink = 0;
     const text = $("span");
-    text.innerText = x[0];
+    text.innerText = name;
+    text.id = `shortcut-${id}`;
     el.append(label, text);
     return el;
 }));
-
+const by_id = (_id, f) => {
+    const x = id(_id);
+    if (x) f(x);
+};
+Bus.on("media", ({ title }) => by_id("shortcut-np", x => x.innerHTML = html(`[i]${title}[/i]`)));
+Bus.on("play", () => by_id("shortcut-playback", x => x.innerText = "Pause session"));
+Bus.on("pause", () => by_id("shortcut-playback", x => x.innerText = "Resume playback"));
+Bus.on("shuffle-state", () => by_id("shortcut-shuffle", x => x.innerText = display_mode()));
 if ('mediaSession' in navigator) {
     const init_media_session = () => {
         navigator.mediaSession.setActionHandler('previoustrack', () => prev.onclick());

@@ -21,10 +21,10 @@ export default function shuffler(items) {
             }
             if (peeked != null) return items[list[peeked]];
             if (list.length < 2) return isValid(0) && items[0];
-            // const i = Math.floor(Math.random() * (cursor + 1));
             let selection, success = false;
             for (let i = 0; i < items.length; i++) {
-                const i = stupidRand(cursor);
+                const i = Math.floor(Math.random() * (cursor + 1));
+                // const i = stupidRand(cursor);
                 peeked = i;
                 selection = list[i];
                 if (selection !== prev && isValid(selection)) {

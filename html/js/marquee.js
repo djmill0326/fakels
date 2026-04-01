@@ -16,7 +16,7 @@ export default function marquee(el) {
         }
         el.style.overflow = "visible";
     };
-    const observer = new ResizeObserver((entries) => entries.forEach(_ => updateMarquee(originalText)));
+    const observer = new ResizeObserver(() => updateMarquee(originalText));
     observer.observe(el);
     updateMarquee();
     return updateMarquee;

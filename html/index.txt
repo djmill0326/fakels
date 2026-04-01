@@ -289,7 +289,7 @@ Pending
 		The Pharcyde - 02 - The Uh-Huh.flac	inode=977487	size=21434163	mtime=1770707962970.48	title=The Uh-Huh	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
 		The Pharcyde - 03 - Storm.flac	inode=1084286	size=25381845	mtime=1770707958094.48	title=Storm	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
 		The Pharcyde - 04 - Italian 4 Good Bye (skit).flac	inode=1027568	size=836616	mtime=1770707968342.48	title=Italian 4 Good Bye (skit)	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
-		The Pharcyde - 05 - Thought I Knew You.flac	inode=300146	size=21219838	mtime=1770707968514.48	title=Thought I Knew You	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
+		The Pharcyde - 05 - Thought I Knew You.flac	inode=300146	size=21219838	mtime=1770707968514.48	title=Knew U	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
 		The Pharcyde - 06 - Thoughtfulness (skit).flac	inode=610933	size=1775928	mtime=1770707969178.48	title=Thoughtfulness (skit)	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
 		The Pharcyde - 07 - The Art of Sharing.flac	inode=1047823	size=18978183	mtime=1770707973818.48	title=The Art of Sharing	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
 		The Pharcyde - 08 - Suggestions (skit).flac	inode=1039480	size=653530	mtime=1770707980130.48	title=Suggestions (skit)	album=Humboldt Beginnings	artist=The Pharcyde	year=2004
@@ -348,6 +348,8 @@ Pending
 		folder.jpg	inode=1061660	size=154606	mtime=1771342022026.6975
 	A Beautiful Lie	
 		3. The Kill.flac	inode=663493	size=28958608	mtime=1761778184467.8372	title=The Kill	album=A Beautiful Lie	artist=Thirty Seconds to Mars
+	A Rush of Blood to the Head (2002)	
+		Coldplay - A Rush of Blood to the Head - 04 - The Scientist.flac	inode=1100028	size=33233478	mtime=1772576675254.5188	title=The Scientist	album=A Rush of Blood to the Head	artist=Coldplay	year=2002
 	As Good as Dead (1996)	
 		Local H - As Good as Dead - 01 - Manifest Density, Part 1.mp3	inode=290280	size=2038894	mtime=1767241146986.1694	title=Manifest Density, Part 1	album=As Good as Dead	artist=Local H	year=1996
 		Local H - As Good as Dead - 02 - High‐Fiving MF.mp3	inode=993784	size=10326244	mtime=1767241131714.1694	title=High‐Fiving MF	album=As Good as Dead	artist=Local H	year=1996
@@ -381,6 +383,8 @@ Pending
 	CD 01	
 		Radiohead - OK Computer - 02 - Paranoid Android.flac	inode=663695	size=48174559	mtime=1761778266747.8372	title=Paranoid Android	album=OK Computer	artist=Radiohead	year=2009
 		Radiohead - OK Computer - 06 - Karma Police.flac	inode=662983	size=32230435	mtime=1761778284843.8372	title=Karma Police	album=OK Computer	artist=Radiohead	year=2009
+	CD 02	
+		Stone Temple Pilots - Tiny Music… Songs From the Vatican Gift Shop - 07 - Trippin’ on a Hole in a Paper Heart (early version).flac	inode=302827	size=24746577	mtime=1774603198660.999	title=Trippin’ on a Hole in a Paper Heart (early version)	album=Tiny Music… Songs From the Vatican Gift Shop	artist=Stone Temple Pilots	year=2021
 	California 37	
 		Train - Drive By.flac	inode=665375	size=26229053	mtime=1761778264459.8372	title=Drive By	album=California 37	artist=Train	year=2012
 	Come Over When You're Sober, Pt. 2 (2018)	
@@ -409,6 +413,8 @@ Pending
 		09 - Holy Fucking Shit 40,000.flac	inode=1060017	size=42487187	mtime=1768278596858.123	title=Holy Fucking Shit: 40,000	album=Deathconsciousness	artist=Have a Nice Life	year=2014
 	Drops of Jupiter (2001)	
 		Train - Drops of Jupiter - 03 - Drops Of Jupiter.flac	inode=664073	size=100980470	mtime=1761778276791.8372	title=Drops Of Jupiter	album=Drops of Jupiter	artist=Train	year=2001
+	FANDOM	
+		Waterparks_FANDOM_08_Turbulent.flac	inode=1166404	size=24112179	mtime=1774863998339.9841	title=Turbulent	album=FANDOM	artist=Waterparks	year=2019
 	Failed at Math(s)	
 		01 - Failed at Math(s).flac	inode=1122859	size=20797247	mtime=1771341874186.6978	title=Failed at Math(s)	album=Failed at Math(s)	artist=Panchiko	year=2023
 		02 - Portraits.flac	inode=1121517	size=24623044	mtime=1771341878962.6978	title=Portraits	album=Failed at Math(s)	artist=Panchiko	year=2023
@@ -480,19 +486,15 @@ Pending
 		21 Great Day.mp3	inode=266923	size=5904454	mtime=1762036392705.6677	title=Great Day	album=Madvillainy	artist=Madvillain	year=2004
 		22 Rhinestone Cowboy.mp3	inode=642945	size=9508315	mtime=1762036399961.6677	title=Rhinestone Cowboy	album=Madvillainy	artist=Madvillain	year=2004
 		cover.jpg	inode=267202	size=59294	mtime=1762036400617.6677
+	Melt My Eyez See Your Future (2022)	
+		02. Walkin.flac	inode=1148473	size=33679231	mtime=1774607038360.9976	title=Walkin	album=Melt My Eyez See Your Future	artist=Denzel Curry	year=2022
 	Nevermind (Remastered)	
 		01 Smells Like Teen Spirit.flac	inode=662539	size=119021022	mtime=1761915545758.4688	title=Smells Like Teen Spirit	album=Nevermind	artist=Nirvana
-		02 In Bloom	inode=672488	size=1251	mtime=1761915488086.4688
 		02 In Bloom.flac	inode=232368	size=102903232	mtime=1761944647919.6453	title=In Bloom	album=Nevermind	artist=Nirvana
-		03 Come As You Are	inode=888283	size=648	mtime=1761915567882.4688
 		03 Come As You Are.flac	inode=644451	size=85201861	mtime=1761915510902.4688	title=Come as You Are	album=Nevermind	artist=Nirvana
-		04 Breed	inode=615162	size=1334	mtime=1761915545770.4688
 		04 Breed.flac	inode=888130	size=74016603	mtime=1761915687782.4688	title=Breed	album=Nevermind	artist=Nirvana
-		05 Lithium	inode=664425	size=1469	mtime=1761915544666.4688
 		05 Lithium.flac	inode=626879	size=97673147	mtime=1761915798090.4688	title=Lithium	album=Nevermind	artist=Nirvana
-		06 Polly	inode=371466	size=1035	mtime=1761915546994.4688
 		06 Polly.flac	inode=888148	size=65137029	mtime=1761915568926.4688	title=Polly	album=Nevermind	artist=Nirvana
-		07 Territorial Pissings	inode=671967	size=883	mtime=1761915795626.4688
 		07 Territorial Pissings.flac	inode=228568	size=57995080	mtime=1761915611378.4688	title=Territorial Pissings	album=Nevermind	artist=Nirvana
 		08 Drain You.flac	inode=672918	size=89275199	mtime=1761916008130.4685	title=Drain You	album=Nevermind	artist=Nirvana
 		09 Lounge Act.flac	inode=230056	size=62224332	mtime=1761916090010.4685	title=Lounge Act	album=Nevermind	artist=Nirvana
@@ -500,9 +502,58 @@ Pending
 		11 On A Plain.flac	inode=671888	size=78327266	mtime=1761916253374.4685	title=On a Plain	album=Nevermind	artist=Nirvana
 		12 Something In The Way.flac	inode=615241	size=81725390	mtime=1761916273578.4685	title=Something in the Way	album=Nevermind	artist=Nirvana
 		13 Endless, Nameless.flac	inode=271916	size=153504977	mtime=1761916307082.4685	title=Endless, Nameless	album=Nevermind	artist=Nirvana
-		discart.jpeg	inode=675779	size=389682	mtime=1761916304658.4685
+		discart.jpg	inode=675779	size=389682	mtime=1761916304658.4685
 		discart.png	inode=666812	size=607770	mtime=1761916306398.4685
 		folder.jpg	inode=662978	size=263502	mtime=1761916308050.4685
+	New Music Releases Week 11 of 2024 (Mp3 320kbps Songs) [PMEDIA] ⭐️	
+		Miky Woodz - 31.mp3	inode=1101274	size=6729952	mtime=1774600663053	title=31	album=31	artist=Miky Woodz	year=2024
+	Outkast - Speakerboxxx _ The Love Below	
+		1-05 The Way You Move.mp3	inode=1145222	size=9175040	mtime=1774606459112.9978	title=The Way You Move	album=Speakerboxxx / The Love Below	artist=Outkast	year=2002
+		2-10 Roses.mp3	inode=1145146	size=14435194	mtime=1774606457116.9978	title=Roses	album=Speakerboxxx / The Love Below	artist=Outkast	year=2002
+	Over the Years and Through the Woods	
+		01 Go With the Flow.mp3	inode=1126358	size=7194182	mtime=1774615000512.9944	title=Go With the Flow	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		02 Regular John.mp3	inode=1133076	size=13040596	mtime=1774615003208.9944	title=Regular John	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		03 Monsters in the Parasol.mp3	inode=1159146	size=11241548	mtime=1774615006236.9944	title=Monsters in the Parasol	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		04 Tangled Up in Plaid.mp3	inode=328120	size=9673896	mtime=1774615009024.9944	title=Tangled Up in Plaid	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		05 Little Sister.mp3	inode=1156455	size=6919637	mtime=1774615010508.9944	title=Little Sister	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		06 You Can’t Quit Me, Baby.mp3	inode=1134608	size=23632235	mtime=1774615020860.9944	title=You Can’t Quit Me, Baby	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		07 I Wanna Make It Wit Chu.mp3	inode=302776	size=10765410	mtime=1774615014824.9944	title=I Wanna Make It Wit Chu	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		08 Leg of Lamb.mp3	inode=1125867	size=8638977	mtime=1774615013024.9944	title=Leg of Lamb	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		09 I Think I Lost My Headache.mp3	inode=1144084	size=13017552	mtime=1774615022876.9944	title=I Think I Lost My Headache	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		10 Mexicola.mp3	inode=322287	size=12419442	mtime=1774615025960.9944	title=Mexicola	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		11 Burn the Witch.mp3	inode=1126189	size=7773079	mtime=1774615027616.9944	title=Burn the Witch	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		12 Song for the Dead.mp3	inode=1154878	size=18746837	mtime=1774615030816.9944	title=Song for the Dead	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		13 No One Knows.mp3	inode=1147134	size=18746819	mtime=1774615033932.9944	title=No One Knows	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		14 Long Slow Goodbye.mp3	inode=1136380	size=17655335	mtime=1774615036964.9944	title=Long Slow Goodbye	album=Over the Years and Through the Woods	artist=Queens of the Stone Age	year=2005
+		cover.jpg	inode=1148440	size=1908092	mtime=1774615037988.9944
+	Pinkshift	
+		nothing (in my head).mp3	inode=1034237	size=6517149	mtime=1774644956163.2239	title=nothing (in my head)	album=Love Me Forever	artist=Pinkshift	year=2022
+	Pinkshift - 2025 - Earthkeeper	
+		02 - Anita Ride.mp3	inode=1162470	size=8300741	mtime=1774645273851.2239	title=Anita Ride	album=Earthkeeper	artist=Pinkshift	year=2025
+	Pinkshift - Evil Eye (2025)	
+		01 - Pinkshift - Evil Eye.flac	inode=1174749	size=23124513	mtime=1774863787863.9841	title=Evil Eye	album=Evil Eye	artist=Pinkshift	year=2025
+	St. Elsewhere	
+		01 Go-Go Gadget Gospel.mp3	inode=1117942	size=4417623	mtime=1774192483783.6409	title=Go-Go Gadget Gospel	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		02 Crazy.mp3	inode=1158534	size=5747709	mtime=1774192479971.6409	title=Crazy	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		03 St. Elsewhere.mp3	inode=316865	size=5137839	mtime=1774192488867.6409	title=St. Elsewhere	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		04 Gone Daddy Gone.mp3	inode=1158694	size=4643787	mtime=1774192490635.6409	title=Gone Daddy Gone	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		05 Smiley Faces.mp3	inode=1154781	size=5221112	mtime=1774192499779.6409	title=Smiley Faces	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		06 The Boogie Monster.mp3	inode=1162326	size=4528803	mtime=1774192481135.6409	title=The Boogie Monster	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		07 Feng Shui.mp3	inode=1138085	size=2255126	mtime=1774192482167.6409	title=Feng Shui	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		08 Just a Thought.mp3	inode=1090938	size=7494219	mtime=1774192487511.6409	title=Just a Thought	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		09 Transformer.mp3	inode=1139238	size=4165575	mtime=1774192492251.6409	title=Transformer	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		10 Who Cares_.mp3	inode=1112818	size=4863109	mtime=1774192495611.6409	title=Who Cares?	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		11 Online.mp3	inode=1092881	size=3017258	mtime=1774192501779.6409	title=Online	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		12 Necromancer.mp3	inode=1154680	size=5821738	mtime=1774192503367.6409	title=Necromancer	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		13 Storm Coming.mp3	inode=1149986	size=5972795	mtime=1774192505335.6409	title=Storm Coming	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		14 The Last Time.mp3	inode=1127922	size=6583252	mtime=1774192507563.6409	title=The Last Time	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		15 - Crazy (instrumental).mp3	inode=308706	size=8123957	mtime=1774192445163.6409	title=Crazy (instrumental)	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
+		album.nfo	inode=1123878	size=4762	mtime=1774192507495.6409
+		albumart.jpg	inode=1136042	size=491826	mtime=1774192445423.6409
+	Stankonia (2000)	
+		OutKast - Stankonia - 11 - B.O.B. (Bombs Over Baghdad).flac	inode=1145803	size=65558434	mtime=1774606481364.9978	title=B.O.B. (Bombs Over Baghdad)	album=Stankonia (20th Anniversary)	artist=Outkast	year=2020
+	Stankonia (Album)	
+		05 Ms. Jackson.mp3	inode=1146325	size=11559197	mtime=1774606498780.9976	title=Ms. Jackson	album=Stankonia	artist=OutKast	year=2000
 	Supernatural	
 		01 Santana - (Da Le) Yaleo.mp3	inode=1077824	size=15439298	mtime=1770752985231.7983	title=(Da Le) Yaleo	album=Supernatural	artist=Santana	year=1999
 		02 Santana feat. Dave Matthews - Love of My Life.mp3	inode=1078075	size=15208376	mtime=1770752989919.7983	title=Love of My Life	album=Supernatural	artist=Santana feat. Dave Matthews	year=1999
@@ -569,6 +620,9 @@ Pending
 		16. Mortal Man.flac	inode=644576	size=70981782	mtime=1761778272235.8372	title=Mortal Man	album=To Pimp a Butterfly	artist=Kendrick Lamar	year=2015
 		16. Mortal Man.lrc	inode=989909	size=13595	mtime=1765227679997.1836
 		folder.jpg	inode=993131	size=1486207	mtime=1761778263707.8372
+	Weezer	
+		04 - Buddy Holly.flac	inode=1165594	size=21029407	mtime=1774587201736.4792	title=Buddy Holly	album=Weezer (Blue Album)	artist=Weezer	year=1994
+		07 - Say It Ain’t So.flac	inode=313327	size=29730774	mtime=1774587198548.4792	title=Say It Ain't So	album=Weezer (Blue Album)	artist=Weezer	year=1994
 	[1994] Sixteen Stone	
 		Bush_Sixteen Stone_01_Everything Zen.flac	inode=1026638	size=37753239	mtime=1768763093604.3499	title=Everything Zen	album=Sixteen Stone	artist=Bush	year=2014
 	[2019] And Now for the Whatchamacallit	

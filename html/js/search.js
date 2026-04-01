@@ -2,7 +2,7 @@ import parse from "./query-parser.js";
 
 export const search = {
     fresh: true,
-    active: false,
+    input: "",
     term: "",
     reset: () => {},
     check: () => true
@@ -13,7 +13,7 @@ function reset(callback) {
     search.term = "";
     search.fresh = true;
     search.check = () => true;
-    callback();
+    callback?.();
 }
 
 /* function match(el, query, useLinks, tag) {
@@ -101,5 +101,5 @@ export function useSearch(input, callback) {
                 reset(callback);
         }
     });
-    search.reset = () => reset(callback);
+    search.reset = (transparent=false) => reset(transparent ? null : callback);
 }

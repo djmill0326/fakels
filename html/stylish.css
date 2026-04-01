@@ -111,7 +111,6 @@ input {
 }
 
 ul {
-    scrollbar-width: none;
     list-style: none;
     padding: 5px .4em 0 .4em;
     margin: 5px 0;
@@ -185,7 +184,6 @@ span > label:active ~ button, button:active, #btn:active {
     }
     to {
         transform: none;
-        height: 1.2em;
     }
 }
 

@@ -153,7 +153,7 @@ export default function createPlayer(signal) {
         el.mode.innerHTML = state === "shuffle" ? svg.shuffle : svg.loop;
         if (state === "repeat") el.mode.classList.add("repeat");
         else el.mode.classList.remove("repeat");
-    });
+    }, { signal });
     el.mode.onclick = () => Bus.call.dispatch("switch-mode");
     el.close.onclick = () => Bus.call.dispatch("toggle-player");
     el.prev.onclick = () => Bus.call.dispatch("prev");
