@@ -7,6 +7,7 @@
 		<style>
 			* {
 				box-sizing: border-box;
+				user-select: none;
 			}
 			body {
 				background: #111;
@@ -30,12 +31,12 @@
 				font-family: monospace;
 				overflow-wrap: break-word;
 				white-space: pre-wrap;
+				* {
+					user-select: all;
+				}
 			}
 			.time {
 				color: bisque;
-			}
-			span.time {
-				margin-right: .6em;
 			}
 			.warn {
 				color: khaki;

@@ -419,12 +419,14 @@ ul {
     transition: opacity .2s linear;
     flex-shrink: 1;
     min-height: 0;
+    overflow: hidden;
 }
 
 #main:has(.player-ui.open) {
     & > :not(.player-ui) {
         opacity: 0;
         margin-bottom: 0;
+        pointer-events: none;
     }
 }
 

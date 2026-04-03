@@ -1,6 +1,3 @@
-import { get_info } from "./find.js";
-import types from "./mediatype.mjs";
-
 function stupidRand(max) {
     if (max === 0) return 0;
     const getDigit = () => Math.random().toString().at(-2);
@@ -10,7 +7,7 @@ function stupidRand(max) {
 }
 
 export default function shuffler(items) {
-    let dir, prev, peeked, list, cursor, dirty;
+    let dir, prev, peeked, list, cursor, dirty, inverseMap;
     const isValid = (selection) => items[selection].isMedia;
     const provider = {
         peek() {
@@ -37,9 +34,20 @@ export default function shuffler(items) {
             prev = selection;
             return items[selection];
         },
-        consume() {
-            const result = this.peek();
-            const selection = list[peeked];
+        consume(index) {
+            if (!list) this.reset();
+            let result, selection;
+            if (index != null) {
+                result = items[index];
+                selection = index;
+                peeked = inverseMap[index];
+                if (peeked > cursor) return;
+            } else {
+                result = this.peek();
+                selection = list[peeked];
+            }
+            inverseMap[selection] = cursor;
+            inverseMap[list[cursor]] = peeked;
             list[peeked] = list[cursor];
             list[cursor--] = selection;
             peeked = null;
@@ -47,7 +55,11 @@ export default function shuffler(items) {
             return result;
         }, 
         reset() {
-            list = new Array(items.length).fill().map((_, i) => i);
+            list = new Array(items.length);
+            for (let i = 0; i < items.length; i++) list[i] = i;
+            inverseMap = [...list];
+            window.list = list;
+            window.inverseMap = inverseMap;
             cursor = list.length - 1;
             peeked = null;
             dirty = false;

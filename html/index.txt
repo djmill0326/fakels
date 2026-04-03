@@ -139,19 +139,6 @@ D˃E˃A˃T˃H˃M˃E˃T˃A˃L (2000)
 	11. The Eyes of Ibad_R˃O˃T.flac	inode=912222	size=48353163	mtime=1757983699919.8118	title=The Eyes of Ibad_R>O>T	album=D>E>A>T>H>M>E>T>A>L	artist=Panchiko	year=2000
 	2020_02_11 17-03-45.jpg	inode=913049	size=1181160	mtime=1757983702659.8118
 	cover.jpg	inode=904809	size=1037627	mtime=1757983705999.8118
-Era Vulgaris	
-	01. Turnin' On The Screw.mp3	inode=830072	size=13229743	mtime=1755215067819.6392	title=Turnin' On The Screw	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	02. Sick, Sick, Sick.mp3	inode=830330	size=9005213	mtime=1755215084599.6392	title=Sick, Sick, Sick	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	03. I'm Designer.mp3	inode=830063	size=10185939	mtime=1755215072803.6392	title=I'm Designer	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	04. Into The Hollow.mp3	inode=830306	size=9309276	mtime=1755215090051.6392	title=Into The Hollow	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	05. Misfit Love.mp3	inode=830231	size=14010264	mtime=1755215104683.6392	title=Misfit Love	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	06. Battery Acid.mp3	inode=823984	size=10260127	mtime=1755215109531.6392	title=Battery Acid	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	07. Make It Wit Chu.mp3	inode=829958	size=12035415	mtime=1755215116119.6392	title=Make It Wit Chu	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	08. 3's & 7's.mp3	inode=830726	size=8978031	mtime=1755215123543.6392	title=3's & 7's	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	09. Suture Up Your Future.mp3	inode=832577	size=11508798	mtime=1755215128255.6392	title=Suture Up Your Future	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	10. River In The Road.mp3	inode=831759	size=8412757	mtime=1755215131383.6392	title=River In The Road	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	11. Run, Pig, Run.mp3	inode=830505	size=11623721	mtime=1755215137827.6392	title=Run, Pig, Run	album=Era Vulgaris	artist=Queens Of The Stone Age	year=2007
-	album.nfo	inode=830824	size=3942	mtime=1755215138163.6392
 Frizzle Fry	
 	01 - To Defy The Laws Of Tradition.mp3	inode=837238	size=7968829	mtime=1755341586228.4495	title=To Defy The Laws Of Tradition	album=Frizzle Fry	artist=Primus	year=1990
 	02 - Groundhog's Day.mp3	inode=808133	size=6031813	mtime=1755341591236.4495	title=Groundhog's Day	album=Frizzle Fry	artist=Primus	year=1990
@@ -413,6 +400,22 @@ Pending
 		09 - Holy Fucking Shit 40,000.flac	inode=1060017	size=42487187	mtime=1768278596858.123	title=Holy Fucking Shit: 40,000	album=Deathconsciousness	artist=Have a Nice Life	year=2014
 	Drops of Jupiter (2001)	
 		Train - Drops of Jupiter - 03 - Drops Of Jupiter.flac	inode=664073	size=100980470	mtime=1761778276791.8372	title=Drops Of Jupiter	album=Drops of Jupiter	artist=Train	year=2001
+	Era Vulgaris	
+		Queens of the Stone Age_Era Vulgaris_01_Turnin’ on the Screw.flac	inode=1177081	size=41720713	mtime=1775053693310.5315	title=Turnin’ on the Screw	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_02_Sick, Sick, Sick.flac	inode=290312	size=27957125	mtime=1775053699862.5315	title=Sick, Sick, Sick	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_03_I’m Designer.flac	inode=1097317	size=30480612	mtime=1775053710270.5315	title=I’m Designer	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_04_Into the Hollow.flac	inode=1156588	size=27259112	mtime=1775053717126.5315	title=Into the Hollow	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_05_Misfit Love.flac	inode=1175121	size=43285858	mtime=1775053726714.5315	title=Misfit Love	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_06_Battery Acid.flac	inode=984541	size=31816126	mtime=1775053732962.5315	title=Battery Acid	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_07_Make It Wit Chu.flac	inode=913260	size=36118798	mtime=1775053747974.5315	title=Make It Wit Chu	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_08_3’s & 7’s.flac	inode=1157588	size=28062118	mtime=1775053679254.5315	title=3’s & 7’s	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_09_Suture Up Your Future.flac	inode=308174	size=31475676	mtime=1775053705182.5315	title=Suture Up Your Future	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_10_River in the Road.flac	inode=1153269	size=24556794	mtime=1775053737858.5315	title=River in the Road	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_11_Run, Pig, Run.flac	inode=1174106	size=34081968	mtime=1775053674754.5315	title=Run, Pig, Run	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		Queens of the Stone Age_Era Vulgaris_12_The Fun Machine Took a S-! & Died.flac	inode=315485	size=49190345	mtime=1775053687026.5315	title=The Fun Machine Took a S**! & Died	album=Era Vulgaris	artist=Queens of the Stone Age	year=2007
+		discart.jpg	inode=1170109	size=445738	mtime=1775053694190.5315
+		discart.png	inode=1129252	size=205032	mtime=1775053738082.5315
+		folder.jpg	inode=1140484	size=854267	mtime=1775053740086.5315
 	FANDOM	
 		Waterparks_FANDOM_08_Turbulent.flac	inode=1166404	size=24112179	mtime=1774863998339.9841	title=Turbulent	album=FANDOM	artist=Waterparks	year=2019
 	Failed at Math(s)	

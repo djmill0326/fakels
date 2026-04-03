@@ -25,10 +25,9 @@ const media = id("media");
 const frame = id("frame");
 const items = [];
 const activeItems = [];
-let query = "", np, queued, vscroll;
+let query = "", np, queued, vscroll, mel;
 let browser = {};
-const playlist = [];
-let mel;
+const playlist = [], queue = [];
 const shortcut_ui = $("ul");
 shortcut_ui.style.userSelect = "none";
 back.onclick = (ev) => {
@@ -57,7 +56,7 @@ export const get_info = (link = "50x.html") => {
     const segment = decodeURI(i === -1 ? link : link.slice(i + 1));
     const dot = segment.lastIndexOf(".");
     if (dot === -1) return { name: segment };
-    return { name: segment.slice(0, dot), ext: segment.slice(dot + 1) };
+    return { name: segment.slice(0, dot), ext: segment.slice(dot + 1), full: segment };
 };
 export const describe = info => `${info.name} [${info.ext ? info.ext : "?"}]`;
 const next_item = (item, looping=true) => {
@@ -78,7 +77,7 @@ const next_item = (item, looping=true) => {
 };
 import shuffler from "./shuffle.js";
 const shuffle = window.shuffle = shuffler(activeItems);
-const next_track = () => mode === "shuffle" ? shuffle.peek() : mode === "repeat" ? playlist.at(-1) : next_item(queued);
+const next_track = () => queue[0] ?? (mode === "shuffle" ? shuffle.peek() : mode === "repeat" ? playlist.at(-1) : next_item(queued));
 const fade_time = .05;
 let fade_controller;
 const next_queued = mode => {
@@ -427,18 +426,28 @@ const on_load = () => {
         ) mel.currentTime = parseFloat(_.ltime);
     }
 };
-const virtual_paths = {
+const virtual_paths = Object.fromEntries(Object.entries({
     "media/Favorites": () => {
         find_recursive("/media/", items => {
-            const favs = [];
-            items.forEach(item => {
-                if (favorites.has(item.href)) favs.push(item);
-            });
+            const favs = items.filter(item => favorites.has(item.href));
             virtualize(`Favorites (${favs.length} items)`);
             splat_or_refill(favs);
         });
+    },
+    "media/Favorites/Missing": () => {
+        find_recursive("/media/", items => {
+            const missing = new Set(favorites);
+            items.forEach(item => {
+                if (favorites.has(item.href)) missing.delete(item.href);
+            });
+            virtualize(`Stale Favorites (${missing.size} items)`);
+            splat_or_refill([...missing].map(href => ({
+                name: get_info(href).full, href
+            })));
+        });
     }
-};
+}).sort(([a], [b]) => b.length - a.length));
+Object.keys(virtual_paths).forEach(console.log);
 const virtual_roots = {};
 Object.keys(virtual_paths).forEach(path => {
     const i = path.lastIndexOf("/");
@@ -767,7 +776,8 @@ const update_link = (to, set_src=true) => {
             return img(link, !link.includes(".jpg"));
         }
         playlist.push(item);
-        if (shuffle.peek() === item) shuffle.consume();
+        if (queue.length) queue.shift()
+        shuffle.consume(item.activeIndex);
         if (!mel) {
             mel = re(make(link));
             mel.volume = parseFloat(_.lvol ?? 1);

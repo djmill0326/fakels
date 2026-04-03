@@ -254,7 +254,7 @@ const appendMessage = (data) => {
     const text = document.createElement("span");
     line.className = data.level;
     time.className = "time";
-    time.textContent = data.time;
+    time.textContent = data.time + " ";
     text.append(...JSON.parse(data.text).flatMap(v => [dataDisplay(v), " "]));
     text.lastChild?.remove();
     line.append(time, text);

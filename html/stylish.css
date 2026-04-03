@@ -5,8 +5,8 @@
     --gradcold: rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%;
     --ds2: #1d7a8c 0%, #412a63 45%, #8e2b4f 100%; 
     --ds2-vivid: #008ba3 0%, #4b0082 45%, #9d003d 100%;
-    --gradcols: var(--ds2);
-    --gradtext: var(--ds2-vivid);
+    --gradcols: var(--gradwarm);
+    --gradtext: var(--gradwarm);
     --font: system-ui, serif;
     color: #ccc;
 }
