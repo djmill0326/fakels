@@ -1,3 +1,5 @@
+performance.mark("init-begin");
+let has_loaded = false, has_played = false;
 export const conjunction_junction = new Set(["for", "and", "nor", "but", "or", "yet", "so", "from", "the", "on", "a", "k", "in", "by", "of", "at", "to"]);
 import { hookConsole } from "./tab-log.js";
 hookConsole("fakels", x => eval(x)); // temporary for mobile
@@ -8,10 +10,10 @@ const measure = async () => {
     requestIdleCallback(measure);
 };
 //measure().then();
-import { main, api, getheader } from "./hook.js";
+import { main, api, getheader, active_requests, status_obj, api2 } from "./hook.js";
 import mime from "./mime.mjs";
 import types, { make } from "./mediatype.mjs";
-import $, { _, id, handleHold, boundBox, join, style, boundedCache, cover_src, display_mode, Bus, tag_sorters, tag_shorthand, tag_normalizers, overlay, staticQuery } from "./l.js";
+import $, { _, id, handleHold, boundBox, join, style, boundedCache, cover_src, display_mode, Bus, tag_sorters, tag_shorthand, tag_normalizers, tag_remap, tag_concise, overlay, staticQuery, perf_report } from "./l.js";
 import { search, useSearch } from "./search.js";
 import { parseLyrics, showLyrics } from "./lyrics.js";
 import { virtualScroll } from "./vscroll.js";
@@ -27,8 +29,23 @@ const items = [];
 const activeItems = [];
 let query = "", np, queued, vscroll, mel;
 let browser = {};
-const playlist = [], queue = [];
+const playlist = [];
 const shortcut_ui = $("ul");
+const resolve_metadata = async (list) => {
+    if (!list?.length) return [];
+    try {
+        return (await api2("ls", "-m", { opt: {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: typeof list === "string" ? list : JSON.stringify(list)
+        } })).files?.map(item => init_item(item)) ?? [];
+    } catch (err) {
+        console.error("Failed to resolve metadata", err);
+    }
+};
 shortcut_ui.style.userSelect = "none";
 back.onclick = (ev) => {
     if (ev.shiftKey && np) term.value = np;
@@ -72,12 +89,13 @@ const next_item = (item, looping=true) => {
             }
             else return;
         } else next = entry;
-        if (next?.isMedia) return next;
+        if (next?.isMedia && !next?.stale) return next;
     }
 };
 import shuffler from "./shuffle.js";
 const shuffle = window.shuffle = shuffler(activeItems);
-const next_track = () => queue[0] ?? (mode === "shuffle" ? shuffle.peek() : mode === "repeat" ? playlist.at(-1) : next_item(queued));
+const queue_head = () => queue.values().next().value;
+const next_track = () => queue_head() ?? (mode === "shuffle" ? shuffle.peek() : mode === "repeat" ? playlist.at(-1) : next_item(queued));
 const fade_time = .05;
 let fade_controller;
 const next_queued = mode => {
@@ -173,6 +191,7 @@ const re = el => {
     el.onended = () => next_queued("immediate");
     el.onplaying = () => Bus.dispatch("play");
     el.onpause = () => Bus.dispatch("pause");
+    el.loading = "eager";
     el.addEventListener("canplay", () => el.onerror = () => next_queued("immediate"), { once: true });
     return el;
 };
@@ -210,7 +229,6 @@ window.onpopstate = (ev) => {
     just_popped = true;
 };
 const status = $('footer');
-const active_requests = new Set();
 const toggle_status = () => {
     const is = status.isConnected;
     _.status = !is;
@@ -227,49 +245,106 @@ const update_status = () => {
     ]
     status.innerHTML = segments.filter(value => value.length).join(" | ");
 }
-const status_obj = (name) => ({ 
-    name, list: active_requests, update: update_status, 
-    enable() { this.list.add(this.name); this.update() },
-    disable() { this.list.delete(this.name); this.update() }
-});
+Bus.call.on("update-status", update_status);
 if(_.status !== "false") document.body.append(status);
+const pc = (singular, plural) => count => count - 1 ? plural : singular;
+const item_name = pc("item", "items");
+const entry_name = pc("entry", "entries");
+const update_frame_counts = () => {
+    const el = frame.firstElementChild;
+    if (!el) return;
+    const len = activeItems.length;
+    el.textContent = el.textContent
+        .replace(/ \(\d+ items?\)$/, ` (${len} ${item_name(len)})`)
+        .replace(/\d+ entr(ies|y) \(flat\)$/, `${len} ${entry_name(len)} (flat)`);
+};
+export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
+export const is_numeric_ascii = s => {
+    let b = 0;
+    for (let i = 0; i < s.length; i++) {
+        const c = s.charCodeAt(i);
+        if (is_bracket(c)) { ++b; continue }
+        if (c === 32 || c === 36 || c === 45 || c === 46 || c === 59) continue;
+        if (c < 48 || c > 57) return;
+    }
+    return b % 2 === 0;
+};
+export const capitalize = word => (word[0] || "").toUpperCase() + word.slice(1);
+export const title_case = text => text.split(".").map((s, i) => s.split(" ").map((word, j) => {
+    if ((i + j) && conjunction_junction.has(word)) return word;
+    return capitalize(word);
+}).join(" ")).join(".");
+export const n = (s="a", c=0) => `${c?"N":"n"}igg${s}`, N = s => n(s, 1);
+const ignored = /(\(|\[)(explicit|clean)(\]|\))/gi;
+const swaps = {
+    usa: "USA",
+    Sun_: "Sun?",
+    Shit_: "Shit:",
+    Don_t: "Don't",
+    "One Smart": "Some Smart",
+    [n("er")]: n("a"),
+    [N("er")]: N("a"),
+    "Thought I Knew You": "Knew U",
+};
+const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
+export const extract_title = ({ name }) => {
+    return title_case(name
+        .split("-")
+        .map(s => swap(s)
+            .split(/[_ ]/g)
+            .filter(s => !is_numeric_ascii(s))
+            .join(" ")
+        )
+        .filter(s => s.length)
+        .join("-")
+        .replace(ignored, "")
+    );
+};
+
 const init_item = (item, info) => {
     item.href = join(item.href);
     if (item.isDir == null && item.isMedia == null) {
         info ??= get_info(item.href);
-        item.isDir = !info.ext;
+        item.isDir = !mime[info.ext];
         item.isMedia = !!types[info.ext];
     }
     if (item.isDir || item.isMedia) item.cover = cover_src(item, item.isMedia || false);
     if (item.isMedia) item.title ??= extract_title(info);
+    return item;
 };
-const refill_items = (iter) => {
+const refill_items = (iter, mode_override) => {
     if (iter) items.splice(0, items.length, ...iter, ...(virtual_roots[_.ldir] || []));
     const t = performance.now();
     let activeIndex = 0;
     activeItems.splice(0, activeItems.length, ...items.filter((item, i) => {
         const info = get_info(item.href);
         const withinLibrary = types[info.ext] || !mime[info.ext];
-        if (!item.id) init_item(item, info);
+        if (item.id == null) init_item(item, info);
         item.id = i;
         item.fav = favorites.has(item.href);
         let result = true;
         // hide non-media anchors that aren't folders
         if (library_mode && !withinLibrary) result = false;
         else if (search.term) result = search.check(item);
-        if (result) item.activeIndex = activeIndex++;
-        else item.activeIndex = null;
+        if (result) {
+            item.activeIndex = activeIndex++;
+            const queueItem = queue.get(item.href);
+            if (queueItem) queueItem.id = i;
+        }else item.activeIndex = null;
         return result;
     }));
     console.debug(`activeItems fill took ${(performance.now() - t).toFixed(2)} ms`);
     update_frame_counts();
     shuffle.invalidate();
-    vscroll?.update(library_mode ? "enhanced" : "basic");
+    if (mode_override) force_mode = mode_override;
+    vscroll?.update(force_mode ?? (library_mode ? "enhanced" : "basic"));
     update_status();
+    on_load();
 };
+const queue = new Map((await resolve_metadata(_.queue))?.map(item => [item.href, item]));
 const enhance_anchor = (el) => {
     el.classList.add("song-card");
-    const cover = $("div");
+    const cover = $("img");
     cover.className = "cover";
     const text = $("div");
     text.className = "info";
@@ -285,89 +360,140 @@ basicShell.append($("a"));
 basicShell.firstElementChild.append("");
 const enhancedShell = basicShell.cloneNode(true);
 enhance_anchor(enhancedShell.firstElementChild);
+const anchor_overlay = (el) => overlay(el.firstElementChild, { sticky: false }).add("bottom-right", $("span", { className: "queue-indicator" }), $("span", { textContent: "🌟", style: { display: "none" } }));
+const overlay_update = (a, item) => {
+    const o = overlay(a).get("bottom-right");
+    const queued = queue.has(item.href);
+    o.setAttribute("data-queued", queued);
+    o.setAttribute("data-fav", item.fav);
+    o.firstElementChild.textContent = queued ? "Queued" : "";
+    o.lastElementChild.textContent = item.fav ? "🌟" : "";
+
+};
 const vscroll_modes = {
     basic: {
         shell() {
             const el = basicShell.cloneNode(true);
-            overlay(el.firstElementChild, { sticky: false });
+            anchor_overlay(el);
             return el;
         },
         update(el, item) {
             const a = el.firstElementChild;
             a.href = item.href;
             a.firstChild.data = item.name;
-            el.dataset.id = item.id;
-            overlay(a).get("bottom-right").innerText = item.fav ? "🌟" : "";
+            el.setAttribute("data-id", item.id);
+            if (item.stale) el.setAttribute("data-stale", true);
+            overlay_update(a, item);
         }
     },
     enhanced: {
         shell() {
             const el = enhancedShell.cloneNode(true);
-            overlay(el.firstElementChild, { sticky: false });
-            return staticQuery(el, {
+            anchor_overlay(el);
+            staticQuery(el, {
                 cover: ".cover",
                 title: ".title",
                 artist: ".artist",
             });
+            const cover = el.sq.cover;
+            cover.onload = () => cover.setAttribute("data-loaded", true);
+            return el;
         },
         update(el, item) {
             const a = el.firstElementChild;
             a.href = item.href;
-            el.dataset.id = item.id;
+            el.setAttribute("data-id", item.id);
+            if (item.stale) el.setAttribute("data-stale", true);
             const cover = el.sq.cover;
             const src = item.cover;
             if (cover._src !== src) {
-                cover._src = src;
-                cover.style.setProperty("--cover-src", `url("${src}")`);
+                cover.removeAttribute("data-loaded");
+                cover.src = cover._src = src;
             }
-            el.sq.title.innerText = item.isMedia ? item.title : item.name;
-            el.sq.artist.innerText = item.isMedia ? (item.artist || "Unknown Artist") : "Folder";
-            overlay(a).get("bottom-right").innerText = item.fav ? "🌟" : "";
+            el.sq.title.textContent = item.isMedia ? item.title : item.name;
+            el.sq.artist.textContent = item.isMedia ? (item.artist || "Unknown Artist") : "Folder";
+            overlay_update(a, item);
         }
-    }
+    } 
 };
-const virtualize = name => {
+const virtualize = (name, fwd) => {
     vscroll?.dispose();
     const title = $("h3");
-    title.innerText = name;
+    title.textContent = name;
     const list = $("ul");
-    vscroll = virtualScroll(list, vscroll_modes, activeItems, items);
+    vscroll = virtualScroll(list, vscroll_modes, activeItems, items, { focusable: el => el.firstElementChild, ...fwd });
+    if (_.player === "true") vscroll.watchResize(container);
     frame.replaceChildren(title, list);
 };
 const normalize_tag = (value, tag) => tag_normalizers[tag]?.(value) || value;
-const sorted = (list, tag) => list.sort(tag_sorters[tag] || tag_sorters.default);
+const sorted = (list, tag) => {
+    const f = tag_sorters[tag] || tag_sorters.default;
+    if (list[0].length === 2) list.sort(([a], [b]) => f(a, b));
+    else list.sort((a, b) => f(a.name, b.name));
+    return list;
+}
 const hierarchicalize = (items, spec) => {
     const root = {};
     for (const item of items) {
         const info = get_info(item.href);
         if (!types[info.ext]) continue;
-        spec.reduce((n, tag, i) => n[normalize_tag(item[tag], tag)] ??= (i === spec.length - 1 ? [] : {}), root).push(item);
+        spec.reduce((n, tag, i) => n[normalize_tag(item[tag_remap[tag] ?? tag], tag).replaceAll?.("/", "∕")] ??= (i === spec.length - 1 ? [] : {}), root).push(item);
     }
     return root;
 };
-const flat = (root) => root.reduce((list, [_, item]) => {
-    if (item.href) list.push(item);
-    else list.push(...flat(Object.entries(item)));
+const sort_hierarchy = (spec, root, depth=0) => depth < spec.length ? Object.fromEntries(sorted(Object.entries(root), spec[depth]).map(([name, item]) => [name, sort_hierarchy(spec, item, depth + 1)]), spec[depth]) : root;
+const flat = (root, list, tag) => {
+    let should_index;
+    if (!list) {
+        should_index = true;
+        jump_index = [];
+    }
+    list ??= [];
+    if (Array.isArray(root)) list.push(...root);
+    else for (const k in root) {
+        if (should_index) {
+            const transform = tag_concise[tag] || tag_concise.default;
+            const transformed = transform(k);
+            if (jump_index.at(-1)?.[1] !== transformed)
+                jump_index.push([list.length, transformed]);
+        }
+        flat(root[k], list);
+    }
     return list;
-}, []);
-let splat_map, last_splat, last_spec, item_cache;
-const splat = (path, items) => {
+};
+let splat_map, last_splat, last_spec, item_cache, jump_index, is_splat_sorted = false;
+const splat = (path, items, mode_override) => {
     if (items) item_cache = Array.from(items);
     const [primary, splat_path] = path.split("**");
     const [spec_str, ...paths] = splat_path.split("/");
     let spec = ["artist", "album"];
     if (spec_str.startsWith(":")) spec = spec_str.slice(1).split("").map(x => tag_shorthand[x]);
-    if (items || spec_str !== last_spec) splat_map = hierarchicalize(item_cache, spec);
+    if (items || spec_str !== last_spec) {
+        splat_map = hierarchicalize(item_cache, spec);
+        is_splat_sorted = false;
+    }
     const is_flat = paths.at(-1) === "*";
-    if (is_flat) paths.pop();
-    const dir = Object.entries(paths.length ? (paths.reduce((o, k) => o?.[k], splat_map) || []) : splat_map);
-    if (is_flat) refill_items(flat(dir));
+    if (is_flat) {
+        paths.pop();
+        if (!is_splat_sorted) {
+            splat_map = sort_hierarchy(spec, splat_map);
+            is_splat_sorted = true;
+        }
+    }
+    const dir = paths.length ? (paths.reduce((o, k) => o?.[k], splat_map) || []) : splat_map;
+    if (is_flat) {
+        const flattened = flat(dir, null, spec[paths.length]);
+        virtualize(hierarchical_title("Sorted", spec) + " (0 items)", { anchors: jump_index });
+        refill_items(flattened);
+    }
     else {
-        const list = dir.map(([name, item]) => {
+        const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+        const list = Object.entries(dir).map(([name, item]) => {
             if (item.href) return item;
-            return { name, href: `${path}/${name}`, isDir: true };
+            return { name, href: `${encodedPath}/${encodeURIComponent(name)}`, isDir: true };
         }) || [];
-        refill_items(paths.length < spec.length ? sorted(list, spec.at(paths.length)) : list);
+        virtualize(`${paths.length === 0 ? capitalize(spec[paths.length]) + "s" : paths.at(-1)} (0 items)`);
+        refill_items(!is_splat_sorted && paths.length < spec.length ? sorted(list, spec.at(paths.length)) : list, mode_override);
     }
     last_splat = primary;
     last_spec = spec_str;
@@ -376,9 +502,9 @@ const unsplat = items => {
     item_cache = items;
     last_spec = last_splat = null;
 };
-const splat_or_refill = items => _.ldir.includes("**") 
-    ? splat(_.ldir, items) 
-    : refill_items(items) || unsplat(items);
+const splat_or_refill = (items, mode_override) => _.ldir.includes("**") 
+    ? splat(_.ldir, items, mode_override) 
+    : refill_items(items, mode_override) || unsplat(items);
 /*
 const found = new Map();
 const find_recursive = (root, count, cb) => {
@@ -410,46 +536,69 @@ const find_recursive = (root, cb) => {
             virtualize("0 entries (flat)");
             splat_or_refill(files);
         }
-        on_load();
     }, status_obj(`tree (${root})`), null, false, true);
 };
-const on_load = () => {
-    const reset = replay_slot && items.find(item => item.href === replay_slot);
+const on_load = async () => {
+    performance.mark("view-loaded");
+    if (!has_loaded) perf_report("Entry -> Path view loaded", "init-begin", "view-loaded")
+    perf_report("Submit -> Path view loaded", "submit", "view-loaded")
+    has_loaded = true;
+    if (!replay_slot || queued) return;
+    const reset = items.find(item => item.href === replay_slot) || (await resolve_metadata([replay_slot]))?.[0];
     replay_slot = null;
-    if (!reset) return;
-    const lplay = _.lplay;
-    if (!queued) {
-        if (!update_link(reset)) return;
-        if (_.ltime &&
-            lplay.slice(lplay.lastIndexOf("/") + 1)
-            === reset.href.slice(reset.href.lastIndexOf("/") + 1)
-        ) mel.currentTime = parseFloat(_.ltime);
-    }
+    if (!reset || reset.stale || !update_link(reset)) return;
+    mel?.addEventListener("canplay", () => {
+        performance.mark("canplay");
+        if (!has_played) perf_report("Entry -> Playback available", "init-begin", "canplay");
+        perf_report("Select -> Playback available", "select", "canplay");
+        has_played = true;
+    });
+    has_loaded = true;
+    if (_.ltime &&
+        _.lplay.slice(_.lplay.lastIndexOf("/") + 1)
+        === reset.href.slice(reset.href.lastIndexOf("/") + 1)
+    ) mel.currentTime = parseFloat(_.ltime);
 };
-const virtual_paths = Object.fromEntries(Object.entries({
-    "media/Favorites": () => {
-        find_recursive("/media/", items => {
-            const favs = items.filter(item => favorites.has(item.href));
-            virtualize(`Favorites (${favs.length} items)`);
-            splat_or_refill(favs);
-        });
+const hierarchical_title = (name, tags) => {
+    let title = name;
+    if (tags.length) title += ` – ${tags.map(capitalize).join(" > ")}`;;
+    return title;
+
+}
+let virtual_paths = Object.entries({
+    "media/Queue": () => {
+        virtualize(`Queue (${queue.size} items)`);
+        splat_or_refill(queue.values());
     },
-    "media/Favorites/Missing": () => {
-        find_recursive("/media/", items => {
-            const missing = new Set(favorites);
-            items.forEach(item => {
-                if (favorites.has(item.href)) missing.delete(item.href);
-            });
-            virtualize(`Stale Favorites (${missing.size} items)`);
-            splat_or_refill([...missing].map(href => ({
-                name: get_info(href).full, href
-            })));
-        });
+    "media/Favorites": async () => {
+        const favs = await resolve_metadata([...favorites]);
+        virtualize(`Favorites (${favs.length} items)`);
+        splat_or_refill(favs);
+    },
+    "media/Hierarchical": () => {
+        const path = _.ldir;
+        let segments = path.toLowerCase().split("/").slice(2);
+        const map = Object.entries(tag_shorthand);
+        const tags = segments.map(s => map.find(([_, tag]) => tag === s));
+        if (tags.some(tag => tag == null)) {
+            term.value = "media/Hierarchical/" + tags.filter(tag => tag != null).map(([_, tag]) => tag).join("/");
+            form.dispatchEvent(new Event("submit"));
+            return;
+        }
+        const available = map.map(([_, tag]) => tag).filter(tag => !segments.includes(tag)).map(capitalize);
+        const spec = tags.map(([c]) => c).join("");
+        virtualize(hierarchical_title("Hierarchy Builder", tags.map(([_, tag]) => tag)));
+        splat_or_refill([
+            ...available.map(tag => ({ name: `By ${tag}`, href: `${path}/${tag}` })),
+            ...(segments.length ? [
+                { name: "Materialize", href: `media/**:${spec}` },
+                { name: "Flatten", href: `media/**:${spec}/*/` }
+            ] : [])
+        ], "basic");
     }
-}).sort(([a], [b]) => b.length - a.length));
-Object.keys(virtual_paths).forEach(console.log);
+});
 const virtual_roots = {};
-Object.keys(virtual_paths).forEach(path => {
+virtual_paths.forEach(([path]) => {
     const i = path.lastIndexOf("/");
     const root = i === -1 ? "" : path.slice(0, i);
     virtual_roots[root] ??= [];
@@ -459,14 +608,17 @@ Object.keys(virtual_paths).forEach(path => {
         virtual: true 
     });
 });
+virtual_paths = Object.fromEntries(virtual_paths.sort(([a], [b]) => b.length - a.length));
 const virtual_path = dir => Object.keys(virtual_paths).find(path => dir.startsWith(path));
 const clean = x => x.slice(x[0] === "/" ? 1 : 0, x.at(-1) === "/" ? -1 : void 0);
 const nav = (t, q) => history.state === t || history.pushState(t, "", location.origin + path_prefix + q.slice(0, -1));
-form.onsubmit = (e) => {
+form.onsubmit = async (e) => {
+    force_mode = null;
+    performance.mark("submit");
     e.preventDefault();
     back.disabled = false;
     if (search.term && term.value.endsWith(search.term)) {
-        if (vscroll) {
+        if (vscroll && activeItems.length) {
             const head = vscroll.head();
             if (head) {
                 term.blur();
@@ -476,6 +628,7 @@ form.onsubmit = (e) => {
         }
         return;
     }
+    term.blur();
     search.reset(true);
     const wildcard = term.value.indexOf("*");
     const dir = term.value.slice(0, wildcard);
@@ -491,7 +644,7 @@ form.onsubmit = (e) => {
     if (wildcard !== -1) {
         if (splat_map && v.startsWith(last_splat + "**")) splat(v);
         else {
-            if (virtualPath) virtual_paths[virtualPath]();
+            if (virtualPath) await virtual_paths[virtualPath]();
             else find_recursive(`/${dir}`);
         }
         return do_nav();
@@ -500,7 +653,7 @@ form.onsubmit = (e) => {
     console.debug("[fakels/debug]", "query", `'${query}'`);
     unsplat();
     if (virtualPath) {
-        virtual_paths[virtualPath]();
+        await virtual_paths[virtualPath]();
         do_nav();
         return;
     }
@@ -552,7 +705,7 @@ export const popup = window.popup = (el, title, patch=_el=>{}) => {
     name.maxWidth = "";
     name.style.flexGrow = 1;
     const exit = $("button");
-    exit.innerText = "✖";
+    exit.textContent = "✖";
     exit.onclick = () => popup(null);
     bar.append(name, exit);
     el.style.overflowY = "auto";
@@ -674,11 +827,7 @@ const find_lyrics = async (ref, prefetch) => {
     if (player.el || poppedup?.classList.contains("lyrics-popup")) {
         let target = player.el?.q(".container") ?? poppedup;
         const prevLyrics = target.q(".lyrics");
-        if (target !== poppedup) {
-            root.style.opacity = 0;
-            if (prevLyrics) root.style.maxHeight = `${prevLyrics.offsetHeight}px`; 
-            else root.style.maxHeight = 0;
-        }
+        root.style.opacity = 0; 
         let loading;
         if (!prefetch) {
             loading = $("div");
@@ -687,10 +836,8 @@ const find_lyrics = async (ref, prefetch) => {
             text.className = "lyrics-text loading";
             text.textContent = "Loading lyrics...";
             loading.append(text);
-            if (prevLyrics) {
-                loading.style.minHeight = `${prevLyrics.offsetHeight}px`;
-                prevLyrics.replaceWith(loading);
-            } else target.append(loading);
+            if (prevLyrics) prevLyrics.replaceWith(loading);
+            else target.append(loading);
         }
         try {
             const { signal, viewSignal } = signals(target);
@@ -703,14 +850,20 @@ const find_lyrics = async (ref, prefetch) => {
             root.style.opacity = 1;
             if (target === poppedup) poppedup.q(".bar span").innerHTML = `Lyrics for <i>${title}</i>`;
             else {
-                handleHold(root, { onHold: () => root.classList.add("expanded"), signal: viewSignal });
+                handleHold(root, { onHold: () => {
+                    root.classList.add("expanded")
+                }, signal: viewSignal });
+                window.addEventListener("keydown", ev => ev.key === "Escape" 
+                    && !poppedup 
+                    && root.classList.contains("expanded") 
+                    && (close.onclick() || ev.preventDefault()),
+                true);
                 root.addEventListener("contextmenu", e => e.preventDefault(), { signal: viewSignal });
                 const close = $("button");
                 close.textContent = "×";
-                close.onclick = (ev) => {
+                close.onclick = () => {
                     root.q(".menu-btn[data-open=true]")?.click();
                     root.classList.remove("expanded");
-                    ev.stopPropagation();
                 }
                 root.q(".overlay").children[0].append(close);
             }
@@ -736,7 +889,7 @@ const find_lyrics = async (ref, prefetch) => {
         const { viewSignal } = signals(p);
         p.classList.add("lyrics-popup", "pending");
         const auto = $("button");
-        auto.innerText = "Auto Lyrics";
+        auto.textContent = "Auto Lyrics";
         if (auto_lyrics) auto.className = "active";
         auto.onclick = () => {
             _.lyrics = auto_lyrics = !auto_lyrics;
@@ -758,11 +911,12 @@ const resolve = (to) => {
     ];
 };
 const update_link = (to, set_src=true) => {
+    performance.mark("select");
     const item = resolve(to);
     const link = item.href;
-    if (!item) return;
+    if (!item || item.stale) return;
     if (item.isDir) {
-        term.value = decodeURI(link);
+        term.value = link.split("/").map(decodeURIComponent).join("/");
         btn.click(); return;
     }
     clear_search();
@@ -776,7 +930,15 @@ const update_link = (to, set_src=true) => {
             return img(link, !link.includes(".jpg"));
         }
         playlist.push(item);
-        if (queue.length) queue.shift()
+        const queue_item = queue_head()
+        if (queue_item === item) {
+            const el = frame.querySelector(`[data-id="${item.id}"] .queue-indicator`);
+            if (el) {
+                el.textContent = "";
+                el.parentElement.setAttribute("data-queued", false);
+            }
+            remove_queued(queue_item);
+        }
         shuffle.consume(item.activeIndex);
         if (!mel) {
             mel = re(make(link));
@@ -784,9 +946,10 @@ const update_link = (to, set_src=true) => {
         }
         portal.insertAdjacentElement("afterend", mel);
         portal.remove();
-        if (item.href.slice(1).startsWith(encodeURI(_.ldir.slice(0, (_.ldir.lastIndexOf("/*") + 1) || null)))) {
+        if (activeItems[item.activeIndex] === item || item.href.slice(1).startsWith(encodeURI(_.ldir.slice(0, (_.ldir.indexOf("/*") + 1) || null)))) {
+            // a real man would .includes the entire activeItems array
             queued = item;
-            vscroll.scrollTo(item.id);
+            if (item.id != null) vscroll.scrollTo(item.id);
         }
         _.lplay = link;
         if (set_src) {
@@ -795,9 +958,8 @@ const update_link = (to, set_src=true) => {
         }
         np = query;
         const info = get_info(item.href);
-        document.title = title;
         console.debug("[fakels/debug]", describe(info));
-        console.log("[fakels/media]", `'${title}' has queued.\n`);
+        console.log("[fakels/media]", `'${item.title}' has queued.\n`);
         update_media(item, info);
         if (auto_lyrics) {
             find_lyrics(item, !(player.el || poppedup?.classList.contains("lyrics-popup"))).then((done) => done && find_lyrics(next_track(), true));
@@ -821,23 +983,22 @@ for (const path of paths) {
         break;
     }
 }
-term.value = (pathname.length ? pathname : _.ldir) ?? "";
-btn.click();
 useSearch(term, refill_items);
-const clear_search = () => {
-    if (search.term && !search.persistent) {
+const clear_search = (force) => {
+    if (force || search.term && !search.persistent) {
         term.value = _.ldir;
         search.reset();
     }
 };
-const dispatch_anchor = (f) => (e) => {
+const dispatch_anchor = (f) => (e, ...x) => {
     const target = e.target.href ? e.target.parentElement : e.target;
     if (target?.tagName !== "LI") return;
     e.preventDefault();
-    f(target);
+    f(target, e, ...x);
 };
 const frame_handler = dispatch_anchor(update_link);
 frame.onclick = frame_handler;
+window.addEventListener("keypress", ev => ev.key === " " && ev.preventDefault());
 const favorites = new Set(JSON.parse(_.favorites ?? "[]"));
 const update_favorites = (k) => {
     const v = !favorites.has(k);
@@ -846,70 +1007,59 @@ const update_favorites = (k) => {
     _.favorites = JSON.stringify(Array.from(favorites));
     return v;
 };
-const update_frame_counts = () => {
-    const el = frame.firstElementChild;
-    if (!el) return;
-    el.innerText = el.innerText
-        .replace(/ \(\d+ items\)$/, ` (${activeItems.length} items)`)
-        .replace(/\d+ entries \(flat\)$/, `${activeItems.length} entries (flat)`);
-};
 const toggle_favorite = (el) => {
     const item = resolve(el);
     const a = el.firstElementChild;
     const favorited = update_favorites(item.href);
     item.fav = favorited;
-    overlay(a).get("bottom-right").innerText = favorited ? "🌟" : "";
+    const o = overlay(a).get("bottom-right");
+    o.setAttribute("data-fav", favorited);
+    o.lastElementChild.textContent = favorited ? "🌟" : "";
     if (favorited) return;
     const in_favs = _.ldir.startsWith("media/Favorites");
     if (in_favs) items.splice(item.id, 1);
     if (in_favs || (search.term && !search.check(item))) refill_items();
 }
-handleHold(frame, dispatch_anchor(toggle_favorite));
-export const is_bracket = c => c === 40 || c === 42 || c === 91 || c === 93;
-export const is_numeric_ascii = s => {
-    let b = 0;
-    for (let i = 0; i < s.length; i++) {
-        const c = s.charCodeAt(i);
-        if (is_bracket(c)) { ++b; continue }
-        if (c === 32 || c === 36 || c === 45 || c === 46 || c === 59) continue;
-        if (c < 48 || c > 57) return;
+const toggle_queued = (x, v) => {
+    const a = x instanceof HTMLElement && x.firstElementChild;
+    const item = resolve(x);
+    const will_queue = !queue.has(item.href);
+    if (will_queue) queue.set(item.href, item);
+    const viewing_queue = _.ldir.startsWith("media/Queue");
+    if (v === 2 && !viewing_queue) {
+        term.value = "media/Queue";
+        btn.click();
+        return;
     }
-    return b % 2 === 0;
-};
-export const capitalize = text => text.split(".").map((s, i) => s.split(" ").map((word, j) => {
-    if ((i + j) && conjunction_junction.has(word)) return word;
-    return (word[0] || "").toUpperCase() + word.slice(1);
-}).join(" ")).join(".");
-export const n = (s="a", c=0) => `${c?"N":"n"}igg${s}`, N = s => n(s, 1);
-const ignored = /(\(|\[)(explicit|clean)(\]|\))/gi;
-const swaps = {
-    usa: "USA",
-    Sun_: "Sun?",
-    Shit_: "Shit:",
-    Don_t: "Don't",
-    "One Smart": "Some Smart",
-    [n("er")]: n("a"),
-    [N("er")]: N("a"),
-    "Thought I Knew You": "Knew U",
-};
-const swap = s => Object.entries(swaps).forEach(([k, v]) => s = s.replace(k, v)) ?? s;
-export const extract_title = ({ name }) => {
-    return capitalize(name
-        .split("-")
-        .map(s => swap(s)
-            .split(/[_ ]/g)
-            .filter(s => !is_numeric_ascii(s))
-            .join(" ")
-        )
-        .filter(s => s.length)
-        .join("-")
-        .replace(ignored, "")
-    );
-};
+    if (a && (will_queue || !viewing_queue)) {
+        const o = overlay(a).get("bottom-right");
+        o.setAttribute("data-queued", will_queue);
+        o.firstElementChild.textContent = will_queue ? "Queued" : "";
+    }
+    if (!will_queue) {
+        remove_queued(item);
+        return;
+    }
+}
+const remove_queued = (item) => {
+    queue.delete(item.href);
+    if (_.ldir.startsWith("media/Queue")) {
+        items.splice(item.id, 1);
+        refill_items(items);
+    }
+}
+handleHold(frame, {
+    t: [400, 400, 800],
+    needsRelease: true,
+    onHold: dispatch_anchor((el, _, i) => 
+        (i ? toggle_queued : toggle_favorite)(el, i)),
+    onStart: dispatch_anchor((el) => el.classList.add("held")),
+    onEnd: dispatch_anchor((el) => el.classList.remove("held"))
+});
 let label_idx = 0;
 export const label = (el, text, color="#444") => {
     const label = $("label");
-    if (!el.id.length > 0) {
+    if (!el.id.length) {
         el.id = "el" + label_idx++;
     }
     label.htmlFor = el.id;
@@ -925,22 +1075,29 @@ export const bundle = (...x) => {
 };
 let player = {};
 const open_player = () => {
+    if (player.lock) return;
+    vscroll?.watchResize(container);
     player.controller = new AbortController();
     player.el = createPlayer(player.controller.signal);
+    player.lock = true;
     container.append(player.el);
     setTimeout(() => player.el.classList.add("open"), 0);
+    setTimeout(() => player.lock = false, 200);
     if (auto_lyrics && playlist.at(-1)) find_lyrics(playlist.at(-1));
 };
 if (_.player === "true") open_player();
 const toggle_player = () => {
+    if (player.lock) return;
     _.player = _.player !== "true";
     if (!player.el) open_player()
     else {
         player.controller.abort();
         player.el.classList.remove("open");
+        player.lock = true;
         setTimeout(() => {
             player.el.remove();
             player = {};
+            vscroll.watchResize();
         }, 200);
     }
 };
@@ -962,7 +1119,7 @@ const init_browser = (item, info) => {
     prev.textContent = "↩";
     next.textContent = "↪";
     mref.dataset.src = item.href;
-    mref.innerText = document.title = item.title ?? extract_title(info);
+    mref.textContent = document.title = item.title ?? extract_title(info);
     handleHold(mref, toggle_status);
     mref.onclick = toggle_player;
     player.append(
@@ -973,7 +1130,7 @@ const init_browser = (item, info) => {
     media.append(player);
     browser = {
         update: (item, info) => {
-            mref.innerText = item.title;
+            mref.textContent = item.title;
             mref.dataset.src = item.href;
         },
         remove: () => {
@@ -993,7 +1150,7 @@ const update_media = (item, info) => {
     else init_browser(item, info);
 };
 const restart_track = () => mel && ((mel.currentTime = 0) || mel.play());
-let library_mode = _.library === "true";
+let library_mode = _.library === "true", force_mode = null;
 const toggle_mode = () => {
     _.library = library_mode = !library_mode;
     refill_items();
@@ -1001,8 +1158,8 @@ const toggle_mode = () => {
 window.toggle_playback = ev => ev?.target === mel ? void 0 : mel.paused ? mel.play() : mel.pause();
 window.toggle_shortcuts = () => shortcut_ui.isConnected ? popup(null) : popup(shortcut_ui, "Shortcuts", el => {
     id("shortcut-np").innerHTML = `<i>${html(mel?.isConnected ? mref.innerHTML : "Silence")}</i>`
-    if (mel.isConnected) id("shortcut-playback").innerText = mel.paused ? "Resume playback" : "Pause session";
-    id("shortcut-shuffle").innerText = display_mode();
+    if (mel.isConnected) id("shortcut-playback").textContent = mel.paused ? "Resume playback" : "Pause session";
+    id("shortcut-shuffle").textContent = display_mode();
 });
 const term_cmd = (k) => [null, () => term.value.startsWith(k) ? setTimeout(() => term.focus()) : term.focus()]
 const shortcuts = {
@@ -1019,7 +1176,8 @@ const shortcuts = {
     "?": ["Bring up this help menu", toggle_shortcuts],
     ":": term_cmd(":"),
     ";": term_cmd(";"),
-    "/": [null, () => setTimeout(() => term.focus(), 0)]
+    "/": [null, () => setTimeout(() => term.focus(), 0)],
+    "@": [null, () => document.activeElement === term || clear_search(true)]
 };
 export const eval_keypress = (ev, s=shortcuts) => {
     if (document.activeElement === term) return;
@@ -1037,10 +1195,10 @@ shortcut_ui.append(...Object.entries(shortcuts).filter(([_, [name]]) => name).ma
     el.style.cursor = "pointer";
     el.onclick = () => eval_keypress({ key });
     const label = $("a");
-    label.innerText = key.replace(" ", "<Space>");
+    label.textContent = key.replace(" ", "<Space>");
     label.style.flexShrink = 0;
     const text = $("span");
-    text.innerText = name;
+    text.textContent = name;
     text.id = `shortcut-${id}`;
     el.append(label, text);
     return el;
@@ -1050,9 +1208,9 @@ const by_id = (_id, f) => {
     if (x) f(x);
 };
 Bus.on("media", ({ title }) => by_id("shortcut-np", x => x.innerHTML = html(`[i]${title}[/i]`)));
-Bus.on("play", () => by_id("shortcut-playback", x => x.innerText = "Pause session"));
-Bus.on("pause", () => by_id("shortcut-playback", x => x.innerText = "Resume playback"));
-Bus.on("shuffle-state", () => by_id("shortcut-shuffle", x => x.innerText = display_mode()));
+Bus.on("play", () => by_id("shortcut-playback", x => x.textContent = "Pause session"));
+Bus.on("pause", () => by_id("shortcut-playback", x => x.textContent = "Resume playback"));
+Bus.on("shuffle-state", () => by_id("shortcut-shuffle", x => x.textContent = display_mode()));
 if ('mediaSession' in navigator) {
     const init_media_session = () => {
         navigator.mediaSession.setActionHandler('previoustrack', () => prev.onclick());
@@ -1072,3 +1230,8 @@ if ('mediaSession' in navigator) {
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register("/sw.js");
 }
+window.addEventListener("beforeunload", () => {
+    _.queue = JSON.stringify([...queue.keys()]);
+});
+term.value = (pathname.length ? pathname : _.ldir) ?? "";
+btn.click();

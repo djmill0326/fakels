@@ -18,6 +18,6 @@ export default function marquee(el) {
     };
     const observer = new ResizeObserver(() => updateMarquee(originalText));
     observer.observe(el);
-    updateMarquee();
+    updateMarquee(originalText);
     return updateMarquee;
 }

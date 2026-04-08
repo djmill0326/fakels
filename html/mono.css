@@ -1,5 +1,6 @@
 * {
     user-select: none;
+    --mono: "Cascadia Code", monospace;
 }
 
 a[onclick] {
@@ -15,7 +16,7 @@ a[onclick] {
 }
 
 #term, footer {
-    font-family: "Cascadia Code", monospace;
+    font-family: var(--mono);
     font-size: 12.5px;
 }
 
@@ -26,8 +27,80 @@ a, .song-card * {
     text-decoration: none;
 }
 
+[data-stale=true] {
+    filter: grayscale(.8) contrast(.8)
+}
+
 #frame a {
     display: block;
+}
+
+#frame a .bottom-right {
+    display: none;
+    background: #5559;
+    opacity: 0.9;
+    border-radius: 5px;
+    padding: 1px 2px;
+    > span {
+        text-align: center;
+    }
+    > :first-child {
+        color: #eee;
+        font-size: .9em;
+        line-height: calc(1.1em / .9em);
+    }
+    > :last-child {
+        font-size: .8em;
+        line-height: calc(1.1em / .8em);
+    }
+    &[data-queued=true] > :first-child {
+        margin-right: 3px;
+    }
+    &[data-fav=true], &[data-queued=true] {
+        display: inline;
+    }
+}
+
+#frame a:not(.song-card) .bottom-right {
+    font-size: .85em;
+}
+
+@keyframes anchorHold {
+    0% {
+        --border-color: #ccc;
+    }
+    18% { 
+        --border-color: #ccc;
+    }
+    22% {
+        --border-color: gold;
+    }
+    38% { 
+        --border-color: gold;
+    }
+    42% {
+        --border-color: slateblue;
+    }
+
+    78% { 
+        --border-color: slateblue;
+    }
+    82% {
+        --border-color: mediumvioletred;
+    }
+    100% {
+        --border-color: mediumvioletred;
+    }
+}
+
+#frame li {
+    -webkit-tap-highlight-color: transparent;
+}
+
+#frame li.held {
+    border: 1px solid var(--border-color);
+    animation: anchorHold 2s linear forwards;
+    will-change: border-color;
 }
 
 footer {
@@ -141,6 +214,7 @@ ul {
             font-family: monospace;
             line-height: 1.5em;
             color: burlywood;
+            flex: 1;
         }
     }
 }
@@ -158,10 +232,15 @@ ul {
     overflow-y: auto;
     font-size: large;
     min-height: 0;
+    padding: 3px 0;
+    display: flex;
+    flex-direction: column;
     scrollbar-width: none;
+    --gutter: 5px;
 }
 
 .lyrics .lyrics-text {
+    flex-shrink: 0;
     color: #bbb;
     margin: 3px;
     text-wrap: pretty;
@@ -225,8 +304,12 @@ ul {
         width: 3.5em;
         border-radius: 5px;
         flex-shrink: 0;
-        background: var(--cover-src), linear-gradient(45deg, #111 0%, #222 30%, #333 50%, #222 70%, #111 100%);
-        background-size: cover;
+        object-fit: cover;
+        transition: opacity .4s ease;
+        opacity: 0;
+        &[data-loaded=true] {
+            opacity: 1;
+        }
     }
     .info {
         .artist {
@@ -260,6 +343,9 @@ ul {
         gap: .5em;
         min-height: 0;
         transition: gap .2s linear;
+    }
+    .container:has(.lyrics) {
+        flex: 1;
     }
     .cover {
         max-height: 100%;
@@ -310,6 +396,7 @@ ul {
         flex-direction: column;
         align-items: center;
         gap: .5em;
+        position: relative;
         button {
             background: none;
             width: 3em;
@@ -393,6 +480,17 @@ ul {
     }
     .lyrics {
         width: 100%;
+        position: relative;
+        mask: linear-gradient(to bottom, transparent, black var(--gutter), black calc(100% - var(--gutter)), transparent 100%);
+        mask-origin: margin-box;
+    }
+    &:has(.lyrics) .control-group::after {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background: #ccc2;
+        position: absolute;
+        bottom: -.5em;
     }
     &, .cover, .container > * {
         transition: opacity .2s linear, min-height .2s linear, max-height .2s linear, max-width .2s linear;
@@ -415,7 +513,7 @@ ul {
     }
 }
 
-#main > :not(.player-ui) {
+#main:has(.player-ui) > :not(.player-ui) {
     transition: opacity .2s linear;
     flex-shrink: 1;
     min-height: 0;
@@ -484,6 +582,32 @@ ul {
         background-color: #eee;
         border: #fff 1px solid;
         border-radius: 6px;
+    }
+}
+
+.scrollbar.anchored {
+    width: calc(var(--inner-width) + 2 * var(--gutter));
+    left: calc(-1 * var(--inner-width) - var(--gutter));
+    &::before {
+        background: #2226;
+    }
+    div {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        font-variant-numeric: tabular-nums;
+        span {
+            display: inline-block;
+            flex: 1 1;
+            color: white!important;
+            font-size: 80%;
+            text-align: right;
+            min-height: 0;
+        }
+        span:not(:last-child) {
+            border-bottom: 1px solid #333;
+        }
     }
 }
 

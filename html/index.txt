@@ -5,15 +5,16 @@
 	14 Incubus - Leech.flac	inode=885499	size=31459381	mtime=1757177495430.2424	title=Leech	album=A Crow Left of the Murder	artist=Incubus	year=2004
 	Local H - Hey, Killer - 05 - The Misanthrope.flac	inode=293245	size=43876843	mtime=1767241164998.1694	title=The Misanthrope	album=Hey, Killer	artist=Local H	year=2015
 "Album" 2	
-	00 - Garette's Revenge.mp3	inode=615987	size=4807741	mtime=1760127336242.6702	title=garette`s revenge	artist=xxxtentacion
+	00 - Garette's Revenge.mp3	inode=615987	size=4807741	mtime=1760127336242.6702	title=Garette's Revenge	artist=XXXTENTACION
 	01 - DIRT.flac	inode=734459	size=29460540	mtime=1755361758552.442	title=DIRT	album=DIRT	artist=Y2K feat. JPEGMAFIA	year=2022
-	01 - Guess What Bitch, We Back Hoe!.mp3	inode=759710	size=40519116	mtime=1755361811512.442
+	01 - Guess What Bitch, We Back Hoe!.mp3	inode=759710	size=40519116	mtime=1755361811512.442	title=Guess What Bitch, We Back Hoe!	album=SCARING THE HOES: DLC PACK	artist=JPEGMAFIA, Danny Brown
 	02 - Maze.flac	inode=487410	size=18035788	mtime=1755341832024.4495	title=Maze	album=Death Race for Love	artist=Juice WRLD	year=2019
 	04 - Not Worth It.flac	inode=861984	size=13317559	mtime=1757312054366.1938	title=Not Worth It	album=DOG BOY	artist=ZillaKami	year=2021
 	15 - Space Cowboy.flac	inode=862224	size=16752986	mtime=1757312065838.1938	title=Space Cowboy	album=DOG BOY	artist=ZillaKami	year=2021
 	17 - The Bees Knees.flac	inode=487699	size=40997538	mtime=1755341816376.4495	title=The Bees Knees	album=Death Race for Love	artist=Juice WRLD	year=2019
 	18 - Lucid Dreams.flac	inode=486072	size=27202528	mtime=1755341737324.4495	title=Lucid Dreams	album=Goodbye & Good Riddance	artist=Juice WRLD	year=2021
 	23 - Make Believe.flac	inode=487538	size=18814788	mtime=1755341827696.4495	title=Make Believe	album=Death Race for Love	artist=Juice WRLD	year=2019
+	Trap Niggas (Instrumental Extra Bass Hit).mp3	inode=311667	size=7139047	mtime=1775481360872.1575	title=Trap Niggas (Instrumental) [Prod. By Southside]	album=Future - 56 Nights (Hosted By Future)	artist=Future	year=2015
 	folder.jpg	inode=744541	size=148687	mtime=1755361865980.4417
 A Fever You Can’t Sweat Out	
 	02 The Only Difference Between Martyrdom and Suicide Is Press Coverage.flac	inode=877838	size=23183333	mtime=1757122277761.4097	title=The Only Difference Between Martyrdom and Suicide Is Press Coverage	album=A Fever You Can’t Sweat Out	artist=Panic! at the Disco	year=2005
@@ -311,6 +312,40 @@ Pending
 		12- Master Slave.mp3	inode=1077014	size=7876361	mtime=1771463346723.3813	title=Master/Slave	album=Ten	artist=Pearl Jam	year=1991
 	2001 - Comfort Eagle	
 		07 Comfort Eagle.flac	inode=1030946	size=27079140	mtime=1767684156784.5396	title=Comfort Eagle	album=Comfort Eagle	artist=CAKE	year=2001
+	2002 - Audioslave	
+		1-01 - Cochise.lrc	inode=866781	size=9848453	mtime=1775570761023.9885
+		1-02 - Show Me How to Live.lrc	inode=949020	size=1635	mtime=1775570738395.9885
+		1-02 - Show Me How to Live.mp3	inode=1193143	size=12081451	mtime=1775570809799.9885	title=Show Me How to Live	album=Audioslave	artist=Audioslave	year=2002
+		1-03 - Gasoline.lrc	inode=1170133	size=805	mtime=1775570739651.9885
+		1-03 - Gasoline.mp3	inode=1184083	size=12140466	mtime=1775570814003.9885	title=Gasoline	album=Audioslave	artist=Audioslave	year=2002
+		1-04 - What You Are.lrc	inode=1146456	size=1271	mtime=1775570741111.9885
+		1-04 - What You Are.mp3	inode=1187966	size=10943404	mtime=1775570817575.9885	title=What You Are	album=Audioslave	artist=Audioslave	year=2002
+		1-05 - Like a Stone.lrc	inode=1111427	size=1541	mtime=1775570742483.9885
+		1-05 - Like a Stone.mp3	inode=1128946	size=12726090	mtime=1775570822267.9883	title=Like a Stone	album=Audioslave	artist=Audioslave	year=2002
+		1-06 - Set It Off.lrc	inode=1189508	size=1745	mtime=1775570743727.9885
+		1-06 - Set It Off.mp3	inode=1188411	size=11495311	mtime=1775570826259.9883	title=Set It Off	album=Audioslave	artist=Audioslave	year=2002
+		1-07 - Shadow on the Sun.lrc	inode=1188421	size=1721	mtime=1775570744911.9885
+		1-07 - Shadow on the Sun.mp3	inode=1191682	size=14703193	mtime=1775570831343.9883	title=Shadow on the Sun	album=Audioslave	artist=Audioslave	year=2002
+		1-08 - I Am the Highway.lrc	inode=1184311	size=1286	mtime=1775570746427.9885
+		1-08 - I Am the Highway.mp3	inode=1135404	size=14363274	mtime=1775570835767.9883	title=I Am the Highway	album=Audioslave	artist=Audioslave	year=2002
+		1-09 - Exploder.lrc	inode=1189160	size=1585	mtime=1775570747491.9885
+		1-09 - Exploder.mp3	inode=1152699	size=9207035	mtime=1775570839939.9883	title=Exploder	album=Audioslave	artist=Audioslave	year=2002
+		1-10 - Hypnotize.lrc	inode=1164231	size=1205	mtime=1775570748615.9885
+		1-10 - Hypnotize.mp3	inode=1191807	size=9229684	mtime=1775570851759.9883	title=Hypnotize	album=Audioslave	artist=Audioslave	year=2002
+		1-11 - Bring  em Back Alive.lrc	inode=1080864	size=991	mtime=1775570749719.9885
+		1-11 - Bring  em Back Alive.mp3	inode=1184988	size=14117593	mtime=1775570858027.9883	title=Bring 'em Back Alive	album=Audioslave	artist=Audioslave	year=2002
+		1-12 - Light My Way.lrc	inode=268159	size=794	mtime=1775570750803.9885
+		1-12 - Light My Way.mp3	inode=1183218	size=13102801	mtime=1775570861459.9883	title=Light My Way	album=Audioslave	artist=Audioslave	year=2002
+		1-13 - Getaway Car.lrc	inode=1128949	size=1672	mtime=1775570751855.9885
+		1-13 - Getaway Car.mp3	inode=1167848	size=12923767	mtime=1775570865635.9883	title=Getaway Car	album=Audioslave	artist=Audioslave	year=2002
+		1-14 - The Last Remaining Light.lrc	inode=1062051	size=1163	mtime=1775570752955.9885
+		1-14 - The Last Remaining Light.mp3	inode=1039026	size=13653786	mtime=1775570870095.9883	title=The Last Remaining Light	album=Audioslave	artist=Audioslave	year=2002
+		Cover.jpg	inode=1164289	size=272824	mtime=1775570871823.9883
+	2005 - Out of Exile	
+		1-03 - Be Yourself.lrc	inode=1077554	size=1739	mtime=1775570755447.9885
+		1-03 - Be Yourself.mp3	inode=1010755	size=12118285	mtime=1775570875999.9883	title=Be Yourself	album=Out of Exile	artist=Audioslave	year=2005
+		1-04 - Doesn t Remind Me.lrc	inode=222535	size=2038	mtime=1775570756443.9885
+		1-04 - Doesn t Remind Me.mp3	inode=1101618	size=11159366	mtime=1775570879971.9883	title=Doesn't Remind Me	album=Out of Exile	artist=Audioslave	year=2005
 	2020 - Ferric Oxide - Demos 1997-2001	
 		01 - Panchiko - All They Wanted.flac	inode=301798	size=14790910	mtime=1771341894498.6978	title=All They Wanted	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
 		02 - Panchiko - NeilSSong.flac	inode=1116607	size=25711328	mtime=1771341902918.6978	title=NeilSSong	album=Ferric Oxide - Demos 1997-2001	artist=Panchiko	year=2020
@@ -489,6 +524,8 @@ Pending
 		21 Great Day.mp3	inode=266923	size=5904454	mtime=1762036392705.6677	title=Great Day	album=Madvillainy	artist=Madvillain	year=2004
 		22 Rhinestone Cowboy.mp3	inode=642945	size=9508315	mtime=1762036399961.6677	title=Rhinestone Cowboy	album=Madvillainy	artist=Madvillain	year=2004
 		cover.jpg	inode=267202	size=59294	mtime=1762036400617.6677
+	Mellon Collie and the Infinite Sadness	
+		1-04 - The Smashing Pumpkins - Zero.flac	inode=1170535	size=18772435	mtime=1775340715087.8018	title=Zero	album=Mellon Collie and the Infinite Sadness	artist=The Smashing Pumpkins	year=1995
 	Melt My Eyez See Your Future (2022)	
 		02. Walkin.flac	inode=1148473	size=33679231	mtime=1774607038360.9976	title=Walkin	album=Melt My Eyez See Your Future	artist=Denzel Curry	year=2022
 	Nevermind (Remastered)	
@@ -535,6 +572,18 @@ Pending
 		02 - Anita Ride.mp3	inode=1162470	size=8300741	mtime=1774645273851.2239	title=Anita Ride	album=Earthkeeper	artist=Pinkshift	year=2025
 	Pinkshift - Evil Eye (2025)	
 		01 - Pinkshift - Evil Eye.flac	inode=1174749	size=23124513	mtime=1774863787863.9841	title=Evil Eye	album=Evil Eye	artist=Pinkshift	year=2025
+	Purple	
+		01 Meatplow.m4a	inode=307394	size=8819551	mtime=1775233900981.1306	title=Meatplow	album=Purple	artist=Stone Temple Pilots	year=1994
+		02 Vasoline.m4a	inode=1142308	size=7308153	mtime=1775233898205.1306	title=Vasoline	album=Purple	artist=Stone Temple Pilots	year=1994
+		03 Lounge Fly.m4a	inode=1184372	size=12501077	mtime=1775233903885.1306	title=Lounge Fly	album=Purple	artist=Stone Temple Pilots	year=1994
+		04 Interstate Love Song.m4a	inode=323192	size=7968530	mtime=1775233906069.1306	title=Interstate Love Song	album=Purple	artist=Stone Temple Pilots	year=1994
+		05 Still Remains.m4a	inode=1152620	size=8726498	mtime=1775233908485.1306	title=Still Remains	album=Purple	artist=Stone Temple Pilots	year=1994
+		06 Pretty Penny.m4a	inode=334352	size=9087097	mtime=1775233910961.1306	title=Pretty Penny	album=Purple	artist=Stone Temple Pilots	year=1994
+		07 Silvergun Superman.m4a	inode=1024602	size=12230876	mtime=1775233915105.1306	title=Silvergun Superman	album=Purple	artist=Stone Temple Pilots	year=1994
+		08 Big Empty.m4a	inode=1185223	size=11385519	mtime=1775233917497.1306	title=Big Empty	album=Purple	artist=Stone Temple Pilots	year=1994
+		09 Unglued.m4a	inode=335786	size=6626207	mtime=1775233919545.1306	title=Unglued	album=Purple	artist=Stone Temple Pilots	year=1994
+		10 Army Ants.m4a	inode=1184484	size=9135841	mtime=1775233922949.1306	title=Army Ants	album=Purple	artist=Stone Temple Pilots	year=1994
+		11 Kitchenware & Candybars.m4a	inode=1007603	size=17216349	mtime=1775233926593.1306	title=Kitchenware & Candybars	album=Purple	artist=Stone Temple Pilots	year=1994
 	St. Elsewhere	
 		01 Go-Go Gadget Gospel.mp3	inode=1117942	size=4417623	mtime=1774192483783.6409	title=Go-Go Gadget Gospel	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
 		02 Crazy.mp3	inode=1158534	size=5747709	mtime=1774192479971.6409	title=Crazy	album=St. Elsewhere	artist=Gnarls Barkley	year=2006
@@ -556,7 +605,7 @@ Pending
 	Stankonia (2000)	
 		OutKast - Stankonia - 11 - B.O.B. (Bombs Over Baghdad).flac	inode=1145803	size=65558434	mtime=1774606481364.9978	title=B.O.B. (Bombs Over Baghdad)	album=Stankonia (20th Anniversary)	artist=Outkast	year=2020
 	Stankonia (Album)	
-		05 Ms. Jackson.mp3	inode=1146325	size=11559197	mtime=1774606498780.9976	title=Ms. Jackson	album=Stankonia	artist=OutKast	year=2000
+		05 Ms. Jackson.mp3	inode=1146325	size=11559197	mtime=1774606498780.9976	title=Ms. Jackson	album=Stankonia	artist=Outkast	year=2000
 	Supernatural	
 		01 Santana - (Da Le) Yaleo.mp3	inode=1077824	size=15439298	mtime=1770752985231.7983	title=(Da Le) Yaleo	album=Supernatural	artist=Santana	year=1999
 		02 Santana feat. Dave Matthews - Love of My Life.mp3	inode=1078075	size=15208376	mtime=1770752989919.7983	title=Love of My Life	album=Supernatural	artist=Santana feat. Dave Matthews	year=1999
@@ -572,6 +621,23 @@ Pending
 		12 Santana - Primavera.mp3	inode=1072521	size=16444490	mtime=1770753096731.7983	title=Primavera	album=Supernatural	artist=Santana	year=1999
 		13 Santana feat. Eric Clapton _ Santana - The Calling _ Day of Celebration.mp3	inode=959351	size=31207853	mtime=1770753115259.7983	title=The Calling / Day of Celebration	album=Supernatural	artist=Santana feat. Eric Clapton	year=1999
 		cover.jpg	inode=1097571	size=1289976	mtime=1770753118187.7983
+	Superunknown	
+		01 Let Me Drown.mp3	inode=1155654	size=9355844	mtime=1775570915215.9883	title=Let Me Drown	album=Superunknown	artist=Soundgarden	year=1994
+		02 My Wave.mp3	inode=1102121	size=12538593	mtime=1775570917775.9883	title=My Wave	album=Superunknown	artist=Soundgarden	year=1994
+		03 Fell On Black Days.mp3	inode=1112142	size=11380868	mtime=1775570920275.9883	title=Fell On Black Days	album=Superunknown	artist=Soundgarden	year=1994
+		04 Mailman.mp3	inode=1195274	size=10697483	mtime=1775570922399.9883	title=Mailman	album=Superunknown	artist=Soundgarden	year=1994
+		05 Superunknown.mp3	inode=330185	size=12327534	mtime=1775570924515.9883	title=Superunknown	album=Superunknown	artist=Soundgarden	year=1994
+		06 Head Down.mp3	inode=314810	size=14830058	mtime=1775570926787.9883	title=Head Down	album=Superunknown	artist=Soundgarden	year=1994
+		07 Black Hole Sun.mp3	inode=1097615	size=12793562	mtime=1775570929111.9883	title=Black Hole Sun	album=Superunknown	artist=Soundgarden	year=1994
+		08 Spoonman.mp3	inode=1153314	size=9927395	mtime=1775570931115.9883	title=Spoonman	album=Superunknown	artist=Soundgarden	year=1994
+		09 Limo Wreck.mp3	inode=1184395	size=13961750	mtime=1775570933635.9883	title=Limo Wreck	album=Superunknown	artist=Soundgarden	year=1994
+		10 The Day I Tried To Live.mp3	inode=1174450	size=12848960	mtime=1775570936295.9883	title=The Day I Tried To Live	album=Superunknown	artist=Soundgarden	year=1994
+		11 Kickstand.mp3	inode=1185852	size=3845046	mtime=1775570937871.9883	title=Kickstand	album=Superunknown	artist=Soundgarden	year=1994
+		12 Fresh Tendrils.mp3	inode=1190882	size=10316109	mtime=1775570939775.9883	title=Fresh Tendrils	album=Superunknown	artist=Soundgarden	year=1994
+		13 4th Of July.mp3	inode=1108058	size=12400675	mtime=1775570944275.9883	title=4th Of July	album=Superunknown	artist=Soundgarden	year=1994
+		14 Half.mp3	inode=1190275	size=5437461	mtime=1775570941263.9883	title=Half	album=Superunknown	artist=Soundgarden	year=1994
+		15 Like Suicide.mp3	inode=1171677	size=16943893	mtime=1775570948467.9883	title=Like Suicide	album=Superunknown	artist=Soundgarden	year=1994
+		4th Of July.mp3	inode=1169235	size=12400675	mtime=1775570951099.9883	title=4th Of July	album=Superunknown	artist=Soundgarden	year=1994
 	Swimming (2018)	
 		Mac Miller - Swimming - 02 - Hurt Feelings.flac	inode=258134	size=47169279	mtime=1761778265959.8372	title=Hurt Feelings	album=Swimming	artist=Mac Miller	year=2018
 	The Boy Who Died Wolf (2016)	
@@ -632,6 +698,8 @@ Pending
 		03 Hymn for a Droid.flac	inode=1117333	size=27698926	mtime=1771630348349.651	title=Hymn for a Droid	album=And Now for the Whatchamacallit	artist=Psychedelic Porn Crumpets	year=2019
 	[2021] Tiny Little Adiantum (Omae wa Mou ver.)	
 		cover.jpg	inode=298552	size=6605935	mtime=1771357534329.7158
+	[2023] The Crimson Chapter EP	
+		Mike Shinoda - The Crimson Chapter EP - 02 Already Over.flac	inode=1175205	size=21264547	mtime=1775568417955.9893	title=Already Over	album=THE CRIMSON CHAPTER	artist=Mike Shinoda	year=2023
 	good kid, m.A.A.d city (Deluxe Version)	
 		01 Sherane a.k.a. Master Splinter_s Daughter.m4a	inode=645600	size=9722485	mtime=1770883035151.181	title=Sherane a.k.a. Master Splinter’s Daughter	album=good kid, m.A.A.d city	artist=Kendrick Lamar	year=2012
 		02 Bitch, Don_t Kill My Vibe.m4a	inode=902242	size=10996901	mtime=1770883043007.181	title=Bitch, Don’t Kill My Vibe	album=good kid, m.A.A.d city	artist=Kendrick Lamar	year=2012
@@ -845,15 +913,15 @@ Vices & Virtues (2011)
 	13 - I Wanna Be Free.mp3	inode=912618	size=7187941	mtime=1758936236876.0227	title=I Wanna Be Free	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
 	14 - Turn Off the Lights.mp3	inode=908240	size=10185761	mtime=1758936238332.0227	title=Turn Off the Lights	album=Vices & Virtues	artist=Panic! at the Disco	year=2011
 Villains	
-	01. Feet Don't Fail Me.mp3	inode=811937	size=13990235	mtime=1755215303003.6392	title=Feet Don't Fail Me	album=Villains	artist=Queens Of The Stone Age	year=2017
-	02. The Way You Used To Do.mp3	inode=832195	size=11288137	mtime=1755215307047.6392	title=The Way You Used To Do	album=Villains	artist=Queens Of The Stone Age	year=2017
-	03. Domesticated Animals.mp3	inode=831452	size=13128198	mtime=1755215312071.6392	title=Domesticated Animals	album=Villains	artist=Queens Of The Stone Age	year=2017
-	04. Fortress.mp3	inode=831988	size=13405072	mtime=1755215316859.6392	title=Fortress	album=Villains	artist=Queens Of The Stone Age	year=2017
-	05. Head Like A Haunted House.mp3	inode=832072	size=8358249	mtime=1755215320303.6392	title=Head Like A Haunted House	album=Villains	artist=Queens Of The Stone Age	year=2017
-	06. Un-Reborn Again.mp3	inode=829436	size=16622856	mtime=1755215327715.6392	title=Un-Reborn Again	album=Villains	artist=Queens Of The Stone Age	year=2017
-	07. Hideaway.mp3	inode=822425	size=10920834	mtime=1755215332151.6392	title=Hideaway	album=Villains	artist=Queens Of The Stone Age	year=2017
-	08. The Evil Has Landed.mp3	inode=832349	size=16217444	mtime=1755215337663.6392	title=The Evil Has Landed	album=Villains	artist=Queens Of The Stone Age	year=2017
-	09. Villains Of Circumstance.mp3	inode=831804	size=15367952	mtime=1755215342195.6392	title=Villains Of Circumstance	album=Villains	artist=Queens Of The Stone Age	year=2017
+	01. Feet Don't Fail Me.mp3	inode=811937	size=13990235	mtime=1755215303003.6392	title=Feet Don't Fail Me	album=Villains	artist=Queens of the Stone Age	year=2017
+	02. The Way You Used To Do.mp3	inode=832195	size=11288137	mtime=1755215307047.6392	title=The Way You Used To Do	album=Villains	artist=Queens of the Stone Age	year=2017
+	03. Domesticated Animals.mp3	inode=831452	size=13128198	mtime=1755215312071.6392	title=Domesticated Animals	album=Villains	artist=Queens of the Stone Age	year=2017
+	04. Fortress.mp3	inode=831988	size=13405072	mtime=1755215316859.6392	title=Fortress	album=Villains	artist=Queens of the Stone Age	year=2017
+	05. Head Like A Haunted House.mp3	inode=832072	size=8358249	mtime=1755215320303.6392	title=Head Like A Haunted House	album=Villains	artist=Queens of the Stone Age	year=2017
+	06. Un-Reborn Again.mp3	inode=829436	size=16622856	mtime=1755215327715.6392	title=Un-Reborn Again	album=Villains	artist=Queens of the Stone Age	year=2017
+	07. Hideaway.mp3	inode=822425	size=10920834	mtime=1755215332151.6392	title=Hideaway	album=Villains	artist=Queens of the Stone Age	year=2017
+	08. The Evil Has Landed.mp3	inode=832349	size=16217444	mtime=1755215337663.6392	title=The Evil Has Landed	album=Villains	artist=Queens of the Stone Age	year=2017
+	09. Villains Of Circumstance.mp3	inode=831804	size=15367952	mtime=1755215342195.6392	title=Villains Of Circumstance	album=Villains	artist=Queens of the Stone Age	year=2017
 	album.nfo	inode=832469	size=3676	mtime=1755215342095.6392
 Wax Ecstatic (1996)	
 	01 - My Purity.mp3	inode=880619	size=7620262	mtime=1757161495085.56	title=My Purity	album=Wax Ecstatic	artist=Sponge	year=1996

@@ -1,4 +1,4 @@
-import { debounce, throttle, overlay, handleHold, stepInterval, withinBottom, scrolledToBottom, easeInOut } from "./l.js";
+import $, { debounce, throttle, overlay, handleHold, stepInterval, withinBottom, scrolledToBottom, easeInOut } from "./l.js";
 
 const BatchState = {
     INIT: 0,
@@ -33,14 +33,14 @@ function normalizeBatch(list) {
             case BatchState.INIT:
                 item.words = item.el.textContent.split(/\s+/);
                 item.el.textContent = "";
-                item.el.style.paddingLeft = "2px";
+                item.el.style.paddingLeft = "5px";
                 item.i = 0;
             case BatchState.LINE_UPDATE:
                 if (item.i === item.words.length) {
                     item.state = BatchState.PUSH_CHILDREN;
                     break;
                 }
-                item.line = document.createElement("div");
+                item.line = $("div");
                 item.str = item.words[item.i++];
                 item.line.textContent = item.str;
                 item.el.append(item.line);
@@ -144,7 +144,7 @@ export function parseLyrics(text) {
 };
 
 function renderLine(line, root) {
-    const el = document.createElement("a");
+    const el = $("a");
     el.className = "lyrics-text";
     el.innerText = line.text || "♫";
     el.style.display = "block";
@@ -214,7 +214,7 @@ function timingMenu(id, signal) {
         updateTimeStr();
     };
     const offsetButton = (text, num) => {
-        const el = document.createElement("button");
+        const el = $("button");
         el.style.touchAction = "none";
         el.textContent = text;
         let controller;
@@ -233,7 +233,7 @@ function timingMenu(id, signal) {
     };
     const dec = offsetButton("-", -100);
     const inc = offsetButton("+", 100);
-    const offset = document.createElement("button");
+    const offset = $("button");
     offset.className = "offset";
     offset.onclick = () => changeOffset("reset");
     updateTimeStr();
@@ -254,10 +254,10 @@ function addOverlay(root, onMenu, position="bottom-right") {
     wrapper.style.gap = "5px";
     if (onMenu) {
         let menuOpened = false;
-        const slot = document.createElement("span");
+        const slot = $("span");
         slot.style.display = "flex";
         slot.style.gap = "5px";
-        const menu = document.createElement("button");
+        const menu = $("button");
         menu.className = "menu-btn";
         menu.textContent = "‹";
         menu.style.fontWeight = "bold";
@@ -274,7 +274,7 @@ function addOverlay(root, onMenu, position="bottom-right") {
 }
 
 function syncButton() {
-    const sync = document.createElement("button");
+    const sync = $("button");
     sync.innerText = "Sync";
     sync.className = "sync";
     return sync;
@@ -296,6 +296,9 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
         renderLines(lines, root, signal);
         status?.disable();
         if (prefetch) return lines;
+        const spacer = $("div");
+        spacer.style.flexGrow = 1;
+        root.append(spacer);
         if (!timed) {
             addOverlay(root);
             return;
@@ -307,7 +310,7 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
             root.scrollTo(0, scrollTarget.offsetTop);
             sync.remove();
         }
-        let currentLine, scrollTarget = lines[0].el, snapped = true, smoothScrollTop;
+        let currentLine, scrollTarget = lines[0].el, snapped = true, smoothScrollTop, lockSnapped;
         let pendingScroll;
         const smoothScroll = (top) => {
             cancelAnimationFrame(pendingScroll);
@@ -334,7 +337,6 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
             enableLine(el);
             currentLine = el;
             scrollTarget = el.previousElementSibling ?? el;
-            console.log("select while", snapped ? "snapped" : "unsnapped");
             if (snapped) {
                 if (init) root.scrollTop = scrollTarget.offsetTop;
                 else smoothScroll(scrollTarget.offsetTop);
@@ -355,7 +357,7 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
             audio.play();
         }, { signal });
         const scrollTest = throttle(() => {
-            snapped = Math.abs(root.scrollTop - Math.min(scrollTarget.offsetTop, root.scrollHeight - root.offsetHeight)) < 10
+            snapped = lockSnapped || Math.abs(root.scrollTop - Math.min(scrollTarget.offsetTop, root.scrollHeight - root.offsetHeight)) < 10
         });
         const scrollCommit = debounce(() => {
             if (snapped) sync.remove();
@@ -409,13 +411,24 @@ export function showLyrics(id, { lines, timed }, root, audio, { status, prefetch
             scrollCommit();
         });
         let prevHeight = root.offsetHeight;
+        const unlock = debounce(() => lockSnapped = false);
         observer = new ResizeObserver(() => {
             if (lines.normWidth === root.offsetWidth) {
                 const height = root.offsetHeight; 
-                if (height < prevHeight && root.scrollHeight - root.scrollTop - prevHeight < prevHeight - height) {
-                    const top = root.scrollTop + prevHeight - height;
-                    root.scrollTop = top;
-                    if (snapped) smoothScrollTop = top;
+                if (height < prevHeight) {
+                    if (snapped) {
+                        cancelAnimationFrame(pendingScroll);
+                        lockSnapped = true;
+                        unlock();
+                        root.scrollTop = scrollTarget.offsetTop;
+                    } if (root.scrollHeight - root.scrollTop - prevHeight < prevHeight - height) {
+                        const top = root.scrollTop + prevHeight - height;
+                        root.scrollTop = top;
+                        smoothScrollTop = top;
+                    }
+                } else {
+                    scrollUpdate();
+                    scrollCommit();
                 }
                 prevHeight = root.offsetHeight;
             } else normalize();

@@ -22,6 +22,15 @@ export const getheader = async name => {
     else return (window.headers = await getheaders())[name];
 };
 
+export const active_requests = new Set();
+export const status_obj = (name) => ({ 
+    name, list: active_requests, update: () => Bus?.call.dispatch("update-status"), 
+    enable() { this.list.add(this.name); this.update() },
+    disable() { this.list.delete(this.name); this.update() }
+});
+
+const jsonHeader = { headers: { "Accept": "application/json" } };
+
 const query_cache = new Map();
 export async function api(endpoint, query, frame, cb, req, err, cached=false, opt={}, signal=null) {
     let link = `${endpoint}%20${query}`;
@@ -67,11 +76,16 @@ export async function api(endpoint, query, frame, cb, req, err, cached=false, op
     };
     setTimeout(timeout, 10000);
     const url = `http://${location.hostname}:${await getheader("adapter-port")}/${link}`;
-    if (opt === true) opt = { headers: { "Accept": "application/json" } };
+    if (opt === true) opt = jsonHeader;
     response = await fetch(url, { ...opt, signal }).catch(err => console.warn(err));
     if (timeout()) return;
     callback(await (response.headers.get("content-type")?.includes("json") ? response.json() : response.text()));
 };
+
+export const api2 = (endpoint, query, { frame, req, cached, signal, json, opt }) => 
+    new Promise((resolve, reject) =>
+        api(endpoint, query, frame, resolve, req ?? status_obj(`request for ${endpoint}`), reject, cached, { ...(json && jsonHeader), ...opt }, signal)
+    );
 
 export const main = (client=true) => {
     if (client) { window.is_client = true; }

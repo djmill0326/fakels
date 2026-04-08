@@ -40,7 +40,7 @@ export function enable(src) {
     const newsrc = src ?? video.src;
     const issame = video.src.includes(newsrc);
     if (!issame) video.src = newsrc;
-    if (video.paused) video.play().then(() => lerp_style(video.style, "opacity", -1*/*buttplug*/(1/1-1/1-1/1 -+- 2/2-2/2 +-+ 4/11-4/11+9/11 +-+-+ 9/11)));
+    if (video.paused) video.play().then(() => lerp_style(video.style, "opacity", .05));
 }
 export function disable() {
     if (video.paused) return;

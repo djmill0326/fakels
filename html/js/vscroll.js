@@ -1,6 +1,6 @@
 import $ from "./l.js";
 import { scrollable } from "./scrollbar.js";
-export function virtualScroll(root, modes, list, backing) {
+export function virtualScroll(root, modes, list, backing, { anchors, focusable=x=>x }) {
     root.replaceChildren();
     root.style.position = "relative";
     const wrapper = $("div");
@@ -12,8 +12,7 @@ export function virtualScroll(root, modes, list, backing) {
     wrapper.append(container);
     root.append(wrapper);
     const scrollController = new AbortController();
-    scrollable(root, { signal: scrollController.signal });
-    let height, viewSize, size, gutter, index, dataIndex, currentMode, pool = [];
+    let height, viewSize, size, gutter, latestHeight, index, dataIndex, currentMode, pool = [];
     const lookup = (index) => backing[index]?.activeIndex;
     const nearest = (index, distance=500) => {
         const self = lookup(index);
@@ -40,8 +39,8 @@ export function virtualScroll(root, modes, list, backing) {
                 testEl.remove();
             }
             if (!height) return;
-            viewSize = Math.ceil(root.clientHeight / height);
-            gutter = viewSize * 2;
+            viewSize = Math.ceil(root.offsetHeight / height);
+            gutter = viewSize * 4;
             size = viewSize + 2 * gutter;
             if (mode !== currentMode) for (let i = 0; i < pool.length; i++) {
                 const el = shell();
@@ -56,7 +55,7 @@ export function virtualScroll(root, modes, list, backing) {
         currentMode = mode;
         const scrollHeight = height * list.length;
         wrapper.style.height = scrollHeight + "px";
-        if (scrollTarget) {
+        if (scrollTarget != null) {
             const position = Math.floor(scrollTarget);
             const difference = scrollTarget - position;
             const index = nearest(dataIndex);
@@ -80,12 +79,32 @@ export function virtualScroll(root, modes, list, backing) {
         container.style.transform = `translateY(${Math.round(height * top)}px)`;
         if (!currentMode) return;
         const updateShell = modes[currentMode].update;
+        let shifted, begin = 0;
+        if (!force && dist < size) {
+            if (diff < 0) {
+                shifted = pool.splice(size - dist);
+                pool.unshift(...shifted);
+                container.prepend(...shifted);
+                
+            } else {
+                begin = size - dist;
+                shifted = pool.splice(0, dist);
+                pool.push(...shifted);
+                container.append(...shifted);
+            }
+        }
         pool.forEach((el, i) => {
             const listIndex = top + i;
             if (listIndex < list.length) {
-                el.style.display = "";
-                updateShell(el, list[listIndex]);
-            } else el.style.display = "none";
+                if (el._hidden) {
+                    el.style.display = "";
+                    el._hidden = false;
+                }
+                if (!shifted || (i >= begin && i - begin < shifted.length)) updateShell(el, list[listIndex]);
+            } else if (!el._hidden) {
+                el.style.display = "none";
+                el._hidden = true;
+            }
         });
         index = top;
     };
@@ -103,19 +122,47 @@ export function virtualScroll(root, modes, list, backing) {
     const listen = () => root.addEventListener("scroll", listener);
     listen();
     const dispose = () => observer.disconnect() || scrollController.abort() || root.removeEventListener("scroll", listener);
-    const scrollTo = item => {
+    const watchResize = target => {
+        observer.disconnect();
+        observer.observe(target ?? root);
+    };
+    let activeIndex = 0, offsetDistance;
+    const focus = (item, autoBlur=true) => {
+        const i = item.activeIndex ?? lookup(item);
+        const el = pool[i - index];
+        if (el) {
+            const target = focusable(el);
+            if (target) {
+                target.focus({ preventScroll: true });
+                if (autoBlur) target.blur();
+                activeIndex = i;
+            }
+        }
+    };
+    const scrollTo = (item, autoBlur=true, focusIndex) => {
         const i = item.activeIndex ?? lookup(item);
         if (i == null) return;
         root.removeEventListener("scroll", listener);
-        root.scrollTop = i * height + 1;
+        const pos = root.scrollTop = i * height + 1;
+        if (!focusIndex) offsetDistance = 0;
         callback();
         listen();
-        setTimeout(() => pool[i - index]?.focus(), 0);
+        focus(list[focusIndex ?? i], autoBlur);
     }
-    const focus = item => {
-        const i = item.activeIndex ?? lookup(item);
-        pool[i - index]?.focus();
-    };
+    window.addEventListener("keydown", ev => {
+        if (!(ev.key === "Tab" && container.contains(document.activeElement))) return;
+        const offset = i => Math.max(Math.ceil(i - Math.min(.5 * viewSize - 1, ++offsetDistance)), 0);
+        if (ev.shiftKey) {
+            if (activeIndex === 0) return activeIndex === -1;
+            scrollTo(list[offset(--activeIndex)], false, activeIndex);
+        } else {
+            if (activeIndex >= list.length - 1) return activeIndex === list.length;
+            scrollTo(list[offset(++activeIndex)], false, activeIndex);
+        }
+        ev.preventDefault();
+    });
     const head = () => backing[dataIndex];
-    return { update, dispose, scrollTo, focus, head };
+    const vscroll = { update, dispose, scrollTo, focus, head, watchResize };
+    scrollable(root, { signal: scrollController.signal, anchors, vscroll, backing });
+    return vscroll;
 }

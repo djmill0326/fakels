@@ -1,7 +1,9 @@
 export const _ = localStorage;
 
-export default function $(tag) {
-    return document.createElement(tag);
+export default function $(tag, assign) {
+    const el = document.createElement(tag);
+    if (assign) Object.assign(el, assign);
+    return el;
 }
 
 export function id(tag) {
@@ -78,7 +80,7 @@ export function boundedCache(limit) {
     cache.set = (key, value) => {
         if (cache.has(key)) {
             updatePosition(key);
-            return cacheSet(key, value);
+            return cache;
         }
         if (cache.size === limit)
             cache.delete(cache.keys().next().value);
@@ -94,26 +96,33 @@ export function boundedCache(limit) {
 HTMLElement.prototype.c = HTMLElement.prototype.getElementsByClassName;
 HTMLElement.prototype.q = HTMLElement.prototype.querySelector;
 HTMLElement.prototype.qa = HTMLElement.prototype.querySelectorAll;
-
 export function handleHold(el, options) {
     const { t=300, needsRelease=false, onStart, onEnd, onHold, signal } = typeof options === "function" ? { onHold: options } : options;
-    let timeout, onMove, interceptClick, canceled;
+    const stages = Array.isArray(t) ? t : [t];
+    let timeout, onMove, interceptClick, i, totalTime, initEv;
     const cancel = () => {
-        if (canceled) return;
-        canceled = true;
-        onEnd?.();
+        if (!initEv) return;
+        onEnd?.(initEv);
+        initEv = null;
         clearTimeout(timeout);
         el.removeEventListener("pointermove", onMove);
         setTimeout(() => window.removeEventListener("click", interceptClick, true), 0);
     };
+    const wait = (ev) => timeout = setTimeout(() => {
+        if (!needsRelease) onHold?.(ev, i);
+        i++;
+        if (i < stages.length) {
+            totalTime += stages[i];
+            timeout = wait(ev);
+        } else timeout = null;
+    }, stages[i] - performance.now() + totalTime);
     el.addEventListener("pointerdown", ev => {
         if (!ev.isPrimary || ev.button !== 0) return cancel();
-        canceled = false;
-        onStart?.();
-        timeout = setTimeout(() => {
-            timeout = null;
-            if (!needsRelease) onHold?.(ev);
-        }, t);
+        i = 0;
+        totalTime = performance.now();
+        initEv = ev;
+        onStart?.(ev);
+        wait(ev);
         const x = ev.x;
         const y = ev.y;
         onMove = ev => {
@@ -121,7 +130,7 @@ export function handleHold(el, options) {
         }
         el.addEventListener("pointermove", onMove, { signal });
         interceptClick = ev => {
-            if (!timeout && (ev.target === el || el.contains(ev.target))) {
+            if ((!timeout || i) && (ev.target === el || el.contains(ev.target))) {
                 ev.stopImmediatePropagation();
                 ev.preventDefault();
                 interceptClick = null;
@@ -130,9 +139,8 @@ export function handleHold(el, options) {
         document.body.addEventListener("click", interceptClick, { once: true, capture: true, signal });
     });
     el.addEventListener("pointerup", ev => {
-        if (!ev.isPrimary) return;
-        if (timeout) return cancel();
-        if (needsRelease) onHold?.(ev);
+        if (!ev.isPrimary || ev.button !== 0 || !initEv) return;
+        if (needsRelease && (timeout == null || i)) onHold?.(ev, i - 1);
         cancel();
     }, { signal });
     el.addEventListener("pointerleave", cancel, { signal });
@@ -182,13 +190,24 @@ const sanitizePath = (name, skip=false) => {
 export const tag_shorthand = {
     a: "artist",
     A: "album",
-    y: "year"
+    t: "title",
+    y: "year",
+    d: "decade"
+};
+
+export const tag_remap = {
+    decade: "year"
 };
 
 export const tag_normalizers = {
     artist: x => x?.replace(/\s+\(?feat\..+/i, "") || "Unknown Artist",
     album: x => x || "Unknown Album",
+    title: x => x || "Unknown Title",
     year: x => {
+        if (!x || x < 1500 || x > 2500) return "Unknown Year";
+        return x.toString();
+    },
+    decade: x => {
         if (!x || x < 1500 || x > 2500) return "Unknown Year";
         if (x < 1960) return "Pre-60s";
         x = Math.floor(x / 10) * 10;
@@ -196,6 +215,20 @@ export const tag_normalizers = {
         if (n < 2000) n -= 1900;
         return `${n}s (${x}-${x + 9})`;
     }
+};
+
+// useful if decade stops being cutoff at 60s
+const decade_cutoff = 1910 + Math.floor(new Date().getFullYear() % 100 / 10) * 10;
+export const tag_concise = {
+    year: x => x === "Unknown Year" ? "????" : x,
+    decade: x => {
+        const n = parseInt(x);
+        if (x === "Pre-60s") return "Old";
+        if (isNaN(n)) return "???";
+        const s = n.toString();
+        return (n < decade_cutoff ? s : s.slice(-2)) + "s";
+    },
+    default: x => strip_the(x)[0].toUpperCase()
 };
 
 const strip_the = x => {
@@ -216,9 +249,10 @@ const lex_year = x => {
 
 const compare = new Intl.Collator().compare;
 export const tag_sorters = {
-    default: (a, b) => compare(strip_the(a.name), strip_the(b.name)),
-    year: (a, b) => lex_year(a.name) - lex_year(b.name)
+    default: (a, b) => compare(strip_the(a), strip_the(b)),
+    year: (a, b) => lex_year(a) - lex_year(b)
 };
+tag_sorters.decade = tag_sorters.year;
 
 export function getSemanticPath({ name, artist, album, title }, sanitize=true) {
     const s = !sanitize;
@@ -313,8 +347,9 @@ export const display_mode = () => _.mode === "repeat" ? "Repeat one" : `Shuffle 
 
 export const cover_src = (item, isMedia=true) => `${location.origin}/covers/${isMedia ? `${getSemanticPath(item)}/cover` : "default/folder"}.jpg`;
 
-const event_bus = window.event_bus ??= new EventTarget();
-export const Bus = {
+const bus_symbol = Symbol("event-bus");
+const event_bus = window[bus_symbol] ??= new EventTarget();
+export const Bus = window.Bus = {
     dispatch(type, data) {
         if(window.BUS_DEBUG >= 1 || window.BUS_DEBUG?.has?.(type) || window.BUS_DEBUG?.find?.(t => t === type)) console.debug("[Bus]", type, data);
         event_bus.dispatchEvent(new CustomEvent(type, { detail: data }));
@@ -365,3 +400,23 @@ export const withinBottom = (el, root, tolerance=1) => el.offsetTop > root.scrol
 export const easeInOut = x => x < .5 
     ? .5 * Math.pow(2 * x, 2)
     : -.5 * Math.pow(2 * x - 2, 2) + 1;
+
+const tasks = [];
+let pending_exec;
+const exec = () => {
+    if (pending_exec) return;
+    pending_exec = true;
+    requestIdleCallback(() => {
+        const count = tasks.length;
+        tasks.splice(0, count).forEach(f => f());
+        console.debug(`Ran ${count} deferred tasks`);
+        pending_exec = false;
+        if (tasks.length) exec();
+    });
+}
+export const deferUntilIdle = (f) => {
+    tasks.push(f);
+    exec();
+}
+
+export const perf_report = (message, start, end) => console.debug(`[perf] ${message}: took ${performance.measure("", start, end).duration.toFixed(2)} ms`);

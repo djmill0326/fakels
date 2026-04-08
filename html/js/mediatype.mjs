@@ -13,7 +13,7 @@ const base = Object.seal({
 });
 
 export function make(src) {
-    const el = document.createElement(base[src.slice(src.lastIndexOf("." + 1))] ?? base.fallback);
+    const el = document.createElement(base[src.slice(src.lastIndexOf(".") + 1)] ?? base.fallback);
     el.controls = el.autoplay = true;
     return el;
 }

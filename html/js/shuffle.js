@@ -8,7 +8,10 @@ function stupidRand(max) {
 
 export default function shuffler(items) {
     let dir, prev, peeked, list, cursor, dirty, inverseMap;
-    const isValid = (selection) => items[selection].isMedia;
+    const isValid = (selection) => {
+        const item = items[selection];
+        return item && item.isMedia && !item.stale;
+    }
     const provider = {
         peek() {
             const active_dir = location.pathname + items.length;
@@ -41,7 +44,7 @@ export default function shuffler(items) {
                 result = items[index];
                 selection = index;
                 peeked = inverseMap[index];
-                if (peeked > cursor) return;
+                if (peeked > cursor) return peeked = null;
             } else {
                 result = this.peek();
                 selection = list[peeked];
@@ -58,8 +61,6 @@ export default function shuffler(items) {
             list = new Array(items.length);
             for (let i = 0; i < items.length; i++) list[i] = i;
             inverseMap = [...list];
-            window.list = list;
-            window.inverseMap = inverseMap;
             cursor = list.length - 1;
             peeked = null;
             dirty = false;

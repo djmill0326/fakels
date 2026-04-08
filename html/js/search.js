@@ -1,3 +1,4 @@
+import { tag_shorthand } from "./l.js";
 import parse from "./query-parser.js";
 
 export const search = {
@@ -65,7 +66,7 @@ function build(query, useLinks, tag) {
     if (query.type === "or") return `${prefix}(${query.group.map(q => build(q, useLinks, tag)).join("||")})`;
     tag ??= query.tag;
     if (query.group) return `${prefix}${build(query.group, useLinks, tag)}`;
-    const accessor = tag ? `item["${tag}"]` : useLinks ? "item.href" : "item.name";
+    const accessor = tag ? `item["${tag_shorthand[tag] ?? tag}"]` : useLinks ? "item.href" : "item.name";
     if (query.ineq) return `${accessor}${query.ineq}${query.str}`;
     if (query.range) return `${accessor}>=${query.range.start}&&${accessor}<${query.range.end}`
     return `${prefix}((t = ${accessor})&&/${escapeRegex(query.str)}/i.test(t))`;

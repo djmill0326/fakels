@@ -13,8 +13,24 @@
       "type": "image/png"
     }
   ],
+  "screenshots": [
+    {
+      "src": "stylish-wide.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop View"
+    },
+    {
+      "src": "stylish-mobile.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "label": "Mobile View"
+    }
+  ],
   "start_url": "/stylish",
   "display": "standalone",
   "theme_color": "#111",
-  "background_color": "#111"
+  "background_color": "#111",
+  "scope": "/"
 }

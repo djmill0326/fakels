@@ -138,7 +138,7 @@ export default function createPlayer(signal) {
         const cover = cover_src(data);
         if (el.cover.src !== cover) {
             el.cover_wrap.classList.add("loading");
-            el.cover.src = cover_src(data);
+            el.cover.src = cover;
         }
     }, { signal });
     Bus.on("play", () => {
@@ -183,5 +183,6 @@ export default function createPlayer(signal) {
         move(ev);
     };
     Bus.call.dispatch("status");
+    main.addEventListener("keypress", ev => ev.target.tagName === "BUTTON" && ev.stopPropagation());
     return main;
 }
